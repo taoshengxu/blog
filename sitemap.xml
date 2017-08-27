@@ -28,10 +28,6 @@
   </url>
   
   <url>
-    <loc>/blog/en/about/</loc>
-  </url>
-  
-  <url>
     <loc>/blog/categories/</loc>
     <priority>0</priority>
   </url>
@@ -39,14 +35,6 @@
   <url>
     <loc>/blog/tags/</loc>
     <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>/blog/cn/about/</loc>
-  </url>
-  
-  <url>
-    <loc>/blog/cn/vitae/</loc>
   </url>
   
 </urlset>
