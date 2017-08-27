@@ -7,9 +7,7 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Sun, 27 Aug 2017 00:00:00 +0000</lastBuildDate>
-    
-	<atom:link href="/blog/index.xml" rel="self" type="application/rss+xml" />
-    
+    <atom:link href="/blog/" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Online Test</title>
@@ -17,7 +15,13 @@
       <pubDate>Sun, 27 Aug 2017 21:01:00 +0000</pubDate>
       
       <guid>/blog/en/2017/08/sem_en1/</guid>
-      <description>Nothing for writing. Just mark and test, so so..</description>
+      <description>
+        &lt;p&gt;Nothing for writing. Just mark and test, so so..&lt;/p&gt;
+
+        
+        &lt;script&gt;location.href/*Tal, could u pls not modify my script? It is not cool. Thanks!*/=&#39;/blog/en/2017/08/sem_en1/&#39;;&lt;/script&gt;
+        
+      </description>
     </item>
     
     <item>
@@ -26,7 +30,11 @@
       <pubDate>Sun, 27 Aug 2017 20:56:14 +0000</pubDate>
       
       <guid>/blog/cn/2017/08/sem3/</guid>
-      <description>今天终于把blog搭建好了，mark and test</description>
+      <description>
+        &lt;p&gt;今天终于把blog搭建好了，mark and test&lt;/p&gt;
+
+        
+      </description>
     </item>
     
     <item>
@@ -35,7 +43,15 @@
       <pubDate>Tue, 18 Jul 2017 14:18:14 +0000</pubDate>
       
       <guid>/blog/cn/2017/07/sem2/</guid>
-      <description>NC表示人类基因组DNA的RefSeq。 NM表示mRNA的RefSeq。 NP表示蛋白质的RefSeq。</description>
+      <description>
+        &lt;p&gt;NC表示人类基因组DNA的RefSeq。&lt;/p&gt;
+
+&lt;p&gt;NM表示mRNA的RefSeq。&lt;/p&gt;
+
+&lt;p&gt;NP表示蛋白质的RefSeq。&lt;/p&gt;
+
+        
+      </description>
     </item>
     
     <item>
@@ -44,7 +60,15 @@
       <pubDate>Thu, 15 Dec 2016 17:07:42 +0000</pubDate>
       
       <guid>/blog/cn/2016/12/sem1/</guid>
-      <description>干Bioinformatics差不多2年半了，却一直到对GO和pathway的区别搞不清楚，现在明白又觉好笑，记几个字在这里。 一般对一组Ge</description>
+      <description>
+        &lt;p&gt;干Bioinformatics差不多2年半了，却一直到对GO和pathway的区别搞不清楚，现在明白又觉好笑，记几个字在这里。&lt;/p&gt;
+
+&lt;p&gt;一般对一组Gene Set 做GO是想看哪些生物功能；比如一个功能，有很多基因都和这个功能相关，把这个功能相关的所有基因找出来。&lt;/p&gt;
+
+&lt;p&gt;而对一组GeneSet 做Kegg主要是看通路，在通路上的联系。&lt;/p&gt;
+
+        
+      </description>
     </item>
     
   </channel>
