@@ -2,13 +2,13 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>English Blog on My Lives</title>
-    <link>/en/</link>
+    <link>https://taoshengxu.github.io/en/</link>
     <description>Recent content in English Blog on My Lives</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Sun, 01 Jan 2017 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="/en/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://taoshengxu.github.io/en/index.xml" rel="self" type="application/rss+xml" />
     
     
   </channel>
