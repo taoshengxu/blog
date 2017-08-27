@@ -4,8 +4,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     
-    <title>GO分析和Pathway分析 - My Lives</title>
-    <meta property="og:title" content="GO分析和Pathway分析 - My Lives">
+    <title>一些关于基因组名字的含义 - My Lives</title>
+    <meta property="og:title" content="一些关于基因组名字的含义 - My Lives">
     
 
     
@@ -17,16 +17,16 @@
     
     
 
-    <link rel="stylesheet" href="/css/style.css" />
-    <link rel="stylesheet" href="/css/fonts.css" />
-    <link rel="stylesheet" href="/css/custom.css" />
+    <link rel="stylesheet" href="/blog/css/style.css" />
+    <link rel="stylesheet" href="/blog/css/fonts.css" />
+    <link rel="stylesheet" href="/blog/css/custom.css" />
 
   </head>
 
   
-  <body class="cn">
+  <body class="blog">
     <header class="masthead">
-      <h1><a href="/">My Lives</a></h1>
+      <h1><a href="/blog/">My Lives</a></h1>
 
 
 
@@ -40,7 +40,7 @@
         <ul>
         
         
-        <li><a href="blog/">Home</a></li>
+        <li><a href="/blog/">Home</a></li>
         
         <li><a href="/blog/en/">English</a></li>
         
@@ -54,10 +54,10 @@
     <article class="main">
       <header class="title">
       
-<h1>GO分析和Pathway分析</h1>
+<h1>一些关于基因组名字的含义</h1>
 
 <h3>
-  2016-12-15</h3>
+  2017-07-18</h3>
 <hr>
 
 
@@ -65,18 +65,18 @@
 
 
 
-<p>干Bioinformatics差不多2年半了，却一直到对GO和pathway的区别搞不清楚，现在明白又觉好笑，记几个字在这里。</p>
+<p>NC表示人类基因组DNA的RefSeq。</p>
 
-<p>一般对一组Gene Set 做GO是想看哪些生物功能；比如一个功能，有很多基因都和这个功能相关，把这个功能相关的所有基因找出来。</p>
+<p>NM表示mRNA的RefSeq。</p>
 
-<p>而对一组GeneSet 做Kegg主要是看通路，在通路上的联系。</p>
+<p>NP表示蛋白质的RefSeq。</p>
 
 
   <footer>
   
 <nav class="post-nav">
-  <span class="nav-prev"></span>
-  <span class="nav-next"><a href="/cn/2017/07/18/sem-articles/">一些关于基因组名字的含义</a> &rarr;</span>
+  <span class="nav-prev">&larr; <a href="/blog/cn/2016/12/15/sem1/">GO分析和Pathway分析</a></span>
+  <span class="nav-next"></span>
 </nav>
 
 
@@ -85,6 +85,8 @@
   <div id="disqus_thread"></div>
   <script>
   var disqus_config = function () {
+  
+    this.page.url = "https:\/\/taoshengxu.github.io" +  location.pathname;
   
   };
   (function() {

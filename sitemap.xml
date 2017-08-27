@@ -3,50 +3,50 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>https://taoshengxu.github.io/blog/</loc>
+    <loc>/blog/</loc>
     <lastmod>2017-08-27T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://taoshengxu.github.io/blog/blog/cn/2017/07/18/sem-articles/</loc>
+    <loc>/blog/cn/2017/07/18/sem2/</loc>
     <lastmod>2017-07-18T14:18:14+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://taoshengxu.github.io/blog/en/</loc>
+    <loc>/blog/en/</loc>
     <lastmod>2017-01-01T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://taoshengxu.github.io/blog/cn/</loc>
+    <loc>/blog/cn/</loc>
     <lastmod>2017-01-01T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://taoshengxu.github.io/blog/blog/cn/2016/12/15/sem-articles/</loc>
+    <loc>/blog/cn/2016/12/15/sem1/</loc>
     <lastmod>2016-12-15T17:07:42+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://taoshengxu.github.io/blog/en/about/</loc>
+    <loc>/blog/en/about/</loc>
   </url>
   
   <url>
-    <loc>https://taoshengxu.github.io/blog/categories/</loc>
+    <loc>/blog/categories/</loc>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://taoshengxu.github.io/blog/tags/</loc>
+    <loc>/blog/tags/</loc>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://taoshengxu.github.io/blog/cn/about/</loc>
+    <loc>/blog/cn/about/</loc>
   </url>
   
   <url>
-    <loc>https://taoshengxu.github.io/blog/cn/vitae/</loc>
+    <loc>/blog/cn/vitae/</loc>
   </url>
   
 </urlset>

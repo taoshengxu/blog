@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>中文博客 on My Lives</title>
-    <link>https://taoshengxu.github.io/blog/cn/</link>
+    <link>/blog/cn/</link>
     <description>Recent content in 中文博客 on My Lives</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Sun, 01 Jan 2017 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="https://taoshengxu.github.io/blog/cn/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="/blog/cn/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>一些关于基因组名字的含义</title>
-      <link>https://taoshengxu.github.io/blog/blog/cn/2017/07/18/sem-articles/</link>
+      <link>/blog/cn/2017/07/18/sem2/</link>
       <pubDate>Tue, 18 Jul 2017 14:18:14 +0000</pubDate>
       
-      <guid>https://taoshengxu.github.io/blog/blog/cn/2017/07/18/sem-articles/</guid>
+      <guid>/blog/cn/2017/07/18/sem2/</guid>
       <description>NC表示人类基因组DNA的RefSeq。
 NM表示mRNA的RefSeq。
 NP表示蛋白质的RefSeq。</description>
@@ -24,10 +24,10 @@ NP表示蛋白质的RefSeq。</description>
     
     <item>
       <title>GO分析和Pathway分析</title>
-      <link>https://taoshengxu.github.io/blog/blog/cn/2016/12/15/sem-articles/</link>
+      <link>/blog/cn/2016/12/15/sem1/</link>
       <pubDate>Thu, 15 Dec 2016 17:07:42 +0000</pubDate>
       
-      <guid>https://taoshengxu.github.io/blog/blog/cn/2016/12/15/sem-articles/</guid>
+      <guid>/blog/cn/2016/12/15/sem1/</guid>
       <description>干Bioinformatics差不多2年半了，却一直到对GO和pathway的区别搞不清楚，现在明白又觉好笑，记几个字在这里。
 一般对一组Gene Set 做GO是想看哪些生物功能；比如一个功能，有很多基因都和这个功能相关，把这个功能相关的所有基因找出来。
 而对一组GeneSet 做Kegg主要是看通路，在通路上的联系。</description>
