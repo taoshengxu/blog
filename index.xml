@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Homepage on My Lives</title>
-    <link>/</link>
+    <link>https://taoshengxu.github.io/blog/</link>
     <description>Recent content in Homepage on My Lives</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Sun, 27 Aug 2017 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://taoshengxu.github.io/blog/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>一些关于基因组名字的含义</title>
-      <link>/blog/cn/2017/07/18/sem-articles/</link>
+      <link>https://taoshengxu.github.io/blog/blog/cn/2017/07/18/sem-articles/</link>
       <pubDate>Tue, 18 Jul 2017 14:18:14 +0000</pubDate>
       
-      <guid>/blog/cn/2017/07/18/sem-articles/</guid>
+      <guid>https://taoshengxu.github.io/blog/blog/cn/2017/07/18/sem-articles/</guid>
       <description>NC表示人类基因组DNA的RefSeq。
 NM表示mRNA的RefSeq。
 NP表示蛋白质的RefSeq。</description>
@@ -24,10 +24,10 @@ NP表示蛋白质的RefSeq。</description>
     
     <item>
       <title>GO分析和Pathway分析</title>
-      <link>/blog/cn/2016/12/15/sem-articles/</link>
+      <link>https://taoshengxu.github.io/blog/blog/cn/2016/12/15/sem-articles/</link>
       <pubDate>Thu, 15 Dec 2016 17:07:42 +0000</pubDate>
       
-      <guid>/blog/cn/2016/12/15/sem-articles/</guid>
+      <guid>https://taoshengxu.github.io/blog/blog/cn/2016/12/15/sem-articles/</guid>
       <description>干Bioinformatics差不多2年半了，却一直到对GO和pathway的区别搞不清楚，现在明白又觉好笑，记几个字在这里。
 一般对一组Gene Set 做GO是想看哪些生物功能；比如一个功能，有很多基因都和这个功能相关，把这个功能相关的所有基因找出来。
 而对一组GeneSet 做Kegg主要是看通路，在通路上的联系。</description>
@@ -35,20 +35,20 @@ NP表示蛋白质的RefSeq。</description>
     
     <item>
       <title>About</title>
-      <link>/en/about/</link>
+      <link>https://taoshengxu.github.io/blog/en/about/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>/en/about/</guid>
+      <guid>https://taoshengxu.github.io/blog/en/about/</guid>
       <description>My name is Yihui Xie. You can know more about me on the homepage and my vitae. This blog is about statistics, R, graphics, life, and fun, with a special focus on R. I often update my old posts (even after years) to correct errors and remove outdated information, so please don&amp;rsquo;t take everything for granted. I like contributing to open-source software like:
  R: I&amp;rsquo;m the author of a few R packages (see my vitae) LyX: I maintain the Sweave and knitr modules in LyX with Jean-Marc Lasgouttes  I have an interview on The Setup where you can learn more about me on the software side.</description>
     </item>
     
     <item>
       <title>关于</title>
-      <link>/cn/about/</link>
+      <link>https://taoshengxu.github.io/blog/cn/about/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>/cn/about/</guid>
+      <guid>https://taoshengxu.github.io/blog/cn/about/</guid>
       <description>我是谁 一个在美帝工作的湖北宜昌人，比郭敬明高，比博尔特白，比刘欢脖子长，比巩汉林结实，比刘翔痘少，比曾哥唱歌在调，比周杰伦吐字清楚，比布拉德皮特中文说得好……正经介绍请参见我的简历。大部分时间里，我在 GitHub 和 COS 上出没，前者说明我是深度码农，后者说明我是搞统计的（更多参见这篇采访）。除了研究 S3 泛型函数和算均值方差，我也炒土豆丝炖牛肉，每周打打羽毛球，偶尔打乒乓球和网球，没事儿就睡它十个小时。作为一俗人，我喜欢看这些片子：《疯狂的石头》《大话西游之仙履奇缘》《十全九美》《九阴真经》《武林外传》《樱桃小丸子》《士兵突击》《Father and Daughter》《The Danish Poet》《沉静如海》等等。我对排版有无止境的追求，不滥用或多用一个命令，包括 LaTeX 和网页；我讨厌 IE，它永远落伍的技术扼杀了绚丽的网页。我对美非常没有抵抗力，看到美的东西我就会拼命研究。有时候我很不靠谱，尤其是我发现了一件值得做的事情之后，就会归隐若干天把其它的事撂一边。
 个人兴趣  直观的、负责的和用脑子的统计学  直观就是能讲给老太太听 负责就是自己真的明白自己讲的话 用脑子就是不盲目套模型，不搞模型崇拜  老少咸宜的笑话  笑一笑，十年少，为什么要板着脸生活呢？ 欢迎大家给我发好的笑话，比如你要是遇到一个问题想问我的话，可以顺便发个笑话给我，以提升回复速度  聪明的、有趣的计算机程序  计算机是用来为人类服务的，让聪明的程序替代你的非智力劳动吧 计算机自己不懂如何变得有趣，但人懂   写作原则  反对抄袭和不用脑子的复制粘贴（若发现本站有此现象，请来信声讨） 反对被抄袭和不用脑子的被复制被粘贴（例：太多了，不列举了） 大力欢迎用脑子的复制粘贴（例：统计学和计量经济学的神奇？），若要全篇转载，请遵守 CC 协议，但如果你的页面做得不工整，我会很不高兴 尽力避免废话（偶尔有例外，人有悲欢离合，没办法） 文章观点时常显得愤青，尤其是老文章，那时不知天高地厚，各位客官请使劲拍砖 我对写作的要求通常比较高，力求有感情、有逻辑、文法通顺，尤其非常讨厌不必要的中英混杂的口语或写作，解释于此，所以，若有可能，请你也和我讲人话（郭德纲：这是人话吗？！）如果你发现这里有错别字，还请告诉我，如果我发现你的留言里有错别字，我一般不会告诉你，我会直接改掉  本站架构 本站目前采用 Hugo 作为后台系统，我希望这是我的最后一站。此前我曾走过很多地方：2004 年我开始在博客中国（后来改名为 bokee）写博客，后来改到 blog.com.cn，再后来到 MSN Space 写英文，再后来自己用 Bo-blog 建站，两年后再次换系统为如今流行的 WordPress，三年后我到了码农的乐土，Jekyll，一个以纯文本文件形式写博客的系统，五年后我越来越不能忍受 Jekyll 之慢（本地预览动不动要花 30 秒），于是投奔了以速度见长的 Hugo。
 博客模板是我从一个小巧的静态网站编译工具 Ivy 那里抄来的；为了表达对原作者使用“无许可证”（Unlicense）的敬意，我仔细着把它的样式整理成了一个 Hugo 模板 hugo-ivy，并且同样使用无许可证；这个许可证的意思是你特么想拿这个软件干什么就干什么，与我无关。所有页面都基于 Markdown 创建，源文件可以在 Github 上找到；如果你发现任何页面有任何错误，可以点击左边菜单栏上的编辑链接编辑该文的源文件，并在 Github 上向我提交一个合并请求。对了，本站的日志文章可以用键盘上的左右箭头导航，如果你要从盘古开天辟地看起，就到第一篇文章开始一步步按右箭头吧。因为搬过几次家，所以偶尔可能会遇到格式乱糟糟的文字或图片缺失，若有此类情况，请帮忙给我留言提醒一下。本站在苹果系统下浏览体验最佳（有漂亮的宋体和楷体）；建议不要用 IE 浏览器；为了最流畅的阅读体验，我强烈建议安装思源宋体。</description>
@@ -56,10 +56,10 @@ NP表示蛋白质的RefSeq。</description>
     
     <item>
       <title>简历</title>
-      <link>/cn/vitae/</link>
+      <link>https://taoshengxu.github.io/blog/cn/vitae/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>/cn/vitae/</guid>
+      <guid>https://taoshengxu.github.io/blog/cn/vitae/</guid>
       <description>谢益辉 联系方式 Email：xie@yihui.name；主页：http://yihui.name；现居住于美国内布拉斯加州麋鹿角郊区
 研究兴趣 数据可视化，统计图形，交互式图形；统计计算；动态报告，可重复性研究
 教育背景  2009.09 ~ 2013.12 爱荷华州立大学统计系，统计学博士 2006.09 ~ 2009.07 中国人民大学统计学院，经济学硕士 2002.09 ~ 2006.07 中国人民大学统计学院，经济学学士  获得奖励  2012.09 George W. Snedecor 奖（杰出博士生），爱荷华州立大学统计系 2012.01 Honorable Mention 奖，R 在商业中的应用竞赛 2011.08 Vince Sposito 统计计算奖，爱荷华州立大学统计系 2009.04 美国统计学会 John Chambers 软件奖 2007.01 中国人民大学学生媒体先进工作者三等奖  工作经历 工作  2013.01 至今，RStudio 软件工程师  实习  2012 夏季，AT&amp;amp;T 实验室，Florham，新泽西（指导：Simon Urbanek） 2013 夏季，Fred Hutchinson 癌症研究中心（指导：Raphael Gottardo）  网站建设与管理 2003 年 9 月至今
