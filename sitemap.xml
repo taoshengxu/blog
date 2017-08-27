@@ -23,16 +23,6 @@
   </url>
   
   <url>
-    <loc>/blog/en/</loc>
-    <lastmod>2017-01-01T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/blog/cn/</loc>
-    <lastmod>2017-01-01T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
     <loc>/blog/cn/2016/12/sem1/</loc>
     <lastmod>2016-12-15T17:07:42+00:00</lastmod>
   </url>
@@ -43,8 +33,22 @@
   </url>
   
   <url>
+    <loc>/blog/en/</loc>
+    <lastmod>2017-08-27T21:01:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>/blog/tags/</loc>
     <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/blog/cn/</loc>
+    <lastmod>2017-08-27T20:56:14+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/travel/</loc>
   </url>
   
 </urlset>
