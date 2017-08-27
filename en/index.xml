@@ -11,5 +11,14 @@
 	<atom:link href="/blog/en/index.xml" rel="self" type="application/rss+xml" />
     
     
+    <item>
+      <title>Online Test</title>
+      <link>/blog/en/2017/08/sem_en1/</link>
+      <pubDate>Sun, 27 Aug 2017 21:01:00 +0000</pubDate>
+      
+      <guid>/blog/en/2017/08/sem_en1/</guid>
+      <description>Nothing for writing. Just mark and test, so so..</description>
+    </item>
+    
   </channel>
 </rss>
