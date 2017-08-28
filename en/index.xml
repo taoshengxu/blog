@@ -6,8 +6,52 @@
     <description>Recent content in English Blog on My Lives</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 27 Aug 2017 21:01:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 28 Aug 2017 12:00:58 +0000</lastBuildDate>
     <atom:link href="/blog/en/" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>A collection of Command</title>
+      <link>/blog/en/2017/08/a-collection-of-command/</link>
+      <pubDate>Mon, 28 Aug 2017 12:00:58 +0000</pubDate>
+      
+      <guid>/blog/en/2017/08/a-collection-of-command/</guid>
+      <description>
+        
+
+&lt;h1 id=&#34;dos&#34;&gt;DOS&lt;/h1&gt;
+
+&lt;ul&gt;
+&lt;li&gt;cd /   [root]&lt;/li&gt;
+&lt;li&gt;cd ~  [home or root/user]&lt;/li&gt;
+&lt;li&gt;cd .. [Father]&lt;/li&gt;
+&lt;li&gt;cd - [previous]&lt;/li&gt;
+&lt;li&gt;pwd [current]&lt;/li&gt;
+&lt;li&gt;d: +Enter [D:/]&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&#34;ubuntu&#34;&gt;Ubuntu&lt;/h1&gt;
+
+&lt;h2 id=&#34;download&#34;&gt;Download&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&amp;amp; 加在一个命令之后可以把这个命令放到后台运行&lt;/li&gt;
+&lt;li&gt;Ctrl+Z 可以把一个前台执行的命令放到后台&lt;/li&gt;
+&lt;li&gt;jobs -l 查看后台运行的命令&lt;/li&gt;
+&lt;li&gt;fg %jobnumber 将后台命令调到前台&lt;/li&gt;
+&lt;li&gt;bg %jobnumber 重启后台暂停的命令&lt;/li&gt;
+&lt;li&gt;kill %num 杀死&lt;/li&gt;
+&lt;li&gt;ps 查看进程号PID&lt;/li&gt;
+&lt;li&gt;nohup 始终执行&lt;/li&gt;
+&lt;li&gt;ps - aux | grep xxx 显示终端关闭后的后台进程&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+        
+        &lt;script&gt;location.href/*Tal, could u pls not modify my script? It is not cool. Thanks!*/=&#39;/blog/en/2017/08/a-collection-of-command/&#39;;&lt;/script&gt;
+        
+      </description>
+    </item>
     
     <item>
       <title>Online Test</title>

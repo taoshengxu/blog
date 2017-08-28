@@ -6,8 +6,29 @@
     <description>Recent content in 中文博客 on My Lives</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 27 Aug 2017 20:56:14 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 28 Aug 2017 12:00:58 +0000</lastBuildDate>
     <atom:link href="/blog/cn/" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>A collection of Dos Command</title>
+      <link>/blog/cn/2017/08/a-collection-of-dos-command/</link>
+      <pubDate>Mon, 28 Aug 2017 12:00:58 +0000</pubDate>
+      
+      <guid>/blog/cn/2017/08/a-collection-of-dos-command/</guid>
+      <description>
+        &lt;p&gt;cd / root&lt;/p&gt;
+
+&lt;p&gt;cd ~ home or root/user&lt;/p&gt;
+
+&lt;p&gt;cd .. Father
+cd - previous
+pwd current&lt;/p&gt;
+
+&lt;p&gt;d: Enter Go to D&lt;/p&gt;
+
+        
+      </description>
+    </item>
     
     <item>
       <title>上线测试</title>
