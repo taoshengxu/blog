@@ -6,25 +6,77 @@
     <description>Recent content in 中文博客 on My Lives</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 28 Aug 2017 12:00:58 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 29 Aug 2017 16:50:01 +0000</lastBuildDate>
     <atom:link href="/blog/cn/" rel="self" type="application/rss+xml" />
     
     <item>
-      <title>A collection of Dos Command</title>
-      <link>/blog/cn/2017/08/a-collection-of-dos-command/</link>
+      <title>Shiny and shinyboard学习</title>
+      <link>/blog/cn/2017/08/shiny-and-shinyboard/</link>
+      <pubDate>Tue, 29 Aug 2017 16:50:01 +0000</pubDate>
+      
+      <guid>/blog/cn/2017/08/shiny-and-shinyboard/</guid>
+      <description>
+        
+
+&lt;p&gt;Rblogdonw+Hugo用来实现静态网页，Shiny用于实现动态网页，几乎把R这个工具发挥到了极致，使其无所不能，R可以解决一切&lt;strong&gt;简单&lt;/strong&gt;的需要了。&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;Shiny的基本用法可以在[这里]()
+然而shiny太素颜了，需要一些扩展使得其表现美妙起来。&lt;/p&gt;
+
+&lt;h3 id=&#34;1-shinydashboard&#34;&gt;1. &lt;strong&gt;shinydashboard&lt;/strong&gt;&lt;/h3&gt;
+
+&lt;p&gt;这是一个扩展R包，使其有一些面板功能。入门讲解在&lt;a href=&#34;https://rstudio.github.io/shinydashboard/index.html&#34;&gt;这里&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;2-shinyjs&#34;&gt;2. &lt;strong&gt;shinyjs&lt;/strong&gt;&lt;/h3&gt;
+
+&lt;p&gt;从&lt;a href=&#34;https://github.com/daattali/shinyjs&#34;&gt;这里学习&lt;/a&gt;，这个放在以后再深入吧。&lt;/p&gt;
+
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>A collection of Command</title>
+      <link>/blog/cn/2017/08/a-collection-of-command/</link>
       <pubDate>Mon, 28 Aug 2017 12:00:58 +0000</pubDate>
       
-      <guid>/blog/cn/2017/08/a-collection-of-dos-command/</guid>
+      <guid>/blog/cn/2017/08/a-collection-of-command/</guid>
       <description>
-        &lt;p&gt;cd / root&lt;/p&gt;
+        
 
-&lt;p&gt;cd ~ home or root/user&lt;/p&gt;
+&lt;h1 id=&#34;dos&#34;&gt;DOS&lt;/h1&gt;
 
-&lt;p&gt;cd .. Father
-cd - previous
-pwd current&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;cd /   [root]&lt;/li&gt;
+&lt;li&gt;cd ~  [home or root/user]&lt;/li&gt;
+&lt;li&gt;cd .. [Father]&lt;/li&gt;
+&lt;li&gt;cd - [previous]&lt;/li&gt;
+&lt;li&gt;pwd [current]&lt;/li&gt;
+&lt;li&gt;d: +Enter [D:/]&lt;/li&gt;
+&lt;/ul&gt;
 
-&lt;p&gt;d: Enter Go to D&lt;/p&gt;
+&lt;h1 id=&#34;ubuntu&#34;&gt;Ubuntu&lt;/h1&gt;
+
+&lt;h2 id=&#34;download&#34;&gt;Download&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&amp;amp; 加在一个命令之后可以把这个命令放到后台运行&lt;/li&gt;
+&lt;li&gt;Ctrl+Z 可以把一个前台执行的命令放到后台&lt;/li&gt;
+&lt;li&gt;jobs -l 查看后台运行的命令&lt;/li&gt;
+&lt;li&gt;fg %jobnumber 将后台命令调到前台&lt;/li&gt;
+&lt;li&gt;bg %jobnumber 重启后台暂停的命令&lt;/li&gt;
+&lt;li&gt;kill %num 杀死&lt;/li&gt;
+&lt;li&gt;ps 查看进程号PID&lt;/li&gt;
+&lt;li&gt;nohup 始终执行&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;ps - aux | grep xxx 显示终端关闭后的后台进程&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;df -lh 查看磁盘空间&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
 
         
       </description>
