@@ -70,10 +70,18 @@
 &lt;li&gt;kill %num 杀死&lt;/li&gt;
 &lt;li&gt;ps 查看进程号PID&lt;/li&gt;
 &lt;li&gt;nohup 始终执行&lt;/li&gt;
+&lt;li&gt;ps - aux | grep xxx 显示终端关闭后的后台进程&lt;/li&gt;
+&lt;/ul&gt;
 
-&lt;li&gt;&lt;p&gt;ps - aux | grep xxx 显示终端关闭后的后台进程&lt;/p&gt;&lt;/li&gt;
+&lt;h2 id=&#34;磁盘管理&#34;&gt;磁盘管理&lt;/h2&gt;
 
-&lt;li&gt;&lt;p&gt;df -lh 查看磁盘空间&lt;/p&gt;&lt;/li&gt;
+&lt;ul&gt;
+&lt;li&gt;df -lh 查看磁盘空间&lt;/li&gt;
+&lt;li&gt;sudo fdisk -lu 显示硬盘及所属分区情况&lt;/li&gt;
+
+&lt;li&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;ubuntu 加载新硬盘教程&lt;a href=&#34;/blog/blog/pdf/Ubuntu环境下挂载新硬盘.pdf&#34;&gt;here&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;hr /&gt;
