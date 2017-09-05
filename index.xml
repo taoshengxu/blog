@@ -10,6 +10,171 @@
     <atom:link href="/blog/" rel="self" type="application/rss+xml" />
     
     <item>
+      <title>层叠样式表 (Cascading Style Sheets)小结</title>
+      <link>/blog/cn/2017/09/css-study/</link>
+      <pubDate>Mon, 04 Sep 2017 23:03:13 +0000</pubDate>
+      
+      <guid>/blog/cn/2017/09/css-study/</guid>
+      <description>
+        
+
+&lt;p&gt;CSS是一个我一直认为web前段技术，我知道我肯定能学会，但是我却不肯学，可是可是我总是对网页有一种莫名的向往，现在有了R,markdown,shiny,可以回避JSP,PHP等总不愿意学会的工具了，可是HTML,CSS,JS却无法回避了,这是开始shiny之后又不得不继续深入的一个topic. Shiny 的表现太土了.&lt;br /&gt;
+  一些概念：样式表定义如何显示 HTML 元素&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h1 id=&#34;css&#34;&gt;CSS&lt;/h1&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;http://www.runoob.com/css/css-intro.html&#34;&gt;在线教程&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&#34;css-语法&#34;&gt;CSS 语法&lt;/h1&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;CSS 规则由两个主要的部分构成：选择器，以及一条或多条声明:&lt;br /&gt;
+如：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;p{  
+text-align:center;  /*这是另一个注释*/  
+color:black;  
+font-family:arial;  
+} 
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;id 选择器: id 选择器以 &amp;ldquo;#&amp;rdquo; 来定义&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;#para1
+{
+text-align:center;
+color:red;
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;class 选择器：类选择器以一个点&amp;rdquo;.&amp;ldquo;号显示&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;.cen {text-align:center;}  
+/*所以拥有cen类的HTML元素都居中*/  
+另外，可以指定所有 p 元素使用 class=&amp;quot;center&amp;quot; 让该元素的文本居中  
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;  &amp;lt;!DOCTYPE html&amp;gt;
+&amp;lt;html&amp;gt;
+&amp;lt;head&amp;gt;
+&amp;lt;meta charset=&amp;quot;utf-8&amp;quot;&amp;gt; 
+&amp;lt;title&amp;gt;菜鸟教程(runoob.com)&amp;lt;/title&amp;gt; 
+&amp;lt;style&amp;gt;
+p.center
+{
+    text-align:center;
+}
+&amp;lt;/style&amp;gt;
+&amp;lt;/head&amp;gt;
+&amp;lt;body&amp;gt;
+&amp;lt;h1 class=&amp;quot;center&amp;quot;&amp;gt;这个标题不受影响&amp;lt;/h1&amp;gt;
+&amp;lt;p class=&amp;quot;center&amp;quot;&amp;gt;这个段落居中对齐。&amp;lt;/p&amp;gt; 
+&amp;lt;/body&amp;gt;
+&amp;lt;/html&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;样式表种类&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;外部样式表&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;内部样式表&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;内联样式&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;  &amp;lt;head&amp;gt;
+    &amp;lt;!-- 外部样式 style.css --&amp;gt;
+    &amp;lt;link rel=&amp;quot;stylesheet&amp;quot; type=&amp;quot;text/css&amp;quot; href=&amp;quot;style.css&amp;quot;/&amp;gt;
+    &amp;lt;!-- 设置：h3{color:blue;} --&amp;gt;
+    &amp;lt;style type=&amp;quot;text/css&amp;quot;&amp;gt;
+      /* 内部样式 */
+      h3{color:green;}
+    &amp;lt;/style&amp;gt;
+&amp;lt;/head&amp;gt;
+&amp;lt;body&amp;gt;
+    &amp;lt;h3&amp;gt;测试！&amp;lt;/h3&amp;gt;
+&amp;lt;/body&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ol&gt;
+&lt;li&gt;CSS 背景&lt;br /&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;  背景颜色
+  body {background-color:#b0c4de;}   #&amp;quot;#ff0000&amp;quot;,&amp;quot;rgb(255,0,0)&amp;quot;,&amp;quot;red&amp;quot;三种表示都可以
+  h1 {background-color:#6495ed;}
+  p {background-color:#e0ffff;}
+  div {background-color:#b0c4de;}
+  背景图像
+  body {background-image:url(&#39;paper.gif&#39;);}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ol&gt;
+&lt;li&gt;CSS 文本格式&lt;br /&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;##颜色
+body {color:red;}
+h1 {color:#00ff00;}
+h2 {color:rgb(255,0,0);}
+##对齐
+h1 {text-align:center;}
+p.date {text-align:right;}
+p.main {text-align:justify;}
+##文本修饰
+h1 {text-decoration:overline;}
+h2 {text-decoration:line-through;}
+h3 {text-decoration:underline;}
+## 文本转换
+p.uppercase {text-transform:uppercase;}
+p.lowercase {text-transform:lowercase;}
+p.capitalize {text-transform:capitalize;}
+##文本缩进
+p {text-indent:50px;}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ol&gt;
+&lt;li&gt;CSS 字体&lt;br /&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;##字体样式
+&amp;lt;style&amp;gt;
+p.normal {font-style:normal;}
+p.italic {font-style:italic;}
+p.oblique {font-style:oblique;}
+&amp;lt;/style&amp;gt;
+&amp;lt;body&amp;gt;
+&amp;lt;p class=&amp;quot;normal&amp;quot;&amp;gt;这是一个段落,正常。&amp;lt;/p&amp;gt;
+&amp;lt;p class=&amp;quot;italic&amp;quot;&amp;gt;这是一个段落,斜体。&amp;lt;/p&amp;gt;
+&amp;lt;p class=&amp;quot;oblique&amp;quot;&amp;gt;这是一个段落,斜体。&amp;lt;/p&amp;gt;
+&amp;lt;/body&amp;gt;
+
+##字体大小
+h1 {font-size:40px;}
+h2 {font-size:30px;}
+p {font-size:14px;}
+h1 {font-size:2.5em;} /* 40px/16=2.5em */
+h2 {font-size:1.875em;} /* 30px/16=1.875em */
+p {font-size:0.875em;} /* 14px/16=0.875em */
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;学到这里也就了解CSS的一个基本语法结构了，不需要深入了&lt;/p&gt;
+
+        
+      </description>
+    </item>
+    
+    <item>
       <title>Shiny and shinyboard学习</title>
       <link>/blog/cn/2017/08/shiny-and-shinyboard/</link>
       <pubDate>Tue, 29 Aug 2017 16:50:01 +0000</pubDate>
@@ -39,6 +204,12 @@
 &lt;h1 id=&#34;shinyjs&#34;&gt;shinyjs&lt;/h1&gt;
 
 &lt;p&gt;从&lt;a href=&#34;https://github.com/daattali/shinyjs&#34;&gt;这里学习&lt;/a&gt;，这个放在以后再深入吧。&lt;/p&gt;
+
+&lt;h1 id=&#34;shinythemes&#34;&gt;shinythemes&lt;/h1&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;最近用shiny做了一个页面，也是一个艰难的开始。值得Mark(&amp;ldquo;Mon Sep 04 19:03:13 2017&amp;rdquo;)&lt;/p&gt;
 
         
       </description>
