@@ -10,6 +10,55 @@
     <atom:link href="/blog/" rel="self" type="application/rss+xml" />
     
     <item>
+      <title>Ubuntu 安装R</title>
+      <link>/blog/cn/2017/09/ubuntu_r/</link>
+      <pubDate>Tue, 05 Sep 2017 23:03:13 +0000</pubDate>
+      
+      <guid>/blog/cn/2017/09/ubuntu_r/</guid>
+      <description>
+        &lt;ol&gt;
+&lt;li&gt;Ubuntu16.04&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;##R
+sudo echo &amp;quot;deb http://cran.rstudio.com/bin/linux/ubuntu xenial/&amp;quot; | sudo tee -a /etc/apt/sources.list 
+gpg --keyserver keyserver.ubuntu.com --recv-key 51716619E084DAB9
+gpg -a --export 51716619E084DAB9 | sudo apt-key add -
+sudo apt-get update
+sudo apt-get install r-base r-base-dev
+
+##Rstudio
+sudo apt-get install gdebi-core
+sudo gdebi -n rstudio-1.0.44-amd64.deb
+rm rstudio-1.0.44-amd64.deb
+
+## shiny server
+
+[Check for latet](https://www.rstudio.com/products/shiny/download-server/)
+
+$ sudo su - \
+-c &amp;quot;R -e \&amp;quot;install.packages(&#39;shiny&#39;, repos=&#39;https://cran.rstudio.com/&#39;)\&amp;quot;&amp;quot;
+$ sudo apt-get install gdebi-core
+$ wget https://download3.rstudio.org/ubuntu-12.04/x86_64/shiny-server-1.5.4.869-amd64.deb
+$ sudo gdebi shiny-server-1.5.4.869-amd64.deb
+
+start shiny-server 　　　　   # 启动
+stop shiny-server 　　　　　# 停止
+restart shiny-server 　　　　# 重启
+status shiny-server 　　　　#查看状态  
+reload shiny-server 　　　　#不中断服务的前提下 更新加载配置项
+
+##web 查看
+http://10.211.55.16:3838/   默认端口时3838，可以在配置文件(/etc/shiny-server/shiny-server.conf)中修改
+localhost:3838
+Shiny Server默认会在/srv/shiny-server/目录查找你的Apps程序,可以把你开发的apps拷贝这个目录下
+&lt;/code&gt;&lt;/pre&gt;
+
+        
+      </description>
+    </item>
+    
+    <item>
       <title>层叠样式表 (Cascading Style Sheets)小结</title>
       <link>/blog/cn/2017/09/css-study/</link>
       <pubDate>Mon, 04 Sep 2017 23:03:13 +0000</pubDate>
@@ -299,6 +348,8 @@ m(help)-n(增加一个新分区)-e(扩展分区)-1-4(分几个区)-&amp;hellip;-
 &lt;li&gt;sudo mount -t ext4 /dev/sdb /data1 挂载到data1&lt;/li&gt;
 
 &lt;li&gt;&lt;p&gt;suod umount /dev/sdb 卸载&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;sudo chown -R username:root Document/  修改文件夹所有者&lt;/p&gt;&lt;/li&gt;
 
 &lt;li&gt;&lt;p&gt;ubuntu 加载新硬盘教程&lt;a href=&#34;http://note.youdao.com/noteshare?id=19c72003e1f78ed8dafbe12c53c6e150&amp;amp;sub=8E9A1BEDF6AE4F73AB50892F428B249C&#34;&gt;Here&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
 
