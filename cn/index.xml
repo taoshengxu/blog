@@ -16,7 +16,9 @@
       
       <guid>/blog/cn/2017/09/ubuntu_r/</guid>
       <description>
-        &lt;ol&gt;
+        
+
+&lt;ol&gt;
 &lt;li&gt;Ubuntu16.04&lt;/li&gt;
 &lt;/ol&gt;
 
@@ -31,12 +33,14 @@ sudo apt-get install r-base r-base-dev
 sudo apt-get install gdebi-core
 sudo gdebi -n rstudio-1.0.44-amd64.deb
 rm rstudio-1.0.44-amd64.deb
+&lt;/code&gt;&lt;/pre&gt;
 
-## shiny server
+&lt;h1 id=&#34;shiny-server&#34;&gt;shiny server&lt;/h1&gt;
 
-[Check for latet](https://www.rstudio.com/products/shiny/download-server/)
+&lt;p&gt;&lt;a href=&#34;https://github.com/rstudio/shiny-server&#34;&gt;Web&lt;/a&gt;&lt;br /&gt;
+&lt;a href=&#34;https://www.rstudio.com/products/shiny/download-server/&#34;&gt;Check for latet&lt;/a&gt;&lt;/p&gt;
 
-$ sudo su - \
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;$ sudo su - \
 -c &amp;quot;R -e \&amp;quot;install.packages(&#39;shiny&#39;, repos=&#39;https://cran.rstudio.com/&#39;)\&amp;quot;&amp;quot;
 $ sudo apt-get install gdebi-core
 $ wget https://download3.rstudio.org/ubuntu-12.04/x86_64/shiny-server-1.5.4.869-amd64.deb
