@@ -53,9 +53,77 @@ status shiny-server 　　　　#查看状态
 reload shiny-server 　　　　#不中断服务的前提下 更新加载配置项
 
 ##web 查看
-http://10.211.55.16:3838/   默认端口时3838，可以在配置文件(/etc/shiny-server/shiny-server.conf)中修改
-localhost:3838
+localhost:3838   默认端口时3838，可以在配置文件(/etc/shiny-server/shiny-server.conf)中修改：端口 和run_as默认为shiny,可改为username
+
 Shiny Server默认会在/srv/shiny-server/目录查找你的Apps程序,可以把你开发的apps拷贝这个目录下
+sudo cp ~/app file /srv/shiny-server/ 将文件拷入
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;######
+一个生信技能树的参考教程
+前几天刚好在亚马逊云上注册了一个1年免费的Amazon Web Services (AWS) ，正好以此来尝试学习下shiny的相关东西。
+
+主要参考了：
+http://deanattali.com/2015/05/09/setup-rstudio-shiny-server-digital-ocean/
+http://www.bio-info-trainee.com/1683.html
+操作系统：ubuntu
+1. 安装 R
+        sudo apt install r-base
+2. 安装
+Rstudio-server
+        sudo apt-get install gdebi-core
+        sudo apt-get install libapparmor1
+        wget https://download2.rstudio.org/rstudio-server-1.0.143-amd64.deb
+        sudo gdebi rstudio-server-1.0.143-amd64.deb
+因为Rstudio-server不能以root用户登录，所以我们需要创建一个用户
+        sudo addusr anlan
+        ......
+然后在网页上输入ip:8787进入Rstudio-server界面，输入用户和密码，即可登录
+
+3. 安装
+Shiny
+        sudo su - -c &amp;quot;R -e \&amp;quot;install.packages(&#39;shiny&#39;, repos=&#39;http://cran.rstudio.com/&#39;)\&amp;quot;&amp;quot;
+不能直接进入R，然后install.packages(&amp;quot;shiny&amp;quot;)，因为如果这样安装，是将shiny包安装下当前登录用户的个人library中，使得最终shiny-server无法运行
+        apt-get install gdebi-core
+        wget https://download3.rstudio.org/ub ... 1.5.3.838-amd64.deb
+        sudo gdebi shiny-server-1.5.3.838-amd64.deb
+
+做完以上几步后，shiny-server算是初步安装好了，然后可以在网页上ip:3838进入shiny-server界面(ip是你服务器的ip地址)。一般我们能看到左边一列的文字和右边的两个框。当然还需要再安装个rmarkdown，不然还是会有error的
+
+        sudo su - -c &amp;quot;R -e \&amp;quot;install.packages(&#39;rmarkdown&#39;, repos=&#39;http://cran.rstudio.com/&#39;)\&amp;quot;&amp;quot;
+
+4. 配置shiny server
+
+    * Shiny Server log is at /var/log/shiny-server.log
+    * The default Shiny Server homepage you’re seeing is located at /srv/shiny-server/index.html
+- you can edit it or remove it.
+    * Any Shiny app directory that you place under /srv/shiny-server/ will be served as a Shiny app. For example, there is a default app at /srv/shiny-server/sample-apps/hello/, which means you can run the app by going to http://123.456.1.2:3838/sample-apps/hello/
+
+    * The config file for Shiny Server is at /etc/shiny-server/shiny-server.conf
+    * To reload the server after editing the config, use sudo reload shiny-server
+    * When hosting an Rmarkdown file, name the file index.rmd and add runtime: shiny to the document’s frontmatter
+
+5. 赋予shiny权限
+假设当你登录是以自己用户登录，你在shiny server创建的文件只有该用户（除了root）才有权限读写，但是shiny server是以shiny用户来运行shiny的app，所以要给予shiny用户在一些目录的权限。
+例如：
+
+        sudo groupadd shiny-apps
+        sudo usermod -aG shiny-apps dean
+        sudo usermod -aG shiny-apps shiny
+        sudo chown -R dean:shiny-apps /srv/shiny-server
+        sudo chmod g+w /srv/shiny-server
+        sudo chmod g+s /srv/shiny-server  ####在该目录下创建的文件都属于该目录所属的组
+        
+6. 下载shiny官网的例子
+git clone https://github.com/rstudio/shiny-examples.git
+文件是要下载到/srv/shiny-server中
+7. 运行例子程序
+http://ip:3838/shiny-examples/010-download/ （ip是你服务器的ip地址）
+想要运行哪个shiny app，只要在ip:3838/后面添加/srv/shiny-server中的文件的相对路径即可
+###
+
+
 &lt;/code&gt;&lt;/pre&gt;
 
         
