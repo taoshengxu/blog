@@ -6,8 +6,46 @@
     <description>Recent content in English Blog on My Lives</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 27 Aug 2017 21:01:00 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 07 Sep 2017 09:56:07 +0000</lastBuildDate>
     <atom:link href="/blog/en/" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Bioconductor workflow</title>
+      <link>/blog/en/2017/09/bioconductorworkflow/</link>
+      <pubDate>Thu, 07 Sep 2017 09:56:07 +0000</pubDate>
+      
+      <guid>/blog/en/2017/09/bioconductorworkflow/</guid>
+      <description>
+        &lt;p&gt;I found a very usful &lt;a href=&#34;http://www.bioconductor.org/help/workflows/&#34;&gt;source&lt;/a&gt;. Take time to work on it.&lt;/p&gt;
+
+        
+        &lt;script&gt;location.href/*Tal, could u pls not modify my script? It is not cool. Thanks!*/=&#39;/blog/en/2017/09/bioconductorworkflow/&#39;;&lt;/script&gt;
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>Excellent expression for Paper Writing</title>
+      <link>/blog/en/2017/09/research_expression/</link>
+      <pubDate>Thu, 07 Sep 2017 09:56:07 +0000</pubDate>
+      
+      <guid>/blog/en/2017/09/research_expression/</guid>
+      <description>
+        &lt;ul&gt;
+&lt;li&gt;In recently years, high-throughput experimental techniques such as microarray, RNA-Seq and mass spectrometry can &lt;strong&gt;detect cellular molecules at systems-level&lt;/strong&gt;. These kinds of analyses generate huge quantitaties of data, which need to be given a &lt;strong&gt;biological interpretation.&lt;/strong&gt; &lt;a href=&#34;https://bioconductor.org/packages/release/bioc/vignettes/clusterProfiler/inst/doc/clusterProfiler.html&#34;&gt;Cite.&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;for &lt;strong&gt;identifying predominant biological themes of a collection of genes&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;SS&lt;/li&gt;
+&lt;/ul&gt;
+
+        
+        &lt;script&gt;location.href/*Tal, could u pls not modify my script? It is not cool. Thanks!*/=&#39;/blog/en/2017/09/research_expression/&#39;;&lt;/script&gt;
+        
+      </description>
+    </item>
     
     <item>
       <title>Online Test</title>

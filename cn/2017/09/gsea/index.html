@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <title>GSEA 参悟 - My Lives</title>
+    <meta property="og:title" content="GSEA 参悟 - My Lives">
+    
+
+    
+      
+    
+
+    
+
+    
+    
+
+    <link rel="stylesheet" href="/blog/css/style.css" />
+    <link rel="stylesheet" href="/blog/css/fonts.css" />
+    <link rel="stylesheet" href="/blog/css/custom.css" />
+
+  </head>
+
+  
+  <body class="blog">
+    <header class="masthead">
+      <h1><a href="/blog/">My Lives</a></h1>
+
+
+
+      <nav class="menu">
+        <input id="menu-check" type="checkbox" />
+        <label id="menu-label" for="menu-check" class="unselectable">
+          <span class="icon close-icon">✕</span>
+          <span class="icon open-icon">☰</span>
+          <span class="text">Menu</span>
+        </label>
+        <ul>
+        
+        
+        <li><a href="/blog/">Home</a></li>
+        
+        <li><a href="/blog/en/">English</a></li>
+        
+        <li><a href="/blog/cn/">Chinese</a></li>
+        
+        <li><a href="/blog/travel/">Travel</a></li>
+        
+        
+        </ul>
+      </nav>
+    </header>
+
+    <article class="main">
+      <header class="title">
+      
+<h1>GSEA 参悟</h1>
+
+<h3>
+  2017-09-07</h3>
+<hr>
+
+
+      </header>
+
+
+
+
+
+<p>GSEA（Gene Set Enrichment Analysis）方法是目前在pathway analysis方法中，归类为functional score analysis裡的state of the art.</p>
+
+<p>还是没搞明白，下次再找好资料研究一下。</p>
+
+<hr />
+
+<h1 id="gsea结果理解">GSEA结果理解</h1>
+
+<p>中间从蓝色到红色的过渡“带”表示基因从上调到下调排列（排序可以按照fold change,也可以是p-value)。黑色像条形码的竖线表示该位置的基因属于某个指定通路。绿色有波动的曲线表示富集分数，从0开始计算，属于基因通路增加，不属于则减少。最后看下黑色的条形码是不是富集在一端。</p>
+
+<p>作者：hoptop
+链接：<a href="http://www.jianshu.com/p/199b44974480">http://www.jianshu.com/p/199b44974480</a>
+來源：简书
+著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。</p>
+
+<p><img src="/blog/img/GSEA.png" alt="" /></p>
+
+<p>首先，可以设定一个衡量差异表达程度的统计量，这里简单起见，用log Fold Change，来把基因排序。上面那个颜色条就表示一共有17425个基因表达，下方数字表示该处对应的基因所在的序号，红色到蓝色，表示从上调到下调。黑色的杠杠，表示在该位置处的基因属于Myc靶基因，那一共就是有188个杠杠。颜色条上方有个数字9109，它表示这这里，基因表达从上调转变成下调。那个位置颜色是白色的，也就是说，倍数差异接近0了。
+在GSEA这个检验里面，我们实际上就是在检验上面颜色条里黑色的杠杠，是否有往颜色条一端富集的趋势。
+实际在做这个检验时，我们是从红色的序号为1的基因出发到蓝色的序号为17425的基因，这个过程中，遍历每一个基因，每次都查看下当前基因是否是Myc靶基因，如果是，则累加一点分数，否，则扣掉一点分数。这个分数的轨迹，也就是上图中的深绿色曲线。
+接下来的问题是，如何得到统计显著性？统计假设检验的本质就是先生成一个零假设的数据分布，然后观察实际数据在这个零假设分布下，是不是在尾端。好了，我们把这句话具现到我们这个GSEA的例子中来。我们有三种方式：</p>
+
+<ol>
+<li>颜色条不动它，把黑色的杠杠，从颜色条上拿起来，然后再随机的放到颜色条上</li>
+<li>把样本的分组打乱，随机分组，重新计算排序统计量，然后排序</li>
+<li>即做1，又做2</li>
+</ol>
+
+<p>第一种方式，对算力要求最低，对样本容量没有要求，但是不考虑基因间的相关性，可能导致一定的假阳性。第二种方式，对算力要求较高，要求一定的样本容量（每组重复数）以保证有效置换次数，可以保持基因间的协方差结构，但power会略低。第三种方式，算力要求最高。
+这里假设我们随便选一种方式，重排一次以后，可以按照原先绘制绿色曲线的方法绘制一条新的曲线（零假设的数据），重复这个过程千万次的话，就可以比较精确的得到零假设的覆盖区域了，求取这个阴影的第5到95百分位数的区间，即可绘出结果图中的浅灰色阴影了。
+这样统计检验的显著性，就可视化成为观察绿色曲线与灰色阴影的偏离程度了。绿色曲线离x轴最大的偏离值即为该检验的Enrichment Score (ES)，把它对Myc靶基因的数量再校正一下，就可以得到 Normalized Enrichment Score (NES)。这里我们看下结果，非常显著，这个节奏和刚才用Fisher &rsquo;s exact test的结果，明显不一样，这又是为什么呢？
+请仔细观察GSEA结果图里，排序统计量和颜色条上黑杠杠的分布。可以发现，绝大部分的Myc靶基因，分布在浅蓝色区域，即绝大部分Myc靶基因都是下调，但是只是微弱的下调，所以它们没有在Fisher exact test中被计入为差异基因。</p>
+
+
+  <footer>
+  
+<nav class="post-nav">
+  <span class="nav-prev">&larr; <a href="/blog/cn/2017/09/ontology/">基因本体论(Gene Ontology, GO) 与通路分析(Pathway Analysis)</a></span>
+  <span class="nav-next"></span>
+</nav>
+
+
+
+
+
+<script src="//yihui.name/js/math-code.js"></script>
+<script async src="//cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+<script async src="//yihui.name/js/center-img.js"></script>
+
+  
+
+  
+  <hr>
+  <div class="copyright">&copy; <a href="xxxx">Who care</a> 2017 - Forever, maybe</div>
+  
+  </footer>
+  </article>
+  
+  </body>
+</html>
+

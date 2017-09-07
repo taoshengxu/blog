@@ -3,6 +3,26 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>/blog/cn/2017/09/gsea/</loc>
+    <lastmod>2017-09-07T14:56:07+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/cn/2017/09/ontology/</loc>
+    <lastmod>2017-09-07T12:06:46+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/en/2017/09/bioconductorworkflow/</loc>
+    <lastmod>2017-09-07T09:56:07+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/en/2017/09/research_expression/</loc>
+    <lastmod>2017-09-07T09:56:07+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>/blog/cn/2017/09/git_command/</loc>
     <lastmod>2017-09-07T09:06:46+00:00</lastmod>
   </url>
@@ -53,8 +73,17 @@
   </url>
   
   <url>
+    <loc>/blog/cn/2017/07/preface/</loc>
+    <lastmod>2017-07-16T14:18:14+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>/blog/cn/2016/12/sem1/</loc>
     <lastmod>2016-12-15T17:07:42+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/cn/1/01/</loc>
   </url>
   
   <url>
@@ -64,7 +93,7 @@
   
   <url>
     <loc>/blog/en/</loc>
-    <lastmod>2017-08-27T21:01:00+00:00</lastmod>
+    <lastmod>2017-09-07T09:56:07+00:00</lastmod>
   </url>
   
   <url>
@@ -74,7 +103,7 @@
   
   <url>
     <loc>/blog/cn/</loc>
-    <lastmod>2017-09-07T09:06:46+00:00</lastmod>
+    <lastmod>2017-09-07T14:56:07+00:00</lastmod>
   </url>
   
   <url>
