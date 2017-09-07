@@ -1,0 +1,27 @@
+---
+title: "生存曲线美化"
+date: "Thu Sep 07 16:27:18 2017"
+output: html_document
+---
+好久以前在微信里看到这个文章。今天整理用rmarkdonw整理在这里，以后更新的我的包里。
+
+[原文](https://mp.weixin.qq.com/s?__biz=MzIyMDUwOTQwNA==&mid=2247483665&idx=1&sn=05469909bf70e234fb71a3653e51ba8b&scene=23&srcid=072848z8s1DucjVqpZDqAYTu#rd)
+
+```{r}
+library(survival)
+library(ggplot2)
+library(survminer)
+# 载入数据
+#使用Surv（）函数建立基本生存对象
+fit<- survfit(Surv(time, status) ~ sex, data = lung)
+summary(fit) #查看结果
+#使用survminer程序包ggsurvplot（）函数绘制生存曲线
+#简单绘图
+ggsurvplot(fit)
+#分生存曲线下面给出number.at risk
+ggsurvplot(fit,risk.table=TRUE)
+#添加log-rank检验p-value
+ggsurvplot(fit,risk.table=TRUE,pval=TRUE)
+#添加置信区间带
+ggsurvplot(fit,risk.table=TRUE,conf.int=TRUE,pval=TRUE)
+```
