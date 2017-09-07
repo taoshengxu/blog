@@ -72,21 +72,80 @@
 
 
 
+
+
 <ol>
 <li>Ubuntu16.04</li>
 </ol>
 
-<pre><code class="language-r">##R
-sudo echo &quot;deb http://cran.rstudio.com/bin/linux/ubuntu xenial/&quot; | sudo tee -a /etc/apt/sources.list 
+<h2 id="r">R</h2>
+
+<pre><code class="language-r">sudo echo &quot;deb http://cran.rstudio.com/bin/linux/ubuntu xenial/&quot; | sudo tee -a /etc/apt/sources.list 
 gpg --keyserver keyserver.ubuntu.com --recv-key 51716619E084DAB9
 gpg -a --export 51716619E084DAB9 | sudo apt-key add -
 sudo apt-get update
 sudo apt-get install r-base r-base-dev
+</code></pre>
 
-##Rstudio
-sudo apt-get install gdebi-core
+<h2 id="rstudio">Rstudio</h2>
+
+<p><a href="https://www.rstudio.com/products/rstudio/download/">Latest file</a></p>
+
+<pre><code class="language-r">sudo apt-get install gdebi-core
 sudo gdebi -n rstudio-1.0.44-amd64.deb
 rm rstudio-1.0.44-amd64.deb
+</code></pre>
+
+<h2 id="rstudio-server">Rstudio server</h2>
+
+<p><a href="https://www.rstudio.com/products/rstudio/download-server/">Latest</a></p>
+
+<pre><code class="language-r">sudo apt-get install gdebi-core
+sudo gdebi -n rstudio-1.0.44-amd64.deb
+rm rstudio-1.0.44-amd64.deb
+完成安装后，RStudio Server会自动启动运行
+ps -aux|grep rstudio
+8787端口被打开
+</code></pre>
+
+<pre><code>root用户无法登陆，新建一个用户进行登陆 
+useradd -d /home/R -m R，创建用户的同时指定主目录 
+passwd R，设置密码
+
+系统设置 
+主要有两个配置文件，默认文件不存在 
+/etc/rstudio/rserver.conf 
+/etc/rstudio/rsession.conf
+
+设置端口和ip控制:
+vi /etc/rstudio/rserver.conf
+www-port=8080#监听端口
+www-address=127.0.0.0#允许访问的IP地址，默认0.0.0.0
+重启服务器，生效
+rstudio-server restart
+
+会话配置管理
+vi /etc/rstudio/rsession.conf
+session-timeout-minutes=30#会话超时时间
+r-cran-repos=http://ftp.ctex.org/mirrors/CRAN#CRAN资源库
+
+rstudio-server start #启动
+rstudio-server stop #停止
+rstudio-server restart #重启
+
+查看运行中R进程
+rstudio-server active-sessions
+指定PID，停止运行中的R进程
+rstudio-server suspend-session &lt;pid&gt;
+停止所有运行中的R进程
+rstudio-server  suspend-all
+强制停止运行中的R进程，优先级最高，立刻执行
+rstudio-server force-suspend-session &lt;pid&gt;
+rstudio-server force-suspend-all
+RStudio Server临时下线，不允许web访问，并给用户友好提示
+rstudio-server offline
+RStudio Server临时上线
+rstudio-server online
 </code></pre>
 
 
