@@ -6,8 +6,35 @@
     <description>Recent content in 中文博客 on My Lives</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 05 Sep 2017 23:03:13 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 07 Sep 2017 09:06:46 +0000</lastBuildDate>
     <atom:link href="/blog/cn/" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Git 参考手册</title>
+      <link>/blog/cn/2017/09/git_command/</link>
+      <pubDate>Thu, 07 Sep 2017 09:06:46 +0000</pubDate>
+      
+      <guid>/blog/cn/2017/09/git_command/</guid>
+      <description>
+        &lt;p&gt;Git &lt;a href=&#34;http://gitref.justjavac.com/&#34;&gt;参考手册中文&lt;/a&gt; &lt;br&gt;
+Git &lt;a href=&#34;https://git-scm.com/about&#34;&gt;参考手册ENG&lt;/a&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;ul&gt;
+&lt;li&gt;git check out -b 创建新分支，并立即切换到它。与以下等效：
+
+&lt;ul&gt;
+&lt;li&gt;git branch newbranch&lt;/li&gt;
+&lt;li&gt;git checkout newbranch&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;git merge [branch] 将[branch] 分枝合并到当前分支中&lt;/li&gt;
+&lt;li&gt;git push [alias] [branch]，就会将你的[branch]分支推送成为[alias]远端上的[branch] 分支&lt;/li&gt;
+&lt;/ul&gt;
+
+        
+      </description>
+    </item>
     
     <item>
       <title>HTML基本语法</title>
