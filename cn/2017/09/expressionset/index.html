@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <title>ExpressionSet简单讲解 - My Lives</title>
+    <meta property="og:title" content="ExpressionSet简单讲解 - My Lives">
+    
+
+    
+      
+    
+
+    
+
+    
+    
+
+
+<link href='//cdn.bootcss.com/highlight.js/9.12.0/styles/github.min.css' rel='stylesheet' type='text/css' />
+
+
+
+    <link rel="stylesheet" href="/blog/css/style.css" />
+    <link rel="stylesheet" href="/blog/css/fonts.css" />
+    <link rel="stylesheet" href="/blog/css/custom.css" />
+
+  </head>
+
+  
+  <body class="blog">
+    <header class="masthead">
+      <h1><a href="/blog/">My Lives</a></h1>
+
+
+
+      <nav class="menu">
+        <input id="menu-check" type="checkbox" />
+        <label id="menu-label" for="menu-check" class="unselectable">
+          <span class="icon close-icon">✕</span>
+          <span class="icon open-icon">☰</span>
+          <span class="text">Menu</span>
+        </label>
+        <ul>
+        
+        
+        <li><a href="/blog/">Home</a></li>
+        
+        <li><a href="/blog/en/">English</a></li>
+        
+        <li><a href="/blog/cn/">Chinese</a></li>
+        
+        <li><a href="/blog/travel/">Travel</a></li>
+        
+        
+        </ul>
+      </nav>
+    </header>
+
+    <article class="main">
+      <header class="title">
+      
+<h1>ExpressionSet简单讲解</h1>
+
+<h3>
+  2017-09-08</h3>
+<hr>
+
+
+      </header>
+
+
+
+
+
+<p>From 生信菜鸟团</p>
+
+<hr />
+
+<blockquote>
+<p>这个对象其实是对表达矩阵加上样本分组信息的一个封装，由biobase这个包引入。它是eSet这个对象的继承。</p>
+</blockquote>
+
+<h2 id="一个现成例子">一个现成例子</h2>
+
+<blockquote>
+<p>下面是一个具体的例子，来源于CLL这个包，是用hgu95av2芯片测了22个样本</p>
+</blockquote>
+
+<pre><code class="language-R">    library(CLL)
+    data(sCLLex)
+    sCLLex
+    
+    ExpressionSet (storageMode: lockedEnvironment)
+    assayData: 12625 features, 22 samples  ##表达矩阵
+      element names: exprs 
+    protocolData: none
+    phenoData
+      sampleNames: CLL11.CEL CLL12.CEL ... CLL9.CEL (22 total)
+      varLabels: SampleID Disease   ## 样本分组信息
+      varMetadata: labelDescription
+    featureData: none
+    experimentData: use 'experimentData(object)'
+    Annotation: hgu95av2
+    
+    &gt; exprMatrix=exprs(sCLLex)
+    &gt; dim(exprMatrix)
+    [1] 12625    22
+    &gt; meta=pData(sCLLex)
+    &gt; table(meta$Disease)
+    
+    progres.   stable 
+          14        8 
+    &gt; 
+</code></pre>
+
+<pre><code>根据上面的信息可以看出该芯片共12625个探针，这22个样本根据疾病状态分成两组，14vs8
+这个数据对象就可以打包做很多包的分析输入数据。
+</code></pre>
+
+<p>对这个包的分析，重点就是 <strong><code>exprs</code> 函数提取表达矩阵</strong>，<strong><code>pData</code> 函数看看该对象的样本分组信息</strong>。</p>
+
+<h2 id="limma等包使用该对象作为输入数据">limma等包使用该对象作为输入数据</h2>
+
+<blockquote>
+<p>下面这个例子充分说明了 <code>ExpressionSet</code> 对象的重要性</p>
+</blockquote>
+
+<pre><code class="language-R">    &gt; library(limma)
+    &gt; design=model.matrix(~factor(sCLLex$Disease))
+    &gt; fit=lmFit(sCLLex,design)
+    &gt; fit=eBayes(fit)
+    &gt; options(digits = 4)
+    &gt; topTable(fit,coef=2,adjust='BH')
+               logFC AveExpr      t   P.Value adj.P.Val     B
+    39400_at  1.0285   5.621  5.836 8.341e-06   0.03344 3.234
+    36131_at -0.9888   9.954 -5.772 9.668e-06   0.03344 3.117
+    33791_at -1.8302   6.951 -5.736 1.049e-05   0.03344 3.052
+    1303_at   1.3836   4.463  5.732 1.060e-05   0.03344 3.044
+    36122_at -0.7801   7.260 -5.141 4.206e-05   0.10619 1.935
+    36939_at -2.5472   6.915 -5.038 5.362e-05   0.11283 1.737
+    41398_at  0.5187   7.602  4.879 7.824e-05   0.11520 1.428
+    32599_at  0.8544   5.746  4.859 8.207e-05   0.11520 1.389
+    36129_at  0.9161   8.209  4.859 8.212e-05   0.11520 1.389
+    37636_at -1.6868   5.697 -4.804 9.355e-05   0.11811 1.282
+    &gt; 
+</code></pre>
+
+<p>还有非常多的其它包会使用 <code>ExpressionSet</code> 对象，我就不一一介绍了。</p>
+
+<h2 id="自己构造-expressionset-对象">自己构造 <code>ExpressionSet</code> 对象</h2>
+
+<blockquote>
+<p>根据上面的讲解，我们知道了在这个对象其实很简单，就是对表达矩阵加上样本分组信息的一个封装。
+所以我们就用上面得到的exprMatrix和meta来构建一个ExpressionSet对象，biobase包里面提供了详细的说明,建议大家仔细看官方手册</p>
+</blockquote>
+
+<pre><code class="language-R">    metadata &lt;- data.frame(labelDescription=c('SampleID', 'Disease'),
+                       row.names=c('SampleID', 'Disease'))
+    phenoData &lt;- new(&quot;AnnotatedDataFrame&quot;,data=meta,varMetadata=metadata)
+    myExpressionSet &lt;- ExpressionSet(assayData=exprMatrix,
+                                     phenoData=phenoData,
+                                     annotation=&quot;hgu95av2&quot;)
+    &gt; myExpressionSet
+    ExpressionSet (storageMode: lockedEnvironment)
+    assayData: 12625 features, 22 samples 
+      element names: exprs 
+    protocolData: none
+    phenoData
+      sampleNames: CLL11.CEL CLL12.CEL ... CLL9.CEL (22 total)
+      varLabels: SampleID Disease
+      varMetadata: labelDescription
+    featureData: none
+    experimentData: use 'experimentData(object)'
+    Annotation: hgu95av2 
+    &gt; 
+</code></pre>
+
+<blockquote>
+<p>从上面的构造过程可以看出，重点就是表达矩阵加上样本分组信息</p>
+</blockquote>
+
+<h2 id="其它例子">其它例子</h2>
+
+<h3 id="all包的数据自带-expressionset-对象">ALL包的数据自带 <code>ExpressionSet</code> 对象</h3>
+
+<pre><code class="language-R">    library(ALL)
+    data(ALL)
+    ALL
+    
+    ExpressionSet (storageMode: lockedEnvironment)
+    assayData: 12625 features, 128 samples
+        element names: exprs
+    protocolData: none
+    phenoData
+        sampleNames: 01005 01010 … LAL4 (128 total)
+        varLabels: cod diagnosis … date last seen (21 total)
+        varMetadata: labelDescription
+    featureData: none
+    experimentData: use ‘experimentData(object)’
+    pubMedIds: 14684422 16243790 
+    Annotation: hgu95av2
+</code></pre>
+
+<p>这个数据非常出名，很多其它算法包都会拿这个数据来举例子，只有真正理解了ExpressionSet对象才能学会bioconductor系列包</p>
+
+<h2 id="用geoquery包来下载得到-expressionset-对象">用GEOquery包来下载得到 <code>ExpressionSet</code> 对象</h2>
+
+<pre><code class="language-R">    gse1009=GEOquery::getGEO(&quot;GSE1009&quot;)
+    gse1009[[1]] ## 这就是ExpressionSet对象
+</code></pre>
+
+
+  <footer>
+  
+<nav class="post-nav">
+  <span class="nav-prev">&larr; <a href="/blog/cn/2017/09/%E7%94%9F%E5%AD%98%E6%9B%B2%E7%BA%BF%E7%BE%8E%E5%8C%96/">生存曲线美化</a></span>
+  <span class="nav-next"></span>
+</nav>
+
+
+
+
+
+<script src="//yihui.name/js/math-code.js"></script>
+<script async src="//cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+<script async src="//yihui.name/js/center-img.js"></script>
+
+  
+
+
+
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+
+
+
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/r.min.js"></script>
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/yaml.min.js"></script>
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/tex.min.js"></script>
+<script>hljs.configure({languages: []}); hljs.initHighlightingOnLoad();</script>
+
+
+
+  
+  <hr>
+  <div class="copyright">&copy; <a href="xxxx">Who care</a> 2017 - Forever, maybe</div>
+  
+  </footer>
+  </article>
+  
+  </body>
+</html>
+
