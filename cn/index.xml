@@ -6,8 +6,57 @@
     <description>Recent content in 中文博客 on My Lives</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 08 Sep 2017 16:38:17 +0000</lastBuildDate>
+    <lastBuildDate>Sat, 09 Sep 2017 10:19:35 +0000</lastBuildDate>
     <atom:link href="/blog/cn/" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Fold Change 与火山图</title>
+      <link>/blog/cn/2017/09/foldchange/</link>
+      <pubDate>Sat, 09 Sep 2017 10:19:35 +0000</pubDate>
+      
+      <guid>/blog/cn/2017/09/foldchange/</guid>
+      <description>
+        
+
+&lt;h1 id=&#34;fold-change&#34;&gt;Fold Change&lt;/h1&gt;
+
+&lt;p&gt;计算公式：样本平均值log2还原的比值&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;/blog/blog/img/fold_change.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;h1 id=&#34;火山图-volcano-plot&#34;&gt;火山图（Volcano Plot）&lt;/h1&gt;
+
+&lt;p&gt;火山图只存在于两分组样本比较中，并且有生物学重复(经过相同方式处理的相同样品)
+&lt;img src=&#34;/blog/blog/img/volcanoplot.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;标准的火山图常用于展示显著差异表达的基因，这里有两个关键词：显著是指P&amp;lt;&amp;gt;差异表达一般我们按照Fold Change(倍数变化)&amp;gt;=2.0作为标准。&lt;/p&gt;
+
+&lt;p&gt;当我们拿到基因表达的P值和倍数后，为了用火山图展示结果，一般需要把倍数进行Log2的转化，比如某基因在实验组表达水平是对照组的4倍，log2（4）=2，同样的如果是1/4，也就是0.25，转换后的结果就是-2。&lt;/p&gt;
+
+&lt;p&gt;同样的道理，对P值进行-log10的转化，-log10（0.05）约等于1.30103，由于P值越小表示越显著，所以我们进行-log10（P value）转化后，转化值越大表示差异约显著，比如-log10（0.001）=3  &amp;gt;  -log10(0.01)=2 &amp;gt;  -log10(0.05)=1.30。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;/blog/blog/img/volcanoplot1.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;在上面这个图中，横轴是log2（FC），纵轴是-log10（P value），每个点代表一个基因，平行于Y轴的两条线分别是X=1和X=-1，在X=-1左侧的点是下调2倍以上的基因，在X=1右侧的点是上调2倍以上的基因。同时，平行于X轴有一条虚线Y=1.30，即-log10(0.05），在虚线以上的点表示显著性.&lt;/p&gt;
+
+&lt;p&gt;这样，我们就把虚线Y=1.30以上，X=1右侧和X=-1左侧的基因标记为表达显著差异的基因，一般我们把大于2倍（X=1右侧）的点标记为红色，把小于-2（X=-1左侧）的点标记为绿色，一些我们特别关注的基因需要把基因名标记出来。&lt;/p&gt;
+
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>GCBI 学院</title>
+      <link>/blog/cn/2017/09/gcbiaccdemy/</link>
+      <pubDate>Sat, 09 Sep 2017 09:19:35 +0000</pubDate>
+      
+      <guid>/blog/cn/2017/09/gcbiaccdemy/</guid>
+      <description>
+        &lt;p&gt;GCBI学院里一些视频还是值得看看的,一直想看看一直忘记，记录在这里。 &lt;a href=&#34;http://college.gcbi.com.cn/&#34;&gt;Here&lt;/a&gt;&lt;/p&gt;
+
+        
+      </description>
+    </item>
     
     <item>
       <title>ExpressionSet简单讲解</title>
