@@ -6,8 +6,57 @@
     <description>Recent content in 中文博客 on My Lives</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 09 Sep 2017 10:19:35 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 10 Sep 2017 03:11:14 +0000</lastBuildDate>
     <atom:link href="/blog/cn/" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>混淆矩阵（confusion matrix）</title>
+      <link>/blog/cn/2017/09/confusionmatrix/</link>
+      <pubDate>Sun, 10 Sep 2017 03:11:14 +0000</pubDate>
+      
+      <guid>/blog/cn/2017/09/confusionmatrix/</guid>
+      <description>
+        &lt;p&gt;在学习&lt;a href=&#34;http://bioconductor.org/packages/release/bioc/vignettes/genefu/inst/doc/genefu.pdf&#34;&gt;genefu包&lt;/a&gt;时候遇到Confusion Matrix，有必要有个系统的学习和总结。&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;混淆矩阵（confusion matrix）是可视化工具，特别用于监督学习， &lt;em&gt;在无监督学习一般叫做匹配矩阵&lt;/em&gt; 。在图像精度评价中，主要用于比较分类结果和实际测得值，可以把分类结果的精度显示在一个混淆矩阵里面。混淆矩阵是通过将每个实测像元的位置和分类与分类图像中的相应位置和分类像比较计算的。&lt;/p&gt;
+
+&lt;p&gt;混淆矩阵的每一列代表了预测类别[1]  ，每一列的总数表示预测为该类别的数据的数目；每一行代表了数据的真实归属类别[1]  ，每一行的数据总数表示该类别的数据实例的数目。每一列中的数值表示真实数据被预测为该类的数目：如下图，第一行第一列中的43表示有43个实际归属第一类的实例被预测为第一类，同理，第二行第一列的2表示有2个实际归属为第二类的实例被错误预测为第一类。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;如有150个样本数据，这些数据分成3类，每类50个。分类结束后得到的混淆矩阵为：
+                   预测
+              类1 类2 类3
+      类1     43   5   2
+实际  类2      2   45  3
+      类3     0    1   49
+每一行之和为50，表示50个样本，
+第一行说明类1的50个样本有43个分类正确，5个错分为类2，2个错分为类3
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;另外一个例子 From:&lt;a href=&#34;http://blog.csdn.net/vesper305/article/details/44927047&#34;&gt;http://blog.csdn.net/vesper305/article/details/44927047&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;假设有一个用来对猫（cats）、狗（dogs）、兔子（rabbits）进行分类的系统，混淆矩阵就是为了进一步分析性能而对该算法测试结果做出的总结。假设总共有 27 只动物：8只猫， 6条狗， 13只兔子。结果的混淆矩阵如下图：
+&lt;img src=&#34;https://taoshengxu.github.io/DocumentGit/img/confusionmatrix0.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;在这个混淆矩阵中，实际有 8只猫，但是系统将其中3只预测成了狗；对于 6条狗，其中有 1条被预测成了兔子，2条被预测成了猫。从混淆矩阵中我们可以看出系统对于区分猫和狗存在一些问题，但是区分兔子和其他动物的效果还是不错的。所有正确的预测结果都在对角线上，所以从混淆矩阵中可以很方便直观的看出哪里有错误，因为他们呈现在对角线外面。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://taoshengxu.github.io/DocumentGit/img/confusionmatrix1.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;在预测分析中，混淆表格（有时候也称为混淆矩阵），是由false positives，false negatives，true positives和true negatives组成的两行两列的表格。它允许我们做出更多的分析，而不仅仅是局限在正确率。准确率对于分类器的性能分析来说，并不是一个很好地衡量指标，因为如果数据集不平衡（每一类的数据样本数量相差太大），很可能会出现误导性的结果。例如，如果在一个数据集中有95只猫，但是只有5条狗，那么某些分类器很可能偏向于将所有的样本预测成猫。整体准确率为95%，但是实际上该分类器对猫的识别率是100%，而对狗的识别率是0%。&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;下面内容总结了假设检验的重要内容，清晰全面。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://taoshengxu.github.io/DocumentGit/img/confusionmatrix2.png&#34; alt=&#34;&#34; /&gt;
+&lt;img src=&#34;https://taoshengxu.github.io/DocumentGit/img/confusionmatrix3.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+        
+      </description>
+    </item>
     
     <item>
       <title>Fold Change 与火山图</title>
@@ -22,12 +71,12 @@
 
 &lt;p&gt;计算公式：样本平均值log2还原的比值&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;/blog/blog/img/fold_change.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://taoshengxu.github.io/DocumentGit/img/fold_change.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
 
 &lt;h1 id=&#34;火山图-volcano-plot&#34;&gt;火山图（Volcano Plot）&lt;/h1&gt;
 
 &lt;p&gt;火山图只存在于两分组样本比较中，并且有生物学重复(经过相同方式处理的相同样品)
-&lt;img src=&#34;/blog/blog/img/volcanoplot.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+&lt;img src=&#34;https://taoshengxu.github.io/DocumentGit/img/volcanoplot.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
 
 &lt;p&gt;标准的火山图常用于展示显著差异表达的基因，这里有两个关键词：显著是指P&amp;lt;&amp;gt;差异表达一般我们按照Fold Change(倍数变化)&amp;gt;=2.0作为标准。&lt;/p&gt;
 
@@ -35,7 +84,7 @@
 
 &lt;p&gt;同样的道理，对P值进行-log10的转化，-log10（0.05）约等于1.30103，由于P值越小表示越显著，所以我们进行-log10（P value）转化后，转化值越大表示差异约显著，比如-log10（0.001）=3  &amp;gt;  -log10(0.01)=2 &amp;gt;  -log10(0.05)=1.30。&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;/blog/blog/img/volcanoplot1.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://taoshengxu.github.io/DocumentGit/img/volcanoplot1.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
 
 &lt;p&gt;在上面这个图中，横轴是log2（FC），纵轴是-log10（P value），每个点代表一个基因，平行于Y轴的两条线分别是X=1和X=-1，在X=-1左侧的点是下调2倍以上的基因，在X=1右侧的点是上调2倍以上的基因。同时，平行于X轴有一条虚线Y=1.30，即-log10(0.05），在虚线以上的点表示显著性.&lt;/p&gt;
 
@@ -265,7 +314,7 @@ ggsurvplot(fit,risk.table=TRUE,conf.int=TRUE,pval=TRUE)
 來源：简书
 著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;/blog/blog/img/GSEA.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://taoshengxu.github.io/DocumentGit/img/GSEA.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
 
 &lt;p&gt;首先，可以设定一个衡量差异表达程度的统计量，这里简单起见，用log Fold Change，来把基因排序。上面那个颜色条就表示一共有17425个基因表达，下方数字表示该处对应的基因所在的序号，红色到蓝色，表示从上调到下调。黑色的杠杠，表示在该位置处的基因属于Myc靶基因，那一共就是有188个杠杠。颜色条上方有个数字9109，它表示这这里，基因表达从上调转变成下调。那个位置颜色是白色的，也就是说，倍数差异接近0了。
 在GSEA这个检验里面，我们实际上就是在检验上面颜色条里黑色的杠杠，是否有往颜色条一端富集的趋势。
@@ -297,6 +346,14 @@ ggsurvplot(fit,risk.table=TRUE,conf.int=TRUE,pval=TRUE)
         
 
 &lt;p&gt;&lt;a href=&#34;https://bioconductor.org/packages/release/bioc/vignettes/clusterProfiler/inst/doc/clusterProfiler.html&#34;&gt;clusterProfiler&lt;/a&gt;包的很多内容还是理解不了，需要找人问问。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;Q1: GO的level，在什么研究中会涉及到？ 一般来说，level越大，GO功能越具体。level就像一棵树树主干一样，发了不同的枝叶，level越大枝叶越详细。&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Q2： GO over-representation test 是我们最经常用到的基因功能分析，为什么没有考虑到level的问题，一般选择哪种（CC, MF,BP）进行分析？&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Q3： GO Gene Set Enrichment Analysis 大概的原理我能明白，结果图如阿理解？&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
 
 &lt;hr /&gt;
 
@@ -346,11 +403,11 @@ ggsurvplot(fit,risk.table=TRUE,conf.int=TRUE,pval=TRUE)
 &lt;li&gt;对取交集得到的基因，如果基因数目还比较多（目标基因：1-2个），就将这些基因和差异表达基因再取交集，根据Fold Change 选择差异表达倍数最大的基因作为我们研究的候选基因。&lt;/li&gt;
 &lt;/ol&gt;
 
-&lt;p&gt;&lt;img src=&#34;/blog/blog/img/go_pathway0.jpg&#34; alt=&#34;&#34; /&gt;
-&lt;img src=&#34;/blog/blog/img/go_pathway0-1.jpg&#34; alt=&#34;&#34; /&gt;
-&lt;img src=&#34;/blog/blog/img/go_pathway1.jpg&#34; alt=&#34;&#34; /&gt;
-&lt;img src=&#34;/blog/blog/img/go_pathway2.jpg&#34; alt=&#34;&#34; /&gt;
-&lt;img src=&#34;/blog/blog/img/go_pathway3.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://taoshengxu.github.io/DocumentGit/img/go_pathway0.jpg&#34; alt=&#34;&#34; /&gt;
+&lt;img src=&#34;https://taoshengxu.github.io/DocumentGit/img/go_pathway0-1.jpg&#34; alt=&#34;&#34; /&gt;
+&lt;img src=&#34;https://taoshengxu.github.io/DocumentGit/img/go_pathway1.jpg&#34; alt=&#34;&#34; /&gt;
+&lt;img src=&#34;https://taoshengxu.github.io/DocumentGit/img/go_pathway2.jpg&#34; alt=&#34;&#34; /&gt;
+&lt;img src=&#34;https://taoshengxu.github.io/DocumentGit/img/go_pathway3.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
 
 &lt;hr /&gt;
 
@@ -936,7 +993,7 @@ m(help)-n(增加一个新分区)-e(扩展分区)-1-4(分几个区)-&amp;hellip;-
 
 &lt;li&gt;&lt;p&gt;ubuntu 加载新硬盘教程&lt;a href=&#34;http://note.youdao.com/noteshare?id=19c72003e1f78ed8dafbe12c53c6e150&amp;amp;sub=8E9A1BEDF6AE4F73AB50892F428B249C&#34;&gt;Here&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
 
-&lt;li&gt;&lt;p&gt;ubuntu&lt;a href=&#34;/blog/blog/pdf/Ubuntu命令手册.pdf&#34;&gt;命令手册&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;ubuntu&lt;a href=&#34;https://taoshengxu.github.io/DocumentGit/pdf/Ubuntu命令手册.pdf&#34;&gt;命令手册&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;h3 id=&#34;vi-操作&#34;&gt;vi 操作&lt;/h3&gt;

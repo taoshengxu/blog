@@ -71,6 +71,14 @@
 
 <p><a href="https://bioconductor.org/packages/release/bioc/vignettes/clusterProfiler/inst/doc/clusterProfiler.html">clusterProfiler</a>包的很多内容还是理解不了，需要找人问问。</p>
 
+<ul>
+<li><p>Q1: GO的level，在什么研究中会涉及到？ 一般来说，level越大，GO功能越具体。level就像一棵树树主干一样，发了不同的枝叶，level越大枝叶越详细。</p></li>
+
+<li><p>Q2： GO over-representation test 是我们最经常用到的基因功能分析，为什么没有考虑到level的问题，一般选择哪种（CC, MF,BP）进行分析？</p></li>
+
+<li><p>Q3： GO Gene Set Enrichment Analysis 大概的原理我能明白，结果图如阿理解？</p></li>
+</ul>
+
 <hr />
 
 <h1 id="基因本体论">基因本体论</h1>
@@ -119,11 +127,11 @@
 <li>对取交集得到的基因，如果基因数目还比较多（目标基因：1-2个），就将这些基因和差异表达基因再取交集，根据Fold Change 选择差异表达倍数最大的基因作为我们研究的候选基因。</li>
 </ol>
 
-<p><img src="/blog/img/go_pathway0.jpg" alt="" />
-<img src="/blog/img/go_pathway0-1.jpg" alt="" />
-<img src="/blog/img/go_pathway1.jpg" alt="" />
-<img src="/blog/img/go_pathway2.jpg" alt="" />
-<img src="/blog/img/go_pathway3.jpg" alt="" /></p>
+<p><img src="https://taoshengxu.github.io/DocumentGit/img/go_pathway0.jpg" alt="" />
+<img src="https://taoshengxu.github.io/DocumentGit/img/go_pathway0-1.jpg" alt="" />
+<img src="https://taoshengxu.github.io/DocumentGit/img/go_pathway1.jpg" alt="" />
+<img src="https://taoshengxu.github.io/DocumentGit/img/go_pathway2.jpg" alt="" />
+<img src="https://taoshengxu.github.io/DocumentGit/img/go_pathway3.jpg" alt="" /></p>
 
 <hr />
 

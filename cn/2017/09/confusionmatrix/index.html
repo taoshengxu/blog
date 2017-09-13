@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <title>混淆矩阵（confusion matrix） - My Lives</title>
+    <meta property="og:title" content="混淆矩阵（confusion matrix） - My Lives">
+    
+
+    
+      
+    
+
+    
+
+    
+    
+
+
+<link href='//cdn.bootcss.com/highlight.js/9.12.0/styles/github.min.css' rel='stylesheet' type='text/css' />
+
+
+
+    <link rel="stylesheet" href="/blog/css/style.css" />
+    <link rel="stylesheet" href="/blog/css/fonts.css" />
+    <link rel="stylesheet" href="/blog/css/custom.css" />
+
+  </head>
+
+  
+  <body class="blog">
+    <header class="masthead">
+      <h1><a href="/blog/">My Lives</a></h1>
+
+
+
+      <nav class="menu">
+        <input id="menu-check" type="checkbox" />
+        <label id="menu-label" for="menu-check" class="unselectable">
+          <span class="icon close-icon">✕</span>
+          <span class="icon open-icon">☰</span>
+          <span class="text">Menu</span>
+        </label>
+        <ul>
+        
+        
+        <li><a href="/blog/">Home</a></li>
+        
+        <li><a href="/blog/en/">English</a></li>
+        
+        <li><a href="/blog/cn/">Chinese</a></li>
+        
+        <li><a href="/blog/travel/">Travel</a></li>
+        
+        
+        </ul>
+      </nav>
+    </header>
+
+    <article class="main">
+      <header class="title">
+      
+<h1>混淆矩阵（confusion matrix）</h1>
+
+<h3>
+  2017-09-10</h3>
+<hr>
+
+
+      </header>
+
+
+
+<p>在学习<a href="http://bioconductor.org/packages/release/bioc/vignettes/genefu/inst/doc/genefu.pdf">genefu包</a>时候遇到Confusion Matrix，有必要有个系统的学习和总结。</p>
+
+<hr />
+
+<p>混淆矩阵（confusion matrix）是可视化工具，特别用于监督学习， <em>在无监督学习一般叫做匹配矩阵</em> 。在图像精度评价中，主要用于比较分类结果和实际测得值，可以把分类结果的精度显示在一个混淆矩阵里面。混淆矩阵是通过将每个实测像元的位置和分类与分类图像中的相应位置和分类像比较计算的。</p>
+
+<p>混淆矩阵的每一列代表了预测类别[1]  ，每一列的总数表示预测为该类别的数据的数目；每一行代表了数据的真实归属类别[1]  ，每一行的数据总数表示该类别的数据实例的数目。每一列中的数值表示真实数据被预测为该类的数目：如下图，第一行第一列中的43表示有43个实际归属第一类的实例被预测为第一类，同理，第二行第一列的2表示有2个实际归属为第二类的实例被错误预测为第一类。</p>
+
+<pre><code>如有150个样本数据，这些数据分成3类，每类50个。分类结束后得到的混淆矩阵为：
+                   预测
+              类1 类2 类3
+      类1     43   5   2
+实际  类2      2   45  3
+      类3     0    1   49
+每一行之和为50，表示50个样本，
+第一行说明类1的50个样本有43个分类正确，5个错分为类2，2个错分为类3
+</code></pre>
+
+<hr />
+
+<p>另外一个例子 From:<a href="http://blog.csdn.net/vesper305/article/details/44927047">http://blog.csdn.net/vesper305/article/details/44927047</a></p>
+
+<p>假设有一个用来对猫（cats）、狗（dogs）、兔子（rabbits）进行分类的系统，混淆矩阵就是为了进一步分析性能而对该算法测试结果做出的总结。假设总共有 27 只动物：8只猫， 6条狗， 13只兔子。结果的混淆矩阵如下图：
+<img src="https://taoshengxu.github.io/DocumentGit/img/confusionmatrix0.png" alt="" /></p>
+
+<p>在这个混淆矩阵中，实际有 8只猫，但是系统将其中3只预测成了狗；对于 6条狗，其中有 1条被预测成了兔子，2条被预测成了猫。从混淆矩阵中我们可以看出系统对于区分猫和狗存在一些问题，但是区分兔子和其他动物的效果还是不错的。所有正确的预测结果都在对角线上，所以从混淆矩阵中可以很方便直观的看出哪里有错误，因为他们呈现在对角线外面。</p>
+
+<p><img src="https://taoshengxu.github.io/DocumentGit/img/confusionmatrix1.png" alt="" /></p>
+
+<p>在预测分析中，混淆表格（有时候也称为混淆矩阵），是由false positives，false negatives，true positives和true negatives组成的两行两列的表格。它允许我们做出更多的分析，而不仅仅是局限在正确率。准确率对于分类器的性能分析来说，并不是一个很好地衡量指标，因为如果数据集不平衡（每一类的数据样本数量相差太大），很可能会出现误导性的结果。例如，如果在一个数据集中有95只猫，但是只有5条狗，那么某些分类器很可能偏向于将所有的样本预测成猫。整体准确率为95%，但是实际上该分类器对猫的识别率是100%，而对狗的识别率是0%。</p>
+
+<hr />
+
+<p>下面内容总结了假设检验的重要内容，清晰全面。</p>
+
+<p><img src="https://taoshengxu.github.io/DocumentGit/img/confusionmatrix2.png" alt="" />
+<img src="https://taoshengxu.github.io/DocumentGit/img/confusionmatrix3.png" alt="" /></p>
+
+
+  <footer>
+  
+<nav class="post-nav">
+  <span class="nav-prev">&larr; <a href="/blog/cn/2017/09/foldchange/">Fold Change 与火山图</a></span>
+  <span class="nav-next"></span>
+</nav>
+
+
+
+
+
+<script src="//yihui.name/js/math-code.js"></script>
+<script async src="//cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+<script async src="//yihui.name/js/center-img.js"></script>
+
+  
+
+
+
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+
+
+
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/r.min.js"></script>
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/yaml.min.js"></script>
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/tex.min.js"></script>
+<script>hljs.configure({languages: []}); hljs.initHighlightingOnLoad();</script>
+
+
+
+  
+  <hr>
+  <div class="copyright">&copy; <a href="xxxx">Who care</a> 2017 - Forever, maybe</div>
+  
+  </footer>
+  </article>
+  
+  </body>
+</html>
+
