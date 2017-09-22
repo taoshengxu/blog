@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <title>R语言 逐步回归分析 - My Lives</title>
+    <meta property="og:title" content="R语言 逐步回归分析 - My Lives">
+    
+
+    
+      
+    
+
+    
+
+    
+    
+
+
+<link href='//cdn.bootcss.com/highlight.js/9.12.0/styles/github.min.css' rel='stylesheet' type='text/css' />
+
+
+
+    <link rel="stylesheet" href="/blog/css/style.css" />
+    <link rel="stylesheet" href="/blog/css/fonts.css" />
+    <link rel="stylesheet" href="/blog/css/custom.css" />
+
+  </head>
+
+  
+  <body class="blog">
+    <header class="masthead">
+      <h1><a href="/blog/">My Lives</a></h1>
+
+
+
+      <nav class="menu">
+        <input id="menu-check" type="checkbox" />
+        <label id="menu-label" for="menu-check" class="unselectable">
+          <span class="icon close-icon">✕</span>
+          <span class="icon open-icon">☰</span>
+          <span class="text">Menu</span>
+        </label>
+        <ul>
+        
+        
+        <li><a href="/blog/">Home</a></li>
+        
+        <li><a href="/blog/en/">English</a></li>
+        
+        <li><a href="/blog/cn/">Chinese</a></li>
+        
+        <li><a href="/blog/travel/">Travel</a></li>
+        
+        
+        </ul>
+      </nav>
+    </header>
+
+    <article class="main">
+      <header class="title">
+      
+<h1>R语言 逐步回归分析</h1>
+
+<h3>
+  2017-09-22</h3>
+<hr>
+
+
+      </header>
+
+
+
+
+
+<p>From <a href="http://www.cnblogs.com/liuzezhuang/p/3724497.html">http://www.cnblogs.com/liuzezhuang/p/3724497.html</a></p>
+
+<p>逐步回归分析是以AIC信息统计量为准则，通过选择最小的AIC信息统计量，来达到删除或增加变量的目的。</p>
+
+<p>R语言中用于逐步回归分析的函数 step()    drop1()     add1()</p>
+
+<h1 id="1-载入数据">1.载入数据</h1>
+
+<pre><code class="language-r">#首先对数据进行多元线性回归分析
+tdata&lt;-data.frame(
+  x1=c( 7, 1,11,11, 7,11, 3, 1, 2,21, 1,11,10),
+  x2=c(26,29,56,31,52,55,71,31,54,47,40,66,68),
+  x3=c( 6,15, 8, 8, 6, 9,17,22,18, 4,23, 9, 8),
+  x4=c(60,52,20,47,33,22, 6,44,22,26,34,12,12),
+  Y =c(78.5,74.3,104.3,87.6,95.9,109.2,102.7,72.5,
+       93.1,115.9,83.8,113.3,109.4)
+)
+tlm&lt;-lm(Y~x1+x2+x3+x4,data=tdata)
+summary(tlm)
+</code></pre>
+
+<p><img src="http://images.cnitblog.com/i/388224/201405/122302215787851.jpg" alt="" /></p>
+
+<p>通过观察，回归方程的系数都没有通过显著性检验</p>
+
+<p>#2.逐步回归分析</p>
+
+<pre><code class="language-r">tstep&lt;-step(tlm)
+summary(tstep)
+</code></pre>
+
+<p><img src="http://images.cnitblog.com/i/388224/201405/122307143595998.jpg" alt="" /></p>
+
+<p>结果分析：
+* 当用x1 x2 x3 x4作为回归方程的系数时，AIC的值为26.94</p>
+
+<ul>
+<li><p>去掉x3 回归方程的AIC值为24.974；去掉x4 回归方程的AIC值为25.011……</p></li>
+
+<li><p>由于去x3可以使得AIC达到最小值，因此R会自动去掉x3;</p></li>
+</ul>
+
+<p>*去掉x3之后 AIC的值都增加 逐步回归分析终止,  得到当前最优的回归方程</p>
+
+<p><img src="http://images.cnitblog.com/i/388224/201405/122315069535378.jpg" alt="" /></p>
+
+<p>回归系数的显著性水平有所提高 但是x2 x4的显著性水平仍然不理想</p>
+
+<p>#3.逐步回归分析的优化</p>
+
+<pre><code class="language-r">drop1(tstep)
+</code></pre>
+
+<p><img src="http://images.cnitblog.com/i/388224/201405/122319369845108.jpg" alt="" /></p>
+
+<p>#4.进一步进行多元回归分析</p>
+
+<pre><code class="language-r">tlm&lt;-lm(Y~x1+x2,data=tdata)
+summary(tlm)
+</code></pre>
+
+<p><img src="http://images.cnitblog.com/i/388224/201405/122323393753359.jpg" alt="" /></p>
+
+<p>所有的检验均为显著</p>
+
+<p>因此所得回归方程为</p>
+
+<pre><code class="language-math">y=52.57735+ 1.46831x1+ 0.66225x2.
+</code></pre>
+
+
+  <footer>
+  
+<nav class="post-nav">
+  <span class="nav-prev">&larr; <a href="/blog/cn/2017/09/aic_bic/">模型选择准则之AIC和BIC</a></span>
+  <span class="nav-next"><a href="/blog/cn/2017/09/r_function_regression/">R语言回归函数汇总 </a> &rarr;</span>
+</nav>
+
+
+
+
+
+<script src="//yihui.name/js/math-code.js"></script>
+<script async src="//cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+<script async src="//yihui.name/js/center-img.js"></script>
+
+  
+
+
+
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+
+
+
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/r.min.js"></script>
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/yaml.min.js"></script>
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/tex.min.js"></script>
+<script>hljs.configure({languages: []}); hljs.initHighlightingOnLoad();</script>
+
+
+
+  
+  <hr>
+  <div class="copyright">&copy; <a href="xxxx">Who care</a> 2017 - Forever, maybe</div>
+  
+  </footer>
+  </article>
+  
+  </body>
+</html>
+

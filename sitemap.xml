@@ -3,6 +3,36 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>/blog/cn/2017/09/r_function_regression/</loc>
+    <lastmod>2017-09-22T21:10:14+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/cn/2017/09/step_regression/</loc>
+    <lastmod>2017-09-22T20:10:14+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/cn/2017/09/aic_bic/</loc>
+    <lastmod>2017-09-22T19:47:14+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/cn/2017/09/datamining_concept/</loc>
+    <lastmod>2017-09-22T16:47:14+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/cn/2017/09/ridgelasso/</loc>
+    <lastmod>2017-09-22T09:47:14+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/cn/2017/09/coxstratified/</loc>
+    <lastmod>2017-09-13T12:43:10+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>/blog/cn/2017/09/confusionmatrix/</loc>
     <lastmod>2017-09-10T03:11:14+00:00</lastmod>
   </url>
@@ -119,7 +149,7 @@
   
   <url>
     <loc>/blog/cn/</loc>
-    <lastmod>2017-09-10T03:11:14+00:00</lastmod>
+    <lastmod>2017-09-22T21:10:14+00:00</lastmod>
   </url>
   
   <url>

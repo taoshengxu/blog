@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <title>Cox 分层原理 - My Lives</title>
+    <meta property="og:title" content="Cox 分层原理 - My Lives">
+    
+
+    
+      
+    
+
+    
+
+    
+    
+
+    <link rel="stylesheet" href="/blog/css/style.css" />
+    <link rel="stylesheet" href="/blog/css/fonts.css" />
+    <link rel="stylesheet" href="/blog/css/custom.css" />
+
+  </head>
+
+  
+  <body class="blog">
+    <header class="masthead">
+      <h1><a href="/blog/">My Lives</a></h1>
+
+
+
+      <nav class="menu">
+        <input id="menu-check" type="checkbox" />
+        <label id="menu-label" for="menu-check" class="unselectable">
+          <span class="icon close-icon">✕</span>
+          <span class="icon open-icon">☰</span>
+          <span class="text">Menu</span>
+        </label>
+        <ul>
+        
+        
+        <li><a href="/blog/">Home</a></li>
+        
+        <li><a href="/blog/en/">English</a></li>
+        
+        <li><a href="/blog/cn/">Chinese</a></li>
+        
+        <li><a href="/blog/travel/">Travel</a></li>
+        
+        
+        </ul>
+      </nav>
+    </header>
+
+    <article class="main">
+      <header class="title">
+      
+<h1>Cox 分层原理</h1>
+
+<h3>
+  2017-09-13</h3>
+<hr>
+
+
+      </header>
+
+
+
+
+
+<p><a href="https://taoshengxu.github.io/DocumentGit/pdf/Cox+Stratified.pdf">PPT</a></p>
+
+<h1 id="首先理解为什么cox模型会对协变量分层处理">首先理解为什么COX模型会对协变量分层处理？</h1>
+
+<p>需要分层的变量不满足PH假设，需要分层处理。</p>
+
+<h1 id="如何确定-协变量不满足ph假设">如何确定 协变量不满足PH假设？</h1>
+
+<p>首先对需要研究的协变量进行多协变量COX回归，挑出不满足PH假设的协变量</p>
+
+<h1 id="cross-validated-partial-likelihood-cvpl-for-the-cox-model">Cross-validated partial likelihood (CVPL) for the Cox model</h1>
+
+<p>cvpl {in Package survcomp} function</p>
+
+<h1 id="toc_3">&hellip;</h1>
+
+<p>如果得到一个Subtypes 信息，对subtype分层进行 协变量为 age的COX 回归。目的是研究在不同亚型内，age 是否为影响生存预后的重要因素。</p>
+
+
+  <footer>
+  
+<nav class="post-nav">
+  <span class="nav-prev">&larr; <a href="/blog/cn/2017/09/confusionmatrix/">混淆矩阵（confusion matrix）</a></span>
+  <span class="nav-next"><a href="/blog/cn/2017/09/ridgelasso/">岭回归-Lasso-多重共线性</a> &rarr;</span>
+</nav>
+
+
+
+
+
+<script src="//yihui.name/js/math-code.js"></script>
+<script async src="//cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+<script async src="//yihui.name/js/center-img.js"></script>
+
+  
+
+  
+  <hr>
+  <div class="copyright">&copy; <a href="xxxx">Who care</a> 2017 - Forever, maybe</div>
+  
+  </footer>
+  </article>
+  
+  </body>
+</html>
+

@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <title>R语言回归函数汇总  - My Lives</title>
+    <meta property="og:title" content="R语言回归函数汇总  - My Lives">
+    
+
+    
+      
+    
+
+    
+
+    
+    
+
+
+<link href='//cdn.bootcss.com/highlight.js/9.12.0/styles/github.min.css' rel='stylesheet' type='text/css' />
+
+
+
+    <link rel="stylesheet" href="/blog/css/style.css" />
+    <link rel="stylesheet" href="/blog/css/fonts.css" />
+    <link rel="stylesheet" href="/blog/css/custom.css" />
+
+  </head>
+
+  
+  <body class="blog">
+    <header class="masthead">
+      <h1><a href="/blog/">My Lives</a></h1>
+
+
+
+      <nav class="menu">
+        <input id="menu-check" type="checkbox" />
+        <label id="menu-label" for="menu-check" class="unselectable">
+          <span class="icon close-icon">✕</span>
+          <span class="icon open-icon">☰</span>
+          <span class="text">Menu</span>
+        </label>
+        <ul>
+        
+        
+        <li><a href="/blog/">Home</a></li>
+        
+        <li><a href="/blog/en/">English</a></li>
+        
+        <li><a href="/blog/cn/">Chinese</a></li>
+        
+        <li><a href="/blog/travel/">Travel</a></li>
+        
+        
+        </ul>
+      </nav>
+    </header>
+
+    <article class="main">
+      <header class="title">
+      
+<h1>R语言回归函数汇总 </h1>
+
+<h3>
+  2017-09-22</h3>
+<hr>
+
+
+      </header>
+
+
+
+
+
+<p>From <a href="http://blog.sina.com.cn/s/blog_6fbfcfb50102va2k.html">http://blog.sina.com.cn/s/blog_6fbfcfb50102va2k.html</a></p>
+
+<h1 id="1-回归的多面性">1. 回归的多面性</h1>
+
+<pre><code>回归类型    用途
+---
+简单线性    个量化的解释变量来预测一个量化的响应变量（一个因变量、一个自变量）
+多项式   一个量化的解释变量预测一个量化的响应变量，模型的关系是n阶多项式（一个预测变量，但同时包含变量的幂）
+多元线性    用两个或多个量化的解释变量预测一个量化的响应变量（不止一个预测变量）
+多变量     用一个或多个解释变量预测多个响应变量
+Logistic    用一个或多个解释变量预测一个类别型变量
+泊松      用一个或多个解释变量预测一个代表频数的响应变量
+Cox         用一个或多个解释变量预测一个事件（死亡、失败或旧病复发）发生的时间
+时间序列  对误差项相关的时间序列数据建模
+非线性   用一个或多个量化的解释变量预测一个量化的响应变量，不过模型是非线性的
+非参数   用一个或多个量化的解释变量预测一个量化的响应变量，模型的形式源自数据形式，不事先设定
+稳健      用一个或多个量化的解释变量预测一个量化的响应变量，能抵御强影响点的干扰
+</code></pre>
+
+<h1 id="2-用lm-拟合回归模型">2. 用lm()拟合回归模型</h1>
+
+<p>myfit&lt;-lm(formula,data)</p>
+
+<p>formula指要拟合的模型形式，data是一个数据框，包含了用于拟合模型的数据</p>
+
+<p>formula形式如下：Y~X1+X2+……+Xk （~左边为响应变量，右边为各个预测变量，预测变量之间用+符号分隔）</p>
+
+<p><strong>R表达式中常用的符号</strong></p>
+
+<pre><code>符号 用途
+---
+~  | 分隔符号，左边为响应变量，右边为解释变量，eg：要通过x、z和w预测y，代码为y~x+z+w
++  | 分隔预测变量
+： | 表示预测变量的交互项  eg：要通过x、z及x与z的交互项预测y，代码为y~x+z+x:z
+*  | 表示所有可能交互项的简洁方式，代码y~x*z*w可展开为y~x+z+w+x:z+x:w+z:w+x:z:w
+^  | 表示交互项达到某个次数，代码y~(x+z+w)^2可展开为y~x+z+w+x:z+x:w+z:w
+.  | 表示包含除因变量外的所有变量，eg：若一个数据框包含变量x、y、z和w，代码y~.可展开为y~x+z+w
+-  | 减号，表示从等式中移除某个变量，eg：y~(x+z+w)^2-x:w可展开为y~x+z+w+x:z+z:w
+-1 | 删除截距项，eg：表示y~x-1拟合y在x上的回归，并强制直线通过原点
+I（） | 从算术的角度来解释括号中的元素。Eg：y~x+(z+w)^2将展开为y~x+z+w+z:w。相反，代码y~x+I((z+w)^2)将展开为y~x+h，h是一个由z和w的平方和创建的新变量
+function | 可以在表达式中用的数学函数，例如log(y)~x+z+w表示通过x、z和w来预测log(y)
+</code></pre>
+
+<p><strong>对拟合线性模型非常有用的其他函数</strong></p>
+
+<pre><code>函数 用途
+---
+Summary（）展示拟合的详细结果
+Coefficients（）列出拟合模型的模型参数（截距项和斜率）
+Cofint（） 提供模型参数的置信区间（默认95%）
+Fitted（）列出拟合模型的预测值
+Residuals（）列出拟合模型的残差值
+Anova（）生成一个拟合模型的方差分析，或者比较两个或更多拟合模型的方差分析表
+Vcov（）列出模型参数的协方差矩阵
+AIC（）输出赤池信息统计量
+Plot（）生成评价拟合模型的诊断图
+Predict（）用拟合模型对新的数据集预测响应变量值
+</code></pre>
+
+<h1 id="3-r-语言示例">3. R 语言示例</h1>
+
+<pre><code class="language-r">fit&lt;-lm(weight~height,data=women)  
+summary(fit)
+# 在Pr(&gt;|t|)栏，可以看到回归系数（3.45）显著不为0（p&lt;0.001），表明身高每增加1英寸，体重将预期地增加3.45磅
+# R平方项（0.991）表明模型可以解释体重99.1%的方差，它也是实际和预测值之间的相关系数（R^2=r^2）
+# 残差的标准误（1.53lbs）则可认为模型用身高预测体重的平均误差
+# F统计量检验所有的预测变量预测响应变量是否都在某个几率水平之上
+
+fitted(fit)#拟合模型的预测值  
+residuals(fit)#拟合模型的残差值 
+plot(women$height,women$weight,  
+     xlab=&quot;Height （in inches）&quot;,  
+     ylab=&quot;Weight（in pounds）&quot;)  
+abline(fit)  
+</code></pre>
+
+
+  <footer>
+  
+<nav class="post-nav">
+  <span class="nav-prev">&larr; <a href="/blog/cn/2017/09/step_regression/">R语言 逐步回归分析</a></span>
+  <span class="nav-next"></span>
+</nav>
+
+
+
+
+
+<script src="//yihui.name/js/math-code.js"></script>
+<script async src="//cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+<script async src="//yihui.name/js/center-img.js"></script>
+
+  
+
+
+
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+
+
+
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/r.min.js"></script>
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/yaml.min.js"></script>
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/tex.min.js"></script>
+<script>hljs.configure({languages: []}); hljs.initHighlightingOnLoad();</script>
+
+
+
+  
+  <hr>
+  <div class="copyright">&copy; <a href="xxxx">Who care</a> 2017 - Forever, maybe</div>
+  
+  </footer>
+  </article>
+  
+  </body>
+</html>
+

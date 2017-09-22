@@ -6,8 +6,839 @@
     <description>Recent content in 中文博客 on My Lives</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 10 Sep 2017 03:11:14 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 22 Sep 2017 21:10:14 +0000</lastBuildDate>
     <atom:link href="/blog/cn/" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>R语言回归函数汇总 </title>
+      <link>/blog/cn/2017/09/r_function_regression/</link>
+      <pubDate>Fri, 22 Sep 2017 21:10:14 +0000</pubDate>
+      
+      <guid>/blog/cn/2017/09/r_function_regression/</guid>
+      <description>
+        
+
+&lt;p&gt;From &lt;a href=&#34;http://blog.sina.com.cn/s/blog_6fbfcfb50102va2k.html&#34;&gt;http://blog.sina.com.cn/s/blog_6fbfcfb50102va2k.html&lt;/a&gt;&lt;/p&gt;
+
+&lt;h1 id=&#34;1-回归的多面性&#34;&gt;1. 回归的多面性&lt;/h1&gt;
+
+&lt;pre&gt;&lt;code&gt;回归类型    用途
+---
+简单线性    个量化的解释变量来预测一个量化的响应变量（一个因变量、一个自变量）
+多项式   一个量化的解释变量预测一个量化的响应变量，模型的关系是n阶多项式（一个预测变量，但同时包含变量的幂）
+多元线性    用两个或多个量化的解释变量预测一个量化的响应变量（不止一个预测变量）
+多变量     用一个或多个解释变量预测多个响应变量
+Logistic    用一个或多个解释变量预测一个类别型变量
+泊松      用一个或多个解释变量预测一个代表频数的响应变量
+Cox         用一个或多个解释变量预测一个事件（死亡、失败或旧病复发）发生的时间
+时间序列  对误差项相关的时间序列数据建模
+非线性   用一个或多个量化的解释变量预测一个量化的响应变量，不过模型是非线性的
+非参数   用一个或多个量化的解释变量预测一个量化的响应变量，模型的形式源自数据形式，不事先设定
+稳健      用一个或多个量化的解释变量预测一个量化的响应变量，能抵御强影响点的干扰
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;2-用lm-拟合回归模型&#34;&gt;2. 用lm()拟合回归模型&lt;/h1&gt;
+
+&lt;p&gt;myfit&amp;lt;-lm(formula,data)&lt;/p&gt;
+
+&lt;p&gt;formula指要拟合的模型形式，data是一个数据框，包含了用于拟合模型的数据&lt;/p&gt;
+
+&lt;p&gt;formula形式如下：Y~X1+X2+……+Xk （~左边为响应变量，右边为各个预测变量，预测变量之间用+符号分隔）&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;R表达式中常用的符号&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;符号 用途
+---
+~  | 分隔符号，左边为响应变量，右边为解释变量，eg：要通过x、z和w预测y，代码为y~x+z+w
++  | 分隔预测变量
+： | 表示预测变量的交互项  eg：要通过x、z及x与z的交互项预测y，代码为y~x+z+x:z
+*  | 表示所有可能交互项的简洁方式，代码y~x*z*w可展开为y~x+z+w+x:z+x:w+z:w+x:z:w
+^  | 表示交互项达到某个次数，代码y~(x+z+w)^2可展开为y~x+z+w+x:z+x:w+z:w
+.  | 表示包含除因变量外的所有变量，eg：若一个数据框包含变量x、y、z和w，代码y~.可展开为y~x+z+w
+-  | 减号，表示从等式中移除某个变量，eg：y~(x+z+w)^2-x:w可展开为y~x+z+w+x:z+z:w
+-1 | 删除截距项，eg：表示y~x-1拟合y在x上的回归，并强制直线通过原点
+I（） | 从算术的角度来解释括号中的元素。Eg：y~x+(z+w)^2将展开为y~x+z+w+z:w。相反，代码y~x+I((z+w)^2)将展开为y~x+h，h是一个由z和w的平方和创建的新变量
+function | 可以在表达式中用的数学函数，例如log(y)~x+z+w表示通过x、z和w来预测log(y)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;对拟合线性模型非常有用的其他函数&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;函数 用途
+---
+Summary（）展示拟合的详细结果
+Coefficients（）列出拟合模型的模型参数（截距项和斜率）
+Cofint（） 提供模型参数的置信区间（默认95%）
+Fitted（）列出拟合模型的预测值
+Residuals（）列出拟合模型的残差值
+Anova（）生成一个拟合模型的方差分析，或者比较两个或更多拟合模型的方差分析表
+Vcov（）列出模型参数的协方差矩阵
+AIC（）输出赤池信息统计量
+Plot（）生成评价拟合模型的诊断图
+Predict（）用拟合模型对新的数据集预测响应变量值
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;3-r-语言示例&#34;&gt;3. R 语言示例&lt;/h1&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;fit&amp;lt;-lm(weight~height,data=women)  
+summary(fit)
+# 在Pr(&amp;gt;|t|)栏，可以看到回归系数（3.45）显著不为0（p&amp;lt;0.001），表明身高每增加1英寸，体重将预期地增加3.45磅
+# R平方项（0.991）表明模型可以解释体重99.1%的方差，它也是实际和预测值之间的相关系数（R^2=r^2）
+# 残差的标准误（1.53lbs）则可认为模型用身高预测体重的平均误差
+# F统计量检验所有的预测变量预测响应变量是否都在某个几率水平之上
+
+fitted(fit)#拟合模型的预测值  
+residuals(fit)#拟合模型的残差值 
+plot(women$height,women$weight,  
+     xlab=&amp;quot;Height （in inches）&amp;quot;,  
+     ylab=&amp;quot;Weight（in pounds）&amp;quot;)  
+abline(fit)  
+&lt;/code&gt;&lt;/pre&gt;
+
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>R语言 逐步回归分析</title>
+      <link>/blog/cn/2017/09/step_regression/</link>
+      <pubDate>Fri, 22 Sep 2017 20:10:14 +0000</pubDate>
+      
+      <guid>/blog/cn/2017/09/step_regression/</guid>
+      <description>
+        
+
+&lt;p&gt;From &lt;a href=&#34;http://www.cnblogs.com/liuzezhuang/p/3724497.html&#34;&gt;http://www.cnblogs.com/liuzezhuang/p/3724497.html&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;逐步回归分析是以AIC信息统计量为准则，通过选择最小的AIC信息统计量，来达到删除或增加变量的目的。&lt;/p&gt;
+
+&lt;p&gt;R语言中用于逐步回归分析的函数 step()    drop1()     add1()&lt;/p&gt;
+
+&lt;h1 id=&#34;1-载入数据&#34;&gt;1.载入数据&lt;/h1&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;#首先对数据进行多元线性回归分析
+tdata&amp;lt;-data.frame(
+  x1=c( 7, 1,11,11, 7,11, 3, 1, 2,21, 1,11,10),
+  x2=c(26,29,56,31,52,55,71,31,54,47,40,66,68),
+  x3=c( 6,15, 8, 8, 6, 9,17,22,18, 4,23, 9, 8),
+  x4=c(60,52,20,47,33,22, 6,44,22,26,34,12,12),
+  Y =c(78.5,74.3,104.3,87.6,95.9,109.2,102.7,72.5,
+       93.1,115.9,83.8,113.3,109.4)
+)
+tlm&amp;lt;-lm(Y~x1+x2+x3+x4,data=tdata)
+summary(tlm)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://images.cnitblog.com/i/388224/201405/122302215787851.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;通过观察，回归方程的系数都没有通过显著性检验&lt;/p&gt;
+
+&lt;p&gt;#2.逐步回归分析&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;tstep&amp;lt;-step(tlm)
+summary(tstep)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://images.cnitblog.com/i/388224/201405/122307143595998.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;结果分析：
+* 当用x1 x2 x3 x4作为回归方程的系数时，AIC的值为26.94&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;去掉x3 回归方程的AIC值为24.974；去掉x4 回归方程的AIC值为25.011……&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;由于去x3可以使得AIC达到最小值，因此R会自动去掉x3;&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;*去掉x3之后 AIC的值都增加 逐步回归分析终止,  得到当前最优的回归方程&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://images.cnitblog.com/i/388224/201405/122315069535378.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;回归系数的显著性水平有所提高 但是x2 x4的显著性水平仍然不理想&lt;/p&gt;
+
+&lt;p&gt;#3.逐步回归分析的优化&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;drop1(tstep)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://images.cnitblog.com/i/388224/201405/122319369845108.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;#4.进一步进行多元回归分析&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;tlm&amp;lt;-lm(Y~x1+x2,data=tdata)
+summary(tlm)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://images.cnitblog.com/i/388224/201405/122323393753359.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;所有的检验均为显著&lt;/p&gt;
+
+&lt;p&gt;因此所得回归方程为&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-math&#34;&gt;y=52.57735+ 1.46831x1+ 0.66225x2.
+&lt;/code&gt;&lt;/pre&gt;
+
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>模型选择准则之AIC和BIC</title>
+      <link>/blog/cn/2017/09/aic_bic/</link>
+      <pubDate>Fri, 22 Sep 2017 19:47:14 +0000</pubDate>
+      
+      <guid>/blog/cn/2017/09/aic_bic/</guid>
+      <description>
+        
+
+&lt;p&gt;转自：&lt;a href=&#34;http://blog.csdn.net/jteng/article/details/40823675&#34;&gt;http://blog.csdn.net/jteng/article/details/40823675&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;很多参数估计问题均采用似然函数作为目标函数，当训练数据足够多时，可以不断提高模型精度，但是以提高模型复杂度为代价的，同时带来一个机器学习中非常普遍的问题——过拟合。所以，模型选择问题在模型复杂度与模型对数据集描述能力（即似然函数）之间寻求最佳平衡。
+人们提出许多信息准则，通过加入模型复杂度的惩罚项来避免过拟合问题，此处我们介绍一下常用的两个模型选择方法.&lt;/p&gt;
+
+&lt;h1 id=&#34;赤池信息准则-akaike-information-criterion-aic&#34;&gt;赤池信息准则（Akaike Information Criterion，AIC）&lt;/h1&gt;
+
+&lt;p&gt;AIC是衡量统计模型拟合优良性的一种标准，由日本统计学家赤池弘次在1974年提出，它建立在熵的概念上，提供了权衡估计模型复杂度和拟合数据优良性的标准。
+通常情况下，AIC定义为：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-math&#34;&gt;AIC=2k-2ln(L)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;其中k是模型参数个数，L是似然函数。从一组可供选择的模型中选择最佳模型时，通常选择AIC最小的模型。
+当两个模型之间存在较大差异时，差异主要体现在似然函数项，当似然函数差异不显著时，上式第一项，即模型复杂度则起作用，从而参数个数少的模型是较好的选择。
+一般而言，当模型复杂度提高（k增大）时，似然函数L也会增大，从而使AIC变小，但是k过大时，似然函数增速减缓，导致AIC增大，模型过于复杂容易造成过拟合现象。目标是选取AIC最小的模型，AIC不仅要提高模型拟合度（极大似然），而且引入了惩罚项，使模型参数尽可能少，有助于降低过拟合的可能性。&lt;/p&gt;
+
+&lt;h1 id=&#34;贝叶斯信息准则-bayesian-information-criterion-bic&#34;&gt;贝叶斯信息准则（Bayesian Information Criterion，BIC）&lt;/h1&gt;
+
+&lt;p&gt;BIC（Bayesian InformationCriterion）贝叶斯信息准则与AIC相似，用于模型选择，1978年由Schwarz提出。训练模型时，增加参数数量，也就是增加模型复杂度，会增大似然函数，但是也会导致过拟合现象，针对该问题，AIC和BIC均引入了与模型参数个数相关的惩罚项，BIC的惩罚项比AIC的大，考虑了样本数量，样本数量过多时，可有效防止模型精度过高造成的模型复杂度过高。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-math&#34;&gt;BIC=kln(n)-2ln(L)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;其中，k为模型参数个数，n为样本数量，L为似然函数。kln(n)惩罚项在维数过大且训练样本数据相对较少的情况下，可以有效避免出现维度灾难现象。&lt;/p&gt;
+
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>常见的机器学习&amp;数据挖掘知识点</title>
+      <link>/blog/cn/2017/09/datamining_concept/</link>
+      <pubDate>Fri, 22 Sep 2017 16:47:14 +0000</pubDate>
+      
+      <guid>/blog/cn/2017/09/datamining_concept/</guid>
+      <description>
+        &lt;pre&gt;&lt;code&gt;Basis(基础)：
+
+SSE(Sum of Squared Error, 平方误差和)
+SAE(Sum of Absolute Error, 绝对误差和)
+SRE(Sum of Relative Error, 相对误差和)
+MSE(Mean Squared Error, 均方误差)
+RMSE(Root Mean Squared Error, 均方根误差)
+RRSE(Root Relative Squared Error, 相对平方根误差)
+MAE(Mean Absolute Error, 平均绝对误差)
+RAE(Root Absolute Error, 平均绝对误差平方根)
+MRSE(Mean Relative Square Error, 相对平均误差)
+RRSE(Root Relative Squared Error, 相对平方根误差)
+Expectation(期望)&amp;amp;Variance(方差)
+Standard Deviation(标准差，也称Root Mean Squared Error, 均方根误差)
+CP(Conditional Probability, 条件概率)
+JP(Joint Probability, 联合概率)
+MP(Marginal Probability, 边缘概率)
+Bayesian Formula(贝叶斯公式)
+CC(Correlation Coefficient, 相关系数)
+Quantile (分位数)
+Covariance(协方差矩阵)
+GD(Gradient Descent, 梯度下降)
+SGD(Stochastic Gradient Descent, 随机梯度下降)
+LMS(Least Mean Squared, 最小均方)
+LSM(Least Square Methods, 最小二乘法)
+NE(Normal Equation, 正规方程)
+MLE(Maximum Likelihood Estimation, 极大似然估计)
+QP(Quadratic Programming, 二次规划)
+L1 /L2 Regularization(L1/L2正则, 以及更多的, 现在比较火的L2.5正则等)
+Eigenvalue(特征值)
+Eigenvector(特征向量)
+Common Distribution(常见分布)：
+
+Discrete Distribution(离散型分布)：
+
+Bernoulli Distribution/Binomial Distribution(贝努利分布/二项分布)
+Negative Binomial Distribution(负二项分布)
+Multinomial Distribution(多项分布)
+Geometric Distribution(几何分布)
+Hypergeometric Distribution(超几何分布)
+Poisson Distribution (泊松分布)
+Continuous Distribution (连续型分布)：
+
+Uniform Distribution(均匀分布)
+Normal Distribution/Gaussian Distribution(正态分布/高斯分布)
+Exponential Distribution(指数分布)
+Lognormal Distribution(对数正态分布)
+Gamma Distribution(Gamma分布)
+Beta Distribution(Beta分布)
+Dirichlet Distribution(狄利克雷分布)
+Rayleigh Distribution(瑞利分布)
+Cauchy Distribution(柯西分布)
+Weibull Distribution (韦伯分布)
+Three Sampling Distribution(三大抽样分布)：
+
+Chi-square Distribution(卡方分布)
+t-distribution(t-分布)
+F-distribution(F-分布)
+Data Pre-processing(数据预处理)：
+
+Missing Value Imputation(缺失值填充)
+Discretization(离散化)
+Mapping(映射)
+Normalization(归一化/标准化)
+Sampling(采样)：
+
+Simple Random Sampling(简单随机采样)
+Offline Sampling(离线等可能K采样)
+Online Sampling(在线等可能K采样)
+Ratio-based Sampling(等比例随机采样)
+Acceptance-rejection Sampling(接受-拒绝采样)
+Importance Sampling(重要性采样)
+MCMC(Markov Chain MonteCarlo 马尔科夫蒙特卡罗采样算法：Metropolis-Hasting&amp;amp; Gibbs)
+Clustering(聚类)：
+
+K-MeansK-Mediods
+二分K-Means
+FK-Means
+Canopy
+Spectral-KMeans(谱聚类)
+GMM-EM(混合高斯模型-期望最大化算法解决)
+K-Pototypes
+CLARANS(基于划分)
+BIRCH(基于层次)
+CURE(基于层次)
+STING(基于网格)
+CLIQUE(基于密度和基于网格)
+2014年Science上的密度聚类算法等
+Clustering Effectiveness Evaluation(聚类效果评估)：
+
+Purity(纯度)
+RI(Rand Index, 芮氏指标)
+ARI(Adjusted Rand Index, 调整的芮氏指标)
+NMI(Normalized Mutual Information, 规范化互信息)
+F-meaure(F测量)
+Classification&amp;amp;Regression(分类&amp;amp;回归)：
+
+LR(Linear Regression, 线性回归)
+LR(Logistic Regression, 逻辑回归)
+SR(Softmax Regression, 多分类逻辑回归)
+GLM(Generalized Linear Model, 广义线性模型)
+RR(Ridge Regression, 岭回归/L2正则最小二乘回归)，LASSO(Least Absolute Shrinkage and Selectionator Operator , L1正则最小二乘回归)
+DT(Decision Tree决策树)
+RF(Random Forest, 随机森林)
+GBDT(Gradient Boosting Decision Tree, 梯度下降决策树)
+CART(Classification And Regression Tree 分类回归树)
+KNN(K-Nearest Neighbor, K近邻)
+SVM(Support Vector Machine, 支持向量机, 包括SVC(分类)&amp;amp;SVR(回归))
+CBA(Classification based on Association Rule, 基于关联规则的分类)
+KF(Kernel Function, 核函数) 
+Polynomial Kernel Function(多项式核函数)
+Guassian Kernel Function(高斯核函数)
+Radial Basis Function(RBF径向基函数)
+String Kernel Function 字符串核函数
+NB(Naive Bayesian,朴素贝叶斯)
+BN(Bayesian Network/Bayesian Belief Network/Belief Network 贝叶斯网络/贝叶斯信度网络/信念网络)
+LDA(Linear Discriminant Analysis/Fisher Linear Discriminant 线性判别分析/Fisher线性判别)
+EL(Ensemble Learning, 集成学习) 
+Boosting
+Bagging
+Stacking
+AdaBoost(Adaptive Boosting 自适应增强)
+MEM(Maximum Entropy Model, 最大熵模型)
+Classification EffectivenessEvaluation(分类效果评估)：
+
+Confusion Matrix(混淆矩阵)
+Precision(精确度)
+Recall(召回率)
+Accuracy(准确率)
+F-score(F得分)
+ROC Curve(ROC曲线)
+AUC(AUC面积)
+Lift Curve(Lift曲线)
+KS Curve(KS曲线)
+PGM(Probabilistic Graphical Models, 概率图模型)：
+
+BN(BayesianNetwork/Bayesian Belief Network/ Belief Network , 贝叶斯网络/贝叶斯信度网络/信念网络)
+MC(Markov Chain, 马尔科夫链)
+MEM(Maximum Entropy Model, 最大熵模型)
+HMM(Hidden Markov Model, 马尔科夫模型)
+MEMM(Maximum Entropy Markov Model, 最大熵马尔科夫模型)
+CRF(Conditional Random Field,条件随机场)
+MRF(Markov Random Field, 马尔科夫随机场)
+Viterbi(维特比算法)
+NN(Neural Network, 神经网络)
+
+ANN(Artificial Neural Network, 人工神经网络)
+SNN(Static Neural Network, 静态神经网络)
+BP(Error Back Propagation, 误差反向传播)
+HN(Hopfield Network)
+DNN(Dynamic Neural Network, 动态神经网络)
+RNN(Recurrent Neural Network, 循环神经网络)
+SRN(Simple Recurrent Network, 简单的循环神经网络)
+ESN(Echo State Network, 回声状态网络)
+LSTM(Long Short Term Memory, 长短记忆神经网络)
+CW-RNN(Clockwork-Recurrent Neural Network, 时钟驱动循环神经网络, 2014ICML）等.
+Deep Learning(深度学习)：
+
+Auto-encoder(自动编码器)
+SAE(Stacked Auto-encoders堆叠自动编码器) 
+Sparse Auto-encoders(稀疏自动编码器)
+Denoising Auto-encoders(去噪自动编码器)
+Contractive Auto-encoders(收缩自动编码器)
+RBM(Restricted Boltzmann Machine, 受限玻尔兹曼机)
+DBN(Deep Belief Network, 深度信念网络)
+CNN(Convolutional Neural Network, 卷积神经网络)
+Word2Vec(词向量学习模型)
+Dimensionality Reduction(降维)：
+
+LDA(Linear Discriminant Analysis/Fisher Linear Discriminant, 线性判别分析/Fish线性判别)
+PCA(Principal Component Analysis, 主成分分析)
+ICA(Independent Component Analysis, 独立成分分析)
+SVD(Singular Value Decomposition 奇异值分解)
+FA(Factor Analysis 因子分析法)
+Text Mining(文本挖掘)：
+
+VSM(Vector Space Model, 向量空间模型)
+Word2Vec(词向量学习模型)
+TF(Term Frequency, 词频)
+TF-IDF(TermFrequency-Inverse Document Frequency, 词频-逆向文档频率)
+MI(Mutual Information, 互信息)
+ECE(Expected Cross Entropy, 期望交叉熵)
+QEMI(二次信息熵)
+IG(Information Gain, 信息增益)
+IGR(Information Gain Ratio, 信息增益率)
+Gini(基尼系数)
+x2 Statistic(x2统计量)
+TEW(Text Evidence Weight, 文本证据权)
+OR(Odds Ratio, 优势率)
+N-Gram Model
+LSA(Latent Semantic Analysis, 潜在语义分析)
+PLSA(Probabilistic Latent Semantic Analysis, 基于概率的潜在语义分析)
+LDA(Latent Dirichlet Allocation, 潜在狄利克雷模型)
+SLM(Statistical Language Model, 统计语言模型)
+NPLM(Neural Probabilistic Language Model, 神经概率语言模型)
+CBOW(Continuous Bag of Words Model, 连续词袋模型)
+Skip-gram(Skip-gram Model)
+Association Mining(关联挖掘)：
+
+Apriori算法
+FP-growth(Frequency Pattern Tree Growth, 频繁模式树生长算法)
+MSApriori(Multi Support-based Apriori, 基于多支持度的Apriori算法)
+GSpan(Graph-based Substructure Pattern Mining, 频繁子图挖掘)
+Sequential Patterns Analysis(序列模式分析)
+
+AprioriAll
+Spade
+GSP(Generalized Sequential Patterns, 广义序列模式)
+PrefixSpan
+Forecast(预测)
+
+LR(Linear Regression, 线性回归)
+SVR(Support Vector Regression, 支持向量机回归)
+ARIMA(Autoregressive Integrated Moving Average Model, 自回归积分滑动平均模型)
+GM(Gray Model, 灰色模型)
+BPNN(BP Neural Network, 反向传播神经网络)
+SRN(Simple Recurrent Network, 简单循环神经网络)
+LSTM(Long Short Term Memory, 长短记忆神经网络)
+CW-RNN(Clockwork Recurrent Neural Network, 时钟驱动循环神经网络)
+……
+Linked Analysis(链接分析)
+
+HITS(Hyperlink-Induced Topic Search, 基于超链接的主题检索算法)
+PageRank(网页排名)
+Recommendation Engine(推荐引擎)：
+
+SVD
+Slope One
+DBR(Demographic-based Recommendation, 基于人口统计学的推荐)
+CBR(Context-based Recommendation, 基于内容的推荐)
+CF(Collaborative Filtering, 协同过滤)
+UCF(User-based Collaborative Filtering Recommendation, 基于用户的协同过滤推荐)
+ICF(Item-based Collaborative Filtering Recommendation, 基于项目的协同过滤推荐)
+Similarity Measure&amp;amp;Distance Measure(相似性与距离度量)：
+
+EuclideanDistance(欧式距离)
+Chebyshev Distance(切比雪夫距离)
+Minkowski Distance(闵可夫斯基距离)
+Standardized EuclideanDistance(标准化欧氏距离)
+Mahalanobis Distance(马氏距离)
+Cos(Cosine, 余弦)
+Hamming Distance/Edit Distance(汉明距离/编辑距离)
+Jaccard Distance(杰卡德距离)
+Correlation Coefficient Distance(相关系数距离)
+Information Entropy(信息熵)
+KL(Kullback-Leibler Divergence, KL散度/Relative Entropy, 相对熵)
+Optimization(最优化)：
+
+Non-constrained Optimization(无约束优化)：
+
+Cyclic Variable Methods(变量轮换法)
+Variable Simplex Methods(可变单纯形法)
+Newton Methods(牛顿法)
+Quasi-Newton Methods(拟牛顿法)
+Conjugate Gradient Methods(共轭梯度法)。
+Constrained Optimization(有约束优化)：
+
+Approximation Programming Methods(近似规划法)
+Penalty Function Methods(罚函数法)
+Multiplier Methods(乘子法)。
+Heuristic Algorithm(启发式算法)
+SA(Simulated Annealing, 模拟退火算法)
+GA(Genetic Algorithm, 遗传算法)
+ACO(Ant Colony Optimization, 蚁群算法)
+Feature Selection(特征选择)：
+
+Mutual Information(互信息)
+Document Frequence(文档频率)
+Information Gain(信息增益)
+Chi-squared Test(卡方检验)
+Gini(基尼系数)
+Outlier Detection(异常点检测)：
+
+Statistic-based(基于统计)
+Density-based(基于密度)
+Clustering-based(基于聚类)。
+Learning to Rank(基于学习的排序)：
+
+Pointwise 
+McRank
+Pairwise 
+RankingSVM
+RankNet
+Frank
+RankBoost；
+Listwise 
+AdaRank
+SoftRank
+LamdaMART
+Tool(工具)：
+
+MPI
+Hadoop生态圈
+Spark
+IGraph
+BSP
+Weka
+Mahout
+Scikit-learn
+PyBrain
+Theano 
+&lt;/code&gt;&lt;/pre&gt;
+
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>岭回归-Lasso-多重共线性</title>
+      <link>/blog/cn/2017/09/ridgelasso/</link>
+      <pubDate>Fri, 22 Sep 2017 09:47:14 +0000</pubDate>
+      
+      <guid>/blog/cn/2017/09/ridgelasso/</guid>
+      <description>
+        
+
+&lt;p&gt;&lt;a href=&#34;http://f.dataguru.cn/thread-598486-1-1.html&#34;&gt;原文&lt;/a&gt;&lt;/p&gt;
+
+&lt;h1 id=&#34;1-回归问题的数学描述&#34;&gt;1. 回归问题的数学描述&lt;/h1&gt;
+
+&lt;p&gt;1.n个样本，p个变量，X，y已知。对数据中心化、标准化处理后，可以去掉截距项。
+&lt;img src=&#34;http://attachbak.dataguru.cn/attachments/forum/201602/29/145150y9utqyr9p0s99pk0.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;2.矩阵形式的多元线性模型为:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://attachbak.dataguru.cn/attachments/forum/201602/29/145822oknvx60lzl92v691.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;求解β，使得误差项ε能达到较低.&lt;/p&gt;
+
+&lt;p&gt;3.残差平方和RSS为&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://attachbak.dataguru.cn/attachments/forum/201602/29/151838z32fr356n52in5m3.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;4.多元线性回归问题变为求解β，从而使残差平方和极小值问题（关于系数向量β的二次函数极值问题）&lt;/p&gt;
+
+&lt;p&gt;5.几何意义&lt;/p&gt;
+
+&lt;p&gt;残差向量的几何意义：响应y向量到由p个x向量组成的超平面的距离向量。&lt;br&gt;
+残差平方和几何意义：残差向量长度的平方。&lt;/p&gt;
+
+&lt;h1 id=&#34;2-最小二乘回归&#34;&gt;2.最小二乘回归&lt;/h1&gt;
+
+&lt;p&gt;β的最小二乘估计为：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://attachbak.dataguru.cn/attachments/forum/201602/29/170846uzhmw4wrcvwhkazy.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;在统计学上，可证明β的最小二乘解为无偏估计，即多次得到的采样值X而计算出来的多个系数估计值向量的平均值将无限接近于真实值向量β。&lt;/p&gt;
+
+&lt;p&gt;如果存在较强的共线性，即X中各列向量之间存在较强的相关性，会导致|X^T X|≈0, 从而引起对角线上的值很大(X^T X的逆矩阵不不存在)&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;问题： X矩阵不存在广义逆（即奇异性）的情况。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;X本身存在线性相关关系（即多重共线性），即非满秩矩阵。当采样值误差造成本身线性相关的样本矩阵仍然可以求出逆阵时，此时的逆阵非常不稳定，所求的解也没有什么意义。&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;当变量比样本多，即p&amp;gt;n时.回归系数会变得很大，无法求解。&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&#34;3-岭回归-ridge-regression-rr-1962&#34;&gt;3.岭回归（Ridge Regression，RR, 1962）&lt;/h1&gt;
+
+&lt;p&gt;思路：在原先的β的最小二乘估计中加一个小扰动λI，是原先无法求广义逆的情况变成可以求出其广义逆，使得问题稳定并得以求解。&lt;/p&gt;
+
+&lt;p&gt;极值问题：
+&lt;img src=&#34;http://attachbak.dataguru.cn/attachments/forum/201603/01/083631kd5q6mjtdjwyuy15.jpg&#34; alt=&#34;&#34; /&gt;
+&lt;img src=&#34;http://attachbak.dataguru.cn/attachments/forum/201603/01/083802zffpx1zf6mlzf3ax.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;对上式用偏导数求极值，结果就是&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://attachbak.dataguru.cn/attachments/forum/201603/01/160953w8k63tvoa76wpw18.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;其中&lt;img src=&#34;http://attachbak.dataguru.cn/attachments/forum/201603/01/083451yxgvv2oacxvaaau4.jpg&#34; alt=&#34;&#34; /&gt;为惩罚函数，它保证了β值不会变的很大。岭参数λ不同，岭回归系数也会不同。&lt;/p&gt;
+
+&lt;p&gt;岭回归是回归参数β的有偏估计。它的结果是使得残差平和变大，但是会使系数检验变好，即R语言summary结果中变量后的*变多。&lt;/p&gt;
+
+&lt;p&gt;岭回归缺陷:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;1.主要靠目测选择岭参数&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;2.计算岭参数时，各种方法结果差异较大&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;所以一般认为，岭迹图只能看多重共线性，却很难做变量筛选&lt;/p&gt;
+
+&lt;h1 id=&#34;4-几何解释&#34;&gt;4.几何解释&lt;/h1&gt;
+
+&lt;p&gt;以两个变量为例，系数β1和β2已经经过标准化。残差平方和RSS可以表示为β1和β2的一个二次函数，数学上可以用一个抛物面表示。&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;最小二乘法&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://attachbak.dataguru.cn/attachments/forum/201603/01/153022dvegnfni1s9d9eov.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;2.岭回归&lt;/p&gt;
+
+&lt;p&gt;约束项为 β1^2+β2^2≤t&lt;/p&gt;
+
+&lt;p&gt;对应着投影为β1和β2平面上的一个圆，即下图中的圆柱.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://attachbak.dataguru.cn/attachments/forum/201603/01/154311l7qrvvmtq93grvmw.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;该圆柱与抛物面的交点对应的β1、β2值，即为满足约束项条件下的能取得的最小的β1和β2.&lt;/p&gt;
+
+&lt;p&gt;从β1,β2平面理解，即为抛物面等高线在水平面的投影和圆的交点，如下图所示,可见岭回归解与原先的最小二乘解是有一定距离的。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://attachbak.dataguru.cn/attachments/forum/201603/03/110921ybbab0oq9tbn9qpf.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;3.岭回归性质&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://taoshengxu.github.io/DocumentGit/img/Ridge20170922104329.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;4.岭迹图&lt;/p&gt;
+
+&lt;p&gt;岭迹图作用：&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;1）观察λ较佳取值；&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;2）观察变量是否有多重共线性；&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;是λ的函数，岭迹图的横坐标为λ，纵坐标为β(λ)。而β(λ)是一个向量，由β1(λ)、β2(λ)、&amp;hellip;等很多分量组成，每一个分量都是λ的函数，将每一个分量分别用一条线。当不存在奇异性时，岭迹应是稳定地逐渐趋向于0。
+&lt;img src=&#34;http://attachbak.dataguru.cn/attachments/forum/201603/04/173356ws06xw7xqov8wc0o.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;岭迹图比较&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://taoshengxu.github.io/DocumentGit/img/Ridge20170922154100.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;通过岭迹的形状来判断我们是否要剔除掉该参数（例如：岭迹波动很大，说明该变量参数有共线性）&lt;/p&gt;
+
+&lt;p&gt;可见，在λ很小时，通常各β系数取值较大；而如果λ=0，则跟普通意义的多元线性回归的最小二乘解完全一样；当λ略有增大，则各β系数取值迅速减小，即从不稳定趋于稳定。上图类似喇叭形状的岭迹图，一般都存在多重共线性。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;λ的选择：一般通过观察，选取喇叭口附近的值，此时各β值已趋于稳定，但总的RSS又不是很大。&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;选择变量：删除那些β取值一直趋于0的变量。&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;注意：用岭迹图筛选变量并非十分靠谱。&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;岭回归选择变量的原则（不靠谱，仅供参考）
+* 1）在岭回归中设计矩阵X已经中心化和标准化了，这样可以直接比较标准化岭回归系数癿大小。可以剔除掉标准化岭回归系数比较稳定且值很小癿自变量。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;2）随着λ的增加，回归系数不稳定，震动趋于零的自变量也可以剔除。&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;3）如果依照上述去掉变量的原则，有若干个回归系数不稳定，究竟去掉几个，去掉哪几个，这幵无一般原则可循，这需根据去掉某个变量后重新进行岭回归分析的效果来确定。&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;5.岭回归R语言分析&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-R&#34;&gt;library(MASS)#岭回归在MASS包中。
+longley #内置数据集，有关国民经济情况的数据，以多重共线性较强著称
+summary(fm1&amp;lt;-lm(Employed~.,data=longley)) #最小二乘估计的多元线性回归
+#结果可见，R^2很高，但是系数检验不是非常理想
+names(longley)[1]&amp;lt;-&amp;quot;y&amp;quot;  
+lm.ridge(y~.,longley)   #此时，仍为线性回归
+plot(lm.ridge(y~.,longley,lambda=seq(0,0.1,0.001)))  #加了参数lambda的描述后才画出响应的岭迹图
+#由于lambda趋于0时，出现了不稳定的情况，所以可以断定变量中存在多重共线性
+select(lm.ridge(y~.,longley,lambda=seq(0,0.1,0.001)))  #用select函数可算lambda值，结果给出了3种方法算的的lambda的估计值
+
+## modified HKB estimator is 0.006836982 
+## modified L-W estimator is 0.05267247 
+## smallest value of GCV  at 0.006 
+
+#以上结果通常取GCV估计，或者观察大多数方法趋近哪个值。
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://attachbak.dataguru.cn/attachments/forum/201603/04/180759vkgxxkvjtvkozvvx.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;h1 id=&#34;5-lasso&#34;&gt;5. LASSO&lt;/h1&gt;
+
+&lt;p&gt;Tibshirani(1996)提出了Lasso(The Least Absolute Shrinkage and Selectionatoroperator)算法，这里  Absolute 指绝对值。Shrinkage收缩的含义：即系数收缩在一定区域内（比如圆内）。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;主要思想&lt;/strong&gt;：
+通过构造一个一阶惩罚函数获得一个精炼的模型；通过最终确定一些指标（变量）癿系数为零（岭回归估计系数等于0癿机会微乎其微，造成筛选变量困难），解释力很强。擅长处理具有多重共线性癿数据，筛选变量，与岭回归一样是有偏估计。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://attachbak.dataguru.cn/attachments/forum/201603/04/215937llmsx53dfu3fdg6l.jpg&#34; alt=&#34;&#34; /&gt;
+&lt;img src=&#34;http://attachbak.dataguru.cn/attachments/forum/201603/04/215611cb0x1eudd6obhi8z.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;几何解释&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://attachbak.dataguru.cn/attachments/forum/201603/04/220811s52a7l3326a351i3.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;由于方框的顶点更容易交于抛物面，也就是lasso更易求解，而该顶点对应的很多系数为0，也就是起到了筛选变量的目的。&lt;/p&gt;
+
+&lt;h1 id=&#34;6-lasso-vs-岭回归&#34;&gt;6.LASSO vs 岭回归&lt;/h1&gt;
+
+&lt;p&gt;岭回归一方面可以将其变成一个最小二乘问题。另一方面可以将它解释成一个带约束项的系数优化问题。λ增大的过程就是t减小的过程，该图也说明了岭回归系数估计值为什么通常不为0，因为随着抛物面的扩展，它与约束圆的交点可能在圆周上的任意位置，除非交点恰好位于某个坐标轴或坐标平面上，否则大多数情况交点对应的系数值都不为零。再加上λ的选择应使椭球面和圆周的交点恰好在一个坐标平面上，更增加了求解λ的难度。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://attachbak.dataguru.cn/attachments/forum/201603/04/222225tr9tt44tn768b45t.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;左图为岭回归，右图为lasso回归。横轴越往左，自由度越小（即圆或方框在收缩的过程），λ越大，系数（即纵轴）会越趋于0。但是岭回归没有系数真正为0，但lasso的不断有系数变为0.&lt;/p&gt;
+
+&lt;h1 id=&#34;7-一般化的模型&#34;&gt;7.一般化的模型&lt;/h1&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://attachbak.dataguru.cn/attachments/forum/201603/04/222650guccc8yvc8jnxh7j.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;不同q对应的约束域形状&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://attachbak.dataguru.cn/attachments/forum/201603/04/222758pwesenw44c4ilds5.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;h1 id=&#34;8-弹性网模型&#34;&gt;8.弹性网模型&lt;/h1&gt;
+
+&lt;p&gt;Zouand Hastie (2005)提出elasticnet，介于岭回归和lasso回归之间，现在被认为是处理多重共线性和变量筛选较好的收缩方法，而且损失的精度不会太多。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://attachbak.dataguru.cn/attachments/forum/201603/04/223232tlg6lnnnvlxflhmc.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;h1 id=&#34;9-最小角回归-least-angel-regression-是lasso-regression癿一种高效解法&#34;&gt;9.最小角回归(Least Angel Regression)是lasso regression癿一种高效解法。&lt;/h1&gt;
+
+&lt;p&gt;Lasso回归中表达式用偏导求极值时，存在部分点不可导的情况（如方框的尖点），如何解决？&lt;/p&gt;
+
+&lt;p&gt;Efron于2004年提出癿一种变量选择癿方法，&lt;strong&gt;类似于&lt;/strong&gt;向前逐步回归(Forward Stepwise)的形式，最初用于解决传统的线性回归问题，有清晰的几何意义。&lt;/p&gt;
+
+&lt;p&gt;与向前逐步回归(Forward Stepwise)不同点在于，Forward Step wise 每次都是根据选择的变量子集，完全拟合出线性模型，计算出RSS，再设计统计量（如AIC）对较高癿模型复杂度作出惩罚，而LAR是每次先找出和因变量相关度较高的那个变量, 再沿着LSE的方向一点点调整这个predictor的系数，在这个过程中，这个变量和残差的相关系数会逐渐减小，等到这个相关性没那么显著的时候，就要选进新的相关性较高的变量，然后重新沿着LSE的方向进行变动。而到最后，所有变量都被选中，就和LSE相同了。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://attachbak.dataguru.cn/attachments/forum/201603/05/103533pkjgm1gjjz0kyj2f.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;左图为LAR逐步加上变量的过程（从左往右看），右图为LASSO变量逐渐淘汰的收缩过程（从右往左看）。
+对比两幅图，非常类似。所以可以用LAR方法来计算LASSO，该方法完全是线性解决方法，没有迭代的过程。&lt;/p&gt;
+
+&lt;h1 id=&#34;10-相关系数的几何意义&#34;&gt;10. 相关系数的几何意义&lt;/h1&gt;
+
+&lt;p&gt;设变量y=[y1,y2,&amp;hellip;yn]; 变量x=[x1,x2,&amp;hellip;,xn].&lt;/p&gt;
+
+&lt;p&gt;其相关系数为&lt;img src=&#34;http://attachbak.dataguru.cn/attachments/forum/201603/05/104719un7jmmy6q0xx6j0z.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;其中cov&amp;ndash;协方差、var&amp;mdash;方差。&lt;/p&gt;
+
+&lt;p&gt;如果对x和y进行中心化、标准化，则var(y)=var(x)=1,相关系数变为x1y1+x2y2+&amp;hellip;.+xnyn，即为向量x和y的内积=||x||&lt;em&gt;||y||&lt;/em&gt;cos θ，其中θ为x和y的夹角。而对于标准化和中心化后的x和y，则有||x||=||y||=1，所以此时x和y的内积就是它们夹角的余弦。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;如果x和y向量很像，几乎重合，则夹角θ=0，也就是相关系数=内积=1，此时称为高度相关.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;如果x和y相关程度很低，则表现出来的x和y向量相互垂直，相关系数=0.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;如果相关系数=-1，标明x和y呈180°，即负相关。&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&#34;11-lar算法及几何意义&#34;&gt;11. LAR算法及几何意义&lt;/h1&gt;
+
+&lt;p&gt;参考书The Elements of Statistical Learning .pdf的74页。LAR和Lasso的区别以及LAR解Lasso的修正
+参考书The Elements of Statistical Learning .pdf的76页。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://attachbak.dataguru.cn/attachments/forum/201603/05/163655y8vuo2dqdu7jo66b.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;假设有6个变量，最先加入与残差向量相关系数较大的浅蓝色v2，在v2变化过程中，相关系数越变越小，直到等于深蓝色的v6，于是加入v6，沿着v2与v6的最小角方向（即向量角分线方向）前进，此后v2和v6与残差向量的相关系数是共同变化的，即两者合并变化，使得相关系数越来越小，直到加入黑色v4为止，三个变量一起变化，&amp;hellip;，一直打到最小二乘解为止，此时残差向量与所有变量的相关系数都为0，即与他们都垂直。&lt;/p&gt;
+
+&lt;p&gt;横坐标L1 Length表示：从原点开始走了多长距离，就是值距离，L1范数。&lt;/p&gt;
+
+&lt;h1 id=&#34;12-r语言中对lar的实现&#34;&gt;12. R语言中对LAR的实现&lt;/h1&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-R&#34;&gt;install.packages(&amp;quot;lars&amp;quot;)  #lars包
+longley  #用longley数据集，它是一个著名的多重共线性例子
+w=as.matrix(longley)  #将数据集转换为一个矩阵
+
+laa=lars(w[,2:7],w[,1]) #w的2:7列为自变量，第1列为因变量
+laa  #显示LAR回归过程
+
+##Call:
+##lars(x = w[, 2:7], y = w[, 1])
+##R-squared: 0.993 
+##Sequence of LASSO moves:
+##     GNP Year Armed.Forces Unemployed Employed Population Year Employed   Employed Year Employed Employed
+##Var    1    5            3                   2                   6           4          -5           -6            6             5  -6        6                                                 
+##Step  1    2            3                   4                   5           6           7          8             9             10  11       12 
+
+
+plot(laa)  #画lasso回归过程图
+summary(laa)
+
+#以上结果显示了每一步的残差平方和RSS和多重共线性指标Cp（Mallows&#39;s Cp http://en.wikipedia.org/wiki/Mallows%27_Cp）
+#Cp越小，多重共线性越小，因此结果以第八步为准，即只剩下第1、2、3、4个变量
+&lt;/code&gt;&lt;/pre&gt;
+
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>Cox 分层原理</title>
+      <link>/blog/cn/2017/09/coxstratified/</link>
+      <pubDate>Wed, 13 Sep 2017 12:43:10 +0000</pubDate>
+      
+      <guid>/blog/cn/2017/09/coxstratified/</guid>
+      <description>
+        
+
+&lt;p&gt;&lt;a href=&#34;https://taoshengxu.github.io/DocumentGit/pdf/Cox+Stratified.pdf&#34;&gt;PPT&lt;/a&gt;&lt;/p&gt;
+
+&lt;h1 id=&#34;首先理解为什么cox模型会对协变量分层处理&#34;&gt;首先理解为什么COX模型会对协变量分层处理？&lt;/h1&gt;
+
+&lt;p&gt;需要分层的变量不满足PH假设，需要分层处理。&lt;/p&gt;
+
+&lt;h1 id=&#34;如何确定-协变量不满足ph假设&#34;&gt;如何确定 协变量不满足PH假设？&lt;/h1&gt;
+
+&lt;p&gt;首先对需要研究的协变量进行多协变量COX回归，挑出不满足PH假设的协变量&lt;/p&gt;
+
+&lt;h1 id=&#34;cross-validated-partial-likelihood-cvpl-for-the-cox-model&#34;&gt;Cross-validated partial likelihood (CVPL) for the Cox model&lt;/h1&gt;
+
+&lt;p&gt;cvpl {in Package survcomp} function&lt;/p&gt;
+
+&lt;h1 id=&#34;toc_3&#34;&gt;&amp;hellip;&lt;/h1&gt;
+
+&lt;p&gt;如果得到一个Subtypes 信息，对subtype分层进行 协变量为 age的COX 回归。目的是研究在不同亚型内，age 是否为影响生存预后的重要因素。&lt;/p&gt;
+
+        
+      </description>
+    </item>
     
     <item>
       <title>混淆矩阵（confusion matrix）</title>
