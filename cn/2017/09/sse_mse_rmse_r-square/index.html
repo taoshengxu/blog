@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <title>SSE, MSE, RMSE, R-square - My Lives</title>
+    <meta property="og:title" content="SSE, MSE, RMSE, R-square - My Lives">
+    
+
+    
+      
+    
+
+    
+
+    
+    
+
+
+<link href='//cdn.bootcss.com/highlight.js/9.12.0/styles/github.min.css' rel='stylesheet' type='text/css' />
+
+
+
+    <link rel="stylesheet" href="/blog/css/style.css" />
+    <link rel="stylesheet" href="/blog/css/fonts.css" />
+    <link rel="stylesheet" href="/blog/css/custom.css" />
+
+  </head>
+
+  
+  <body class="blog">
+    <header class="masthead">
+      <h1><a href="/blog/">My Lives</a></h1>
+
+
+
+      <nav class="menu">
+        <input id="menu-check" type="checkbox" />
+        <label id="menu-label" for="menu-check" class="unselectable">
+          <span class="icon close-icon">✕</span>
+          <span class="icon open-icon">☰</span>
+          <span class="text">Menu</span>
+        </label>
+        <ul>
+        
+        
+        <li><a href="/blog/">Home</a></li>
+        
+        <li><a href="/blog/en/">English</a></li>
+        
+        <li><a href="/blog/cn/">Chinese</a></li>
+        
+        <li><a href="/blog/travel/">Travel</a></li>
+        
+        
+        </ul>
+      </nav>
+    </header>
+
+    <article class="main">
+      <header class="title">
+      
+<h1>SSE, MSE, RMSE, R-square</h1>
+
+<h3>
+  2017-09-22</h3>
+<hr>
+
+
+      </header>
+
+
+
+
+
+<pre><code>SSE(和方差、误差平方和)：The sum of squares due to error
+MSE(均方误、方差)：Mean squared error
+RMSE(均方根、标准差)：Root mean squared error
+R-square(确定系数)：Coefficient of determination
+Adjusted R-square：Degree-of-freedom adjusted coefficient of determination
+</code></pre>
+
+<h1 id="sse-和方差-误差平方和">SSE(和方差、误差平方和)</h1>
+
+<p>拟合数据和原始数据对应点的误差的平方和</p>
+
+<p><img src="https://taoshengxu.github.io/DocumentGit/img/628033fa48bb1eb1a0879&amp;690.gif" alt="" /></p>
+
+<p>SSE越接近于0，说明模型选择和拟合更好，数据预测也越成功。接下来的MSE和RMSE因为和SSE是同出一宗，所以效果一样。</p>
+
+<h1 id="mse-均方误">MSE(均方误)</h1>
+
+<p>预测数据和原始数据对应点误差的平方和的均值，也就是SSE/n，和SSE没有太大的区别，<strong>最常用</strong>！</p>
+
+<p><img src="https://taoshengxu.github.io/DocumentGit/img/628033fa48bb1ebfee394&amp;690.gif" alt="" /></p>
+
+<h1 id="rmse-均方根">RMSE(均方根)</h1>
+
+<p>回归系统的拟合标准差，是MSE的平方根，就算公式如下</p>
+
+<p><img src="https://taoshengxu.github.io/DocumentGit/img/628033fa48bb1ec86542a690.gif" alt="" /></p>
+
+<hr />
+
+<p><strong>在这之前，我们所有的误差参数都是基于预测值(y<em>hat)和原始值(y)之间的误差(即点对点)。从下面开始是所有的误差都是相对原始数据平均值(y</em>ba)而展开的(即点对全)</strong></p>
+
+<hr />
+
+<h1 id="r-square-确定系数">R-square(确定系数)</h1>
+
+<h4 id="1-ssr-sum-of-squares-of-the-regression-即预测数据与原始数据均值之差的平方和">(1)SSR：Sum of squares of the regression，即预测数据与原始数据均值之差的平方和</h4>
+
+<p><img src="https://taoshengxu.github.io/DocumentGit/img/628033fa48bb1ed5dd403&amp;690.gif" alt="" /></p>
+
+<h4 id="2-sst-total-sum-of-squares-即原始数据和均值之差的平方和">(2)SST：Total sum of squares，即原始数据和均值之差的平方和</h4>
+
+<p><img src="https://taoshengxu.github.io/DocumentGit/img/628033fa48bb1ede9b464&amp;690.gif" alt="" /></p>
+
+<p>SST=SSE+SSR</p>
+
+<p>“确定系数”是定义为SSR和SST的比值</p>
+
+<p><img src="https://taoshengxu.github.io/DocumentGit/img/628033fa48bb1ee8ee0fa&amp;690.gif" alt="" /></p>
+
+<p><strong>R-square是通过数据的变化来表征一个拟合的好坏。由上面的表达式可以知道“确定系数”的正常取值范围为[0 1]，越接近1，表明方程的变量对y的解释能力越强，这个模型对数据拟合的也较好。</strong></p>
+
+<hr />
+
+<p><img src="https://taoshengxu.github.io/DocumentGit/img/MSE_RMSE.jpg" alt="" /></p>
+
+<p><img src="https://taoshengxu.github.io/DocumentGit/img/MAE.jpg" alt="" /></p>
+
+
+  <footer>
+  
+<nav class="post-nav">
+  <span class="nav-prev">&larr; <a href="/blog/cn/2017/09/datamining_concept/">常见的机器学习&amp;数据挖掘知识点</a></span>
+  <span class="nav-next"><a href="/blog/cn/2017/09/aic_bic/">模型选择准则之AIC和BIC</a> &rarr;</span>
+</nav>
+
+
+
+
+
+<script src="//yihui.name/js/math-code.js"></script>
+<script async src="//cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+<script async src="//yihui.name/js/center-img.js"></script>
+
+  
+
+
+
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+
+
+
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/r.min.js"></script>
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/yaml.min.js"></script>
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/tex.min.js"></script>
+<script>hljs.configure({languages: []}); hljs.initHighlightingOnLoad();</script>
+
+
+
+  
+  <hr>
+  <div class="copyright">&copy; <a href="xxxx">Who care</a> 2017 - Forever, maybe</div>
+  
+  </footer>
+  </article>
+  
+  </body>
+</html>
+

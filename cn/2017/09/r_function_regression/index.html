@@ -117,6 +117,8 @@ I（） | 从算术的角度来解释括号中的元素。Eg：y~x+(z+w)^2将展
 function | 可以在表达式中用的数学函数，例如log(y)~x+z+w表示通过x、z和w来预测log(y)
 </code></pre>
 
+<p><strong>交互项</strong>是指你的几个变量一块生成了一个新的影响，比如不同性别的不同专业可能会对成绩有不同的影响，性别影响成绩，专业影响成绩，但是性别和专业和在一起又产生新影响。这时候就需要交互项。具体用不用看你的方程,一般不用。</p>
+
 <p><strong>对拟合线性模型非常有用的其他函数</strong></p>
 
 <pre><code>函数 用途
@@ -133,7 +135,7 @@ Plot（）生成评价拟合模型的诊断图
 Predict（）用拟合模型对新的数据集预测响应变量值
 </code></pre>
 
-<h1 id="3-r-语言示例">3. R 语言示例</h1>
+<h1 id="3-r-语言示例lm">3. R 语言示例lm()</h1>
 
 <pre><code class="language-r">fit&lt;-lm(weight~height,data=women)  
 summary(fit)
@@ -149,6 +151,59 @@ plot(women$height,women$weight,
      ylab=&quot;Weight（in pounds）&quot;)  
 abline(fit)  
 </code></pre>
+
+<h1 id="4-多项式回归">4.多项式回归</h1>
+
+<pre><code class="language-r">fit2&lt;-lm(weight~height+I(height^2),data=women)  
+summary(fit2)
+plot(women$height,women$weight,  
+     xlab=&quot;Height（in inches）&quot;,  
+     ylab=&quot;Weight（in lbs）&quot;)  
+lines(women$height,fitted(fit2)) 
+
+#一般来说，n次多项式生成一个n-1个弯曲的曲线
+#car包中的scatterplot（）函数，可以很容易、方便地绘制二元关系图
+library(car)
+scatterplot(weight~height,  
+            data=women,  
+            spread=FALSE,  
+            lty.smooth=2,  
+            pch=19,  
+            main=&quot;Women Age 30-39&quot;,  
+            xlab=&quot;Height (inches)&quot;,  
+            ylab=&quot;Weight(lbs.)&quot;) 
+</code></pre>
+
+<h1 id="6-多元线性回归">6.多元线性回归</h1>
+
+<pre><code class="language-r">states&lt;-as.data.frame(state.x77[,c(&quot;Murder&quot;,&quot;Population&quot;,&quot;Illiteracy&quot;,&quot;Income&quot;,&quot;Frost&quot;)])
+cor(states)  
+scatterplotMatrix(states,spread=FALSE,lty.smooth=2,main=&quot;Scatter Plot Matrix&quot;)
+#scatterplotMatrix（）函数默认在非对角线区域绘制变量间的散点图，并添加平滑（loess）和线性拟合曲线
+#多元线性回归
+fit&lt;-lm(Murder~Population+Illiteracy+Income+Frost,data=states)  
+summary(fit)
+</code></pre>
+
+<h1 id="7-有交互项的多元线性回归">7.有交互项的多元线性回归</h1>
+
+<pre><code class="language-r">fit&lt;-lm(mpg~hp+wt+hp:wt,data=mtcars)  
+summary(fit)  
+# 通过effects包中的effect（）函数，可以用图形展示交互项的结果
+install.packages(&quot;effects&quot;)  
+library(effects)  
+plot(effect(&quot;hp:wt&quot;,fit,  
+            list(wt=c(2.2,3.2,4.2))),multiline=TRUE)
+            
+# 二次拟合诊断图
+fit2&lt;-lm(weight~height+I(height^2),data=women)  
+par(mfrow=c(2,2))  
+plot(fit2)           
+</code></pre>
+
+<h1 id="8-q-q-图-quantile-quantile">8. Q-Q 图(Quantile - Quantile)</h1>
+
+<p>在验证一份数据是否属于正态分布的时候，我们经常会先画一幅Q-Q图，视觉上感受一下这份数据是否属于正态分布的，只要大部分的数据都飘在一条直线上，那么我们就可以基本上肯定这份数据是正态分布的了。</p>
 
 
   <footer>
