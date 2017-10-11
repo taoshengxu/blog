@@ -265,6 +265,10 @@ select(lm.ridge(y~.,longley,lambda=seq(0,0.1,0.001)))  #用select函数可算lam
 
 <p>由于方框的顶点更容易交于抛物面，也就是lasso更易求解，而该顶点对应的很多系数为0，也就是起到了筛选变量的目的。</p>
 
+<p><strong>Lasso plot</strong></p>
+
+<p><img src="https://taoshengxu.github.io/DocumentGit/img/lasso20171011231500.png" alt="https://taoshengxu.github.io/DocumentGit/img/lasso20171011231500.png" /></p>
+
 <h1 id="6-lasso-vs-岭回归">6.LASSO vs 岭回归</h1>
 
 <p>岭回归一方面可以将其变成一个最小二乘问题。另一方面可以将它解释成一个带约束项的系数优化问题。λ增大的过程就是t减小的过程，该图也说明了岭回归系数估计值为什么通常不为0，因为随着抛物面的扩展，它与约束圆的交点可能在圆周上的任意位置，除非交点恰好位于某个坐标轴或坐标平面上，否则大多数情况交点对应的系数值都不为零。再加上λ的选择应使椭球面和圆周的交点恰好在一个坐标平面上，更增加了求解λ的难度。</p>
@@ -470,7 +474,13 @@ mean((ridge.pred - y[test])^2)
 
 <p>lambda.1se:   largest value of lambda such that error is within 1 standard error of the minimum.</p>
 
-<p>关于这两个输出值的使用，似乎有点混乱。看了很多网上的讨论推荐使用lambda.1se的比较多，这样可以得到更简洁的模型。 涉及到所谓的1-SE rule。 “one standard error” rule to select the best model, i.e. selecting the most parsimonious model from the subset of models whose score is within one standard error of the best score.但是还有这样的说法：1se rule在低noise的时候才好用高noise的时候，有一两个fold的error很大，cv curve就会增长很快，导致选的lambda太大。 还请高人指点啊！</p>
+<p>关于这两个输出值的使用，似乎有点混乱。看了很多网上的讨论推荐使用lambda.1se的比较多，这样可以得到更简洁的模型。 涉及到所谓的1-SE rule。 “one standard error” rule to select the best model, i.e. selecting the most parsimonious model from the subset of models whose score is within one standard error of the best score.但是还有这样的说法：1se rule在低noise的时候才好用高noise的时候，有一两个fold的error很大，cv curve就会增长很快，导致选的lambda太大。</p>
+
+<h1 id="14-glmnet-vignettes-非常易读-有益理解">14.glmnet Vignettes 非常易读，有益理解</h1>
+
+<p><a href="https://cran.r-project.org/web/packages/glmnet/vignettes/glmnet_beta.pdf">https://cran.r-project.org/web/packages/glmnet/vignettes/glmnet_beta.pdf</a></p>
+
+<p><a href="https://cran.r-project.org/web/packages/glmnet/vignettes/Coxnet.pdf">https://cran.r-project.org/web/packages/glmnet/vignettes/Coxnet.pdf</a></p>
 
 
   <footer>
