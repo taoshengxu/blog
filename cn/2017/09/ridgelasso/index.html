@@ -267,7 +267,26 @@ select(lm.ridge(y~.,longley,lambda=seq(0,0.1,0.001)))  #用select函数可算lam
 
 <p><strong>Lasso plot</strong></p>
 
-<p><img src="https://taoshengxu.github.io/DocumentGit/img/lasso201710112315.png" alt="" /></p>
+<pre><code class="language-r">set.seed(101)
+x=matrix(rnorm(1000),100,10)
+y=rnorm(100)
+fit=glmnet(x,y)
+
+par(mfrow=c(1,3))
+#par(mar=c(4.5,4.5,1,4))
+##plot1
+plot(fit)
+vnat=coef(fit)
+vnat=vnat[-1,ncol(vnat)] # remove the intercept, and get the coefficients at the end of the path
+axis(4, at=vnat,line=-.5,label=paste(&quot;feature&quot;,1:10),las=1,tick=FALSE, cex.axis=0.5)
+#plot2
+plot(fit, xvar = &quot;lambda&quot;)
+# plot3
+plot(fit, xvar = &quot;dev&quot;)
+</code></pre>
+
+<p><img src="https://taoshengxu.github.io/DocumentGit/img/lasso201710112315.jpeg" alt="" />
+<img src="https://taoshengxu.github.io/DocumentGit/img/lasso201710112315.png" alt="" /></p>
 
 <h1 id="6-lasso-vs-岭回归">6.LASSO vs 岭回归</h1>
 

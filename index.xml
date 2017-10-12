@@ -900,7 +900,26 @@ select(lm.ridge(y~.,longley,lambda=seq(0,0.1,0.001)))  #用select函数可算lam
 
 &lt;p&gt;&lt;strong&gt;Lasso plot&lt;/strong&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;https://taoshengxu.github.io/DocumentGit/img/lasso201710112315.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;set.seed(101)
+x=matrix(rnorm(1000),100,10)
+y=rnorm(100)
+fit=glmnet(x,y)
+
+par(mfrow=c(1,3))
+#par(mar=c(4.5,4.5,1,4))
+##plot1
+plot(fit)
+vnat=coef(fit)
+vnat=vnat[-1,ncol(vnat)] # remove the intercept, and get the coefficients at the end of the path
+axis(4, at=vnat,line=-.5,label=paste(&amp;quot;feature&amp;quot;,1:10),las=1,tick=FALSE, cex.axis=0.5)
+#plot2
+plot(fit, xvar = &amp;quot;lambda&amp;quot;)
+# plot3
+plot(fit, xvar = &amp;quot;dev&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://taoshengxu.github.io/DocumentGit/img/lasso201710112315.jpeg&#34; alt=&#34;&#34; /&gt;
+&lt;img src=&#34;https://taoshengxu.github.io/DocumentGit/img/lasso201710112315.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
 
 &lt;h1 id=&#34;6-lasso-vs-岭回归&#34;&gt;6.LASSO vs 岭回归&lt;/h1&gt;
 
