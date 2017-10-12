@@ -900,7 +900,7 @@ select(lm.ridge(y~.,longley,lambda=seq(0,0.1,0.001)))  #用select函数可算lam
 
 &lt;p&gt;&lt;strong&gt;Lasso plot&lt;/strong&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;https://taoshengxu.github.io/DocumentGit/img/lasso20171011231500.png&#34; alt=&#34;https://taoshengxu.github.io/DocumentGit/img/lasso20171011231500.png&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://taoshengxu.github.io/DocumentGit/img/lasso201710112315.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
 
 &lt;h1 id=&#34;6-lasso-vs-岭回归&#34;&gt;6.LASSO vs 岭回归&lt;/h1&gt;
 
