@@ -10,6 +10,521 @@
     <atom:link href="/blog/" rel="self" type="application/rss+xml" />
     
     <item>
+      <title>R统计分析 </title>
+      <link>/blog/cn/2017/10/r_statistics/</link>
+      <pubDate>Fri, 13 Oct 2017 11:12:29 +0000</pubDate>
+      
+      <guid>/blog/cn/2017/10/r_statistics/</guid>
+      <description>
+        
+
+&lt;script type=&#34;text/javascript&#34; src=&#34;http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML&#34;&gt;&lt;/script&gt;
+
+&lt;h1 id=&#34;概率分布&#34;&gt;概率分布&lt;/h1&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://taoshengxu.github.io/DocumentGit/img/R_probility.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;h1 id=&#34;样本抽样&#34;&gt;样本抽样&lt;/h1&gt;
+
+&lt;h4 id=&#34;1-简单随机抽样&#34;&gt;1. 简单随机抽样&lt;/h4&gt;
+
+&lt;pre&gt;&lt;code&gt;sample(x,size,replace=FALSE,
+       prob #数据被抽取的权重值)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h4 id=&#34;2-按权重的样本抽样&#34;&gt;2. 按权重的样本抽样&lt;/h4&gt;
+
+&lt;pre&gt;&lt;code&gt;sample(1:10,5,replace=TRUE,prob=1:10)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h4 id=&#34;3-分层随机抽样&#34;&gt;3. 分层随机抽样&lt;/h4&gt;
+
+&lt;p&gt;例如：男性占20%，女性占80%，如果通过抽样来统计组群的平均身高，性别不同会对统计结果有直接影响，因此可以根据男女性别比例采用分层抽样。&lt;/p&gt;
+
+&lt;p&gt;分层抽样的好处是可以根据每层分别抽样不同数量的样本&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;strata(data, stratanames=NULL, size, method=c(&amp;quot;srswor&amp;quot;,&amp;quot;srswr&amp;quot;,&amp;quot;poisson&amp;quot;,
+&amp;quot;systematic&amp;quot;), pik,description=FALSE)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;library(&amp;quot;sampling&amp;quot;)
+x= strata(data=iris,c(&amp;quot;Species&amp;quot;),size=c(3,3,5),method=&amp;quot;srswor&amp;quot;)
+getdata(iris,x)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h4 id=&#34;4-系统抽样&#34;&gt;4. 系统抽样&lt;/h4&gt;
+
+&lt;p&gt;例如：要对从全天经过某一路口的车辆号牌进行抽样调查，如果采用简单随机抽样，早、晚高峰的经过的车辆会被过多抽取。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;系统抽样：&lt;/strong&gt;将样本总体从1~N编号，然后随机确定抽样起点，以固定间隔k=N/n进行等间隔抽样。因此如果整体数据呈现有序排列形式，系统抽样会获得更好的结果，但是周期数据将会导致偏向性。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;library(&amp;quot;doBy&amp;quot;)
+sampleBy(~1,frac=.3,data=x,systematic=TRUE)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;列联表&#34;&gt;列联表&lt;/h1&gt;
+
+&lt;p&gt;&lt;strong&gt;列联表：&lt;/strong&gt;以表格形式记录分类变量的频数。卡方独立性检验考察变量之间是否存在依存关系。&lt;/p&gt;
+
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;&amp;ndash;&lt;/th&gt;
+&lt;th&gt;预测-垃圾邮件&lt;/th&gt;
+&lt;th&gt;预测-非垃圾邮件&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;实际-垃圾邮件&lt;/td&gt;
+&lt;td&gt;a&lt;/td&gt;
+&lt;td&gt;b&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;实际-非垃圾邮件&lt;/td&gt;
+&lt;td&gt;c&lt;/td&gt;
+&lt;td&gt;d&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h4 id=&#34;创建列联表&#34;&gt;创建列联表&lt;/h4&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;d=data.frame(x=c(&amp;quot;1&amp;quot;,&amp;quot;2&amp;quot;,&amp;quot;2&amp;quot;,&amp;quot;1&amp;quot;)),
+             y=c(&amp;quot;A&amp;quot;,&amp;quot;B&amp;quot;,&amp;quot;A&amp;quot;,&amp;quot;B&amp;quot;),
+             num=c(3,5,8,7)
+xt=xtabs(num ~ x + y,data=d)
+
+##边际量
+margin.table(xt) 
+margin.table(xt,1)#行
+margin.table(xt,2)#列
+##边际百分比
+prop.table(xt)
+prop.table(xt,1)#行
+prop.table(xt,2)#列
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;独立性检验&#34;&gt;独立性检验&lt;/h1&gt;
+
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;&amp;ndash;&lt;/th&gt;
+&lt;th&gt;A-TRUE&lt;/th&gt;
+&lt;th&gt;A-FALSE&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;B-TURE&lt;/td&gt;
+&lt;td&gt;a&lt;/td&gt;
+&lt;td&gt;b&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;B-FALSE&lt;/td&gt;
+&lt;td&gt;c&lt;/td&gt;
+&lt;td&gt;d&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;假设A 与 B 独立，则P(AB)=P(A)*P(B).&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;1. 卡方检验&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;对两个变量的独立性进行检验，统计量如下：&lt;/p&gt;
+
+&lt;p&gt;$$\sum_{i=1}^{r}\sum_{j=1}^{c}\frac{(O_{ij}-E_{ij})^2}{E_{ij}} \backsim {\chi}^2(r-1)(c-1)$$&lt;/p&gt;
+
+&lt;p&gt;其中，\(O_{ij}\)为列联表中（i,j）的记录值，\(E_{ij}=N * P(i)* P(j)\)为两变量相互独立时单元的期望值。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;library(&amp;quot;MASS&amp;quot;)
+data(survey)
+xtabs(~Sex + Exer,data=survey)##性别和运动的列联表
+##              Exer
+##Sex      Freq None Some
+##Female   49   11   58
+##Male     65   13   40
+
+chisq.test(xtabs(~Sex + Exer,data=survey))
+##  Pearson&#39;s Chi-squared test
+##data:  xtabs(~Sex + Exer, data = survey)
+##X-squared = 5.7184, df = 2, p-value = 0.05731
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;结果：p值不具有显著性，因此不能推翻原假设H0（性别与运动独立），接受H0(原假设不是小概率事件).&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://taoshengxu.github.io/DocumentGit/img/pvalue1.jpg&#34; alt=&#34;&#34; /&gt;
+&lt;img src=&#34;https://taoshengxu.github.io/DocumentGit/img/pvalue2.jpg&#34; alt=&#34;&#34; /&gt;
+&lt;img src=&#34;https://taoshengxu.github.io/DocumentGit/img/pvalue3.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;2. Fisher检验&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;针对列联表中样本数量较少，或者样本分布过分倾向某个单元，卡方检验的结果可能不准确。chisq.test()进行检验会显示警告信息。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;xtabs(~W.Hnd + Clap,data=survey)
+##       Clap
+##W.Hnd   Left Neither Right
+##Left     9       5     4
+##Right   29      45   143
+chisq.test(xtabs(~W.Hnd + Clap,data=survey))
+##  Pearson&#39;s Chi-squared test
+##data:  xtabs(~W.Hnd + Clap, data = survey)
+##X-squared = 19.252, df = 2, p-value = 6.598e-05
+
+##Warning message:
+##In chisq.test(xtabs(~W.Hnd + Clap, data = survey)) :
+##  Chi-squared近似算法有可能不准
+
+fisher.test(xtabs(~W.Hnd + Clap,data=survey))
+##  Fisher&#39;s Exact Test for Count Data
+
+##data:  xtabs(~W.Hnd + Clap, data = survey)
+##p-value = 0.0001413
+##alternative hypothesis: two.sided
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;结果：显示P值具有显著性，推翻原假设【用于写字的手与鼓掌时放在上面的手独立】（原假设为小概率事件），接受两者之间有关系。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;3. McNemar检验&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;McNemar检验检验事件发生前后被调查者的反应变化，比如推行罚款政策后系安全带人数的变化。在事件之前进行问卷调查Test1,事件发生之后问卷调查Test2.&lt;/p&gt;
+
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;&amp;ndash;&lt;/th&gt;
+&lt;th&gt;Test 2-TRUE&lt;/th&gt;
+&lt;th&gt;Test 2-FALSE&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;Test 1&lt;/td&gt;
+&lt;td&gt;a&lt;/td&gt;
+&lt;td&gt;b&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;Test 1&lt;/td&gt;
+&lt;td&gt;c&lt;/td&gt;
+&lt;td&gt;d&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;假设事件发生前后参与调查的人数未发生变化，a+b=a+c。只要检验b=c是否成立，即可知道事件发生前后人们心理趋向是否发生变化。若b=c成立，则b服从二项分布。&lt;/p&gt;
+
+&lt;p&gt;$$b \backsim B(b+c,\frac{1}{2})$$&lt;/p&gt;
+
+&lt;p&gt;二项分布B(n,p)中当n (列联表中b+c)较大时，可以近视视作正态分布。&lt;/p&gt;
+
+&lt;p&gt;$$b \backsim N(\frac{b+c}{2},\frac{b+c}{4})$$&lt;/p&gt;
+
+&lt;p&gt;将b标准化，使之服从N(0,1),并用连续校正，得到&lt;/p&gt;
+
+&lt;p&gt;$$\frac{(|b-c|-1)^2}{b+c} \backsim \chi^2(1)$$&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;performance=matrix(c(794,86,150,570),nrow=2,dimnames=list(
+                          &amp;quot;1st survey&amp;quot;=c(&amp;quot;Approve&amp;quot;,&amp;quot;Disapprove&amp;quot;),
+                          &amp;quot;2st survey&amp;quot;=c(&amp;quot;Approve&amp;quot;,&amp;quot;Disapprove&amp;quot;)))
+                          
+mcnemar.test(performance)
+
+##  McNemar&#39;s Chi-squared test with continuity correction
+##data:  performance
+##McNemar&#39;s chi-squared = 16.818, df = 1, p-value = 4.115e-05
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;结果：P值结果具有显著性，原假设为小概率事件，推翻原假设，事件发生前后，&amp;rdquo;Approve&amp;rdquo;和&amp;rdquo;Disapprove&amp;rdquo;比率发生变化。&lt;/p&gt;
+
+&lt;h1 id=&#34;拟合优度检验&#34;&gt;拟合优度检验&lt;/h1&gt;
+
+&lt;p&gt;统计分析中，常常假设数据服从某种分布，特别是数据量超过一定数值时，一般假设数据服从正态分布。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;1. 卡方检验&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;为了验证数据是否服从某种特定分布，通常先要创建列联表。&lt;/p&gt;
+
+&lt;p&gt;例如：分析用左手写字的人数与用右手写字的人数比率是否为30%：70%。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;library(&amp;quot;MASS&amp;quot;)
+data(survey)
+table(survey$W.Hnd)
+chisq.test(table(survey$W.Hnd),p=c(0.3,0.7))
+
+#Chi-squared test for given probabilities
+#data:  table(survey$W.Hnd)
+#X-squared = 56.252, df = 1, p-value = 6.376e-14
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;结果：p值显著，原假设为小概率事件，拒绝原假设，左手写字的人数与用右手写字的人数比率为30%：70%不成立。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;2. Shapiro-Wilk（夏皮罗-威尔克）检验&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Shapiro-Wilk用于检验样本是否来源于正态分布的总体&lt;/strong&gt;（样本是否从正态分布的数据中抽取的）。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt; shapiro.test(rnorm(1000))
+##  Shapiro-Wilk normality test
+##data:  rnorm(1000)
+##W = 0.99883, p-value = 0.7749
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;结果：p值不显著，原假设不为小概率事件，接受原假设，肯定样本来源于正态分布整体。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;3. Kolmogorov-smirnov test（柯尔莫哥-斯米诺夫 K-S）检验&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;将数据的累积分布函数与要比较的分布的累积分布函数之间的&lt;strong&gt;最大距离&lt;/strong&gt;作为统计量。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://taoshengxu.github.io/DocumentGit/img/KS_test.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;例如： 检验两组正态分布的随机数据之间是否拥有相同的分布。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;ks.test(rnorm(100),rnorm(100))
+
+#   Two-sample Kolmogorov-Smirnov test
+#data:  rnorm(100) and rnorm(100)
+#D = 0.1, p-value = 0.6994
+#alternative hypothesis: two-sided
+##p值不显著，原假设不为小概率事件，接受原假设，两组样本具有相同分布。
+
+ks.test(rnorm(100),runif(100))
+#   Two-sample Kolmogorov-Smirnov test
+#data:  rnorm(100) and runif(100)
+#D = 0.54, p-value = 4.335e-13
+#alternative hypothesis: two-sided
+##p值显著，原假设为小概率事件，拒绝原假设，两组样本不具有相同分布。
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;4. Q-Q（Quantile-Quantile）图&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Q-Q图&lt;/strong&gt;是一种检验数据是否服从某种特定分布的可视化方法。&lt;/p&gt;
+
+&lt;p&gt;例如：要检验X是否服从正态分布。若\(X \backsim N(\mu,\delta^2)\),则&lt;/p&gt;
+
+&lt;p&gt;$$Z=\frac{X-\mu}{\delta} \backsim N(0,1)$$&lt;/p&gt;
+
+&lt;p&gt;$$X=\mu + \delta Z$$&lt;/p&gt;
+
+&lt;p&gt;若将(X,Z)绘制到坐标平面，则为一条直线。X是待检验的已知数据，Z为标准正态分布数据，因此找到与X对应的Z即可，可以通过分位数完成。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;x=rnorm(1000,mean=10,sd=1)
+qqnorm(x)
+qqline(x,lty=2)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://taoshengxu.github.io/DocumentGit/img/Q-Qplot1.jpeg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;x=runif(1000)
+qqnorm(x)
+qqline(x,lty=2)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;相关分析&#34;&gt;相关分析&lt;/h1&gt;
+
+&lt;p&gt;&lt;strong&gt;1.Pearson（皮尔逊）相关系数&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://taoshengxu.github.io/DocumentGit/Pearsoncorrelation.gif&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;当两个变量的标准差都不为零时，相关系数才有定义，皮尔逊相关系数适用于：&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;两个变量之间是线性关系，都是连续数据。&lt;/li&gt;
+&lt;li&gt;两个变量的总体是正态分布，或接近正态的单峰分布。&lt;/li&gt;
+&lt;li&gt;两个变量的观测值是成对的，每对观测值之间相互独立。&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;&lt;strong&gt;2.Spearman Rank(斯皮尔曼等级)相关系数&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;斯皮尔曼等级相关系数用来估计两个变量X、Y之间的相关性，其中变量间的相关性可以使用单调函数来描述。如果两个变量取值的两个集合中均不存在相同的两个元素，那么，当其中一个变量可以表示为另一个变量的很好的单调函数时（即两个变量的变化趋势相同），两个变量之间的ρ可以达到+1或-1。&lt;/p&gt;
+
+&lt;p&gt;假设两个随机变量分别为X、Y（也可以看做两个集合），它们的元素个数均为N，两个随机变量取的第i（1&amp;lt;=i&amp;lt;=N）个值分别用Xi、Yi表示。对X、Y进行排序（同时为升序或降序），得到两个元素排行集合x、y，其中元素xi、yi分别为Xi在X中的排行以及Yi在Y中的排行。将集合x、y中的元素对应相减得到一个排行差分集合d，其中di=xi-yi，1&amp;lt;=i&amp;lt;=N。随机变量X、Y之间的斯皮尔曼等级相关系数可以由x、y或者d计算得到，其计算方式如下所示：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://taoshengxu.github.io/DocumentGit/img/SpearmanRank1.gif&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://taoshengxu.github.io/DocumentGit/img/SpearmanRank2.gif&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;3.Kendall Rank（肯德尔等级）相关系数&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;xxx&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;4.相关系数检验&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;*原假设：相关系数为0&lt;/p&gt;
+
+&lt;p&gt;*备选假设： 相关系数不为0.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;cor(iris$Sepal.Width,iris$Sepal.Length)
+cor(iris[,1:4])
+library(corrgram)#可视化显示相关系数
+corrgram(iris,upper.panel=panel.conf)
+
+m=matrix(c(1:10),(1:10)^2),ncol=2))
+cor(m,method=&amp;quot;spearman&amp;quot;)
+
+cor.test(c(1,2,3,4,5),c(1,0,3,4,5),method=&amp;quot;pearson&amp;quot;)
+cor.test(c(1,2,3,4,5),c(1,0,3,4,5),method=&amp;quot;spearman&amp;quot;)
+cor.test(c(1,2,3,4,5),c(1,0,3,4,5),method=&amp;quot;kendall&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;估计与检验&#34;&gt;估计与检验&lt;/h1&gt;
+
+&lt;p&gt;&lt;strong&gt;1.单样本均值&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;$$\frac{\overline{X}-\mu}{S/\sqrt{n}} \backsim t(n-1)$$&lt;/p&gt;
+
+&lt;p&gt;显著性水平为a时，关于整体均值的95%置信水平的置信区间为：&lt;/p&gt;
+
+&lt;p&gt;$$(\overline{X} - t(n-1;\alpha/2) * S/\sqrt{n},\overline{X} + t(n-1;\alpha/2) * S/\sqrt{n}$$&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://taoshengxu.github.io/DocumentGit/img/t_test.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;零假设&lt;/strong&gt;：整体均值为mu.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;x=rnorm(30)
+t.test(x)
+t.test(x,mu=0)
+##  One Sample t-test
+##data:  x
+##t = 0.052695, df = 29, p-value = 0.9583
+##alternative hypothesis: true mean is not equal to 0
+##95 percent confidence interval:
+## -0.3502195  0.3687436
+##sample estimates:
+##  mean of x 
+##0.009262058 
+
+y=rnorm(30,mean=10)
+t.test(y)
+t.test(y,mu=10)
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;结果： 推断整体均值为0.009262058，总体均值95%置信区间为（-0.3502195,  0.3687436）。p值不显著，不能拒绝0假设，总体均值可以被视为0，0也在95%置信区间内。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;2.两独立样本均值&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;从两个总体分别抽取样本，根据样本推断两个整体均值是否一致。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://taoshengxu.github.io/DocumentGit/img/twosample_test1.jpg&#34; alt=&#34;&#34; /&gt;
+&lt;img src=&#34;https://taoshengxu.github.io/DocumentGit/img/twosample_test2.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;sleep2=sleep[,-3]
+tapply(sleep2$extra,sleep2$group,mean)
+var.test(extra ~ group,data = sleep2)##首先检验两组样本方差是否一致
+
+##F test to compare two variances
+##data:  extra by group
+##F = 0.79834, num df = 9, denom df = 9, p-value = 0.7427
+##alternative hypothesis: true ratio of variances is not equal to 1
+##95 percent confidence interval:
+##  0.198297 3.214123
+##sample estimates:
+##  ratio of variances 
+##0.7983426 
+## 原假设：两者方差无差别。因此不能拒绝原假设。
+
+t.test(extra ~ group,data = sleep2,paired=FALSE,var.equal=TRUE)
+##Two Sample t-test
+##data:  extra by group
+##t = -1.8608, df = 18, p-value = 0.07919
+##alternative hypothesis: true difference in means is not equal to 0
+##95 percent confidence interval:
+##  -3.363874  0.203874
+##sample estimates:
+##  mean in group 1 mean in group 2 
+##0.75            2.33 
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;t.test中paired=FALSE表示两独立样本检验,TRUE表示配对样本检验，var.equal=TRUE表示两样本方差一致。&lt;/p&gt;
+
+&lt;p&gt;结果：P值不显著，不能推翻原假设，因此可以认为两组总体均值无差异。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;3.两配对样本均值&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://taoshengxu.github.io/DocumentGit/img/twosample_test3.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;t.test(extra ~ group,data = sleep2,paired=TRUE,var.equal=TRUE)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;结果：P值显著，推翻原假设，服用两种安眠药后睡眠时间增加不同。&lt;/p&gt;
+
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>Logistic回归</title>
+      <link>/blog/cn/2017/10/logistic/</link>
+      <pubDate>Thu, 12 Oct 2017 21:06:48 +0000</pubDate>
+      
+      <guid>/blog/cn/2017/10/logistic/</guid>
+      <description>
+        
+
+&lt;script type=&#34;text/javascript&#34; src=&#34;http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML&#34;&gt;&lt;/script&gt;
+
+&lt;p&gt;原文 &lt;a href=&#34;http://blog.csdn.net/ariessurfer/article/details/41310525&#34;&gt;http://blog.csdn.net/ariessurfer/article/details/41310525&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Logistic回归为概率型非线性回归模型，是研究二分类观察结果 Y 与一些影响因素(x1,x2,..,xn)之间关系的一种多变量分析方法。通常的问题是，研究某些因素条件下某个结果是否发生，比如医学中根据病人的一些症状来判断它是否患有某种病。&lt;/p&gt;
+
+&lt;h1 id=&#34;lr分类器-logistic-regression-classifier&#34;&gt;LR分类器: Logistic Regression Classifier&lt;/h1&gt;
+
+&lt;p&gt;在分类情形下，经过学习后的LR分类器是一组权值\(W=(w_0,w_1,&amp;hellip;,w_n)\)，当测试样本的数据输入时，这组权值与测试数据按照线性加和得到:&lt;/p&gt;
+
+&lt;p&gt;$$x=w_0+ w_1x_1+&amp;hellip;+w_nx_n$$&lt;/p&gt;
+
+&lt;p&gt;之后按照&lt;strong&gt;Logistic(sigmoid函数)&lt;/strong&gt;的形式求出&lt;/p&gt;
+
+&lt;p&gt;$$f(x)=\frac{1}{1+e^x}$$&lt;/p&gt;
+
+&lt;p&gt;由于Logistic函数的定义域为(-inf,inf)，值域为(0,1)，因此最基本的LR分类器适合对两类目标进行分类。所以Logistic回归最关键的问题就是研究如何求得权值\(W=(w_0,w_1,&amp;hellip;,w_n)\)。用极大似然估计。&lt;/p&gt;
+
+&lt;h1 id=&#34;logistic回归模型&#34;&gt;Logistic回归模型&lt;/h1&gt;
+
+&lt;p&gt;Logistic回归模型可以表示为&lt;/p&gt;
+
+&lt;p&gt;考虑具有个独立变量的向量\(X=(x_0,x_1,&amp;hellip;,x_n)\)，&lt;/p&gt;
+
+&lt;p&gt;(1)在变量X条件下某事件发生的概率p为：&lt;/p&gt;
+
+&lt;p&gt;$$P(y=1|x)=\pi(x)=\frac{1}{1+e^{-g(x)}}$$&lt;/p&gt;
+
+&lt;p&gt;其中\(g(x)=w_0+ w_1x_1+&amp;hellip;+w_nx_n\)&lt;/p&gt;
+
+&lt;p&gt;(2)在变量X条件下不发生的概率1-p为:&lt;/p&gt;
+
+&lt;p&gt;$$P(y=0|x)=1-P(y=1|x)= 1-\frac{1}{1+e^{-g(x)}} =\frac{1}{1+e^{g(x)}} $$&lt;/p&gt;
+
+&lt;p&gt;(3)事件的发生比（the odds of experiencing an event）:事件发生与不发生的概率之比odds&lt;/p&gt;
+
+&lt;p&gt;$$\frac{P(y=1|x)}{P(y=0|x)}=\frac{p}{1-p} =e^{g(x)}$$&lt;/p&gt;
+
+&lt;p&gt;$$ln(\frac{p}{1-p})=g(x)=w_0+ w_1x_1+&amp;hellip;+w_nx_n$$&lt;/p&gt;
+
+&lt;h1 id=&#34;logistic回归极大似然估计&#34;&gt;Logistic回归极大似然估计&lt;/h1&gt;
+
+&lt;p&gt;假设有m个观测样本\(X=(x_0,x_1,&amp;hellip;,x_m)\)，观测值分别为\(Y=(y_0,y_1,&amp;hellip;,y_m)\)，设给定条件下时间发生的概率\(p_i=P(y_i=1|x_i)\)，时间不发生的概率为\(P(y_i=0|x_i)=1-p_i\)。所以得到一个观测值的概率为&lt;/p&gt;
+
+&lt;p&gt;$$P(y_i)=p_i^{y_i}(1-p_i)^{1-y_i}$$&lt;/p&gt;
+
+&lt;p&gt;因为各个观测样本之间相互独立，整体事件发生的概率为各边缘分布的乘积，得到似然函数为&lt;/p&gt;
+
+&lt;p&gt;$$L(w)=\prod_{i=1}^{m}=\{\pi(x_i)\}^{y_i}\{1-\pi(x_i)\}^{1-y_i} $$&lt;/p&gt;
+
+&lt;p&gt;然后用极大似然估计求得权值\(W=(w_0,w_1,&amp;hellip;,w_n)\)的估计。&lt;/p&gt;
+
+        
+      </description>
+    </item>
+    
+    <item>
       <title>R语言回归函数汇总 </title>
       <link>/blog/cn/2017/09/r_function_regression/</link>
       <pubDate>Fri, 22 Sep 2017 21:10:14 +0000</pubDate>
@@ -270,76 +785,6 @@ summary(tlm)
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;其中，k为模型参数个数，n为样本数量，L为似然函数。kln(n)惩罚项在维数过大且训练样本数据相对较少的情况下，可以有效避免出现维度灾难现象。&lt;/p&gt;
-
-        
-      </description>
-    </item>
-    
-    <item>
-      <title>SSE, MSE, RMSE, R-square</title>
-      <link>/blog/cn/2017/09/sse_mse_rmse_r-square/</link>
-      <pubDate>Fri, 22 Sep 2017 16:48:14 +0000</pubDate>
-      
-      <guid>/blog/cn/2017/09/sse_mse_rmse_r-square/</guid>
-      <description>
-        
-
-&lt;pre&gt;&lt;code&gt;SSE(和方差、误差平方和)：The sum of squares due to error
-MSE(均方误、方差)：Mean squared error
-RMSE(均方根、标准差)：Root mean squared error
-R-square(确定系数)：Coefficient of determination
-Adjusted R-square：Degree-of-freedom adjusted coefficient of determination
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h1 id=&#34;sse-和方差-误差平方和&#34;&gt;SSE(和方差、误差平方和)&lt;/h1&gt;
-
-&lt;p&gt;拟合数据和原始数据对应点的误差的平方和&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;https://taoshengxu.github.io/DocumentGit/img/628033fa48bb1eb1a0879&amp;amp;690.gif&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;SSE越接近于0，说明模型选择和拟合更好，数据预测也越成功。接下来的MSE和RMSE因为和SSE是同出一宗，所以效果一样。&lt;/p&gt;
-
-&lt;h1 id=&#34;mse-均方误&#34;&gt;MSE(均方误)&lt;/h1&gt;
-
-&lt;p&gt;预测数据和原始数据对应点误差的平方和的均值，也就是SSE/n，和SSE没有太大的区别，&lt;strong&gt;最常用&lt;/strong&gt;！&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;https://taoshengxu.github.io/DocumentGit/img/628033fa48bb1ebfee394&amp;amp;690.gif&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
-
-&lt;h1 id=&#34;rmse-均方根&#34;&gt;RMSE(均方根)&lt;/h1&gt;
-
-&lt;p&gt;回归系统的拟合标准差，是MSE的平方根，就算公式如下&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;https://taoshengxu.github.io/DocumentGit/img/628033fa48bb1ec86542a690.gif&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
-
-&lt;hr /&gt;
-
-&lt;p&gt;&lt;strong&gt;在这之前，我们所有的误差参数都是基于预测值(y&lt;em&gt;hat)和原始值(y)之间的误差(即点对点)。从下面开始是所有的误差都是相对原始数据平均值(y&lt;/em&gt;ba)而展开的(即点对全)&lt;/strong&gt;&lt;/p&gt;
-
-&lt;hr /&gt;
-
-&lt;h1 id=&#34;r-square-确定系数&#34;&gt;R-square(确定系数)&lt;/h1&gt;
-
-&lt;h4 id=&#34;1-ssr-sum-of-squares-of-the-regression-即预测数据与原始数据均值之差的平方和&#34;&gt;(1)SSR：Sum of squares of the regression，即预测数据与原始数据均值之差的平方和&lt;/h4&gt;
-
-&lt;p&gt;&lt;img src=&#34;https://taoshengxu.github.io/DocumentGit/img/628033fa48bb1ed5dd403&amp;amp;690.gif&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
-
-&lt;h4 id=&#34;2-sst-total-sum-of-squares-即原始数据和均值之差的平方和&#34;&gt;(2)SST：Total sum of squares，即原始数据和均值之差的平方和&lt;/h4&gt;
-
-&lt;p&gt;&lt;img src=&#34;https://taoshengxu.github.io/DocumentGit/img/628033fa48bb1ede9b464&amp;amp;690.gif&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;SST=SSE+SSR&lt;/p&gt;
-
-&lt;p&gt;“确定系数”是定义为SSR和SST的比值&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;https://taoshengxu.github.io/DocumentGit/img/628033fa48bb1ee8ee0fa&amp;amp;690.gif&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;R-square是通过数据的变化来表征一个拟合的好坏。由上面的表达式可以知道“确定系数”的正常取值范围为[0 1]，越接近1，表明方程的变量对y的解释能力越强，这个模型对数据拟合的也较好。&lt;/strong&gt;&lt;/p&gt;
-
-&lt;hr /&gt;
-
-&lt;p&gt;&lt;img src=&#34;https://taoshengxu.github.io/DocumentGit/img/MSE_RMSE.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;https://taoshengxu.github.io/DocumentGit/img/MAE.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
 
         
       </description>
@@ -693,6 +1138,76 @@ Scikit-learn
 PyBrain
 Theano 
 &lt;/code&gt;&lt;/pre&gt;
+
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>SSE, MSE, RMSE, R-square</title>
+      <link>/blog/cn/2017/09/sse_mse_rmse_r-square/</link>
+      <pubDate>Fri, 22 Sep 2017 09:48:14 +0000</pubDate>
+      
+      <guid>/blog/cn/2017/09/sse_mse_rmse_r-square/</guid>
+      <description>
+        
+
+&lt;pre&gt;&lt;code&gt;SSE(和方差、误差平方和)：The sum of squares due to error
+MSE(均方误、方差)：Mean squared error
+RMSE(均方根、标准差)：Root mean squared error
+R-square(确定系数)：Coefficient of determination
+Adjusted R-square：Degree-of-freedom adjusted coefficient of determination
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;sse-和方差-误差平方和&#34;&gt;SSE(和方差、误差平方和)&lt;/h1&gt;
+
+&lt;p&gt;拟合数据和原始数据对应点的误差的平方和&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://taoshengxu.github.io/DocumentGit/img/628033fa48bb1eb1a0879&amp;amp;690.gif&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;SSE越接近于0，说明模型选择和拟合更好，数据预测也越成功。接下来的MSE和RMSE因为和SSE是同出一宗，所以效果一样。&lt;/p&gt;
+
+&lt;h1 id=&#34;mse-均方误&#34;&gt;MSE(均方误)&lt;/h1&gt;
+
+&lt;p&gt;预测数据和原始数据对应点误差的平方和的均值，也就是SSE/n，和SSE没有太大的区别，&lt;strong&gt;最常用&lt;/strong&gt;！&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://taoshengxu.github.io/DocumentGit/img/628033fa48bb1ebfee394&amp;amp;690.gif&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;h1 id=&#34;rmse-均方根&#34;&gt;RMSE(均方根)&lt;/h1&gt;
+
+&lt;p&gt;回归系统的拟合标准差，是MSE的平方根，就算公式如下&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://taoshengxu.github.io/DocumentGit/img/628033fa48bb1ec86542a690.gif&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;strong&gt;在这之前，我们所有的误差参数都是基于预测值(y&lt;em&gt;hat)和原始值(y)之间的误差(即点对点)。从下面开始是所有的误差都是相对原始数据平均值(y&lt;/em&gt;ba)而展开的(即点对全)&lt;/strong&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h1 id=&#34;r-square-确定系数&#34;&gt;R-square(确定系数)&lt;/h1&gt;
+
+&lt;h4 id=&#34;1-ssr-sum-of-squares-of-the-regression-即预测数据与原始数据均值之差的平方和&#34;&gt;(1)SSR：Sum of squares of the regression，即预测数据与原始数据均值之差的平方和&lt;/h4&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://taoshengxu.github.io/DocumentGit/img/628033fa48bb1ed5dd403&amp;amp;690.gif&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;h4 id=&#34;2-sst-total-sum-of-squares-即原始数据和均值之差的平方和&#34;&gt;(2)SST：Total sum of squares，即原始数据和均值之差的平方和&lt;/h4&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://taoshengxu.github.io/DocumentGit/img/628033fa48bb1ede9b464&amp;amp;690.gif&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;SST=SSE+SSR&lt;/p&gt;
+
+&lt;p&gt;“确定系数”是定义为SSR和SST的比值&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://taoshengxu.github.io/DocumentGit/img/628033fa48bb1ee8ee0fa&amp;amp;690.gif&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;R-square是通过数据的变化来表征一个拟合的好坏。由上面的表达式可以知道“确定系数”的正常取值范围为[0 1]，越接近1，表明方程的变量对y的解释能力越强，这个模型对数据拟合的也较好。&lt;/strong&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://taoshengxu.github.io/DocumentGit/img/MSE_RMSE.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://taoshengxu.github.io/DocumentGit/img/MAE.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
 
         
       </description>

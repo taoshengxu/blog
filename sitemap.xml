@@ -3,6 +3,16 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>/blog/cn/2017/10/r_statistics/</loc>
+    <lastmod>2017-10-13T11:12:29+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/cn/2017/10/logistic/</loc>
+    <lastmod>2017-10-12T21:06:48+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>/blog/cn/2017/09/r_function_regression/</loc>
     <lastmod>2017-09-22T21:10:14+00:00</lastmod>
   </url>
@@ -18,13 +28,13 @@
   </url>
   
   <url>
-    <loc>/blog/cn/2017/09/sse_mse_rmse_r-square/</loc>
-    <lastmod>2017-09-22T16:48:14+00:00</lastmod>
+    <loc>/blog/cn/2017/09/datamining_concept/</loc>
+    <lastmod>2017-09-22T16:47:14+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/blog/cn/2017/09/datamining_concept/</loc>
-    <lastmod>2017-09-22T16:47:14+00:00</lastmod>
+    <loc>/blog/cn/2017/09/sse_mse_rmse_r-square/</loc>
+    <lastmod>2017-09-22T09:48:14+00:00</lastmod>
   </url>
   
   <url>
@@ -154,7 +164,7 @@
   
   <url>
     <loc>/blog/cn/</loc>
-    <lastmod>2017-09-22T21:10:14+00:00</lastmod>
+    <lastmod>2017-10-13T11:12:29+00:00</lastmod>
   </url>
   
   <url>
