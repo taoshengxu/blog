@@ -4,8 +4,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     
-    <title>混淆矩阵（confusion matrix） - My Lives</title>
-    <meta property="og:title" content="混淆矩阵（confusion matrix） - My Lives">
+    <title>混淆矩阵(Confusion matrix)-ROC曲线-AUC(Area under Curve) - My Lives</title>
+    <meta property="og:title" content="混淆矩阵(Confusion matrix)-ROC曲线-AUC(Area under Curve) - My Lives">
     
 
     
@@ -61,7 +61,7 @@
     <article class="main">
       <header class="title">
       
-<h1>混淆矩阵（confusion matrix）</h1>
+<h1>混淆矩阵(Confusion matrix)-ROC曲线-AUC(Area under Curve)</h1>
 
 <h3>
   2017-09-10</h3>
@@ -72,9 +72,7 @@
 
 
 
-<p>在学习<a href="http://bioconductor.org/packages/release/bioc/vignettes/genefu/inst/doc/genefu.pdf">genefu包</a>时候遇到Confusion Matrix，有必要有个系统的学习和总结。</p>
 
-<hr />
 
 <p>混淆矩阵（confusion matrix）是可视化工具，特别用于监督学习， <em>在无监督学习一般叫做匹配矩阵</em> 。在图像精度评价中，主要用于比较分类结果和实际测得值，可以把分类结果的精度显示在一个混淆矩阵里面。混淆矩阵是通过将每个实测像元的位置和分类与分类图像中的相应位置和分类像比较计算的。</p>
 
@@ -109,6 +107,60 @@
 
 <p><img src="https://taoshengxu.github.io/DocumentGit/img/confusionmatrix2.png" alt="" />
 <img src="https://taoshengxu.github.io/DocumentGit/img/confusionmatrix3.png" alt="" /></p>
+
+<h1 id="roc-曲线">ROC 曲线</h1>
+
+<p><strong>为什么使用Roc和Auc评价分类器</strong></p>
+
+<p>ROC曲线和AUC常被用来评价一个二值分类器（binary classifier）的优劣。既然已经这么多标准，为什么还要使用ROC和AUC呢？因为ROC曲线有个很好的特性：当测试集中的正负样本的分布变换的时候，ROC曲线能够保持不变。在实际的数据集中经常会出现样本类不平衡，即正负样本比例差距较大，而且测试数据中的正负样本也可能随着时间变化。</p>
+
+<p><strong>ROC曲线</strong>：接收者操作特征(receiveroperating characteristic),roc曲线上每个点反映着对同一信号刺激的感受性。</p>
+
+<ul>
+<li><p>横轴：负正类率(false postive rate FPR)，划分实例中所有负例占所有负例的比例；(1-Specificity)</p></li>
+
+<li><p>纵轴：真正类率(true postive rate TPR)，Sensitivity(灵敏度)</p></li>
+</ul>
+
+<p>对于一个二分类问题，假设采用逻辑回归分类器，其给出针对每个实例为正类的概率，那么通过设定一个阈值如0.6，概率大于等于0.6的为正类，小于0.6的为负类。对应的就可以算出一组(FPR,TPR),在平面中得到对应坐标点。<strong>随着阈值的逐渐减小，越来越多的实例被划分为正类，但是这些正类中同样也掺杂着真正的负实例，即TPR和FPR会同时增大。阈值最大时，对应坐标点为(0,0),阈值最小时，对应坐标点(1,1)</strong>。通过调节不同的阀值，从而得到一条曲线。</p>
+
+<p><img src="https://taoshengxu.github.io/DocumentGit/img/ROC.jpg" alt="" /></p>
+
+<ul>
+<li><p>横轴FPR:1-TNR,1-Specificity，FPR越大，预测正类中实际负类越多。</p></li>
+
+<li><p>纵轴TPR：Sensitivity(正类覆盖率),TPR越大，预测正类中实际正类越多。</p></li>
+
+<li><p>理想目标：TPR=1，FPR=0,即图中(0,1)点，故ROC曲线越靠拢(0,1)点，越偏离45度对角线越好，Sensitivity、Specificity越大效果越好。</p></li>
+</ul>
+
+<h1 id="auc-area-under-curve">AUC(Area under Curve)</h1>
+
+<p>Roc曲线下的面积，介于0.5和1之间。Auc作为数值可以直观的评价分类器的好坏，值越大越好。</p>
+
+<h1 id="r">R</h1>
+
+<pre><code>library(&quot;pROC&quot;)
+data(aSAH)  
+# Build a ROC object and compute the AUC, draw ROC, print AUC and the best THRESHOLDS  
+roc(aSAH$outcome, aSAH$s100b, plot=TRUE, print.thres=TRUE, print.auc=TRUE)  
+
+roc1 &lt;- plot.roc(aSAH$outcome, aSAH$s100, main=&quot;Statistical comparison&quot;, percent=TRUE, col=&quot;1&quot;)
+roc2 &lt;- lines.roc(aSAH$outcome, aSAH$ndka, percent=TRUE, col=&quot;2&quot;)
+testobj&lt;- roc.test(roc1,roc2)
+text(50, 50, labels=paste(&quot;p-value =&quot;, format.pval(testobj$p.value)), adj=c(0, .5))
+legend(&quot;bottomright&quot;, legend=c(&quot;S100B&quot;, &quot;NDKA&quot;), col=c(&quot;1&quot;, &quot;2&quot;), lwd=2)
+
+r1=roc(vs~wt,mtcars)
+plot.roc(r1)
+r2=roc(vs~mpg,mtcars)
+lines.roc(r2,col='2')
+roc.test(r1,r2)
+</code></pre>
+
+<hr />
+
+<p>在学习<a href="http://bioconductor.org/packages/release/bioc/vignettes/genefu/inst/doc/genefu.pdf">genefu包</a>时候遇到Confusion Matrix，有必要有个系统的学习和总结。</p>
 
 
   <footer>
