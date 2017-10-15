@@ -95,7 +95,7 @@ tlm&lt;-lm(Y~x1+x2+x3+x4,data=tdata)
 summary(tlm)
 </code></pre>
 
-<p><img src="http://images.cnitblog.com/i/388224/201405/122302215787851.jpg" alt="" /></p>
+<p><img src="https://taoshengxu.github.io/DocumentGit/img/AIC1.jpg" alt="" /></p>
 
 <p>通过观察，回归方程的系数都没有通过显著性检验</p>
 
@@ -105,7 +105,7 @@ summary(tlm)
 summary(tstep)
 </code></pre>
 
-<p><img src="http://images.cnitblog.com/i/388224/201405/122307143595998.jpg" alt="" /></p>
+<p><img src="https://taoshengxu.github.io/DocumentGit/img/AIC2.jpg" alt="" /></p>
 
 <p>结果分析：
 * 当用x1 x2 x3 x4作为回归方程的系数时，AIC的值为26.94</p>
@@ -118,7 +118,7 @@ summary(tstep)
 
 <p>*去掉x3之后 AIC的值都增加 逐步回归分析终止,  得到当前最优的回归方程</p>
 
-<p><img src="http://images.cnitblog.com/i/388224/201405/122315069535378.jpg" alt="" /></p>
+<p><img src="https://taoshengxu.github.io/DocumentGit/img/AIC3.jpg" alt="" /></p>
 
 <p>回归系数的显著性水平有所提高 但是x2 x4的显著性水平仍然不理想</p>
 
@@ -127,7 +127,7 @@ summary(tstep)
 <pre><code class="language-r">drop1(tstep)
 </code></pre>
 
-<p><img src="http://images.cnitblog.com/i/388224/201405/122319369845108.jpg" alt="" /></p>
+<p><img src="https://taoshengxu.github.io/DocumentGit/img/AIC4.jpg" alt="" /></p>
 
 <p>#4.进一步进行多元回归分析</p>
 
@@ -135,7 +135,7 @@ summary(tstep)
 summary(tlm)
 </code></pre>
 
-<p><img src="http://images.cnitblog.com/i/388224/201405/122323393753359.jpg" alt="" /></p>
+<p><img src="https://taoshengxu.github.io/DocumentGit/img/AIC5.jpg" alt="" /></p>
 
 <p>所有的检验均为显著</p>
 

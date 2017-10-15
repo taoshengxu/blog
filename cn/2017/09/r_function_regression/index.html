@@ -257,11 +257,9 @@ anova(reduced,m)
 
 # Call:
 # lm(formula = Sepal.Length ~ ., data = iris)
-# 
 # Residuals:
 #      Min       1Q   Median       3Q      Max 
 # -0.79424 -0.21874  0.00899  0.20255  0.73103 
-# 
 # Coefficients:
 #                   Estimate Std. Error t value Pr(&gt;|t|)    
 # (Intercept)        2.17127    0.27979   7.760 1.43e-12 ***
@@ -272,7 +270,6 @@ anova(reduced,m)
 # Speciesvirginica  -1.02350    0.33373  -3.067  0.00258 ** 
 # ---
 # Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
-# 
 # Residual standard error: 0.3068 on 144 degrees of freedom
 # Multiple R-squared:  0.8673,  Adjusted R-squared:  0.8627 
 # F-statistic: 188.3 on 5 and 144 DF,  p-value: &lt; 2.2e-16
@@ -331,6 +328,29 @@ plot(effect(&quot;hp:wt&quot;,fit,
 fit2&lt;-lm(weight~height+I(height^2),data=women)  
 par(mfrow=c(2,2))  
 plot(fit2)           
+</code></pre>
+
+<p><strong>I()</strong>防止对象解析或者转换，例如I(X^2)表示以X^2作为一个独立变量参与到回归，否者则解析为x+x+x:x交互作用。</p>
+
+<p><img src="https://taoshengxu.github.io/DocumentGit/img/lm_interaction.jpg" alt="" /></p>
+
+<h1 id="异常值">异常值</h1>
+
+<p><strong>学生化残差</strong>： 残差与残差标准差的比值。</p>
+
+<p><strong>外部学生化残差</strong>：计算第i个学生化残差时，先去掉i再计算标准差。一般用外部学生化残差评估异常点。</p>
+
+<p>R中rstudent()计算外部学生化残差。外部学生化残差服从t分布，可以使用t-test来寻找rstudent()值过大或者过小的点。</p>
+
+<pre><code>m=lm(circumference~ age+I(age^2),data=Orange)
+rstudent(m)
+car::outlierTest(m)
+
+# No Studentized residuals with Bonferonni p &lt; 0.05
+# Largest |rstudent|:
+#    rstudent unadjusted p-value Bonferonni p
+# 27 2.050328            0.04887           NA
+
 </code></pre>
 
 

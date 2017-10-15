@@ -728,11 +728,9 @@ anova(reduced,m)
 
 # Call:
 # lm(formula = Sepal.Length ~ ., data = iris)
-# 
 # Residuals:
 #      Min       1Q   Median       3Q      Max 
 # -0.79424 -0.21874  0.00899  0.20255  0.73103 
-# 
 # Coefficients:
 #                   Estimate Std. Error t value Pr(&amp;gt;|t|)    
 # (Intercept)        2.17127    0.27979   7.760 1.43e-12 ***
@@ -743,7 +741,6 @@ anova(reduced,m)
 # Speciesvirginica  -1.02350    0.33373  -3.067  0.00258 ** 
 # ---
 # Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
-# 
 # Residual standard error: 0.3068 on 144 degrees of freedom
 # Multiple R-squared:  0.8673,  Adjusted R-squared:  0.8627 
 # F-statistic: 188.3 on 5 and 144 DF,  p-value: &amp;lt; 2.2e-16
@@ -804,6 +801,29 @@ par(mfrow=c(2,2))
 plot(fit2)           
 &lt;/code&gt;&lt;/pre&gt;
 
+&lt;p&gt;&lt;strong&gt;I()&lt;/strong&gt;防止对象解析或者转换，例如I(X^2)表示以X^2作为一个独立变量参与到回归，否者则解析为x+x+x:x交互作用。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://taoshengxu.github.io/DocumentGit/img/lm_interaction.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;h1 id=&#34;异常值&#34;&gt;异常值&lt;/h1&gt;
+
+&lt;p&gt;&lt;strong&gt;学生化残差&lt;/strong&gt;： 残差与残差标准差的比值。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;外部学生化残差&lt;/strong&gt;：计算第i个学生化残差时，先去掉i再计算标准差。一般用外部学生化残差评估异常点。&lt;/p&gt;
+
+&lt;p&gt;R中rstudent()计算外部学生化残差。外部学生化残差服从t分布，可以使用t-test来寻找rstudent()值过大或者过小的点。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;m=lm(circumference~ age+I(age^2),data=Orange)
+rstudent(m)
+car::outlierTest(m)
+
+# No Studentized residuals with Bonferonni p &amp;lt; 0.05
+# Largest |rstudent|:
+#    rstudent unadjusted p-value Bonferonni p
+# 27 2.050328            0.04887           NA
+
+&lt;/code&gt;&lt;/pre&gt;
+
         
       </description>
     </item>
@@ -838,7 +858,7 @@ tlm&amp;lt;-lm(Y~x1+x2+x3+x4,data=tdata)
 summary(tlm)
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;&lt;img src=&#34;http://images.cnitblog.com/i/388224/201405/122302215787851.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://taoshengxu.github.io/DocumentGit/img/AIC1.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
 
 &lt;p&gt;通过观察，回归方程的系数都没有通过显著性检验&lt;/p&gt;
 
@@ -848,7 +868,7 @@ summary(tlm)
 summary(tstep)
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;&lt;img src=&#34;http://images.cnitblog.com/i/388224/201405/122307143595998.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://taoshengxu.github.io/DocumentGit/img/AIC2.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
 
 &lt;p&gt;结果分析：
 * 当用x1 x2 x3 x4作为回归方程的系数时，AIC的值为26.94&lt;/p&gt;
@@ -861,7 +881,7 @@ summary(tstep)
 
 &lt;p&gt;*去掉x3之后 AIC的值都增加 逐步回归分析终止,  得到当前最优的回归方程&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;http://images.cnitblog.com/i/388224/201405/122315069535378.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://taoshengxu.github.io/DocumentGit/img/AIC3.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
 
 &lt;p&gt;回归系数的显著性水平有所提高 但是x2 x4的显著性水平仍然不理想&lt;/p&gt;
 
@@ -870,7 +890,7 @@ summary(tstep)
 &lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;drop1(tstep)
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;&lt;img src=&#34;http://images.cnitblog.com/i/388224/201405/122319369845108.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://taoshengxu.github.io/DocumentGit/img/AIC4.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
 
 &lt;p&gt;#4.进一步进行多元回归分析&lt;/p&gt;
 
@@ -878,7 +898,7 @@ summary(tstep)
 summary(tlm)
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;&lt;img src=&#34;http://images.cnitblog.com/i/388224/201405/122323393753359.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://taoshengxu.github.io/DocumentGit/img/AIC5.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
 
 &lt;p&gt;所有的检验均为显著&lt;/p&gt;
 
