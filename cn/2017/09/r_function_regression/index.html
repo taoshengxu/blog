@@ -4,8 +4,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     
-    <title>R语言回归函数汇总  - My Lives</title>
-    <meta property="og:title" content="R语言回归函数汇总  - My Lives">
+    <title>R语言-线性回归-lm() - My Lives</title>
+    <meta property="og:title" content="R语言-线性回归-lm() - My Lives">
     
 
     
@@ -61,7 +61,7 @@
     <article class="main">
       <header class="title">
       
-<h1>R语言回归函数汇总 </h1>
+<h1>R语言-线性回归-lm()</h1>
 
 <h3>
   2017-09-22</h3>
@@ -73,6 +73,8 @@
 
 
 
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
 <p>From <a href="http://blog.sina.com.cn/s/blog_6fbfcfb50102va2k.html">http://blog.sina.com.cn/s/blog_6fbfcfb50102va2k.html</a></p>
 
@@ -97,9 +99,9 @@ Cox         用一个或多个解释变量预测一个事件（死亡、失败�
 
 <p>myfit&lt;-lm(formula,data)</p>
 
-<p>formula指要拟合的模型形式，data是一个数据框，包含了用于拟合模型的数据</p>
+<p>formula指要拟合的模型形式，data是一个数据框，包含了用于拟合模型的数据。</p>
 
-<p>formula形式如下：Y~X1+X2+……+Xk （~左边为响应变量，右边为各个预测变量，预测变量之间用+符号分隔）</p>
+<p>formula形式如下：Y~X1+X2+……+Xk （~左边为响应变量，右边为各个预测变量，预测变量之间用+符号分隔）。</p>
 
 <p><strong>R表达式中常用的符号</strong></p>
 
@@ -125,25 +127,38 @@ function | 可以在表达式中用的数学函数，例如log(y)~x+z+w表示通
 ---
 Summary（）展示拟合的详细结果
 Coefficients（）列出拟合模型的模型参数（截距项和斜率）
-Cofint（） 提供模型参数的置信区间（默认95%）
-Fitted（）列出拟合模型的预测值
-Residuals（）列出拟合模型的残差值
-Anova（）生成一个拟合模型的方差分析，或者比较两个或更多拟合模型的方差分析表
-Vcov（）列出模型参数的协方差矩阵
+confint（） 提供模型参数的置信区间（默认95%）
+fitted（）列出拟合模型的预测值
+residuals（）列出拟合模型的残差值
+anova（）生成一个拟合模型的方差分析，或者比较两个或更多拟合模型的方差分析表
+deviance() 计算残差平和和
+vcov（）列出模型参数的协方差矩阵
 AIC（）输出赤池信息统计量
-Plot（）生成评价拟合模型的诊断图
-Predict（）用拟合模型对新的数据集预测响应变量值
+plot（）生成评价拟合模型的诊断图
+predict（）用拟合模型对新的数据集预测响应变量值
 </code></pre>
 
 <h1 id="3-r-语言示例lm">3. R 语言示例lm()</h1>
 
 <pre><code class="language-r">fit&lt;-lm(weight~height,data=women)  
-summary(fit)
-# 在Pr(&gt;|t|)栏，可以看到回归系数（3.45）显著不为0（p&lt;0.001），表明身高每增加1英寸，体重将预期地增加3.45磅
-# R平方项（0.991）表明模型可以解释体重99.1%的方差，它也是实际和预测值之间的相关系数（R^2=r^2）
-# 残差的标准误（1.53lbs）则可认为模型用身高预测体重的平均误差
-# F统计量检验所有的预测变量预测响应变量是否都在某个几率水平之上
-
+# summary(fit)
+# Call:
+# lm(formula = weight ~ height, data = women)
+# Residuals:
+#     Min      1Q  Median      3Q     Max 
+# -1.7333 -1.1333 -0.3833  0.7417  3.1167 
+# Coefficients:
+#              Estimate Std. Error t value Pr(&gt;|t|)    
+# (Intercept) -87.51667    5.93694  -14.74 1.71e-09 ***
+# height        3.45000    0.09114   37.85 1.09e-14 ***
+# ---
+# Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+# Residual standard error: 1.525 on 13 degrees of freedom
+# Multiple R-squared:  0.991,   Adjusted R-squared:  0.9903 
+# F-statistic:  1433 on 1 and 13 DF,  p-value: 1.091e-14
+coef(fit)
+#(Intercept)      height 
+#  -87.51667     3.45000 
 fitted(fit)#拟合模型的预测值  
 residuals(fit)#拟合模型的残差值 
 plot(women$height,women$weight,  
@@ -151,6 +166,121 @@ plot(women$height,women$weight,
      ylab=&quot;Weight（in pounds）&quot;)  
 abline(fit)  
 </code></pre>
+
+<p><strong>1.自变量评估</strong></p>
+
+<p>在Pr(&gt;|t|)栏，可以看到回归系数（3.45）或者截距项显著性&lt;0.05，拒绝原假设，表明身高每增加1英寸，体重将预期地增加3.45磅.</p>
+
+<p>*原假设H0：系数（或截距）为0。</p>
+
+<p>*备选假设H1：系数（或截距）不为0。</p>
+
+<p><strong>2.判定系数和F统计量</strong></p>
+
+<p><strong>残差的标准误(Residual standard error)</strong> 1.53 lbs则可认为模型用身高预测体重的平均误差.</p>
+
+<p><strong>判定系数R^2</strong></p>
+
+<p>$$R^2= \frac{SSR}{SST}=\frac{\sum(\hat{Y_i}-\overline{Y})^2}{\sum(Y_i-\overline{Y})^2} $$</p>
+
+<p><strong>R^2的取值范围为[0,1],越接近1表示回归模型对数据的解释能力越强。</strong></p>
+
+<p><img src="https://taoshengxu.github.io/DocumentGit/img/lm_R2.jpg" alt="" /></p>
+
+<p><strong>F统计量</strong>使用F分布检验MSR/MSE的比率，原假设：β1=0，备选假设：β1≠0. 检验简化模型\(dist=β0+\varepsilon\)与完整模型\(dist=β0+β1*x +\varepsilon\)之间的残差平方和差异的显著程度。</p>
+
+<p><strong>3.方差分析</strong></p>
+
+<p>线性回归中，<strong>方差分析用于评估模型或者进行模型间比较</strong>。</p>
+
+<pre><code> m=lm(dist ~ speed, data=cars)
+ summary(m)
+#  Call:
+# lm(formula = dist ~ speed, data = cars)
+# Residuals:
+#     Min      1Q  Median      3Q     Max 
+# -29.069  -9.525  -2.272   9.215  43.201 
+# Coefficients:
+#             Estimate Std. Error t value Pr(&gt;|t|)    
+# (Intercept) -17.5791     6.7584  -2.601   0.0123 *  
+# speed         3.9324     0.4155   9.464 1.49e-12 ***
+# ---
+# Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+# Residual standard error: 15.38 on 48 degrees of freedom
+# Multiple R-squared:  0.6511,  Adjusted R-squared:  0.6438 
+# F-statistic: 89.57 on 1 and 48 DF,  p-value: 1.49e-12
+
+anova(m)
+# Analysis of Variance Table
+# Response: dist
+#           Df Sum Sq Mean Sq F value   Pr(&gt;F)    
+# speed      1  21186 21185.5  89.567 1.49e-12 ***
+# Residuals 48  11354   236.5                     
+# ---
+# Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+reduced=lm(dist ~ 1, data=cars)  #没有自变量，仅有截距项的简化模型
+anova(reduced,m)
+# Analysis of Variance Table
+# Model 1: dist ~ 1
+# Model 2: dist ~ speed
+#   Res.Df   RSS Df Sum of Sq      F   Pr(&gt;F)    
+# 1     49 32539                                 
+# 2     48 11354  1     21186 89.567 1.49e-12 ***
+# ---
+# Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+</code></pre>
+
+<p>以上3组比较F统计量中p值都为1.49e-12。表面简化模型与完整模型之间存在显著差异，换言之，speed是有意义的解释变量。</p>
+
+<p><strong>4.模型诊断图形</strong></p>
+
+<pre><code>  plot(m,which=c(1:3,5))
+</code></pre>
+
+<p><img src="https://taoshengxu.github.io/DocumentGit/img/lm_figure.jpg" alt="" /></p>
+
+<ul>
+<li><p>第一个图为预测值Y（X轴）与残差（Y轴），在线性回归中，由于假设误差服从均值为0，方差固定的正态分布，所以认为残差分布与预测的Y值无关，残差均值必须为0。斜率为0的直线是理想情形。</p></li>
+
+<li><p>第二个图为正态QQ图，查看标准化的残差是否服从正态分布。</p></li>
+
+<li><p>第三个图为预测值Y（X轴）与标准化残差（Y轴），斜率为0的直线是理想情形。若在特定点观察到距离0较远的值，说明该点不能很好的拟合原始值，这些点肯能成为异常点。</p></li>
+
+<li><p>第四个图为杠杆值（X轴）与标准化残差（Y轴）。杠杆值表示解释变量向极端的偏斜程度。</p></li>
+</ul>
+
+<p><strong>分类变量</strong></p>
+
+<pre><code>m=lm(Sepal.Length ~ .,data=iris)
+ summary(m)
+
+# Call:
+# lm(formula = Sepal.Length ~ ., data = iris)
+# 
+# Residuals:
+#      Min       1Q   Median       3Q      Max 
+# -0.79424 -0.21874  0.00899  0.20255  0.73103 
+# 
+# Coefficients:
+#                   Estimate Std. Error t value Pr(&gt;|t|)    
+# (Intercept)        2.17127    0.27979   7.760 1.43e-12 ***
+# Sepal.Width        0.49589    0.08607   5.761 4.87e-08 ***
+# Petal.Length       0.82924    0.06853  12.101  &lt; 2e-16 ***
+# Petal.Width       -0.31516    0.15120  -2.084  0.03889 *  
+# Speciesversicolor -0.72356    0.24017  -3.013  0.00306 ** 
+# Speciesvirginica  -1.02350    0.33373  -3.067  0.00258 ** 
+# ---
+# Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+# 
+# Residual standard error: 0.3068 on 144 degrees of freedom
+# Multiple R-squared:  0.8673,  Adjusted R-squared:  0.8627 
+# F-statistic: 188.3 on 5 and 144 DF,  p-value: &lt; 2.2e-16
+</code></pre>
+
+<p>其中Species为分类变量，有三种类别：setosa,versicolor,virginica.</p>
+
+<p><img src="https://taoshengxu.github.io/DocumentGit/img/lm_species.jpg" alt="" /></p>
 
 <h1 id="4-多项式回归">4.多项式回归</h1>
 
@@ -185,6 +315,8 @@ fit&lt;-lm(Murder~Population+Illiteracy+Income+Frost,data=states)
 summary(fit)
 </code></pre>
 
+<p>对于F统计量，原假设：所有系数β全为0。</p>
+
 <h1 id="7-有交互项的多元线性回归">7.有交互项的多元线性回归</h1>
 
 <pre><code class="language-r">fit&lt;-lm(mpg~hp+wt+hp:wt,data=mtcars)  
@@ -200,10 +332,6 @@ fit2&lt;-lm(weight~height+I(height^2),data=women)
 par(mfrow=c(2,2))  
 plot(fit2)           
 </code></pre>
-
-<h1 id="8-q-q-图-quantile-quantile">8. Q-Q 图(Quantile - Quantile)</h1>
-
-<p>在验证一份数据是否属于正态分布的时候，我们经常会先画一幅Q-Q图，视觉上感受一下这份数据是否属于正态分布的，只要大部分的数据都飘在一条直线上，那么我们就可以基本上肯定这份数据是正态分布的了。</p>
 
 
   <footer>

@@ -509,7 +509,19 @@ t.test(extra ~ group,data = sleep2,paired=FALSE,var.equal=TRUE)
 <pre><code>t.test(extra ~ group,data = sleep2,paired=TRUE,var.equal=TRUE)
 </code></pre>
 
-<p>结果：P值显著，推翻原假设，服用两种安眠药后睡眠时间增加不同。</p>
+<p>结果：P值显著，推翻原假设，服用两种安眠药后睡眠时间增加程度不同。</p>
+
+<p><strong>4.两样本方差</strong></p>
+
+<p>评估两独立总体的方差是否一致。两样本方差检验一般不独立使用，常配合其他检验使用，如在两独立样本检验中，如果两检验两总体方差一致，则将t.test()的var.equal设置为TRUE.</p>
+
+<p><img src="https://taoshengxu.github.io/DocumentGit/img/twosample_test4.jpg" alt="" /></p>
+
+<p><img src="https://taoshengxu.github.io/DocumentGit/img/twosample_test5.jpg" alt="" /></p>
+
+<p><strong>5.单样本比率</strong></p>
+
+<p><strong>5.两 样本比率</strong></p>
 
 
   <footer>
