@@ -79,17 +79,17 @@
 <h1 id="1-回归问题的数学描述">1. 回归问题的数学描述</h1>
 
 <p>1.n个样本，p个变量，X，y已知。对数据中心化、标准化处理后，可以去掉截距项。
-<img src="https://taoshengxu.github.io/DocumentGit/img/145150y9utqyr9p0s99pk0.jpg" alt="" /></p>
+<img src="https://taoshengxu.github.io/DocumentGit/img/GLM1.jpg" alt="" /></p>
 
 <p>2.矩阵形式的多元线性模型为:</p>
 
-<p><img src="https://taoshengxu.github.io/DocumentGit/img/145822oknvx60lzl92v691.png" alt="" /></p>
+<p><img src="https://taoshengxu.github.io/DocumentGit/img/GLM2.png" alt="" /></p>
 
 <p>求解β，使得误差项ε能达到较低.</p>
 
 <p>3.残差平方和RSS为</p>
 
-<p><img src="https://taoshengxu.github.io/DocumentGit/img/151838z32fr356n52in5m3.png" alt="" /></p>
+<p><img src="https://taoshengxu.github.io/DocumentGit/img/GLM3.png" alt="" /></p>
 
 <p>4.多元线性回归问题变为求解β，从而使残差平方和极小值问题（关于系数向量β的二次函数极值问题）</p>
 
@@ -104,7 +104,7 @@
 
 <p>β的最小二乘估计为：</p>
 
-<p><img src="https://taoshengxu.github.io/DocumentGit/img/170846uzhmw4wrcvwhkazy.jpg" alt="" /></p>
+<p><img src="https://taoshengxu.github.io/DocumentGit/img/GLM4.jpg" alt="" /></p>
 
 <p>在统计学上，可证明β的最小二乘解为无偏估计，即多次得到的采样值X而计算出来的多个系数估计值向量的平均值将无限接近于真实值向量β。</p>
 
@@ -141,14 +141,14 @@
 <p>思路：在原先的β的最小二乘估计中加一个小扰动λI，是原先无法求广义逆的情况变成可以求出其广义逆，使得问题稳定并得以求解。</p>
 
 <p>极值问题：
-<img src="https://taoshengxu.github.io/DocumentGit/img/083631kd5q6mjtdjwyuy15.jpg" alt="" />
-<img src="https://taoshengxu.github.io/DocumentGit/img/083802zffpx1zf6mlzf3ax.jpg" alt="" /></p>
+<img src="https://taoshengxu.github.io/DocumentGit/img/GLM5.jpg" alt="" />
+<img src="https://taoshengxu.github.io/DocumentGit/img/GLM6.jpg" alt="" /></p>
 
 <p>对上式用偏导数求极值，结果就是</p>
 
-<p><img src="https://taoshengxu.github.io/DocumentGit/img/160953w8k63tvoa76wpw18.jpg" alt="" /></p>
+<p><img src="https://taoshengxu.github.io/DocumentGit/img/GLM7.jpg" alt="" /></p>
 
-<p>其中<img src="https://taoshengxu.github.io/DocumentGit/img/083451yxgvv2oacxvaaau4.jpg" alt="" />为惩罚函数，它保证了β值不会变的很大。岭参数λ不同，岭回归系数也会不同。</p>
+<p>其中<img src="..." alt="" />为惩罚函数，它保证了β值不会变的很大。岭参数λ不同，岭回归系数也会不同。</p>
 
 <p>岭回归是回归参数β的有偏估计。它的结果是使得残差平和变大，但是会使系数检验变好，即R语言summary结果中变量后的*变多。</p>
 
@@ -170,7 +170,7 @@
 <li>最小二乘法</li>
 </ol>
 
-<p><img src="https://taoshengxu.github.io/DocumentGit/img/153022dvegnfni1s9d9eov.jpg" alt="" /></p>
+<p><img src="https://taoshengxu.github.io/DocumentGit/img/GLM9.jpg" alt="" /></p>
 
 <p>2.岭回归</p>
 
@@ -178,13 +178,13 @@
 
 <p>对应着投影为β1和β2平面上的一个圆，即下图中的圆柱.</p>
 
-<p><img src="https://taoshengxu.github.io/DocumentGit/img/154311l7qrvvmtq93grvmw.jpg" alt="" /></p>
+<p><img src="https://taoshengxu.github.io/DocumentGit/img/GLM10.jpg" alt="" /></p>
 
 <p>该圆柱与抛物面的交点对应的β1、β2值，即为满足约束项条件下的能取得的最小的β1和β2.</p>
 
 <p>从β1,β2平面理解，即为抛物面等高线在水平面的投影和圆的交点，如下图所示,可见岭回归解与原先的最小二乘解是有一定距离的。</p>
 
-<p><img src="http://attachbak.dataguru.cn/attachments/forum/201603/03/110921ybbab0oq9tbn9qpf.jpg" alt="" /></p>
+<p><img src="http://attachbak.dataguru.cn/attachments/forum/201603/03/GLM11.jpg" alt="" /></p>
 
 <p>3.岭回归性质</p>
 
@@ -201,7 +201,7 @@
 </ul>
 
 <p>是λ的函数，岭迹图的横坐标为λ，纵坐标为β(λ)。而β(λ)是一个向量，由β1(λ)、β2(λ)、&hellip;等很多分量组成，每一个分量都是λ的函数，将每一个分量分别用一条线。当不存在奇异性时，岭迹应是稳定地逐渐趋向于0。
-<img src="https://taoshengxu.github.io/DocumentGit/img/173356ws06xw7xqov8wc0o.jpg" alt="" /></p>
+<img src="https://taoshengxu.github.io/DocumentGit/img/GLM12.jpg" alt="" /></p>
 
 <p>岭迹图比较</p>
 
@@ -247,7 +247,7 @@ select(lm.ridge(y~.,longley,lambda=seq(0,0.1,0.001)))  #用select函数可算lam
 #以上结果通常取GCV估计，或者观察大多数方法趋近哪个值。
 </code></pre>
 
-<p><img src="https://taoshengxu.github.io/DocumentGit/img/180759vkgxxkvjtvkozvvx.jpg" alt="" /></p>
+<p><img src="https://taoshengxu.github.io/DocumentGit/img/GLM13.jpg" alt="" /></p>
 
 <h1 id="5-lasso">5. LASSO</h1>
 
@@ -256,12 +256,12 @@ select(lm.ridge(y~.,longley,lambda=seq(0,0.1,0.001)))  #用select函数可算lam
 <p><strong>主要思想</strong>：
 通过构造一个一阶惩罚函数获得一个精炼的模型；通过最终确定一些指标（变量）癿系数为零（岭回归估计系数等于0癿机会微乎其微，造成筛选变量困难），解释力很强。擅长处理具有多重共线性癿数据，筛选变量，与岭回归一样是有偏估计。</p>
 
-<p><img src="https://taoshengxu.github.io/DocumentGit/img/215937llmsx53dfu3fdg6l.jpg" alt="" />
-<img src="https://taoshengxu.github.io/DocumentGit/img/215611cb0x1eudd6obhi8z.jpg" alt="" /></p>
+<p><img src="https://taoshengxu.github.io/DocumentGit/img/GLM14.jpg" alt="" />
+<img src="https://taoshengxu.github.io/DocumentGit/img/GLM15.jpg" alt="" /></p>
 
 <p><strong>几何解释</strong></p>
 
-<p><img src="https://taoshengxu.github.io/DocumentGit/img/220811s52a7l3326a351i3.jpg" alt="" /></p>
+<p><img src="https://taoshengxu.github.io/DocumentGit/img/GLM16.jpg" alt="" /></p>
 
 <p>由于方框的顶点更容易交于抛物面，也就是lasso更易求解，而该顶点对应的很多系数为0，也就是起到了筛选变量的目的。</p>
 
@@ -292,23 +292,23 @@ plot(fit, xvar = &quot;dev&quot;)
 
 <p>岭回归一方面可以将其变成一个最小二乘问题。另一方面可以将它解释成一个带约束项的系数优化问题。λ增大的过程就是t减小的过程，该图也说明了岭回归系数估计值为什么通常不为0，因为随着抛物面的扩展，它与约束圆的交点可能在圆周上的任意位置，除非交点恰好位于某个坐标轴或坐标平面上，否则大多数情况交点对应的系数值都不为零。再加上λ的选择应使椭球面和圆周的交点恰好在一个坐标平面上，更增加了求解λ的难度。</p>
 
-<p><img src="https://taoshengxu.github.io/DocumentGit/img/222225tr9tt44tn768b45t.jpg" alt="" /></p>
+<p><img src="https://taoshengxu.github.io/DocumentGit/img/GLM17.jpg" alt="" /></p>
 
 <p>左图为岭回归，右图为lasso回归。横轴越往左，自由度越小（即圆或方框在收缩的过程），λ越大，系数（即纵轴）会越趋于0。但是岭回归没有系数真正为0，但lasso的不断有系数变为0.</p>
 
 <h1 id="7-一般化的模型">7.一般化的模型</h1>
 
-<p><img src="https://taoshengxu.github.io/DocumentGit/img/222650guccc8yvc8jnxh7j.jpg" alt="" /></p>
+<p><img src="https://taoshengxu.github.io/DocumentGit/img/GLM18.jpg" alt="" /></p>
 
 <p>不同q对应的约束域形状</p>
 
-<p><img src="https://taoshengxu.github.io/DocumentGit/img/222758pwesenw44c4ilds5.jpg" alt="" /></p>
+<p><img src="https://taoshengxu.github.io/DocumentGit/img/GLM19.jpg" alt="" /></p>
 
 <h1 id="8-弹性网模型">8.弹性网模型</h1>
 
 <p>Zouand Hastie (2005)提出elasticnet，介于岭回归和lasso回归之间，现在被认为是处理多重共线性和变量筛选较好的收缩方法，而且损失的精度不会太多。</p>
 
-<p><img src="https://taoshengxu.github.io/DocumentGit/img/223232tlg6lnnnvlxflhmc.jpg" alt="" /></p>
+<p><img src="https://taoshengxu.github.io/DocumentGit/img/GLM20.jpg" alt="" /></p>
 
 <h1 id="9-最小角回归-least-angel-regression-是lasso-regression癿一种高效解法">9.最小角回归(Least Angel Regression)是lasso regression癿一种高效解法。</h1>
 
@@ -318,7 +318,7 @@ plot(fit, xvar = &quot;dev&quot;)
 
 <p>与向前逐步回归(Forward Stepwise)不同点在于，Forward Step wise 每次都是根据选择的变量子集，完全拟合出线性模型，计算出RSS，再设计统计量（如AIC）对较高癿模型复杂度作出惩罚，而LAR是每次先找出和因变量相关度较高的那个变量, 再沿着LSE的方向一点点调整这个predictor的系数，在这个过程中，这个变量和残差的相关系数会逐渐减小，等到这个相关性没那么显著的时候，就要选进新的相关性较高的变量，然后重新沿着LSE的方向进行变动。而到最后，所有变量都被选中，就和LSE相同了。</p>
 
-<p><img src="https://taoshengxu.github.io/DocumentGit/img/103533pkjgm1gjjz0kyj2f.jpg" alt="" /></p>
+<p><img src="https://taoshengxu.github.io/DocumentGit/img/GLM21.jpg" alt="" /></p>
 
 <p>左图为LAR逐步加上变量的过程（从左往右看），右图为LASSO变量逐渐淘汰的收缩过程（从右往左看）。
 对比两幅图，非常类似。所以可以用LAR方法来计算LASSO，该方法完全是线性解决方法，没有迭代的过程。</p>
@@ -327,7 +327,7 @@ plot(fit, xvar = &quot;dev&quot;)
 
 <p>设变量y=[y1,y2,&hellip;yn]; 变量x=[x1,x2,&hellip;,xn].</p>
 
-<p>其相关系数为<img src="https://taoshengxu.github.io/DocumentGit/img/104719un7jmmy6q0xx6j0z.jpg" alt="" /></p>
+<p>其相关系数为<img src="https://taoshengxu.github.io/DocumentGit/img/GLM22.jpg" alt="" /></p>
 
 <p>其中cov&ndash;协方差、var&mdash;方差。</p>
 
@@ -346,7 +346,7 @@ plot(fit, xvar = &quot;dev&quot;)
 <p>参考书The Elements of Statistical Learning .pdf的74页。LAR和Lasso的区别以及LAR解Lasso的修正
 参考书The Elements of Statistical Learning .pdf的76页。</p>
 
-<p><img src="https://taoshengxu.github.io/DocumentGit/img/163655y8vuo2dqdu7jo66b.jpg" alt="" /></p>
+<p><img src="https://taoshengxu.github.io/DocumentGit/img/GLM23.jpg" alt="" /></p>
 
 <p>假设有6个变量，最先加入与残差向量相关系数较大的浅蓝色v2，在v2变化过程中，相关系数越变越小，直到等于深蓝色的v6，于是加入v6，沿着v2与v6的最小角方向（即向量角分线方向）前进，此后v2和v6与残差向量的相关系数是共同变化的，即两者合并变化，使得相关系数越来越小，直到加入黑色v4为止，三个变量一起变化，&hellip;，一直打到最小二乘解为止，此时残差向量与所有变量的相关系数都为0，即与他们都垂直。</p>
 

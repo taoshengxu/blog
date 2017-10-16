@@ -1582,7 +1582,7 @@ Adjusted R-square：Degree-of-freedom adjusted coefficient of determination
 
 &lt;p&gt;拟合数据和原始数据对应点的误差的平方和&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;https://taoshengxu.github.io/DocumentGit/img/628033fa48bb1eb1a0879&amp;amp;690.gif&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://taoshengxu.github.io/DocumentGit/img/SSE_SSE.gif&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
 
 &lt;p&gt;SSE越接近于0，说明模型选择和拟合更好，数据预测也越成功。接下来的MSE和RMSE因为和SSE是同出一宗，所以效果一样。&lt;/p&gt;
 
@@ -1590,13 +1590,13 @@ Adjusted R-square：Degree-of-freedom adjusted coefficient of determination
 
 &lt;p&gt;预测数据和原始数据对应点误差的平方和的均值，也就是SSE/n，和SSE没有太大的区别，&lt;strong&gt;最常用&lt;/strong&gt;！&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;https://taoshengxu.github.io/DocumentGit/img/628033fa48bb1ebfee394&amp;amp;690.gif&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://taoshengxu.github.io/DocumentGit/img/SSE_MSE.gif&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
 
 &lt;h1 id=&#34;rmse-均方根&#34;&gt;RMSE(均方根)&lt;/h1&gt;
 
 &lt;p&gt;回归系统的拟合标准差，是MSE的平方根，就算公式如下&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;https://taoshengxu.github.io/DocumentGit/img/628033fa48bb1ec86542a690.gif&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://taoshengxu.github.io/DocumentGit/img/SSE_RMSE.gif&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
 
 &lt;hr /&gt;
 
@@ -1608,17 +1608,17 @@ Adjusted R-square：Degree-of-freedom adjusted coefficient of determination
 
 &lt;h4 id=&#34;1-ssr-sum-of-squares-of-the-regression-即预测数据与原始数据均值之差的平方和&#34;&gt;(1)SSR：Sum of squares of the regression，即预测数据与原始数据均值之差的平方和&lt;/h4&gt;
 
-&lt;p&gt;&lt;img src=&#34;https://taoshengxu.github.io/DocumentGit/img/628033fa48bb1ed5dd403&amp;amp;690.gif&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://taoshengxu.github.io/DocumentGit/img/SSE_SSR.gif&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
 
 &lt;h4 id=&#34;2-sst-total-sum-of-squares-即原始数据和均值之差的平方和&#34;&gt;(2)SST：Total sum of squares，即原始数据和均值之差的平方和&lt;/h4&gt;
 
-&lt;p&gt;&lt;img src=&#34;https://taoshengxu.github.io/DocumentGit/img/628033fa48bb1ede9b464&amp;amp;690.gif&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://taoshengxu.github.io/DocumentGit/img/SSE_SST.gif&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
 
 &lt;p&gt;SST=SSE+SSR&lt;/p&gt;
 
 &lt;p&gt;“确定系数”是定义为SSR和SST的比值&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;https://taoshengxu.github.io/DocumentGit/img/628033fa48bb1ee8ee0fa&amp;amp;690.gif&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://taoshengxu.github.io/DocumentGit/img/SSE_R2.gif&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;strong&gt;R-square是通过数据的变化来表征一个拟合的好坏。由上面的表达式可以知道“确定系数”的正常取值范围为[0 1]，越接近1，表明方程的变量对y的解释能力越强，这个模型对数据拟合的也较好。&lt;/strong&gt;&lt;/p&gt;
 
@@ -1646,17 +1646,17 @@ Adjusted R-square：Degree-of-freedom adjusted coefficient of determination
 &lt;h1 id=&#34;1-回归问题的数学描述&#34;&gt;1. 回归问题的数学描述&lt;/h1&gt;
 
 &lt;p&gt;1.n个样本，p个变量，X，y已知。对数据中心化、标准化处理后，可以去掉截距项。
-&lt;img src=&#34;https://taoshengxu.github.io/DocumentGit/img/145150y9utqyr9p0s99pk0.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+&lt;img src=&#34;https://taoshengxu.github.io/DocumentGit/img/GLM1.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
 
 &lt;p&gt;2.矩阵形式的多元线性模型为:&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;https://taoshengxu.github.io/DocumentGit/img/145822oknvx60lzl92v691.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://taoshengxu.github.io/DocumentGit/img/GLM2.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
 
 &lt;p&gt;求解β，使得误差项ε能达到较低.&lt;/p&gt;
 
 &lt;p&gt;3.残差平方和RSS为&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;https://taoshengxu.github.io/DocumentGit/img/151838z32fr356n52in5m3.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://taoshengxu.github.io/DocumentGit/img/GLM3.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
 
 &lt;p&gt;4.多元线性回归问题变为求解β，从而使残差平方和极小值问题（关于系数向量β的二次函数极值问题）&lt;/p&gt;
 
@@ -1671,7 +1671,7 @@ Adjusted R-square：Degree-of-freedom adjusted coefficient of determination
 
 &lt;p&gt;β的最小二乘估计为：&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;https://taoshengxu.github.io/DocumentGit/img/170846uzhmw4wrcvwhkazy.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://taoshengxu.github.io/DocumentGit/img/GLM4.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
 
 &lt;p&gt;在统计学上，可证明β的最小二乘解为无偏估计，即多次得到的采样值X而计算出来的多个系数估计值向量的平均值将无限接近于真实值向量β。&lt;/p&gt;
 
@@ -1708,14 +1708,14 @@ Adjusted R-square：Degree-of-freedom adjusted coefficient of determination
 &lt;p&gt;思路：在原先的β的最小二乘估计中加一个小扰动λI，是原先无法求广义逆的情况变成可以求出其广义逆，使得问题稳定并得以求解。&lt;/p&gt;
 
 &lt;p&gt;极值问题：
-&lt;img src=&#34;https://taoshengxu.github.io/DocumentGit/img/083631kd5q6mjtdjwyuy15.jpg&#34; alt=&#34;&#34; /&gt;
-&lt;img src=&#34;https://taoshengxu.github.io/DocumentGit/img/083802zffpx1zf6mlzf3ax.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+&lt;img src=&#34;https://taoshengxu.github.io/DocumentGit/img/GLM5.jpg&#34; alt=&#34;&#34; /&gt;
+&lt;img src=&#34;https://taoshengxu.github.io/DocumentGit/img/GLM6.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
 
 &lt;p&gt;对上式用偏导数求极值，结果就是&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;https://taoshengxu.github.io/DocumentGit/img/160953w8k63tvoa76wpw18.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://taoshengxu.github.io/DocumentGit/img/GLM7.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
 
-&lt;p&gt;其中&lt;img src=&#34;https://taoshengxu.github.io/DocumentGit/img/083451yxgvv2oacxvaaau4.jpg&#34; alt=&#34;&#34; /&gt;为惩罚函数，它保证了β值不会变的很大。岭参数λ不同，岭回归系数也会不同。&lt;/p&gt;
+&lt;p&gt;其中&lt;img src=&#34;...&#34; alt=&#34;&#34; /&gt;为惩罚函数，它保证了β值不会变的很大。岭参数λ不同，岭回归系数也会不同。&lt;/p&gt;
 
 &lt;p&gt;岭回归是回归参数β的有偏估计。它的结果是使得残差平和变大，但是会使系数检验变好，即R语言summary结果中变量后的*变多。&lt;/p&gt;
 
@@ -1737,7 +1737,7 @@ Adjusted R-square：Degree-of-freedom adjusted coefficient of determination
 &lt;li&gt;最小二乘法&lt;/li&gt;
 &lt;/ol&gt;
 
-&lt;p&gt;&lt;img src=&#34;https://taoshengxu.github.io/DocumentGit/img/153022dvegnfni1s9d9eov.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://taoshengxu.github.io/DocumentGit/img/GLM9.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
 
 &lt;p&gt;2.岭回归&lt;/p&gt;
 
@@ -1745,13 +1745,13 @@ Adjusted R-square：Degree-of-freedom adjusted coefficient of determination
 
 &lt;p&gt;对应着投影为β1和β2平面上的一个圆，即下图中的圆柱.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;https://taoshengxu.github.io/DocumentGit/img/154311l7qrvvmtq93grvmw.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://taoshengxu.github.io/DocumentGit/img/GLM10.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
 
 &lt;p&gt;该圆柱与抛物面的交点对应的β1、β2值，即为满足约束项条件下的能取得的最小的β1和β2.&lt;/p&gt;
 
 &lt;p&gt;从β1,β2平面理解，即为抛物面等高线在水平面的投影和圆的交点，如下图所示,可见岭回归解与原先的最小二乘解是有一定距离的。&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;http://attachbak.dataguru.cn/attachments/forum/201603/03/110921ybbab0oq9tbn9qpf.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://attachbak.dataguru.cn/attachments/forum/201603/03/GLM11.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
 
 &lt;p&gt;3.岭回归性质&lt;/p&gt;
 
@@ -1768,7 +1768,7 @@ Adjusted R-square：Degree-of-freedom adjusted coefficient of determination
 &lt;/ul&gt;
 
 &lt;p&gt;是λ的函数，岭迹图的横坐标为λ，纵坐标为β(λ)。而β(λ)是一个向量，由β1(λ)、β2(λ)、&amp;hellip;等很多分量组成，每一个分量都是λ的函数，将每一个分量分别用一条线。当不存在奇异性时，岭迹应是稳定地逐渐趋向于0。
-&lt;img src=&#34;https://taoshengxu.github.io/DocumentGit/img/173356ws06xw7xqov8wc0o.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+&lt;img src=&#34;https://taoshengxu.github.io/DocumentGit/img/GLM12.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
 
 &lt;p&gt;岭迹图比较&lt;/p&gt;
 
@@ -1814,7 +1814,7 @@ select(lm.ridge(y~.,longley,lambda=seq(0,0.1,0.001)))  #用select函数可算lam
 #以上结果通常取GCV估计，或者观察大多数方法趋近哪个值。
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;&lt;img src=&#34;https://taoshengxu.github.io/DocumentGit/img/180759vkgxxkvjtvkozvvx.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://taoshengxu.github.io/DocumentGit/img/GLM13.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
 
 &lt;h1 id=&#34;5-lasso&#34;&gt;5. LASSO&lt;/h1&gt;
 
@@ -1823,12 +1823,12 @@ select(lm.ridge(y~.,longley,lambda=seq(0,0.1,0.001)))  #用select函数可算lam
 &lt;p&gt;&lt;strong&gt;主要思想&lt;/strong&gt;：
 通过构造一个一阶惩罚函数获得一个精炼的模型；通过最终确定一些指标（变量）癿系数为零（岭回归估计系数等于0癿机会微乎其微，造成筛选变量困难），解释力很强。擅长处理具有多重共线性癿数据，筛选变量，与岭回归一样是有偏估计。&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;https://taoshengxu.github.io/DocumentGit/img/215937llmsx53dfu3fdg6l.jpg&#34; alt=&#34;&#34; /&gt;
-&lt;img src=&#34;https://taoshengxu.github.io/DocumentGit/img/215611cb0x1eudd6obhi8z.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://taoshengxu.github.io/DocumentGit/img/GLM14.jpg&#34; alt=&#34;&#34; /&gt;
+&lt;img src=&#34;https://taoshengxu.github.io/DocumentGit/img/GLM15.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;strong&gt;几何解释&lt;/strong&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;https://taoshengxu.github.io/DocumentGit/img/220811s52a7l3326a351i3.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://taoshengxu.github.io/DocumentGit/img/GLM16.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
 
 &lt;p&gt;由于方框的顶点更容易交于抛物面，也就是lasso更易求解，而该顶点对应的很多系数为0，也就是起到了筛选变量的目的。&lt;/p&gt;
 
@@ -1859,23 +1859,23 @@ plot(fit, xvar = &amp;quot;dev&amp;quot;)
 
 &lt;p&gt;岭回归一方面可以将其变成一个最小二乘问题。另一方面可以将它解释成一个带约束项的系数优化问题。λ增大的过程就是t减小的过程，该图也说明了岭回归系数估计值为什么通常不为0，因为随着抛物面的扩展，它与约束圆的交点可能在圆周上的任意位置，除非交点恰好位于某个坐标轴或坐标平面上，否则大多数情况交点对应的系数值都不为零。再加上λ的选择应使椭球面和圆周的交点恰好在一个坐标平面上，更增加了求解λ的难度。&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;https://taoshengxu.github.io/DocumentGit/img/222225tr9tt44tn768b45t.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://taoshengxu.github.io/DocumentGit/img/GLM17.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
 
 &lt;p&gt;左图为岭回归，右图为lasso回归。横轴越往左，自由度越小（即圆或方框在收缩的过程），λ越大，系数（即纵轴）会越趋于0。但是岭回归没有系数真正为0，但lasso的不断有系数变为0.&lt;/p&gt;
 
 &lt;h1 id=&#34;7-一般化的模型&#34;&gt;7.一般化的模型&lt;/h1&gt;
 
-&lt;p&gt;&lt;img src=&#34;https://taoshengxu.github.io/DocumentGit/img/222650guccc8yvc8jnxh7j.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://taoshengxu.github.io/DocumentGit/img/GLM18.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
 
 &lt;p&gt;不同q对应的约束域形状&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;https://taoshengxu.github.io/DocumentGit/img/222758pwesenw44c4ilds5.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://taoshengxu.github.io/DocumentGit/img/GLM19.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
 
 &lt;h1 id=&#34;8-弹性网模型&#34;&gt;8.弹性网模型&lt;/h1&gt;
 
 &lt;p&gt;Zouand Hastie (2005)提出elasticnet，介于岭回归和lasso回归之间，现在被认为是处理多重共线性和变量筛选较好的收缩方法，而且损失的精度不会太多。&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;https://taoshengxu.github.io/DocumentGit/img/223232tlg6lnnnvlxflhmc.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://taoshengxu.github.io/DocumentGit/img/GLM20.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
 
 &lt;h1 id=&#34;9-最小角回归-least-angel-regression-是lasso-regression癿一种高效解法&#34;&gt;9.最小角回归(Least Angel Regression)是lasso regression癿一种高效解法。&lt;/h1&gt;
 
@@ -1885,7 +1885,7 @@ plot(fit, xvar = &amp;quot;dev&amp;quot;)
 
 &lt;p&gt;与向前逐步回归(Forward Stepwise)不同点在于，Forward Step wise 每次都是根据选择的变量子集，完全拟合出线性模型，计算出RSS，再设计统计量（如AIC）对较高癿模型复杂度作出惩罚，而LAR是每次先找出和因变量相关度较高的那个变量, 再沿着LSE的方向一点点调整这个predictor的系数，在这个过程中，这个变量和残差的相关系数会逐渐减小，等到这个相关性没那么显著的时候，就要选进新的相关性较高的变量，然后重新沿着LSE的方向进行变动。而到最后，所有变量都被选中，就和LSE相同了。&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;https://taoshengxu.github.io/DocumentGit/img/103533pkjgm1gjjz0kyj2f.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://taoshengxu.github.io/DocumentGit/img/GLM21.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
 
 &lt;p&gt;左图为LAR逐步加上变量的过程（从左往右看），右图为LASSO变量逐渐淘汰的收缩过程（从右往左看）。
 对比两幅图，非常类似。所以可以用LAR方法来计算LASSO，该方法完全是线性解决方法，没有迭代的过程。&lt;/p&gt;
@@ -1894,7 +1894,7 @@ plot(fit, xvar = &amp;quot;dev&amp;quot;)
 
 &lt;p&gt;设变量y=[y1,y2,&amp;hellip;yn]; 变量x=[x1,x2,&amp;hellip;,xn].&lt;/p&gt;
 
-&lt;p&gt;其相关系数为&lt;img src=&#34;https://taoshengxu.github.io/DocumentGit/img/104719un7jmmy6q0xx6j0z.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;其相关系数为&lt;img src=&#34;https://taoshengxu.github.io/DocumentGit/img/GLM22.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
 
 &lt;p&gt;其中cov&amp;ndash;协方差、var&amp;mdash;方差。&lt;/p&gt;
 
@@ -1913,7 +1913,7 @@ plot(fit, xvar = &amp;quot;dev&amp;quot;)
 &lt;p&gt;参考书The Elements of Statistical Learning .pdf的74页。LAR和Lasso的区别以及LAR解Lasso的修正
 参考书The Elements of Statistical Learning .pdf的76页。&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;https://taoshengxu.github.io/DocumentGit/img/163655y8vuo2dqdu7jo66b.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://taoshengxu.github.io/DocumentGit/img/GLM23.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
 
 &lt;p&gt;假设有6个变量，最先加入与残差向量相关系数较大的浅蓝色v2，在v2变化过程中，相关系数越变越小，直到等于深蓝色的v6，于是加入v6，沿着v2与v6的最小角方向（即向量角分线方向）前进，此后v2和v6与残差向量的相关系数是共同变化的，即两者合并变化，使得相关系数越来越小，直到加入黑色v4为止，三个变量一起变化，&amp;hellip;，一直打到最小二乘解为止，此时残差向量与所有变量的相关系数都为0，即与他们都垂直。&lt;/p&gt;
 

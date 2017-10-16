@@ -85,7 +85,7 @@ Adjusted R-square：Degree-of-freedom adjusted coefficient of determination
 
 <p>拟合数据和原始数据对应点的误差的平方和</p>
 
-<p><img src="https://taoshengxu.github.io/DocumentGit/img/628033fa48bb1eb1a0879&amp;690.gif" alt="" /></p>
+<p><img src="https://taoshengxu.github.io/DocumentGit/img/SSE_SSE.gif" alt="" /></p>
 
 <p>SSE越接近于0，说明模型选择和拟合更好，数据预测也越成功。接下来的MSE和RMSE因为和SSE是同出一宗，所以效果一样。</p>
 
@@ -93,13 +93,13 @@ Adjusted R-square：Degree-of-freedom adjusted coefficient of determination
 
 <p>预测数据和原始数据对应点误差的平方和的均值，也就是SSE/n，和SSE没有太大的区别，<strong>最常用</strong>！</p>
 
-<p><img src="https://taoshengxu.github.io/DocumentGit/img/628033fa48bb1ebfee394&amp;690.gif" alt="" /></p>
+<p><img src="https://taoshengxu.github.io/DocumentGit/img/SSE_MSE.gif" alt="" /></p>
 
 <h1 id="rmse-均方根">RMSE(均方根)</h1>
 
 <p>回归系统的拟合标准差，是MSE的平方根，就算公式如下</p>
 
-<p><img src="https://taoshengxu.github.io/DocumentGit/img/628033fa48bb1ec86542a690.gif" alt="" /></p>
+<p><img src="https://taoshengxu.github.io/DocumentGit/img/SSE_RMSE.gif" alt="" /></p>
 
 <hr />
 
@@ -111,17 +111,17 @@ Adjusted R-square：Degree-of-freedom adjusted coefficient of determination
 
 <h4 id="1-ssr-sum-of-squares-of-the-regression-即预测数据与原始数据均值之差的平方和">(1)SSR：Sum of squares of the regression，即预测数据与原始数据均值之差的平方和</h4>
 
-<p><img src="https://taoshengxu.github.io/DocumentGit/img/628033fa48bb1ed5dd403&amp;690.gif" alt="" /></p>
+<p><img src="https://taoshengxu.github.io/DocumentGit/img/SSE_SSR.gif" alt="" /></p>
 
 <h4 id="2-sst-total-sum-of-squares-即原始数据和均值之差的平方和">(2)SST：Total sum of squares，即原始数据和均值之差的平方和</h4>
 
-<p><img src="https://taoshengxu.github.io/DocumentGit/img/628033fa48bb1ede9b464&amp;690.gif" alt="" /></p>
+<p><img src="https://taoshengxu.github.io/DocumentGit/img/SSE_SST.gif" alt="" /></p>
 
 <p>SST=SSE+SSR</p>
 
 <p>“确定系数”是定义为SSR和SST的比值</p>
 
-<p><img src="https://taoshengxu.github.io/DocumentGit/img/628033fa48bb1ee8ee0fa&amp;690.gif" alt="" /></p>
+<p><img src="https://taoshengxu.github.io/DocumentGit/img/SSE_R2.gif" alt="" /></p>
 
 <p><strong>R-square是通过数据的变化来表征一个拟合的好坏。由上面的表达式可以知道“确定系数”的正常取值范围为[0 1]，越接近1，表明方程的变量对y的解释能力越强，这个模型对数据拟合的也较好。</strong></p>
 
