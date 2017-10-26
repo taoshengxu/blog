@@ -2693,13 +2693,15 @@ sudo gdebi -n rstudio-1.0.44-amd64.deb
 rm rstudio-1.0.44-amd64.deb
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;h2 id=&#34;rstudio-server&#34;&gt;Rstudio server&lt;/h2&gt;
+&lt;h1 id=&#34;rstudio-server&#34;&gt;Rstudio server&lt;/h1&gt;
 
 &lt;p&gt;&lt;a href=&#34;https://www.rstudio.com/products/rstudio/download-server/&#34;&gt;Latest file&lt;/a&gt;&lt;/p&gt;
 
-&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;sudo apt-get install gdebi-core
-sudo gdebi -n rstudio-1.0.44-amd64.deb
-rm rstudio-1.0.44-amd64.deb
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;apt-get install gdebi-core
+apt-get install libapparmor1
+wget http://download2.rstudio.org/rstudio-server-0.97.551-amd64.deb
+gdebi rstudio-server-0.97.551-amd64.deb
+
 完成安装后，RStudio Server会自动启动运行
 ps -aux|grep rstudio
 8787端口被打开
