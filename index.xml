@@ -2648,7 +2648,7 @@ Git &lt;a href=&#34;https://git-scm.com/about&#34;&gt;参考手册ENG&lt;/a&gt;&
     </item>
     
     <item>
-      <title>Ubuntu 安装R</title>
+      <title>Ubuntu 安装R, RStudio, Rstudio Server</title>
       <link>/blog/cn/2017/09/ubuntu_r/</link>
       <pubDate>Tue, 05 Sep 2017 23:03:13 +0000</pubDate>
       
@@ -2656,11 +2656,25 @@ Git &lt;a href=&#34;https://git-scm.com/about&#34;&gt;参考手册ENG&lt;/a&gt;&
       <description>
         
 
+&lt;h1 id=&#34;r&#34;&gt;R&lt;/h1&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Ubuntu14.04&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;pre&gt;&lt;code&gt;sudo gedit /etc/apt/sources.list
+# 加入新镜像源：
+deb http://cran.rstudio.com/bin/linux/ubuntu trusty/
+sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 51716619E084DAB9
+# 然后更新一下
+sudo apt-get update
+sudo apt-get install r-base
+
+&lt;/code&gt;&lt;/pre&gt;
+
 &lt;ol&gt;
 &lt;li&gt;Ubuntu16.04&lt;/li&gt;
 &lt;/ol&gt;
-
-&lt;h2 id=&#34;r&#34;&gt;R&lt;/h2&gt;
 
 &lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;sudo echo &amp;quot;deb http://cran.rstudio.com/bin/linux/ubuntu xenial/&amp;quot; | sudo tee -a /etc/apt/sources.list 
 gpg --keyserver keyserver.ubuntu.com --recv-key 51716619E084DAB9
@@ -2669,18 +2683,19 @@ sudo apt-get update
 sudo apt-get install r-base r-base-dev
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;h2 id=&#34;rstudio&#34;&gt;Rstudio&lt;/h2&gt;
+&lt;h1 id=&#34;rstudio&#34;&gt;Rstudio&lt;/h1&gt;
 
 &lt;p&gt;&lt;a href=&#34;https://www.rstudio.com/products/rstudio/download/&#34;&gt;Latest file&lt;/a&gt;&lt;/p&gt;
 
 &lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;sudo apt-get install gdebi-core
+sudo apt-get install libapparmor1
 sudo gdebi -n rstudio-1.0.44-amd64.deb
 rm rstudio-1.0.44-amd64.deb
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;h2 id=&#34;rstudio-server&#34;&gt;Rstudio server&lt;/h2&gt;
 
-&lt;p&gt;&lt;a href=&#34;https://www.rstudio.com/products/rstudio/download-server/&#34;&gt;Latest&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://www.rstudio.com/products/rstudio/download-server/&#34;&gt;Latest file&lt;/a&gt;&lt;/p&gt;
 
 &lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;sudo apt-get install gdebi-core
 sudo gdebi -n rstudio-1.0.44-amd64.deb
