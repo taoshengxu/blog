@@ -115,10 +115,10 @@ rm rstudio-1.0.44-amd64.deb
 
 <p><a href="https://www.rstudio.com/products/rstudio/download-server/">Latest file</a></p>
 
-<pre><code class="language-r">apt-get install gdebi-core
-apt-get install libapparmor1
+<pre><code class="language-r">sudo apt-get install gdebi-core
+sudo apt-get install libapparmor1
 wget http://download2.rstudio.org/rstudio-server-0.97.551-amd64.deb
-gdebi rstudio-server-0.97.551-amd64.deb
+sudo gdebi rstudio-server-0.97.551-amd64.deb
 
 完成安装后，RStudio Server会自动启动运行
 ps -aux|grep rstudio

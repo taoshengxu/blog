@@ -2697,10 +2697,10 @@ rm rstudio-1.0.44-amd64.deb
 
 &lt;p&gt;&lt;a href=&#34;https://www.rstudio.com/products/rstudio/download-server/&#34;&gt;Latest file&lt;/a&gt;&lt;/p&gt;
 
-&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;apt-get install gdebi-core
-apt-get install libapparmor1
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;sudo apt-get install gdebi-core
+sudo apt-get install libapparmor1
 wget http://download2.rstudio.org/rstudio-server-0.97.551-amd64.deb
-gdebi rstudio-server-0.97.551-amd64.deb
+sudo gdebi rstudio-server-0.97.551-amd64.deb
 
 完成安装后，RStudio Server会自动启动运行
 ps -aux|grep rstudio
@@ -3148,7 +3148,14 @@ http://ip:3838/shiny-examples/010-download/ （ip是你服务器的ip地址）
 &lt;li&gt;kill %num 杀死&lt;/li&gt;
 &lt;li&gt;ps 查看进程号PID&lt;/li&gt;
 &lt;li&gt;nohup 始终执行&lt;/li&gt;
-&lt;li&gt;ps - aux | grep xxx 显示终端关闭后的后台进程
+&lt;li&gt;ps - aux | grep xxx 显示终端关闭后的后台进程&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;卸载软件&#34;&gt;卸载软件&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;[dpkg &amp;ndash;list]查找软件
+[sudo apt-get remove &lt;programname&gt;] 卸载
 
 
 &lt;br /&gt;&lt;/li&gt;
