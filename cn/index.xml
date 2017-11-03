@@ -6,8 +6,848 @@
     <description>Recent content in 中文博客 on My Lives</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 15 Oct 2017 23:06:17 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 03 Nov 2017 15:42:35 +0000</lastBuildDate>
     <atom:link href="/blog/cn/" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>生物信息学常见1000个软件的安装代码</title>
+      <link>/blog/cn/2017/11/1000soft/</link>
+      <pubDate>Fri, 03 Nov 2017 15:42:35 +0000</pubDate>
+      
+      <guid>/blog/cn/2017/11/1000soft/</guid>
+      <description>
+        
+
+&lt;p&gt;引自Jiangming Zeng&lt;a href=&#34;http://mp.weixin.qq.com/s?__biz=MzAxMDkxODM1Ng==&amp;amp;mid=2247484870&amp;amp;idx=1&amp;amp;sn=d336ed1951b5cff14c591201084622fd&amp;amp;chksm=9b48457dac3fcc6bb25bdb2a0e744013a3c11d0b7b8cc8b9f274560260618c07bdf438611752&amp;amp;mpshare=1&amp;amp;scene=1&amp;amp;srcid=08174RqFPmfWUyO1PO1Xh9Uz#rd&#34;&gt;原文&lt;/a&gt;&lt;/p&gt;
+
+&lt;h1 id=&#34;分析软件&#34;&gt;分析软件&lt;/h1&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;## annovar and GATK 
+## Download and install sratoolkit
+## http://www.ncbi.nlm.nih.gov/Traces/sra/sra.cgi?view=software
+## http://www.ncbi.nlm.nih.gov/books/NBK158900/
+cd ~/biosoft
+mkdir sratoolkit &amp;amp;&amp;amp;  cd sratoolkit
+wget http://ftp-trace.ncbi.nlm.nih.gov/sra/sdk/2.6.3/sratoolkit.2.6.3-centos_linux64.tar.gz
+##
+##  Length: 63453761 (61M) [application/x-gzip]
+##  Saving to: &amp;quot;sratoolkit.2.6.3-centos_linux64.tar.gz&amp;quot;
+tar zxvf sratoolkit.2.6.3-centos_linux64.tar.gz
+~/biosoft/sratoolkit/sratoolkit.2.6.3-centos_linux64/bin/fastdump -h
+mkdir -p  ~/biosoft/myBin
+echo &#39;export PATH=/home/jianmingzeng/biosoft/myBin/bin:$PATH&#39; &amp;gt;&amp;gt;~/.bashrc 
+source ~/.bashrc
+cd ~/biosoft
+mkdir cmake &amp;amp;&amp;amp;  cd cmake
+wget http://cmake.org/files/v3.3/cmake-3.3.2.tar.gz
+tar xvfz cmake-3.3.2.tar.gz
+cd cmake-3.3.2 
+./configure --prefix=/home/jianmingzeng/biosoft/myBin
+make
+make install 
+## Download and install samtools
+## http://samtools.sourceforge.net/
+## http://www.htslib.org/doc/samtools.html
+cd ~/biosoft
+mkdir samtools &amp;amp;&amp;amp;  cd samtools
+wget https://github.com/samtools/samtools/releases/download/1.3.1/samtools-1.3.1.tar.bz2 
+tar xvfj samtools-1.3.1.tar.bz2 
+cd samtools-1.3.1 
+./configure --prefix=/home/jianmingzeng/biosoft/myBin
+make
+make install
+~/biosoft/myBin/bin/samtools --help
+~/biosoft/myBin/bin/plot-bamstats --help
+cd htslib-1.3.1
+./configure --prefix=/home/jianmingzeng/biosoft/myBin
+make
+make install
+~/biosoft/myBin/bin/tabix
+# ## Download and install tabix 
+# cd ~/biosoft
+# mkdir tabix &amp;amp;&amp;amp;  cd tabix
+# # http://genometoolbox.blogspot.com/2013/11/installing-tabix-on-unix.html
+# tar xvfj tabix-0.2.6.tar.bz2 
+# cd tabix-0.2.6
+# make
+# cd ~/biosoft
+# ## http://samtools.github.io/bcftools/
+# mkdir htslib &amp;amp;&amp;amp;  cd htslib  
+# git clone git://github.com/samtools/htslib.git 
+# cd htslib
+# make 
+## Download and install bcftools
+## http://www.htslib.org/download/
+## http://www.htslib.org/doc/bcftools-1.0.html
+cd ~/biosoft
+mkdir bcftools &amp;amp;&amp;amp;  cd bcftools
+wget https://github.com/samtools/bcftools/releases/download/1.3.1/bcftools-1.3.1.tar.bz2
+tar xvfj bcftools-1.3.1.tar.bz2
+cd bcftools-1.3.1 
+make
+cp bcftools /home/jianmingzeng/biosoft/myBin
+~/biosoft/myBin/bin/bcftools --help
+## Download and install vcftools
+## https://vcftools.github.io/index.html 
+## http://vcftools.sourceforge.net/specs.html
+cd ~/biosoft
+mkdir vcftools &amp;amp;&amp;amp;  cd vcftools
+# wget https://codeload.github.com/vcftools/vcftools/legacy.zip/master -O  vcftools-vcftools-v0.1.14-24-gac1bfd5.zip 
+# unzip vcftools-vcftools-v0.1.14-24-gac1bfd5.zip 
+# mv vcftools-vcftools-ac1bfd5 vcftools-v0.1.14-24
+# cd vcftools-v0.1.14-24
+# export PERL5LIB=/home/jianmingzeng/biosoft/vcftools/vcftools-v0.1.14-24/src/perl/
+# ./autogen.sh 
+# ./configure     --prefix=/home/jianmingzeng/biosoft/myBin
+# make 
+# make install 
+# ~/biosoft/myBin/bin/vcftools --help
+wget https://sourceforge.net/projects/vcftools/files/vcftools_0.1.13.tar.gz 
+tar zxvf vcftools_0.1.13.tar.gz
+cd  vcftools_0.1.13
+make
+## Download and install ANNOVAR  
+cd ~/biosoft
+# The latest version of ANNOVAR (2016Feb01) can be downloaded here (registration required)
+# http://www.openbioinformatics.org/annovar/annovar_download_form.php 
+mkdir ANNOVAR  &amp;amp;&amp;amp;  cd ANNOVAR  
+## Download and install samstat
+## http://samstat.sourceforge.net/
+## http://www.htslib.org/doc/samtools.html
+cd ~/biosoft
+mkdir samstat &amp;amp;&amp;amp;  cd samstat
+wget http://liquidtelecom.dl.sourceforge.net/project/samstat/samstat-1.5.tar.gz
+tar zxvf  samstat-1.5.tar.gz 
+cd samstat-1.5 
+./configure --prefix=/home/jianmingzeng/biosoft/myBin
+make
+make install
+~/biosoft/myBin/bin/samstat --help
+## Download and install picardtools
+## https://sourceforge.net/projects/picard/
+## https://github.com/broadinstitute/picard
+cd ~/biosoft
+mkdir picardtools &amp;amp;&amp;amp;  cd picardtools
+wget http://ncu.dl.sourceforge.net/project/picard/picard-tools/1.119/picard-tools-1.119.zip
+unzip picard-tools-1.119.zip 
+## Download and install freebayes
+## https://github.com/ekg/freebayes
+## http://clavius.bc.edu/~erik/CSHL-advanced-sequencing/freebayes-tutorial.html
+cd ~/biosoft
+mkdir freebayes &amp;amp;&amp;amp;  cd freebayes
+## wget -O freebayes-master.zip  https://codeload.github.com/ekg/freebayes/zip/master
+## unzip freebayes-master.zip
+wget http://clavius.bc.edu/~erik/freebayes/freebayes-5d5b8ac0.tar.gz
+tar xzvf freebayes-5d5b8ac0.tar.gz
+cd freebayes
+make
+ ~/biosoft/freebayes/freebayes/bin/freebayes
+cd ~/biosoft
+## https://sourceforge.net/projects/varscan/files/
+## http://varscan.sourceforge.net/index.html
+mkdir VarScan  &amp;amp;&amp;amp;  cd VarScan  
+wget https://sourceforge.net/projects/varscan/files/VarScan.v2.3.9.jar 
+cd ~/biosoft
+mkdir SnpEff &amp;amp;&amp;amp;  cd SnpEff
+##  http://snpeff.sourceforge.net/
+##  http://snpeff.sourceforge.net/SnpSift.html 
+##  http://snpeff.sourceforge.net/SnpEff_manual.html
+wget http://sourceforge.net/projects/snpeff/files/snpEff_latest_core.zip 
+## java -jar snpEff.jar download GRCh37.75
+## java -Xmx4G -jar snpEff.jar -i vcf -o vcf GRCh37.75 example.vcf &amp;gt; example_snpeff.vcf
+unzip snpEff_latest_core.zip
+## https://github.com/najoshi/sickle
+cd ~/biosoft
+mkdir sickle &amp;amp;&amp;amp; cd sickle
+wget https://codeload.github.com/najoshi/sickle/zip/master -O sickle.zip
+unzip sickle.zip
+cd sickle-master
+make
+~/biosoft/sickle/sickle-master/sickle -h
+cd ~/biosoft
+## http://www.usadellab.org/cms/?page=trimmomatic
+## http://www.usadellab.org/cms/uploads/supplementary/Trimmomatic/TrimmomaticManual_V0.32.pdf
+mkdir Trimmomatic &amp;amp;&amp;amp; cd Trimmomatic
+wget http://www.usadellab.org/cms/uploads/supplementary/Trimmomatic/Trimmomatic-0.36.zip 
+unzip Trimmomatic-0.36.zip 
+java -jar ~/biosoft/Trimmomatic/Trimmomatic-0.36/trimmomatic-0.36.jar -h
+## Download and install bedtools
+cd ~/biosoft
+mkdir bedtools &amp;amp;&amp;amp;  cd bedtools
+wget https://github.com/arq5x/bedtools2/releases/download/v2.25.0/bedtools-2.25.0.tar.gz
+## Length: 19581105 (19M) [application/octet-stream] 
+tar -zxvf bedtools-2.25.0.tar.gz
+cd bedtools2
+make
+#~/biosoft/bedtools/bedtools2/bin/
+## Download and install PeakRanger
+cd ~/biosoft
+mkdir PeakRanger &amp;amp;&amp;amp;  cd PeakRanger
+wget https://sourceforge.net/projects/ranger/files/PeakRanger-1.18-Linux-x86_64.zip 
+## Length: 1517587 (1.4M) [application/octet-stream]
+unzip PeakRanger-1.18-Linux-x86_64.zip
+~/biosoft/PeakRanger/bin/peakranger -h
+## Download and install bowtie
+cd ~/biosoft
+mkdir bowtie &amp;amp;&amp;amp;  cd bowtie
+wget https://sourceforge.net/projects/bowtie-bio/files/bowtie2/2.2.9/bowtie2-2.2.9-linux-x86_64.zip 
+#Length: 27073243 (26M) [application/octet-stream]
+#Saving to: &amp;quot;download&amp;quot;   ## I made a mistake here for downloading the bowtie2 
+mv download  bowtie2-2.2.9-linux-x86_64.zip
+unzip bowtie2-2.2.9-linux-x86_64.zip
+## Download and install BWA
+cd ~/biosoft
+mkdir bwa &amp;amp;&amp;amp;  cd bwa
+#http://sourceforge.net/projects/bio-bwa/files/
+wget https://sourceforge.net/projects/bio-bwa/files/bwa-0.7.15.tar.bz2 
+tar xvfj bwa-0.7.15.tar.bz2 # x extracts, v is verbose (details of what it is doing), f skips prompting for each individual file, and j tells it to unzip .bz2 files
+cd bwa-0.7.15
+make
+#export PATH=$PATH:/path/to/bwa-0.7.15 # Add bwa to your PATH by editing ~/.bashrc file (or .bash_profile or .profile file)
+# /path/to/ is an placeholder. Replace with real path to BWA on your machine
+#source ~/.bashrc
+## Download and install macs2  
+## // https://pypi.python.org/pypi/MACS2/
+cd ~/biosoft
+mkdir macs2 &amp;amp;&amp;amp;  cd macs2
+## just stick to PyPI release: https://pypi.python.org/pypi/MACS2
+wget https://pypi.python.org/packages/9f/99/a8ac96b357f6b0a6f559fe0f5a81bcae12b98579551620ce07c5183aee2c/MACS2-2.1.1.20160309.tar.gz -O MACS2-2.1.1.tar.gz 
+tar zxvf  MACS2-2.1.1.tar.gz 
+cd  MACS2-2.1.1.20160309/
+python setup.py install --user 
+## https://docs.python.org/2/install/
+~/.local/bin/macs2 --help
+#wget https://codeload.github.com/taoliu/MACS/zip/master -O MACS-master.zip
+#unzip MACS-master.zip
+#cd MACS-master 
+## So you can&#39;t just pull github snapshot then run setup.py to install MACS2. Instead
+# ImageMagick
+cd ~/biosoft
+mkdir ImageMagick &amp;amp;&amp;amp;  cd ImageMagick
+## http://www.imagemagick.org/ 
+cd ~/biosoft
+mkdir weblogo &amp;amp;&amp;amp;  cd weblogo
+## http://weblogo.berkeley.edu/
+wget http://weblogo.berkeley.edu/release/weblogo.2.8.2.tar.gz
+tar zxvf weblogo.2.8.2.tar.gz
+cd weblogo
+export PATH=$PATH:/home/jianmingzeng/biosoft/weblogo/weblogo
+source ~/.bashrc
+cd ~/biosoft
+mkdir Ghostscript &amp;amp;&amp;amp;  cd Ghostscript
+# http://www.ghostscript.com/download/gsdnld.html
+# http://www.ghostscript.com/doc/9.20/Readme.htm
+wget https://github.com/ArtifexSoftware/ghostpdl-downloads/releases/download/gs920/ghostscript-9.20-linux-x86_64.tgz 
+tar zxvf ghostscript-9.20-linux-x86_64.tgz
+cp ghostscript-9.20-linux-x86_64/gs-920-linux_x86_64  ~/biosoft/myBin/bin/gs
+## make sure the &amp;quot;gs&amp;quot; program is executable 
+## Download and install homer (Hypergeometric Optimization of Motif EnRichment)
+## // http://homer.salk.edu/homer/
+## // http://blog.qiubio.com:8080/archives/3024 
+## The commands gs, seqlogo, blat, and samtools should now work from the command line
+cd ~/biosoft
+mkdir homer &amp;amp;&amp;amp;  cd homer
+wget http://homer.salk.edu/homer/configureHomer.pl 
+perl configureHomer.pl -install
+perl configureHomer.pl -install hg19
+## Download and install SWEMBL
+cd ~/biosoft
+mkdir SWEMBL &amp;amp;&amp;amp;  cd SWEMBL
+#### readme: http://www.ebi.ac.uk/~swilder/SWEMBL/beginners.html
+wget http://www.ebi.ac.uk/~swilder/SWEMBL/SWEMBL.3.3.1.tar.bz2 
+tar xvfj SWEMBL.3.3.1.tar.bz2
+cd SWEMBL.3.3.1/
+make
+## error 
+## Download and install SISSRs
+cd ~/biosoft
+mkdir SISSRs &amp;amp;&amp;amp;  cd SISSRs
+#### readme: https://dir.nhlbi.nih.gov/papers/lmi/epigenomes/sissrs/SISSRs-Manual.pdf
+wget http://dir.nhlbi.nih.gov/papers/lmi/epigenomes/sissrs/sissrs_v1.4.tar.gz
+tar xzvf sissrs_v1.4.tar.gz
+~/biosoft/SISSRs/sissrs.pl
+## Download and install SISSRs
+cd ~/biosoft
+mkdir QuEST &amp;amp;&amp;amp;  cd QuEST
+#### http://mendel.stanford.edu/SidowLab/downloads/quest/
+wget http://mendel.stanford.edu/SidowLab/downloads/quest/QuEST_2.4.tar.gz
+tar xzvf QuEST_2.4.tar.gz
+cd QuEST_2.4 
+## Download and install fastqc
+cd ~/biosoft
+mkdir fastqc &amp;amp;&amp;amp;  cd fastqc
+wget http://www.bioinformatics.bbsrc.ac.uk/projects/fastqc/fastqc_v0.11.5.zip
+unzip fastqc_v0.11.5.zip
+## Download and install CEAS    
+## http://liulab.dfci.harvard.edu/CEAS/download.html
+cd ~/biosoft
+mkdir CEAS  &amp;amp;&amp;amp;  cd CEAS 
+wget  http://liulab.dfci.harvard.edu/CEAS/src/CEAS-Package-1.0.2.tar.gz
+tar zxvf CEAS-Package-1.0.2.tar.gz
+cd  CEAS-Package-1.0.2
+python setup.py install --user 
+## http://liulab.dfci.harvard.edu/CEAS/usermanual.html
+ ~/.local/bin/ceas --help  
+mkdir annotation  &amp;amp;&amp;amp;  cd annotation  
+wget http://liulab.dfci.harvard.edu/CEAS/src/hg19.refGene.gz ; gunzip hg19.refGene.gz 
+# http://hgdownload.cse.ucsc.edu/goldenPath/hg19/database/refGene.txt.gz ##  gunzip refGene.txt.gz ; mv refGene.txt  hg19refGene.txt
+## Download and install CEAS    
+## http://liulab.dfci.harvard.edu/CEAS/download.html
+cd ~/biosoft
+mkdir crossmap  &amp;amp;&amp;amp;  cd crossmap 
+pip install CrossMap --user
+## http://crossmap.sourceforge.net/#use-pip-to-install-crossmap
+mkdir chain_files  &amp;amp;&amp;amp;  cd chain_files  
+wget http://hgdownload.soe.ucsc.edu/goldenPath/mm10/liftOver/mm10ToMm9.over.chain.gz
+wget http://hgdownload.soe.ucsc.edu/goldenPath/mm9/liftOver/mm9ToMm10.over.chain.gz 
+wget http://hgdownload.soe.ucsc.edu/goldenPath/hg38/liftOver/hg38ToHg19.over.chain.gz 
+wget http://hgdownload.soe.ucsc.edu/goldenPath/hg38/liftOver/hg38ToHg19.over.chain.gz 
+# http://hgdownload.cse.ucsc.edu/goldenPath/hg19/database/refGene.txt.gz ##  gunzip refGene.txt.gz ; mv refGene.txt  hg19refGene.txt
+# Usage: CrossMap.py bed ~/biosoft/crossmap/chain_files/mm9ToMm10.over.chain.gz  test.mm9.bed3
+cd ~/biosoft
+# http://www.broadinstitute.org/cancer/cga/rnaseqc_run
+# http://www.broadinstitute.org/cancer/cga/rnaseqc_download
+mkdir RNA-SeQC  &amp;amp;&amp;amp;  cd RNA-SeQC 
+#### readme: http://www.broadinstitute.org/cancer/cga/sites/default/files/data/tools/rnaseqc/RNA-SeQC_Help_v1.1.2.pdf
+wget http://www.broadinstitute.org/cancer/cga/tools/rnaseqc/RNA-SeQC_v1.1.8.jar 
+#TopHat+Cufflinks+ pipeline
+## Download and install TopHat 
+# https://ccb.jhu.edu/software/tophat/index.shtml
+cd ~/biosoft
+mkdir TopHat  &amp;amp;&amp;amp;  cd TopHat 
+#### readme: https://ccb.jhu.edu/software/tophat/manual.shtml
+wget https://ccb.jhu.edu/software/tophat/downloads/tophat-2.1.1.Linux_x86_64.tar.gz
+tar xzvf tophat-2.1.1.Linux_x86_64.tar.gz 
+ln -s tophat-2.1.1.Linux_x86_64 current 
+# ~/biosoft/TopHat/current/tophat2
+## Download and install Cufflinks 
+#  http://cole-trapnell-lab.github.io/cufflinks/
+cd ~/biosoft
+mkdir Cufflinks  &amp;amp;&amp;amp;  cd Cufflinks 
+#### readme: http://cole-trapnell-lab.github.io/cufflinks/manual/
+#### install:http://cole-trapnell-lab.github.io/cufflinks/install/
+wget http://cole-trapnell-lab.github.io/cufflinks/assets/downloads/cufflinks-2.2.1.Linux_x86_64.tar.gz
+tar xzvf cufflinks-2.2.1.Linux_x86_64.tar.gz 
+ln -s cufflinks-2.2.1.Linux_x86_64 current
+~/biosoft/Cufflinks/current/cufflinks
+#HISAT-Stringtie2-Ballgown pipeline
+## Download and install HISAT 
+# https://ccb.jhu.edu/software/hisat2/index.shtml
+cd ~/biosoft
+mkdir HISAT  &amp;amp;&amp;amp;  cd HISAT 
+#### readme: https://ccb.jhu.edu/software/hisat2/manual.shtml
+wget ftp://ftp.ccb.jhu.edu/pub/infphilo/hisat2/downloads/hisat2-2.0.4-Linux_x86_64.zip
+unzip hisat2-2.0.4-Linux_x86_64.zip
+ln -s hisat2-2.0.4  current 
+## ~/biosoft/HISAT/current/hisat2-build
+## ~/biosoft/HISAT/current/hisat2  
+## Download and install StringTie
+## https://ccb.jhu.edu/software/stringtie/  ## https://ccb.jhu.edu/software/stringtie/index.shtml?t=manual
+cd ~/biosoft
+mkdir StringTie &amp;amp;&amp;amp;  cd StringTie 
+wget http://ccb.jhu.edu/software/stringtie/dl/stringtie-1.2.3.Linux_x86_64.tar.gz 
+tar zxvf  stringtie-1.2.3.Linux_x86_64.tar.gz
+ln -s stringtie-1.2.3.Linux_x86_64 current
+# ~/biosoft/StringTie/current/stringtie
+cd ~/biosoft
+mkdir RSEM &amp;amp;&amp;amp;  cd RSEM 
+wget https://codeload.github.com/deweylab/RSEM/tar.gz/v1.2.31
+mv v1.2.31  RSEM.v1.2.31.tar.gz 
+tar zxvf RSEM.v1.2.31.tar.gz  
+## Download and install HTSeq  
+## http://www-huber.embl.de/users/anders/HTSeq/doc/overview.html
+## https://pypi.python.org/pypi/HTSeq
+cd ~/biosoft
+mkdir HTSeq &amp;amp;&amp;amp;  cd HTSeq
+wget  https://pypi.python.org/packages/72/0f/566afae6c149762af301a19686cd5fd1876deb2b48d09546dbd5caebbb78/HTSeq-0.6.1.tar.gz 
+tar zxvf HTSeq-0.6.1.tar.gz
+cd HTSeq-0.6.1
+python setup.py install --user 
+~/.local/bin/htseq-count  --help
+## ftp://ftp.sanger.ac.uk/pub/gencode/Gencode_mouse/release_M1/
+## http://hgdownload-test.cse.ucsc.edu/goldenPath/mm10/liftOver/
+## GRCm38/mm10 (Dec, 2011) 
+## ls *bam |while read id;do ( ~/.local/bin/htseq-count  -f bam  $id   genecode/mm9/gencode.vM1.annotation.gtf.gz  1&amp;gt;${id%%.*}.gene.counts ) ;done 
+## ls *bam |while read id;do ( ~/.local/bin/htseq-count  -f bam -i exon_id  $id   genecode/mm9/gencode.vM1.annotation.gtf.gz  1&amp;gt;${id%%.*}.exon.counts ) ;done
+## Download and install kallisto
+## https://pachterlab.github.io/kallisto/starting
+cd ~/biosoft
+mkdir kallisto &amp;amp;&amp;amp;  cd kallisto 
+wget https://github.com/pachterlab/kallisto/releases/download/v0.43.0/kallisto_linux-v0.43.0.tar.gz
+#tar zxvf  
+## Download and install Sailfish
+## http://www.cs.cmu.edu/~ckingsf/software/sailfish/  ## 
+cd ~/biosoft
+mkdir Sailfish &amp;amp;&amp;amp;  cd Sailfish 
+wget   https://github.com/kingsfordgroup/sailfish/releases/download/v0.9.2/SailfishBeta-0.9.2_DebianSqueeze.tar.gz 
+#tar zxvf  
+## Download and install salmon
+## http://salmon.readthedocs.io/en/latest/salmon.html ## 
+cd ~/biosoft
+mkdir salmon &amp;amp;&amp;amp;  cd salmon 
+## https://github.com/COMBINE-lab/salmon
+#tar zxvf  
+cd ~/biosoft
+mkdir GDC  &amp;amp;&amp;amp;  cd GDC  
+# https://gdc.cancer.gov/access-data/gdc-data-transfer-tool
+# http://gdc-docs.nci.nih.gov/Data_Transfer_Tool/Users_Guide/Getting_Started/
+wget https://gdc.nci.nih.gov/files/public/file/gdc-client_v1.2.0_Ubuntu14.04_x64.zip 
+unzip gdc-client_v1.2.0_Ubuntu14.04_x64.zip
+cd ~/biosoft/myBin/bin
+## http://hgdownload.cse.ucsc.edu/admin/exe/
+wget http://hgdownload.cse.ucsc.edu/admin/exe/linux.x86_64/bedToBigBed
+wget http://hgdownload.cse.ucsc.edu/admin/exe/linux.x86_64/bedSort
+wget http://hgdownload.cse.ucsc.edu/admin/exe/linux.x86_64/bedGraphToBigWig
+wget http://hgdownload.cse.ucsc.edu/admin/exe/linux.x86_64/fetchChromSizes
+wget http://hgdownload.cse.ucsc.edu/admin/exe/linux.x86_64/wigToBigWig
+wget http://hgdownload.cse.ucsc.edu/admin/exe/linux.x86_64/liftOver
+wget http://hgdownload.cse.ucsc.edu/admin/exe/linux.x86_64/bigWigToBedGraph
+wget http://hgdownload.cse.ucsc.edu/admin/exe/linux.x86_64/bigBedToBed
+wget http://hgdownload.cse.ucsc.edu/admin/exe/linux.x86_64/blat/blat
+wget http://hgdownload.cse.ucsc.edu/admin/exe/linux.x86_64/blat/gfClient
+wget http://hgdownload.cse.ucsc.edu/admin/exe/linux.x86_64/blat/gfServer
+## Download and install variationtoolkit
+## https://code.google.com/archive/p/variationtoolkit/downloads 
+cd ~/biosoft
+mkdir variationtoolkit &amp;amp;&amp;amp;  cd variationtoolkit  
+wget https://storage.googleapis.com/google-code-archive-downloads/v2/code.google.com/variationtoolkit/archive.tar.gz
+tar zxvf archive.tar.gz 
+cd variationtoolkit
+make
+## Download and install transvar
+# http://bioinformatics.mdanderson.org/main/Transvar
+cd ~/biosoft
+# https://bitbucket.org/wanding/transvar
+mkdir transvar &amp;amp;&amp;amp;  cd transvar  
+wget https://bitbucket.org/wanding/transvar/get/v2.1.19.20160221.zip 
+unzip v2.1.19.20160221.zip 
+cd wanding-transvar-5dd8a7366999 
+python setup.py install --user 
+cd ~/biosoft
+# http://kobas.cbi.pku.edu.cn/download.php 
+mkdir kobas &amp;amp;&amp;amp;  cd kobas  
+# wget http://kobas.cbi.pku.edu.cn/download_file.php?type=seq_pep&amp;amp;filename=hsa.pep.fasta.gz 
+# wget http://kobas.cbi.pku.edu.cn/download_file.php?type=sqlite3&amp;amp;filename=hsa.db.gz 
+wget http://kobas.cbi.pku.edu.cn/kobas-2.1.1/kobas-2.1.1.tar.gz 
+tar zxvf kobas-2.1.1.tar.gz 
+cd kobas-2.1.1_20160822
+# * Download the KOBAS organism data package (organism.db.gz) from KOBAS Backend databases download website
+# * Download the KOBAS specific species data package from KOBAS Backend databases download website (for example, hsa.db.gz)
+# * Download the specific sequence file from KOBAS sequence files download website (for example, hsa.pep.fasta.gz)
+# * `gunzip organism.db.gz`
+# * `gunzip hsa.db.gz`
+# * Move all databases into ${kobas_home}/sqlite3/ (for example, organism.db, hsa.db)
+# * `gunzip hsa.pep.fasta.gz`
+# * Move the fasta sequence file into ${kobas_home}/seq_pep/
+# * `makeblastdb -in hsa.pep.fasta -dbtype prot`
+pip install RPy2 --user 
+pip install Numpy --user 
+pip install Pandas --user 
+pip install BioPython --user 
+pip install matplotlib --user 
+pip install PySQLite --user 
+source(&amp;quot;http://bioconductor.org/biocLite.R&amp;quot;)
+biocLite(&amp;quot;qvalue&amp;quot;)
+## Download and install bamtools
+## https://github.com/pezmaster31/bamtools/wiki/Building-and-installing
+cd ~/biosoft
+mkdir bamtools &amp;amp;&amp;amp;  cd bamtools  
+git clone git://github.com/pezmaster31/bamtools.git 
+cd bamtools
+cmake --version  ## BamTools requires CMake (version &amp;gt;= 2.6.4).
+mkdir build &amp;amp;&amp;amp;  cd build 
+cmake ../ 
+make
+~/biosoft/bamtools/bamtools/bin/bamtools
+## Download and install BAMStats
+## http://bamstats.sourceforge.net/
+## https://sourceforge.net/projects/bamstats/files/
+cd ~/biosoft
+mkdir BAMStats &amp;amp;&amp;amp;  cd BAMStats  
+wget https://nchc.dl.sourceforge.net/project/bamstats/BAMStats-1.25.zip 
+unzip BAMStats-1.25.zip
+#java -jar  ~/biosoft/BAMStats/BAMStats-1.25/BAMStats-1.25.jar  --help
+## Download and install Qualimap 
+## http://qualimap.bioinfo.cipf.es/
+cd ~/biosoft
+mkdir Qualimap &amp;amp;&amp;amp;  cd Qualimap  
+wget https://bitbucket.org/kokonech/qualimap/downloads/qualimap_v2.2.1.zip 
+## readme  http://qualimap.bioinfo.cipf.es/doc_html/index.html
+## example results :http://kokonech.github.io/qualimap/HG00096.chr20_bamqc/qualimapReport.html 
+unzip qualimap_v2.2.1.zip 
+~/biosoft/bamtools/bamtools/bin/bamtools
+~/biosoft/Qualimap/qualimap_v2.2.1/qualimap --help ## --java-mem-size=4G
+## modify ~/.bashrc by adding PATH=$PATH:~/.local/bin/
+## Download and install deepTools
+## https://github.com/fidelram/deepTools
+## http://deeptools.readthedocs.io/en/latest/content/example_usage.html
+pip install pyBigWig --user 
+cd ~/biosoft
+mkdir deepTools &amp;amp;&amp;amp;  cd deepTools  
+git clone https://github.com/fidelram/deepTools ## 130M,
+cd deepTools
+python setup.py install --user
+## 17 tools in ~/.local/bin/
+~/.local/bin/deeptools
+cd ~/biosoft
+mkdir ngsplot &amp;amp;&amp;amp;  cd ngsplot  
+## download by yourself :https://drive.google.com/drive/folders/0B1PVLadG_dCKN1liNFY0MVM1Ulk  
+tar -zxvf ngsplot-2.61.tar.gz
+tar zxvf ngsplot.eg.bam.tar.gz
+echo &#39;export PATH=/home/jianmingzeng/biosoft/ngsplot/ngsplot/bin:$PATH&#39; &amp;gt;&amp;gt;~/.bashrc  
+echo &#39;export NGSPLOT=/home/jianmingzeng/biosoft/ngsplot/ngsplot&#39; &amp;gt;&amp;gt;~/.bashrc 
+source ~/.bashrc
+install.packages(&amp;quot;doMC&amp;quot;, dep=T)
+install.packages(&amp;quot;caTools&amp;quot;, dep=T)
+install.packages(&amp;quot;utils&amp;quot;, dep=T)
+source(&amp;quot;http://bioconductor.org/biocLite.R&amp;quot;)
+biocLite( &amp;quot;BSgenome&amp;quot; )
+biocLite( &amp;quot;Rsamtools&amp;quot; )
+biocLite( &amp;quot;ShortRead&amp;quot; )
+cd ~/biosoft
+mkdir breakdancer &amp;amp;&amp;amp;  cd breakdancer  
+# http://breakdancer.sourceforge.net/
+# you need to install 2 perl module by yourself : http://breakdancer.sourceforge.net/moreperl.html
+wget https://sourceforge.net/projects/breakdancer/files/breakdancer-1.1.2_2013_03_08.zip 
+unzip breakdancer-1.1.2_2013_03_08.zip 
+cd breakdancer-1.1.2/cpp
+make  ##something wrong !
+## usage: http://breakdancer.sourceforge.net/pipeline.html
+cd ~/biosoft
+# http://boevalab.com/FREEC/
+mkdir Control-FREEC &amp;amp;&amp;amp; cd Control-FREEC
+# https://github.com/BoevaLab/FREEC/releases
+wget https://github.com/BoevaLab/FREEC/archive/v10.3.zip 
+unzip v10.3.zip 
+# https://www.ncbi.nlm.nih.gov/pubmed/22155870
+# http://boevalab.com/FREEC/tutorial.html
+# http://samtools.sourceforge.net/pileup.shtml
+cd ~/biosoft
+# https://github.com/dellytools/delly
+mkdir delly &amp;amp;&amp;amp; cd delly 
+# git clone --recursive https://github.com/dellytools/delly.git
+# cd delly 
+# make all
+# make PARALLEL=1 -B src/delly
+wget https://github.com/dellytools/delly/releases/download/v0.7.6/delly_v0.7.6_linux_x86_64bit 
+chmod 777 delly_v0.7.6_linux_x86_64bit 
+~/biosoft/delly/delly_v0.7.6_linux_x86_64bit  --help 
+## delly call -t DEL -g hg19.fa -o s1.bcf -x hg19.excl sample1.bam
+## ./delly/src/bcftools/bcftools view delly.bcf &amp;gt; delly.vcf
+## The SV type can be DEL, DUP, INV, TRA, or INS for deletions, tandem duplications, inversions, translocations and small insertions, respectively.
+## In addition, you can filter input reads more stringently using -q 20 and -s 15.
+cd ~/biosoft
+# https://www.cog-genomics.org/plink2/data#merge_list
+mkdir PLINK &amp;amp;&amp;amp; cd PLINK 
+wget https://www.cog-genomics.org/static/bin/plink170113/plink_linux_x86_64.zip 
+unzip plink_linux_x86_64.zip
+~/biosoft/PLINK/plink
+## Download and install Scalpel
+cd ~/biosoft
+mkdir Scalpel &amp;amp;&amp;amp;  cd Scalpel
+wget https://downloads.sourceforge.net/project/scalpel/scalpel-0.5.3.tar.gz  
+tar zxvf scalpel-0.5.3.tar.gz
+cd scalpel-0.5.3
+make
+~/biosoft/Scalpel/scalpel-0.5.3/scalpel-discovery  --help
+~/biosoft/Scalpel/scalpel-0.5.3/scalpel-export  --help
+cd ~/biosoft
+# https://www.cog-genomics.org/plink2/data#merge_list
+mkdir firehose &amp;amp;&amp;amp; cd firehose 
+wget http://gdac.broadinstitute.org/runs/code/firehose_get_latest.zip
+unzip firehose_get_latest.zip 
+~/biosoft/firehose/firehose_get
+~/biosoft/firehose/firehose_get -tasks clinical analyses latest brca 
+cd ~/biosoft
+# https://www.cog-genomics.org/plink2/data#merge_list
+mkdir fastpop &amp;amp;&amp;amp; cd fastpop 
+wget https://sourceforge.net/projects/fastpop/files/FastPop.tar.gz 
+wget https://jaist.dl.sourceforge.net/project/fastpop/FastPop_Instruction.pdf
+tar zxvf FastPop.tar.gz  
+pip install cnvkit --user
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;转录组-de-novo分析流程的软件全代码&#34;&gt;转录组 de novo分析流程的软件全代码&lt;/h1&gt;
+
+&lt;p&gt;Trinotate/Trinity/TransDecoder/sqlite/NCBI BLAST+/HMMER/PFAM signalP v4 /tmhmm v2 /RNAMMER 有些软件需要教育邮箱注册才行哦~~&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;## Trinotate/Trinity/TransDecoder/sqlite/NCBI BLAST+/HMMER/PFAM 
+## signalP v4 /tmhmm v2 /RNAMMER
+cd ~/biosoft
+mkdir hmmer &amp;amp;&amp;amp;  cd hmmer
+wget http://eddylab.org/software/hmmer/2.3/hmmer-2.3.tar.gz 
+tar zxvf hmmer-2.3.tar.gz
+cd hmmer-2.3
+./configure --prefix=/home/jmzeng/my-bin
+#./configure --prefix=/home/jianmingzeng/biosoft/myBin
+make
+make install
+#for file in hmmalign hmmbuild hmmcalibrate hmmconvert hmmemit hmmfetch hmmindex hmmpfam hmmsearch ; do\
+#      cp src/$file /home/jmzeng/my-bin/bin/;\
+#   done
+#for file in hmmer hmmalign hmmbuild hmmcalibrate hmmconvert hmmemit hmmfetch hmmindex hmmpfam hmmsearch; do\
+#      cp documentation/man/$file.man /home/jmzeng/my-bin/man/man1/$file.1;\
+#   done
+cp /home/jmzeng/my-bin/bin/hmmsearch /home/jmzeng/my-bin/bin/hmmsearch2
+cd ~/biosoft
+mkdir CBS &amp;amp;&amp;amp;  cd CBS
+#   signalP v4 (free academic download) http://www.cbs.dtu.dk/cgi-bin/nph-sw_request?signalp
+#   tmhmm v2 (free academic download) http://www.cbs.dtu.dk/cgi-bin/nph-sw_request?tmhmm
+#   RNAMMER (free academic download) http://www.cbs.dtu.dk/cgi-bin/sw_request?rnammer
+mkdir signalp-4.1
+mkdir rnammer-1.2
+## be sure to untar it in a new directory
+## it&#39;s a perl script, we need to modify it according to readme http://trinotate.github.io/#SoftwareRequired
+## vi ~/biosoft/CBS/signalp-4.1/signalp
+tar zxvf signalp-4.1e.Linux.tar.gz 
+tar zxvf rnammer-1.2.src.tar.Z 
+tar zxvf tmhmm-2.0c.Linux.tar.gz 
+## it&#39;s a perl script, we need to modify it according to readme http://trinotate.github.io/#SoftwareRequired
+## vi ~/biosoft/CBS/tmhmm-2.0c/bin/tmhmm 
+## vi ~/biosoft/CBS/tmhmm-2.0c/bin/tmhmmformat.pl
+which perl  ## /usr/bin/perl
+cd ~/biosoft
+mkdir blastPlus &amp;amp;&amp;amp;  cd blastPlus
+#   ftp://ftp.ncbi.nlm.nih.gov/blast/executables/LATEST
+wget ftp://ftp.ncbi.nlm.nih.gov/blast/executables/LATEST/ncbi-blast-2.5.0+-x64-linux.tar.gz
+blastBinFolder=~/biosoft/blastPlus/ncbi-blast-2.5.0+/bin
+$blastBinFolder/makeblastdb -help
+#   http://www.cbs.dtu.dk/services/doc/signalp-4.1.readme
+cd ~/biosoft
+mkdir TransDecoder &amp;amp;&amp;amp;  cd TransDecoder
+#   https://transdecoder.github.io/
+# https://github.com/TransDecoder/TransDecoder/releases
+wget https://github.com/TransDecoder/TransDecoder/archive/v3.0.0.tar.gz  -O TransDecoder.v3.0.0.tar.gz 
+tar zxvf TransDecoder.v3.0.0.tar.gz 
+cd TransDecoder-3.0.0 
+make
+~/biosoft/TransDecoder/TransDecoder-3.0.0/TransDecoder.LongOrfs -h
+~/biosoft/TransDecoder/TransDecoder-3.0.0/TransDecoder.Predict -h
+## sqlite3  --help
+cd ~/biosoft
+mkdir Trinotate &amp;amp;&amp;amp;  cd Trinotate
+#   http://trinotate.github.io/
+#   https://github.com/Trinotate/Trinotate/releases
+wget https://github.com/Trinotate/Trinotate/archive/v3.0.1.tar.gz  -O Trinotate.v3.0.1.tar.gz 
+tar zxvf Trinotate.v3.0.1.tar.gz
+~/biosoft/Trinotate/Trinotate-3.0.1/Trinotate -h
+wget https://data.broadinstitute.org/Trinity/Trinotate_v3_RESOURCES/Pfam-A.hmm.gz
+wget https://data.broadinstitute.org/Trinity/Trinotate_v3_RESOURCES/uniprot_sprot.pep.gz
+wget https://data.broadinstitute.org/Trinity/Trinotate_v3_RESOURCES/Trinotate_v3.sqlite.gz  -O Trinotate.sqlite.gz
+gunzip Trinotate.sqlite.gz
+gunzip uniprot_sprot.pep.gz
+makeblastdb -in uniprot_sprot.pep -dbtype prot
+gunzip Pfam-A.hmm.gz
+hmmpress Pfam-A.hmm
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;基因组-gtf-bed-注释&#34;&gt;基因组，gtf，bed，注释&lt;/h1&gt;
+
+&lt;p&gt;前面既然把我多年累积的软件安装代码共享了，就顺便把我最近做直播我的基因组的一些数据下载代码共享吧&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;cd ~/reference
+mkdir -p genome/hg19  &amp;amp;&amp;amp; cd genome/hg19 
+nohup wget http://hgdownload.cse.ucsc.edu/goldenPath/hg19/bigZips/chromFa.tar.gz &amp;amp;
+tar zvfx chromFa.tar.gz
+cat *.fa &amp;gt; hg19.fa
+rm chr*.fa
+ 
+ 
+cd ~/reference
+mkdir -p genome/hg38  &amp;amp;&amp;amp; cd genome/hg38 
+nohup wget http://hgdownload.cse.ucsc.edu/goldenPath/hg38/bigZips/hg38.fa.gz  &amp;amp;
+ 
+cd ~/reference
+mkdir -p  genome/mm10  &amp;amp;&amp;amp; cd genome/mm10 
+nohup wget http://hgdownload.cse.ucsc.edu/goldenPath/mm10/bigZips/chromFa.tar.gz  &amp;amp;
+tar zvfx chromFa.tar.gz
+cat *.fa &amp;gt; mm10.fa
+rm chr*.fa
+ 
+ 
+cd ~/biosoft/RNA-SeQC
+wget http://www.broadinstitute.org/cancer/cga/sites/default/files/data/tools/rnaseqc/ThousandReads.bam
+wget http://www.broadinstitute.org/cancer/cga/sites/default/files/data/tools/rnaseqc/gencode.v7.annotation_goodContig.gtf.gz
+wget http://www.broadinstitute.org/cancer/cga/sites/default/files/data/tools/rnaseqc/Homo_sapiens_assembly19.fasta.gz
+wget http://www.broadinstitute.org/cancer/cga/sites/default/files/data/tools/rnaseqc/Homo_sapiens_assembly19.other.tar.gz
+wget http://www.broadinstitute.org/cancer/cga/sites/default/files/data/tools/rnaseqc/gencode.v7.gc.txt
+wget http://www.broadinstitute.org/cancer/cga/sites/default/files/data/tools/rnaseqc/rRNA.tar.gz
+ 
+cd ~/reference
+mkdir -p index/bowtie &amp;amp;&amp;amp; cd index/bowtie 
+nohup time ~/biosoft/bowtie/bowtie2-2.2.9/bowtie2-build  ~/reference/genome/hg19/hg19.fa  ~/reference/index/bowtie/hg19 1&amp;gt;hg19.bowtie_index.log 2&amp;gt;&amp;amp;1 &amp;amp;
+nohup time ~/biosoft/bowtie/bowtie2-2.2.9/bowtie2-build  ~/reference/genome/hg38/hg38.fa  ~/reference/index/bowtie/hg38 1&amp;gt;hg38.bowtie_index.log 2&amp;gt;&amp;amp;1 &amp;amp;
+nohup time ~/biosoft/bowtie/bowtie2-2.2.9/bowtie2-build  ~/reference/genome/mm10/mm10.fa  ~/reference/index/bowtie/mm10 1&amp;gt;mm10.bowtie_index.log 2&amp;gt;&amp;amp;1 &amp;amp;
+  
+cd ~/reference
+mkdir -p index/bwa &amp;amp;&amp;amp; cd index/bwa 
+nohup time ~/biosoft/bwa/bwa-0.7.15/bwa index   -a bwtsw   -p ~/reference/index/bwa/hg19  ~/reference/genome/hg19/hg19.fa 1&amp;gt;hg19.bwa_index.log 2&amp;gt;&amp;amp;1   &amp;amp;
+nohup time ~/biosoft/bwa/bwa-0.7.15/bwa index   -a bwtsw   -p ~/reference/index/bwa/hg38  ~/reference/genome/hg38/hg38.fa 1&amp;gt;hg38.bwa_index.log 2&amp;gt;&amp;amp;1   &amp;amp;
+nohup time ~/biosoft/bwa/bwa-0.7.15/bwa index   -a bwtsw   -p ~/reference/index/bwa/mm10  ~/reference/genome/mm10/mm10.fa 1&amp;gt;mm10.bwa_index.log 2&amp;gt;&amp;amp;1   &amp;amp;
+  
+cd ~/reference
+mkdir -p index/hisat &amp;amp;&amp;amp; cd index/hisat 
+nohup wget ftp://ftp.ccb.jhu.edu/pub/infphilo/hisat2/data/hg19.tar.gz  &amp;amp;
+nohup wget ftp://ftp.ccb.jhu.edu/pub/infphilo/hisat2/data/hg38.tar.gz  &amp;amp;
+nohup wget ftp://ftp.ccb.jhu.edu/pub/infphilo/hisat2/data/grcm38.tar.gz &amp;amp;
+nohup wget ftp://ftp.ccb.jhu.edu/pub/infphilo/hisat2/data/mm10.tar.gz  &amp;amp;
+tar zxvf hg19.tar.gz
+tar zxvf grcm38.tar.gz
+tar zxvf hg38.tar.gz
+tar zxvf mm10.tar.gz 
+  
+  
+mkdir -p ~/annotation/variation/human/ExAC
+cd ~/annotation/variation/human/ExAC
+## http://exac.broadinstitute.org/
+## ftp://ftp.broadinstitute.org/pub/ExAC_release/current
+wget ftp://ftp.broadinstitute.org/pub/ExAC_release/current/ExAC.r0.3.1.sites.vep.vcf.gz.tbi 
+nohup wget ftp://ftp.broadinstitute.org/pub/ExAC_release/current/ExAC.r0.3.1.sites.vep.vcf.gz &amp;amp;
+wget ftp://ftp.broadinstitute.org/pub/ExAC_release/current/cnv/exac-final-cnv.gene.scores071316 
+wget ftp://ftp.broadinstitute.org/pub/ExAC_release/current/cnv/exac-final.autosome-1pct-sq60-qc-prot-coding.cnv.bed
+ 
+ 
+mkdir -p ~/annotation/variation/human/dbSNP
+cd ~/annotation/variation/human/dbSNP
+## https://www.ncbi.nlm.nih.gov/projects/SNP/
+## ftp://ftp.ncbi.nih.gov/snp/organisms/human_9606_b147_GRCh38p2/
+## ftp://ftp.ncbi.nih.gov/snp/organisms/human_9606_b147_GRCh37p13/
+nohup wget ftp://ftp.ncbi.nih.gov/snp/organisms/human_9606_b147_GRCh37p13/VCF/All_20160601.vcf.gz &amp;amp;
+wget ftp://ftp.ncbi.nih.gov/snp/organisms/human_9606_b147_GRCh37p13/VCF/All_20160601.vcf.gz.tbi 
+ 
+ 
+mkdir -p ~/annotation/variation/human/1000genomes
+cd ~/annotation/variation/human/1000genomes 
+## ftp://ftp.1000genomes.ebi.ac.uk/vol1/ftp/release/20130502/ 
+nohup wget  -c -r -nd -np -k -L -p  ftp://ftp.1000genomes.ebi.ac.uk/vol1/ftp/release/20130502 &amp;amp;
+ 
+mkdir -p ~/annotation/variation/human/cosmic
+cd ~/annotation/variation/human/cosmic
+## we need to register before we can download this file. 
+ 
+mkdir -p ~/annotation/variation/human/ESP6500
+cd ~/annotation/variation/human/ESP6500
+# http://evs.gs.washington.edu/EVS/
+nohup wget http://evs.gs.washington.edu/evs_bulk_data/ESP6500SI-V2-SSA137.GRCh38-liftover.snps_indels.vcf.tar.gz &amp;amp; 
+ 
+mkdir -p ~/annotation/variation/human/UK10K
+cd ~/annotation/variation/human/UK10K
+# http://www.uk10k.org/
+nohup wget ftp://ngs.sanger.ac.uk/production/uk10k/UK10K_COHORT/REL-2012-06-02/UK10K_COHORT.20160215.sites.vcf.gz &amp;amp; 
+ 
+mkdir -p ~/annotation/variation/human/gonl
+cd ~/annotation/variation/human/gonl
+## http://www.nlgenome.nl/search/
+## https://molgenis26.target.rug.nl/downloads/gonl_public/variants/release5/
+nohup wget  -c -r -nd -np -k -L -p  https://molgenis26.target.rug.nl/downloads/gonl_public/variants/release5  &amp;amp;
+ 
+mkdir -p ~/annotation/variation/human/omin
+cd ~/annotation/variation/human/omin
+ 
+mkdir -p ~/annotation/variation/human/GWAS
+cd ~/annotation/variation/human/GWAS
+ 
+mkdir -p ~/annotation/variation/human/hapmap
+cd ~/annotation/variation/human/hapmap
+# ftp://ftp.ncbi.nlm.nih.gov/hapmap/
+wget ftp://ftp.ncbi.nlm.nih.gov/hapmap/phase_3/relationships_w_pops_051208.txt 
+nohup wget -c -r -np -k -L -p  -nd -A.gz ftp://ftp.ncbi.nlm.nih.gov/hapmap/phase_3/hapmap3_reformatted &amp;amp;
+# ftp://ftp.hgsc.bcm.tmc.edu/pub/data/HapMap3-ENCODE/ENCODE3/ENCODE3v1/
+wget ftp://ftp.hgsc.bcm.tmc.edu/pub/data/HapMap3-ENCODE/ENCODE3/ENCODE3v1/bcm-encode3-QC.txt 
+wget ftp://ftp.hgsc.bcm.tmc.edu/pub/data/HapMap3-ENCODE/ENCODE3/ENCODE3v1/bcm-encode3-submission.txt.gz
+ 
+ 
+ 
+ 
+## 1 million single nucleotide polymorphisms (SNPs) for DNA samples from each of the three ethnic groups in Singapore – Chinese, Malays and Indians.
+## The Affymetrix Genome-Wide Human SNP Array 6.0   &amp;amp;&amp;amp; The Illumina Human1M single BeadChip 
+## http://www.statgen.nus.edu.sg/~SGVP/
+## http://www.statgen.nus.edu.sg/~SGVP/singhap/files-website/samples-information.txt
+# http://www.statgen.nus.edu.sg/~SGVP/singhap/files-website/genotypes/2009-01-30/QC/
+ 
+## Singapore Sequencing Malay Project (SSMP) 
+mkdir -p ~/annotation/variation/human/SSMP
+cd ~/annotation/variation/human/SSMP
+## http://www.statgen.nus.edu.sg/~SSMP/
+## http://www.statgen.nus.edu.sg/~SSMP/download/vcf/2012_05 
+ 
+ 
+## Singapore Sequencing Indian Project (SSIP) 
+mkdir -p ~/annotation/variation/human/SSIP
+cd ~/annotation/variation/human/SSIP
+# http://www.statgen.nus.edu.sg/~SSIP/
+## http://www.statgen.nus.edu.sg/~SSIP/download/vcf/dataFreeze_Feb2013
+ 
+ 
+ 
+wget ftp://ftp.ensembl.org/pub/release-75/gtf/homo_sapiens/Homo_sapiens.GRCh37.75.gtf.gz 
+wget ftp://ftp.ensembl.org/pub/release-86/gtf/homo_sapiens/Homo_sapiens.GRCh38.86.chr.gtf.gz 
+ 
+mkdir -p ~/reference/gtf/gencode
+cd  ~/reference/gtf/gencode
+## https://www.gencodegenes.org/releases/current.html
+wget ftp://ftp.sanger.ac.uk/pub/gencode/Gencode_human/release_25/gencode.v25.2wayconspseudos.gtf.gz
+wget ftp://ftp.sanger.ac.uk/pub/gencode/Gencode_human/release_25/gencode.v25.long_noncoding_RNAs.gtf.gz 
+wget ftp://ftp.sanger.ac.uk/pub/gencode/Gencode_human/release_25/gencode.v25.polyAs.gtf.gz 
+wget ftp://ftp.sanger.ac.uk/pub/gencode/Gencode_human/release_25/gencode.v25.annotation.gtf.gz 
+## https://www.gencodegenes.org/releases/25lift37.html 
+wget ftp://ftp.sanger.ac.uk/pub/gencode/Gencode_human/release_25/GRCh37_mapping/gencode.v25lift37.annotation.gtf.gz 
+wget ftp://ftp.sanger.ac.uk/pub/gencode/Gencode_human/release_25/GRCh37_mapping/gencode.v25lift37.metadata.HGNC.gz 
+wget ftp://ftp.sanger.ac.uk/pub/gencode/Gencode_human/release_25/GRCh37_mapping/gencode.v25lift37.metadata.EntrezGene.gz 
+wget ftp://ftp.sanger.ac.uk/pub/gencode/Gencode_human/release_25/GRCh37_mapping/gencode.v25lift37.metadata.RefSeq.gz 
+ 
+ 
+mkdir -p ~/reference/gtf/ensembl/homo_sapiens_86
+cd  ~/reference/gtf/ensembl/homo_sapiens_86
+## http://asia.ensembl.org/info/data/ftp/index.html
+ 
+ 
+ 
+cd ~/reference
+mkdir -p  genome/human_g1k_v37  &amp;amp;&amp;amp; cd genome/human_g1k_v37
+# http://ftp.1000genomes.ebi.ac.uk/vol1/ftp/technical/reference/ 
+nohup wget http://ftp.1000genomes.ebi.ac.uk/vol1/ftp/technical/reference/human_g1k_v37.fasta.gz  &amp;amp;
+gunzip human_g1k_v37.fasta.gz
+wget http://ftp.1000genomes.ebi.ac.uk/vol1/ftp/technical/reference/human_g1k_v37.fasta.fai
+wget http://ftp.1000genomes.ebi.ac.uk/vol1/ftp/technical/reference/README.human_g1k_v37.fasta.txt
+java -jar ~/biosoft/picardtools/picard-tools-1.119/CreateSequenceDictionary.jar R=human_g1k_v37.fasta O=human_g1k_v37.dict
+ 
+## ftp://ftp.broadinstitute.org/bundle/b37/
+mkdir -p ~/annotation/GATK
+cd ~/annotation/variation/GATK
+wget ftp://gsapubftp-anonymous@ftp.broadinstitute.org/bundle/b37/1000G_phase1.snps.high_confidence.b37.vcf.gz 
+wget ftp://gsapubftp-anonymous@ftp.broadinstitute.org/bundle/b37/dbsnp_138.b37.vcf.gz
+wget ftp://gsapubftp-anonymous@ftp.broadinstitute.org/bundle/b37/human_g1k_v37.fasta.gz 
+wget ftp://gsapubftp-anonymous@ftp.broadinstitute.org/bundle/b37/NA12878.HiSeq.WGS.bwa.cleaned.raw.subset.b37.sites.vcf.gz
+wget ftp://gsapubftp-anonymous@ftp.broadinstitute.org/bundle/b37/Mills_and_1000G_gold_standard.indels.b37.vcf.gz 
+wget ftp://gsapubftp-anonymous@ftp.broadinstitute.org/bundle/b37/hapmap_3.3.b37.vcf.gz
+wget ftp://gsapubftp-anonymous@ftp.broadinstitute.org/bundle/b37/1000G_phase1.indels.b37.vcf.gz 
+wget ftp://gsapubftp-anonymous@ftp.broadinstitute.org/bundle/b37/1000G_phase1.indels.b37.vcf.idx.gz
+gunzip 1000G_phase1.indels.b37.vcf.idx.gz
+gunzip 1000G_phase1.indels.b37.vcf.gz
+  
+  
+mkdir -p  ~/institute/ENSEMBL/gtf
+cd  ~/institute/ENSEMBL/gtf
+wget ftp://ftp.ensembl.org/pub/release-87/gtf/homo_sapiens/Homo_sapiens.GRCh38.87.chr.gtf.gz 
+wget ftp://ftp.ensembl.org/pub/release-87/gtf/mus_musculus/Mus_musculus.GRCm38.87.chr.gtf.gz
+wget ftp://ftp.ensembl.org/pub/release-87/gtf/danio_rerio/Danio_rerio.GRCz10.87.chr.gtf.gz
+ 
+ 
+ 
+ 
+ 
+cd ~/institute/TCGA/firehose
+## https://gdac.broadinstitute.org/
+wget http://gdac.broadinstitute.org/runs/stddata__2016_01_28/data/ACC/20160128/gdac.broadinstitute.org_ACC.Merge_snp__genome_wide_snp_6__broad_mit_edu__Level_3__segmented_scna_minus_germline_cnv_hg19__seg.Level_3.2016012800.0.0.tar.gz  -O ACC.gistic.seg.tar.gz
+wget http://gdac.broadinstitute.org/runs/stddata__2016_01_28/data/ACC/20160128/gdac.broadinstitute.org_ACC.Merge_snp__genome_wide_snp_6__broad_mit_edu__Level_3__segmented_scna_hg19__seg.Level_3.2016012800.0.0.tar.gz  -O ACC.raw.seg.tar.gz 
+wget http://gdac.broadinstitute.org/runs/stddata__2016_01_28/data/ACC/20160128/gdac.broadinstitute.org_ACC.Mutation_Packager_Calls.Level_3.2016012800.0.0.tar.gz -O ACC.maf.tar.gz
+wget http://gdac.broadinstitute.org/runs/stddata__2016_01_28/data/ACC/20160128/gdac.broadinstitute.org_ACC.Mutation_Packager_Oncotated_Calls.Level_3.2016012800.0.0.tar.gz -O ACC.maf.anno.tar.gz
+&lt;/code&gt;&lt;/pre&gt;
+
+        
+      </description>
+    </item>
     
     <item>
       <title>一致性指数Concordance index(C-index) </title>
