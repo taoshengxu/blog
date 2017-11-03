@@ -2705,6 +2705,8 @@ sudo gdebi rstudio-server-0.97.551-amd64.deb
 完成安装后，RStudio Server会自动启动运行
 ps -aux|grep rstudio
 8787端口被打开
+
+访问地址：192.168.1.107:8787
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;pre&gt;&lt;code&gt;root用户无法登陆，新建一个用户进行登陆 
@@ -3025,18 +3027,37 @@ stop shiny-server 　　　　　# 停止
 restart shiny-server 　　　　# 重启
 status shiny-server 　　　　#查看状态  
 reload shiny-server 　　　　#不中断服务的前提下 更新加载配置项
-
-##web 查看
-localhost:3838   默认端口时3838，可以在配置文件(/etc/shiny-server/shiny-server.conf)中修改：端口 和run_as默认为shiny,可改为username
-
-Shiny Server默认会在/srv/shiny-server/目录查找你的Apps程序,可以把你开发的apps拷贝这个目录下
-sudo cp ~/app file /srv/shiny-server/ 将文件拷入
-
 &lt;/code&gt;&lt;/pre&gt;
 
+&lt;h3 id=&#34;web-查看&#34;&gt;web 查看&lt;/h3&gt;
+
+&lt;p&gt;默认端口时3838&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;localhost:3838   
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;可以在配置文件(/etc/shiny-server/shiny-server.conf)中修改&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;端口&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;run_as默认为shiny,可改为username&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;开发的apps拷贝到目录(/srv/shiny-server/)下&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;sudo cp ~/app file /srv/shiny-server/ 将文件拷入
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;日志文件&#34;&gt;日志文件&lt;/h3&gt;
+
+&lt;p&gt;日志文件在(/var/log/shiny-server/)目录下查看&lt;/p&gt;
+
+&lt;h2 id=&#34;一个生信技能树的安装参考教程&#34;&gt;一个生信技能树的安装参考教程&lt;/h2&gt;
+
 &lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;######
-一个生信技能树的参考教程
-前几天刚好在亚马逊云上注册了一个1年免费的Amazon Web Services (AWS) ，正好以此来尝试学习下shiny的相关东西。
+前几天刚好在亚马逊云上注册了一个1年免费的Amazon Web Services (AWS) ，
+正好以此来尝试学习下shiny的相关东西。
 
 主要参考了：
 http://deanattali.com/2015/05/09/setup-rstudio-shiny-server-digital-ocean/
@@ -3044,8 +3065,7 @@ http://www.bio-info-trainee.com/1683.html
 操作系统：ubuntu
 1. 安装 R
         sudo apt install r-base
-2. 安装
-Rstudio-server
+2. 安装Rstudio-server
         sudo apt-get install gdebi-core
         sudo apt-get install libapparmor1
         wget https://download2.rstudio.org/rstudio-server-1.0.143-amd64.deb
@@ -3055,15 +3075,24 @@ Rstudio-server
         ......
 然后在网页上输入ip:8787进入Rstudio-server界面，输入用户和密码，即可登录
 
-3. 安装
-Shiny
+3. 安装Shiny
         sudo su - -c &amp;quot;R -e \&amp;quot;install.packages(&#39;shiny&#39;, repos=&#39;http://cran.rstudio.com/&#39;)\&amp;quot;&amp;quot;
-不能直接进入R，然后install.packages(&amp;quot;shiny&amp;quot;)，因为如果这样安装，是将shiny包安装下当前登录用户的个人library中，使得最终shiny-server无法运行
+
+(我注：**如果将配置文件run_as 改为username就不用考虑这个问题，
+所以安装完shiny server之后就修改run_as为当前的用户，
+不然后面开发中许多包都找不到**)
+
+不能直接进入R，然后install.packages(&amp;quot;shiny&amp;quot;)，因为如果这样安装，
+是将shiny包安装下当前登录用户的个人library中，使得最终shiny-server无法运行。
+
         apt-get install gdebi-core
         wget https://download3.rstudio.org/ub ... 1.5.3.838-amd64.deb
         sudo gdebi shiny-server-1.5.3.838-amd64.deb
 
-做完以上几步后，shiny-server算是初步安装好了，然后可以在网页上ip:3838进入shiny-server界面(ip是你服务器的ip地址)。一般我们能看到左边一列的文字和右边的两个框。当然还需要再安装个rmarkdown，不然还是会有error的
+做完以上几步后，shiny-server算是初步安装好了，然后可以在网页上ip:3838
+进入shiny-server界面(ip是你服务器的ip地址)。
+一般我们能看到左边一列的文字和右边的两个框。
+当然还需要再安装个rmarkdown，不然还是会有error的
 
         sudo su - -c &amp;quot;R -e \&amp;quot;install.packages(&#39;rmarkdown&#39;, repos=&#39;http://cran.rstudio.com/&#39;)\&amp;quot;&amp;quot;
 
@@ -3108,7 +3137,7 @@ http://ip:3838/shiny-examples/010-download/ （ip是你服务器的ip地址）
     </item>
     
     <item>
-      <title>常用命令集合</title>
+      <title>DOS-Ubuntu命令集合</title>
       <link>/blog/cn/2017/08/a-collection-of-command/</link>
       <pubDate>Mon, 28 Aug 2017 12:00:58 +0000</pubDate>
       
@@ -3135,6 +3164,10 @@ http://ip:3838/shiny-examples/010-download/ （ip是你服务器的ip地址）
 &lt;ul&gt;
 &lt;li&gt;sudo su 进入root&lt;/li&gt;
 &lt;li&gt;exit &lt;strong&gt;or&lt;/strong&gt; logout  &lt;strong&gt;or&lt;/strong&gt; ctrl D 退出root&lt;/li&gt;
+&lt;li&gt;修改root密码 $ sudo passwd&lt;/li&gt;
+&lt;li&gt;修改用户密码 $ sudo passwd username&lt;/li&gt;
+&lt;li&gt;修改主机名： $ sudo gedit /etc/hostname 和 $ sudo gedit /etc/hosts
+&lt;br /&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;h3 id=&#34;download&#34;&gt;Download&lt;/h3&gt;
@@ -3149,6 +3182,27 @@ http://ip:3838/shiny-examples/010-download/ （ip是你服务器的ip地址）
 &lt;li&gt;ps 查看进程号PID&lt;/li&gt;
 &lt;li&gt;nohup 始终执行&lt;/li&gt;
 &lt;li&gt;ps - aux | grep xxx 显示终端关闭后的后台进程&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;开关机&#34;&gt;开关机&lt;/h3&gt;
+
+&lt;p&gt;重启&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;reboot&lt;/li&gt;
+&lt;li&gt;shutdown -r now 立刻重启(root用户使用)&lt;/li&gt;
+&lt;li&gt;shutdown -r 10 过10分钟自动重启(root用户使用)&lt;/li&gt;
+&lt;li&gt;shutdown -r 20:35 在时间为20:35时候重启(root用户使用)&lt;/li&gt;
+&lt;li&gt;如果是通过shutdown命令设置重启的话，可以用shutdown -c命令取消重启&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;关机&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;halt   立刻关机&lt;/li&gt;
+&lt;li&gt;poweroff 立刻关机&lt;/li&gt;
+&lt;li&gt;shutdown -h now 立刻关机(root用户使用)&lt;/li&gt;
+&lt;li&gt;shutdown -h 10 10分钟后自动关机&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;h3 id=&#34;卸载软件&#34;&gt;卸载软件&lt;/h3&gt;
@@ -3193,9 +3247,9 @@ m(help)-n(增加一个新分区)-e(扩展分区)-1-4(分几个区)-&amp;hellip;-
 &lt;li&gt;sudo mkfs -t ext4 /dev/sdb 对sdb盘格式化为ext4格式&lt;/li&gt;
 &lt;li&gt;sudo blkid 查看分区的UUID&lt;/li&gt;
 &lt;li&gt;sudo blkid /dev/sda5 查看指定盘的UUID&lt;/li&gt;
-&lt;li&gt;sudo mount -t ext4 /dev/sdb /data1 挂载到data1&lt;/li&gt;
+&lt;li&gt;sudo mount -t ext4 /dev/sdb /data 挂载到data&lt;/li&gt;
 
-&lt;li&gt;&lt;p&gt;suod umount /dev/sdb 卸载&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;sudo umount /dev/sdb 卸载&lt;/p&gt;&lt;/li&gt;
 
 &lt;li&gt;&lt;p&gt;sudo chown -R username:root Document/  修改文件夹所有者&lt;/p&gt;&lt;/li&gt;
 
@@ -3227,6 +3281,22 @@ $vi file&lt;/li&gt;
 &lt;/ul&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;http://www.cnblogs.com/itech/archive/2009/04/17/1438439.html&#34;&gt;更复杂用法&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
+
+&lt;h3 id=&#34;ubuntu进入单用户模式-系统修复&#34;&gt;Ubuntu进入单用户模式—系统修复&lt;/h3&gt;
+
+&lt;p&gt;偶尔会遇到Ubuntu无法正常启动的情况，这时候需修改某些文件让系统正常启动，如果直接进入 recovery 模式，默认是文件权限只读，无法修改文件。这是我们需要进入recovery 的单用户模式，获得修改文件的权限。&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;重启ubuntu，随即长按shirft进入grub菜单，或等待grub菜单的出现.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;选择recovery mode，接着用方向键将光标移至recovery mode，按&amp;rdquo;e&amp;rdquo;键进入编辑页面.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;将 ro recovery nomodeset 改为 rw single init=/bin/bash&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;按 ctrl+x或者F10 进入单用户模式，当前用户即为root。可以进行操作，如：用vi命令修改/etc/fatab文件，按：wq保存退出。&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;修改完成安装ctrl+dele+alt 重启&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
 
 &lt;hr /&gt;
 

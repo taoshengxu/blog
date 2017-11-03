@@ -4,8 +4,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     
-    <title>常用命令集合 - My Lives</title>
-    <meta property="og:title" content="常用命令集合 - My Lives">
+    <title>DOS-Ubuntu命令集合 - My Lives</title>
+    <meta property="og:title" content="DOS-Ubuntu命令集合 - My Lives">
     
 
     
@@ -56,7 +56,7 @@
     <article class="main">
       <header class="title">
       
-<h1>常用命令集合</h1>
+<h1>DOS-Ubuntu命令集合</h1>
 
 <h3>
   2017-08-28</h3>
@@ -88,6 +88,10 @@
 <ul>
 <li>sudo su 进入root</li>
 <li>exit <strong>or</strong> logout  <strong>or</strong> ctrl D 退出root</li>
+<li>修改root密码 $ sudo passwd</li>
+<li>修改用户密码 $ sudo passwd username</li>
+<li>修改主机名： $ sudo gedit /etc/hostname 和 $ sudo gedit /etc/hosts
+<br /></li>
 </ul>
 
 <h3 id="download">Download</h3>
@@ -102,6 +106,27 @@
 <li>ps 查看进程号PID</li>
 <li>nohup 始终执行</li>
 <li>ps - aux | grep xxx 显示终端关闭后的后台进程</li>
+</ul>
+
+<h3 id="开关机">开关机</h3>
+
+<p>重启</p>
+
+<ul>
+<li>reboot</li>
+<li>shutdown -r now 立刻重启(root用户使用)</li>
+<li>shutdown -r 10 过10分钟自动重启(root用户使用)</li>
+<li>shutdown -r 20:35 在时间为20:35时候重启(root用户使用)</li>
+<li>如果是通过shutdown命令设置重启的话，可以用shutdown -c命令取消重启</li>
+</ul>
+
+<p>关机</p>
+
+<ul>
+<li>halt   立刻关机</li>
+<li>poweroff 立刻关机</li>
+<li>shutdown -h now 立刻关机(root用户使用)</li>
+<li>shutdown -h 10 10分钟后自动关机</li>
 </ul>
 
 <h3 id="卸载软件">卸载软件</h3>
@@ -146,9 +171,9 @@ m(help)-n(增加一个新分区)-e(扩展分区)-1-4(分几个区)-&hellip;-p(�
 <li>sudo mkfs -t ext4 /dev/sdb 对sdb盘格式化为ext4格式</li>
 <li>sudo blkid 查看分区的UUID</li>
 <li>sudo blkid /dev/sda5 查看指定盘的UUID</li>
-<li>sudo mount -t ext4 /dev/sdb /data1 挂载到data1</li>
+<li>sudo mount -t ext4 /dev/sdb /data 挂载到data</li>
 
-<li><p>suod umount /dev/sdb 卸载</p></li>
+<li><p>sudo umount /dev/sdb 卸载</p></li>
 
 <li><p>sudo chown -R username:root Document/  修改文件夹所有者</p></li>
 
@@ -180,6 +205,22 @@ $vi file</li>
 </ul></li>
 <li><a href="http://www.cnblogs.com/itech/archive/2009/04/17/1438439.html">更复杂用法</a></li>
 </ul>
+
+<h3 id="ubuntu进入单用户模式-系统修复">Ubuntu进入单用户模式—系统修复</h3>
+
+<p>偶尔会遇到Ubuntu无法正常启动的情况，这时候需修改某些文件让系统正常启动，如果直接进入 recovery 模式，默认是文件权限只读，无法修改文件。这是我们需要进入recovery 的单用户模式，获得修改文件的权限。</p>
+
+<ol>
+<li><p>重启ubuntu，随即长按shirft进入grub菜单，或等待grub菜单的出现.</p></li>
+
+<li><p>选择recovery mode，接着用方向键将光标移至recovery mode，按&rdquo;e&rdquo;键进入编辑页面.</p></li>
+
+<li><p>将 ro recovery nomodeset 改为 rw single init=/bin/bash</p></li>
+
+<li><p>按 ctrl+x或者F10 进入单用户模式，当前用户即为root。可以进行操作，如：用vi命令修改/etc/fatab文件，按：wq保存退出。</p></li>
+
+<li><p>修改完成安装ctrl+dele+alt 重启</p></li>
+</ol>
 
 <hr />
 
