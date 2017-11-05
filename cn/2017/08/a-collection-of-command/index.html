@@ -121,12 +121,13 @@
 <li>kill %num 杀死</li>
 <li>ps 查看进程号PID</li>
 <li>nohup 始终执行</li>
-<li>ps - aux | grep xxx 显示终端关闭后的后台进程</li>
+
+<li><p>ps - aux | grep xxx 显示终端关闭后的后台进程</p></li>
+
+<li><p>wget <a href="ftp://ftp-trace.ncbi.nlm.nih.gov/sra/sra-instant/reads/ByStudy/sra/SRP/SRP075/SRP075747/SRR3589957/SRR3589957.sra">ftp://ftp-trace.ncbi.nlm.nih.gov/sra/sra-instant/reads/ByStudy/sra/SRP/SRP075/SRP075747/SRR3589957/SRR3589957.sra</a></p></li>
+
+<li><p>nohup axel <a href="ftp://ftp-trace.ncbi.nlm.nih.gov/sra/sra-instant/reads/ByStudy/sra/SRP/SRP075/SRP075747/SRR3589957/SRR3589957.sra">ftp://ftp-trace.ncbi.nlm.nih.gov/sra/sra-instant/reads/ByStudy/sra/SRP/SRP075/SRP075747/SRR3589957/SRR3589957.sra</a> &amp; (后台执行)</p></li>
 </ul>
-
-<h3 id="后台执行">后台执行</h3>
-
-<p>-</p>
 
 <h3 id="开关机">开关机</h3>
 
@@ -185,22 +186,31 @@
 <h3 id="磁盘管理">磁盘管理</h3>
 
 <ul>
-<li><strong>sudo mount -t ext4 /dev/sdb /data 挂载到data</strong></li>
-<li>sudo umount /dev/sdb 卸载</li>
-<li>mkdir -p 递归创建目录</li>
-<li>cp 复制</li>
-<li>rmdir 删除空目录<br /></li>
-<li>df -lh 查看磁盘空间<br />
-df -kh 查看磁盘挂载</li>
-<li>sudo fdisk -lu 显示硬盘及所属分区情况</li>
-<li>sudo fdisk /dev/sdb 对sbd盘分区<br />
-m(help)-n(增加一个新分区)-e(扩展分区)-1-4(分几个区)-&hellip;-p(显示分区表)-w(保存分区表)</li>
-<li>sudo mkfs -t ext4 /dev/sdb 对sdb盘格式化为ext4格式</li>
-<li>sudo blkid 查看分区的UUID</li>
+<li><p><strong>sudo mount -t ext4 /dev/sdb /data 挂载到data</strong></p></li>
+
+<li><p>sudo umount /dev/sdb 卸载</p></li>
+
+<li><p>mkdir -p 递归创建目录</p></li>
+
+<li><p>cp 复制</p></li>
+
+<li><p>rmdir 删除空目录</p></li>
+
+<li><p>df -lh 查看磁盘空间<br />
+df -kh 查看磁盘挂载</p></li>
+
+<li><p>sudo fdisk -lu 显示硬盘及所属分区情况</p></li>
+
+<li><p>sudo fdisk /dev/sdb 对sbd盘分区<br />
+m(help)-n(增加一个新分区)-e(扩展分区)-1-4(分几个区)-&hellip;-p(显示分区表)-w(保存分区表)</p></li>
+
+<li><p>sudo blkid 查看分区的UUID</p></li>
 
 <li><p>sudo blkid /dev/sda5 查看指定盘的UUID</p></li>
 
 <li><p>sudo chown -R username:root Document/  修改文件夹所有者</p></li>
+
+<li><p>(谨慎复制)sudo mkfs -t ext4 /dev/sdb 对sdb盘格式化为ext4格式</p></li>
 
 <li><p>ubuntu 加载新硬盘教程<a href="http://note.youdao.com/noteshare?id=19c72003e1f78ed8dafbe12c53c6e150&amp;sub=8E9A1BEDF6AE4F73AB50892F428B249C">Here</a></p></li>
 

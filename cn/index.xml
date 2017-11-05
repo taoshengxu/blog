@@ -4650,12 +4650,13 @@ http://ip:3838/shiny-examples/010-download/ （ip是你服务器的ip地址）
 &lt;li&gt;kill %num 杀死&lt;/li&gt;
 &lt;li&gt;ps 查看进程号PID&lt;/li&gt;
 &lt;li&gt;nohup 始终执行&lt;/li&gt;
-&lt;li&gt;ps - aux | grep xxx 显示终端关闭后的后台进程&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;ps - aux | grep xxx 显示终端关闭后的后台进程&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;wget &lt;a href=&#34;ftp://ftp-trace.ncbi.nlm.nih.gov/sra/sra-instant/reads/ByStudy/sra/SRP/SRP075/SRP075747/SRR3589957/SRR3589957.sra&#34;&gt;ftp://ftp-trace.ncbi.nlm.nih.gov/sra/sra-instant/reads/ByStudy/sra/SRP/SRP075/SRP075747/SRR3589957/SRR3589957.sra&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;nohup axel &lt;a href=&#34;ftp://ftp-trace.ncbi.nlm.nih.gov/sra/sra-instant/reads/ByStudy/sra/SRP/SRP075/SRP075747/SRR3589957/SRR3589957.sra&#34;&gt;ftp://ftp-trace.ncbi.nlm.nih.gov/sra/sra-instant/reads/ByStudy/sra/SRP/SRP075/SRP075747/SRR3589957/SRR3589957.sra&lt;/a&gt; &amp;amp; (后台执行)&lt;/p&gt;&lt;/li&gt;
 &lt;/ul&gt;
-
-&lt;h3 id=&#34;后台执行&#34;&gt;后台执行&lt;/h3&gt;
-
-&lt;p&gt;-&lt;/p&gt;
 
 &lt;h3 id=&#34;开关机&#34;&gt;开关机&lt;/h3&gt;
 
@@ -4714,22 +4715,31 @@ http://ip:3838/shiny-examples/010-download/ （ip是你服务器的ip地址）
 &lt;h3 id=&#34;磁盘管理&#34;&gt;磁盘管理&lt;/h3&gt;
 
 &lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;sudo mount -t ext4 /dev/sdb /data 挂载到data&lt;/strong&gt;&lt;/li&gt;
-&lt;li&gt;sudo umount /dev/sdb 卸载&lt;/li&gt;
-&lt;li&gt;mkdir -p 递归创建目录&lt;/li&gt;
-&lt;li&gt;cp 复制&lt;/li&gt;
-&lt;li&gt;rmdir 删除空目录&lt;br /&gt;&lt;/li&gt;
-&lt;li&gt;df -lh 查看磁盘空间&lt;br /&gt;
-df -kh 查看磁盘挂载&lt;/li&gt;
-&lt;li&gt;sudo fdisk -lu 显示硬盘及所属分区情况&lt;/li&gt;
-&lt;li&gt;sudo fdisk /dev/sdb 对sbd盘分区&lt;br /&gt;
-m(help)-n(增加一个新分区)-e(扩展分区)-1-4(分几个区)-&amp;hellip;-p(显示分区表)-w(保存分区表)&lt;/li&gt;
-&lt;li&gt;sudo mkfs -t ext4 /dev/sdb 对sdb盘格式化为ext4格式&lt;/li&gt;
-&lt;li&gt;sudo blkid 查看分区的UUID&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;sudo mount -t ext4 /dev/sdb /data 挂载到data&lt;/strong&gt;&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;sudo umount /dev/sdb 卸载&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;mkdir -p 递归创建目录&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;cp 复制&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;rmdir 删除空目录&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;df -lh 查看磁盘空间&lt;br /&gt;
+df -kh 查看磁盘挂载&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;sudo fdisk -lu 显示硬盘及所属分区情况&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;sudo fdisk /dev/sdb 对sbd盘分区&lt;br /&gt;
+m(help)-n(增加一个新分区)-e(扩展分区)-1-4(分几个区)-&amp;hellip;-p(显示分区表)-w(保存分区表)&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;sudo blkid 查看分区的UUID&lt;/p&gt;&lt;/li&gt;
 
 &lt;li&gt;&lt;p&gt;sudo blkid /dev/sda5 查看指定盘的UUID&lt;/p&gt;&lt;/li&gt;
 
 &lt;li&gt;&lt;p&gt;sudo chown -R username:root Document/  修改文件夹所有者&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;(谨慎复制)sudo mkfs -t ext4 /dev/sdb 对sdb盘格式化为ext4格式&lt;/p&gt;&lt;/li&gt;
 
 &lt;li&gt;&lt;p&gt;ubuntu 加载新硬盘教程&lt;a href=&#34;http://note.youdao.com/noteshare?id=19c72003e1f78ed8dafbe12c53c6e150&amp;amp;sub=8E9A1BEDF6AE4F73AB50892F428B249C&#34;&gt;Here&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
 
