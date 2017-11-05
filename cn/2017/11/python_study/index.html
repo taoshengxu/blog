@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <title>python学习 - My Lives</title>
+    <meta property="og:title" content="python学习 - My Lives">
+    
+
+    
+      
+    
+
+    
+
+    
+    
+
+
+<link href='//cdn.bootcss.com/highlight.js/9.12.0/styles/github.min.css' rel='stylesheet' type='text/css' />
+
+
+
+    <link rel="stylesheet" href="/blog/css/style.css" />
+    <link rel="stylesheet" href="/blog/css/fonts.css" />
+    <link rel="stylesheet" href="/blog/css/custom.css" />
+
+  </head>
+
+  
+  <body class="blog">
+    <header class="masthead">
+      <h1><a href="/blog/">My Lives</a></h1>
+
+
+
+      <nav class="menu">
+        <input id="menu-check" type="checkbox" />
+        <label id="menu-label" for="menu-check" class="unselectable">
+          <span class="icon close-icon">✕</span>
+          <span class="icon open-icon">☰</span>
+          <span class="text">Menu</span>
+        </label>
+        <ul>
+        
+        
+        <li><a href="/blog/">Home</a></li>
+        
+        <li><a href="/blog/en/">English</a></li>
+        
+        <li><a href="/blog/cn/">Chinese</a></li>
+        
+        <li><a href="/blog/travel/">Travel</a></li>
+        
+        
+        </ul>
+      </nav>
+    </header>
+
+    <article class="main">
+      <header class="title">
+      
+<h1>python学习</h1>
+
+<h3>
+  2017-11-05</h3>
+<hr>
+
+
+      </header>
+
+
+
+
+
+<p><a href="http://www.runoob.com/python/python-tutorial.html">入门教程</a></p>
+
+<h1 id="认识python">认识python</h1>
+
+<h4 id="实例-python-2-0">实例(Python 2.0+)</h4>
+
+<pre><code class="language-python">#!/usr/bin/python
+print &quot;Hello, World!&quot;;
+</code></pre>
+
+<h4 id="实例-python-3-0">实例(Python 3.0+)</h4>
+
+<pre><code class="language-python">#!/usr/bin/python3
+print(&quot;Hello, World!&quot;);
+</code></pre>
+
+<h1 id="python-脚本">python 脚本</h1>
+
+<p>所有 Python 文件将以 .py 为扩展名。用 $ python *.py 执行脚本。</p>
+
+<h1 id="python语法">python语法</h1>
+
+<p>1.Python 的代码块不使用大括号 {} 来控制类，函数以及其他逻辑判断。</p>
+
+<p>python 最具特色的就是用缩进来写模块。缩进的空白数量是可变的，但是所有代码块语句必须包含相同的缩进空白数量，这个必须严格执行。</p>
+
+<pre><code class="language-python">if True:
+  print &quot;True&quot;
+else:
+  print &quot;False&quot;
+</code></pre>
+
+<p>2.xx</p>
+
+<h1 id="python函数">python函数</h1>
+
+<p>语法</p>
+
+<pre><code class="language-python">def functionname( parameters ):
+   &quot;函数_文档字符串&quot;
+   function_suite
+   return [expression]
+</code></pre>
+
+<p>示例</p>
+
+<pre><code class="language-python">#!/usr/bin/python
+# -*- coding: UTF-8 -*-
+ 
+# 定义函数
+def printme( str ):
+   &quot;打印任何传入的字符串&quot;
+   print str;
+   return;
+# 调用函数
+printme(&quot;我要调用用户自定义函数!&quot;);
+printme(&quot;再次调用同一函数&quot;);
+</code></pre>
+
+<h1 id="python-模块">Python 模块</h1>
+
+<p>Python 模块(Module)，是一个 Python 文件，以 .py 结尾，包含了 Python 对象定义和Python语句。</p>
+
+<p>定义support.py 模块：</p>
+
+<pre><code class="language-python">def print_func( par ):
+   print &quot;Hello : &quot;, par
+   return
+</code></pre>
+
+<h3 id="模块的引入">模块的引入</h3>
+
+<pre><code class="language-python">#!/usr/bin/python
+# -*- coding: UTF-8 -*-
+# 导入模块
+import support
+# 现在可以调用模块里包含的函数了
+# 调用方法：模块名.函数名
+support.print_func(&quot;Runoob&quot;)
+</code></pre>
+
+<h3 id="from-import-语句">From…import 语句</h3>
+
+<p>Python 的 from 语句让你从模块中导入一个指定的部分到当前命名空间中。</p>
+
+<pre><code class="language-python">from fib import fibonacci
+</code></pre>
+
+
+  <footer>
+  
+<nav class="post-nav">
+  <span class="nav-prev">&larr; <a href="/blog/cn/2017/11/transcriptome_analysis1/">转录组差异表达分析小实战</a></span>
+  <span class="nav-next"><a href="/blog/cn/2017/11/nat123/">nat123</a> &rarr;</span>
+</nav>
+
+
+
+
+
+<script src="//yihui.name/js/math-code.js"></script>
+<script async src="//cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+<script async src="//yihui.name/js/center-img.js"></script>
+
+  
+
+
+
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+
+
+
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/r.min.js"></script>
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/yaml.min.js"></script>
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/tex.min.js"></script>
+<script>hljs.configure({languages: []}); hljs.initHighlightingOnLoad();</script>
+
+
+
+  
+  <hr>
+  <div class="copyright">&copy; <a href="xxxx">Who care</a> 2017 - Forever, maybe</div>
+  
+  </footer>
+  </article>
+  
+  </body>
+</html>
+

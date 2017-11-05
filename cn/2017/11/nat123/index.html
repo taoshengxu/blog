@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <title>nat123 - My Lives</title>
+    <meta property="og:title" content="nat123 - My Lives">
+    
+
+    
+      
+    
+
+    
+
+    
+    
+
+
+<link href='//cdn.bootcss.com/highlight.js/9.12.0/styles/github.min.css' rel='stylesheet' type='text/css' />
+
+
+
+    <link rel="stylesheet" href="/blog/css/style.css" />
+    <link rel="stylesheet" href="/blog/css/fonts.css" />
+    <link rel="stylesheet" href="/blog/css/custom.css" />
+
+  </head>
+
+  
+  <body class="blog">
+    <header class="masthead">
+      <h1><a href="/blog/">My Lives</a></h1>
+
+
+
+      <nav class="menu">
+        <input id="menu-check" type="checkbox" />
+        <label id="menu-label" for="menu-check" class="unselectable">
+          <span class="icon close-icon">✕</span>
+          <span class="icon open-icon">☰</span>
+          <span class="text">Menu</span>
+        </label>
+        <ul>
+        
+        
+        <li><a href="/blog/">Home</a></li>
+        
+        <li><a href="/blog/en/">English</a></li>
+        
+        <li><a href="/blog/cn/">Chinese</a></li>
+        
+        <li><a href="/blog/travel/">Travel</a></li>
+        
+        
+        </ul>
+      </nav>
+    </header>
+
+    <article class="main">
+      <header class="title">
+      
+<h1>nat123</h1>
+
+<h3>
+  2017-11-05</h3>
+<hr>
+
+
+      </header>
+
+
+
+
+
+<h1 id="启动">启动</h1>
+
+<p><a href="http://www.nat123.com/Pages_17_619.jsp">教程</a></p>
+
+<pre><code class="language-shell">#cd  /soft/nat123    --进入自己本地实际安装目录
+#mono  nat123linux.sh     --根据提示手动输入帐号密码 
+#mono  nat123linux.sh  service  &amp;     --自动读取上一次成功登录帐号以后台服务启动
+</code></pre>
+
+<h1 id="开机自动登录">开机自动登录</h1>
+
+<pre><code class="language-shell">（1）本地必须先手动输入帐号密码成功登录一次；
+（2）执行“chmod +x /etc/rc.local”命令确保有权限；
+（3）把启动程序的命令添加到/etc/rc.local文件中，此文件内容如下，
+#!/bin/sh -e
+# rc.local
+# This script is executed at the end of each multiuser runlevel.
+# Make sure that the script will &quot;exit 0&quot; on success or any other
+# value on error.
+# In order to enable or disable this script just change the execution
+# bits.
+# By default this script does nothing.
+
+cd  /soft/nat123    --本地实际安装目录
+mono  nat123linux.sh  service  &amp;      ---自动读取上次成功登录帐号并以后台服务启动
+
+exit 0
+</code></pre>
+
+<h1 id="linux环境开机自动启动防掉线脚本">LINUX环境开机自动启动防掉线脚本</h1>
+
+<p><a href="http://www.nat123.com/Pages_17_682.jsp">教程</a></p>
+
+
+  <footer>
+  
+<nav class="post-nav">
+  <span class="nav-prev">&larr; <a href="/blog/cn/2017/11/python_study/">python学习</a></span>
+  <span class="nav-next"></span>
+</nav>
+
+
+
+
+
+<script src="//yihui.name/js/math-code.js"></script>
+<script async src="//cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+<script async src="//yihui.name/js/center-img.js"></script>
+
+  
+
+
+
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+
+
+
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/r.min.js"></script>
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/yaml.min.js"></script>
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/tex.min.js"></script>
+<script>hljs.configure({languages: []}); hljs.initHighlightingOnLoad();</script>
+
+
+
+  
+  <hr>
+  <div class="copyright">&copy; <a href="xxxx">Who care</a> 2017 - Forever, maybe</div>
+  
+  </footer>
+  </article>
+  
+  </body>
+</html>
+
