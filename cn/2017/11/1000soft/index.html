@@ -100,10 +100,15 @@ tar xvfz cmake-3.3.2.tar.gz
 cd cmake-3.3.2 
 ./configure --prefix=/home/jianmingzeng/biosoft/myBin
 make
-make install 
-## Download and install samtools
+make install
+</code></pre>
+
+<pre><code class="language-r">## Download and install samtools
 ## http://samtools.sourceforge.net/
 ## http://www.htslib.org/doc/samtools.html
+
+##存放高通量测序比对结果的标准格式
+##功能： Reading/writing/editing/indexing/viewing SAM/BAM/CRAM format
 cd ~/biosoft
 mkdir samtools &amp;&amp;  cd samtools
 wget https://github.com/samtools/samtools/releases/download/1.3.1/samtools-1.3.1.tar.bz2 
@@ -329,12 +334,19 @@ mkdir QuEST &amp;&amp;  cd QuEST
 wget http://mendel.stanford.edu/SidowLab/downloads/quest/QuEST_2.4.tar.gz
 tar xzvf QuEST_2.4.tar.gz
 cd QuEST_2.4 
-## Download and install fastqc
+</code></pre>
+
+<pre><code class="language-r">## Download and install fastqc
+##可视化展示二代测序数据质量
+##http://www.bioinformatics.babraham.ac.uk/projects/fastqc/
+
 cd ~/biosoft
 mkdir fastqc &amp;&amp;  cd fastqc
-wget http://www.bioinformatics.bbsrc.ac.uk/projects/fastqc/fastqc_v0.11.5.zip
+wget http://www.bioinformatics.babraham.ac.uk/projects/fastqc/fastqc_v0.11.5.zip
 unzip fastqc_v0.11.5.zip
-## Download and install CEAS    
+</code></pre>
+
+<pre><code class="language-r">## Download and install CEAS    
 ## http://liulab.dfci.harvard.edu/CEAS/download.html
 cd ~/biosoft
 mkdir CEAS  &amp;&amp;  cd CEAS 
@@ -386,9 +398,13 @@ wget http://cole-trapnell-lab.github.io/cufflinks/assets/downloads/cufflinks-2.2
 tar xzvf cufflinks-2.2.1.Linux_x86_64.tar.gz 
 ln -s cufflinks-2.2.1.Linux_x86_64 current
 ~/biosoft/Cufflinks/current/cufflinks
+
 #HISAT-Stringtie2-Ballgown pipeline
+
+
 ## Download and install HISAT 
-# https://ccb.jhu.edu/software/hisat2/index.shtml
+##https://ccb.jhu.edu/software/hisat2/index.shtml
+##功能： 将测序结果比对到参考基因组上
 cd ~/biosoft
 mkdir HISAT  &amp;&amp;  cd HISAT 
 #### readme: https://ccb.jhu.edu/software/hisat2/manual.shtml
@@ -906,7 +922,7 @@ wget http://gdac.broadinstitute.org/runs/stddata__2016_01_28/data/ACC/20160128/g
   
 <nav class="post-nav">
   <span class="nav-prev">&larr; <a href="/blog/cn/2017/10/concordance_index/">一致性指数Concordance index(C-index) </a></span>
-  <span class="nav-next"></span>
+  <span class="nav-next"><a href="/blog/cn/2017/11/bioconda/">使用Bioconda管理Linux系统中的生物信息软件</a> &rarr;</span>
 </nav>
 
 

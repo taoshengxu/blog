@@ -6,8 +6,228 @@
     <description>Recent content in 中文博客 on My Lives</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 03 Nov 2017 15:42:35 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 05 Nov 2017 09:34:39 +0000</lastBuildDate>
     <atom:link href="/blog/cn/" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>转录组分析笔记</title>
+      <link>/blog/cn/2017/11/transcriptome_analysis/</link>
+      <pubDate>Sun, 05 Nov 2017 09:34:39 +0000</pubDate>
+      
+      <guid>/blog/cn/2017/11/transcriptome_analysis/</guid>
+      <description>
+        
+
+&lt;p&gt;这是一个学习笔记，跟随生信技能树的学习笔记重复。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;学习提纲&lt;/strong&gt;：&lt;a href=&#34;http://www.biotrainee.com/thread-1750-1-1.html&#34;&gt;RNA-seq基础入门传送门&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;学习笔记&lt;/strong&gt;：&lt;a href=&#34;https://taoshengxu.github.io/DocumentGit/pdf/沈梦圆2017年转录组入门合辑0-6.pdf&#34;&gt;PANDA姐的转录组入门（0-6）合辑&lt;/a&gt;&lt;/p&gt;
+
+&lt;h1 id=&#34;分析软件安装&#34;&gt;分析软件安装&lt;/h1&gt;
+
+&lt;p&gt;最方便的安装方式就是 Anaconda&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;wget https://repo.continuum.io/archive/Anaconda3-4.4.0-Linux-x86_64.sh
+
+ conda install -c bioconda samtools=1.5
+ conda install -c bioconda htseq=0.7.2
+ conda install -c bioconda hisat2=2.1.0
+ conda install -c bioconda fastqc=0.11.5
+ conda install -c jfear sratoolkit=2.8.1
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;数据下载&#34;&gt;数据下载&lt;/h1&gt;
+
+&lt;p&gt;From NCBI GEO&lt;/p&gt;
+
+&lt;p&gt;#&lt;/p&gt;
+
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>NCBI-GEO数据下载</title>
+      <link>/blog/cn/2017/11/ncbi_downlaod/</link>
+      <pubDate>Sat, 04 Nov 2017 21:52:45 +0000</pubDate>
+      
+      <guid>/blog/cn/2017/11/ncbi_downlaod/</guid>
+      <description>
+        
+
+&lt;h1 id=&#34;geo-基础&#34;&gt;GEO 基础&lt;/h1&gt;
+
+&lt;ul&gt;
+&lt;li&gt;GEO Platform (GPL) 芯片平台&lt;/li&gt;
+&lt;li&gt;GEO Sample (GSM) 样本ID号&lt;/li&gt;
+&lt;li&gt;GEO Series (GSE) study的ID号&lt;/li&gt;
+&lt;li&gt;GEO Dataset (GDS) 数据集的ID号 ## 用法&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&#34;数据搜索&#34;&gt;数据搜索&lt;/h1&gt;
+
+&lt;p&gt;&lt;strong&gt;方法-&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;在&lt;a href=&#34;https://www.ncbi.nlm.nih.gov/&#34;&gt;https://www.ncbi.nlm.nih.gov/&lt;/a&gt; 中搜索 GSE81916 选择 BioProject查询 Accession：PRJNA323422; GEO: GSE81916&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;&lt;a href=&#34;https://trace.ncbi.nlm.nih.gov/Traces/study/?acc=PRJNA323422&#34;&gt;https://trace.ncbi.nlm.nih.gov/Traces/study/?acc=PRJNA323422&lt;/a&gt; 可以查询数据具体信息&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;&lt;strong&gt;方法二&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;在 Gene Expression Omnibus (&lt;a href=&#34;https://www.ncbi.nlm.nih.gov/geo/)搜素GSE81916进入&#34;&gt;https://www.ncbi.nlm.nih.gov/geo/)搜素GSE81916进入&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;&lt;a href=&#34;https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE81916&#34;&gt;https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE81916&lt;/a&gt; 数据地址&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h1 id=&#34;数据下载&#34;&gt;数据下载&lt;/h1&gt;
+
+&lt;p&gt;&lt;strong&gt;ftp地址&lt;/strong&gt;
+&lt;a href=&#34;ftp://ftp-trace.ncbi.nlm.nih.gov/sra/sra-instant/reads/ByStudy/sra/SRP/SRP075/SRP075747&#34;&gt;ftp://ftp-trace.ncbi.nlm.nih.gov/sra/sra-instant/reads/ByStudy/sra/SRP/SRP075/SRP075747&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;可以分为以下几个部分&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;所有SRA数据的共同部分： &lt;a href=&#34;ftp://ftp-trace.ncbi.nlm.nih.gov/sra/sra-instant&#34;&gt;ftp://ftp-trace.ncbi.nlm.nih.gov/sra/sra-instant&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;reads表示存放reads数据，在FTP可以看到另一个选项是analysis，表示分析结果&lt;/li&gt;
+&lt;li&gt;ByStudy表示根据Study进行分类，其他还可以根据实验ByExp,根据Run,ByRun.&lt;/li&gt;
+&lt;li&gt;sra/SRP/SRP075/SRP075747: 后面部分都是为了便于检索。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code&gt;#/bin/bash
+# @author: xt
+# @date: 2017-11-04
+
+for i in ` seq 56 62`;
+do
+axel ftp://ftp-trace.ncbi.nlm.nih.gov/sra/sra-instant/reads/ByStudy/sra/SRP/SRP075/SRP075747/SRR35899${i}/SRR35899${i}.sra
+#wget ftp://ftp-trace.ncbi.nlm.nih.gov/sra/sra-instant/reads/ByStudy/sra/SRP/SRP075/SRP075747/SRR35899${i}/SRR35899${i}.sra
+#echo $i 
+done
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;# https://www.ncbi.nlm.nih.gov/gquery/?term=GSE81916
+# esearch -db sra -query PRJNA299273  | efetch -format runinfo &amp;gt; runinfo.txt # 这个命令是把所有的结果放到一个文件里，也可以通过 https://trace.ncbi.nlm.nih.gov/Traces/study/?acc=PRJNA323422下载SRR的编号
+# cat runinfo.txt | cut -f 1 -d &#39;,&#39; | grep SRR &amp;gt; sra.ids
+# ~/biosoft/sratoolkit.2.8.2-1-centos_linux64/bin/prefetch --option-file sra.ids # 数据存在/home/shenmy/ncbi/public/sra这个文件下面，找了半天
+mkdir /mnt/d/rna_seq/data  &amp;amp;&amp;amp; cd /mnt/d/rna_seq/data
+perl -lne &#39;$id=substr($_,0,6);print &amp;quot;axel ftp://ftp-trace.ncbi.nih.gov/sra/sra-instant/reads/ByRun/sra/SRR/$id/$_/$_.sra&amp;quot;&#39; SRR_Acc_List.txt &amp;gt;sra_down.sh
+bash sra_down.sh
+# 改成用axel下是因为prefetch下载总是不成功
+ls *.sra|while read id;do(/mnt/d/Software/Biosoft/sratoolkit/sratoolkit.2.8.2-1-ubuntu64/bin/fastq-dump --split-3 $id);done
+rm *.sra
+chmod u-w * 
+&lt;/code&gt;&lt;/pre&gt;
+
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>使用Bioconda管理Linux系统中的生物信息软件</title>
+      <link>/blog/cn/2017/11/bioconda/</link>
+      <pubDate>Fri, 03 Nov 2017 17:20:54 +0000</pubDate>
+      
+      <guid>/blog/cn/2017/11/bioconda/</guid>
+      <description>
+        
+
+&lt;p&gt;&lt;a href=&#34;https://zhuanlan.zhihu.com/p/25085567&#34;&gt;原文&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;生物信息操作中必不可少的就是Linux系统中各种生物信息学软件的安装。不同软件有不同的安装方法，对系统环境的依赖不同也不同，对于新手来说，经常是一个软件的安装和配置就要折腾很长一段时间时间，大大增加了学习成本。&lt;/p&gt;
+
+&lt;p&gt;我自己有两个方法来尽量减少安装软件所消耗的时间：一是直接安装Bio-linux系统，这个系统已经内置了大部分生物信息分析所需要的软件，非常适合新手直接学习分析技术，绕过软件安装和环境配置的麻烦问题。二是使用Bioconda安装和管理各种软件。Bio-linux系统和常用的服务器系统还是有差别的，如果想在学习生物信息分析的同时掌握一些Linux系统的操作甚至维护的技术，配置一台CentOS系统的计算机就很有必要了。这个时候Bioconda就非常有用了。&lt;/p&gt;
+
+&lt;p&gt;本文参考知乎专栏以及基因课相关课程 (&lt;a href=&#34;http://genek.tv/dirlist/index/id/65&#34;&gt;http://genek.tv/dirlist/index/id/65&lt;/a&gt;) 对Bioconda的安装和使用做简单介绍。&lt;/p&gt;
+
+&lt;h1 id=&#34;bioconda介绍&#34;&gt;Bioconda介绍&lt;/h1&gt;
+
+&lt;p&gt;Bioconda是conda上一个分发生物信息的频道。而conda是最初为管理python包而建立的。以下是相关介绍：&lt;/p&gt;
+
+&lt;p&gt;“Conda is a portable package manager primarily for python and precompiled binaries. Miniconda is the base system of conda. It includes a standard python and a few required dependencies such as readline and sqlite. In conda, a channel contains a set of software typically managed by the same group.Bioconda is a channel of conda focusing on bioinformatics software. ”&lt;/p&gt;
+
+&lt;p&gt;Bioconda主页：Using bioconda - Bioconda documentation&lt;/p&gt;
+
+&lt;p&gt;anaconda、miniconda和conda的区别：FAQs - Bioconda documentation&lt;/p&gt;
+
+&lt;p&gt;简单说来：“conda is a package manager, Miniconda is the conda installer, and Anaconda is a scientific Python distribution that also includes conda.”&lt;/p&gt;
+
+&lt;p&gt;Bioconda的优点是安装简单，各个软件依赖的环境一同打包且相互隔离，非常适合在服务器中建立自己的生物信息分析环境。&lt;/p&gt;
+
+&lt;h1 id=&#34;bioconda的下载与安装&#34;&gt;Bioconda的下载与安装&lt;/h1&gt;
+
+&lt;p&gt;1.下载和安装miniconda&lt;/p&gt;
+
+&lt;p&gt;bioconda的使用首先需要安装miniconda(&lt;a href=&#34;http://conda.pydata.org/miniconda.html&#34;&gt;http://conda.pydata.org/miniconda.html&lt;/a&gt;) 。选择linux的64位的python2.7版本（共提供win、Mac、linux三种系统，同时支持python3和python2），直接点击下载。或者复制链接后，用wget下载。下载完成后，在终端键入bash命令进行安装. 之后按照提示点击回车，输入要安装的位置，或者输入yes.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;wget https://repo.continuum.io/miniconda/Miniconda2-latest-Linux-x86_64.sh
+bash Miniconda2-latest-Linux-x86_64.sh
+##输入yes后，还没有完成最后安装，还需要source一下
+source ~/.bashrc
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;这时miniconda就安装好了，输入“conda”会显示相应的信息：&lt;/p&gt;
+
+&lt;p&gt;2.添加channels&lt;/p&gt;
+
+&lt;p&gt;输入“conda list”来查看已经安装的软件：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;conda config --add channels conda-forge
+conda config --add channels defaults
+conda config --add channels r
+conda config --add channels bioconda
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;查看已经添加的channels：&lt;/p&gt;
+
+&lt;p&gt;conda config &amp;ndash;get channels&lt;/p&gt;
+
+&lt;p&gt;3.更新miniconda&lt;/p&gt;
+
+&lt;p&gt;conda update conda&lt;/p&gt;
+
+&lt;p&gt;4.卸载miniconda  删除miniconda的整个文件夹：&lt;/p&gt;
+
+&lt;p&gt;rm -rf ~/miniconda&lt;/p&gt;
+
+&lt;p&gt;从环境变量中去掉miniconda：打开~/.bash_profile文件，删掉其中miniconda的路径，关闭并保存&lt;/p&gt;
+
+&lt;p&gt;删除隐藏的.condarc 、.conda以及.continuum文件&lt;/p&gt;
+
+&lt;h1 id=&#34;利用bioconda安装生物信息软件&#34;&gt;利用Bioconda安装生物信息软件&lt;/h1&gt;
+
+&lt;p&gt;要通过conda安装软件，首先从这里&lt;a href=&#34;https://bioconda.github.io/recipes&#34;&gt;Available packages&lt;/a&gt;查找该软件是否被conda支持。如果支持，只需输入以下命令即可安装：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;conda install fastqc（软件名）
+
+conda install -c bioconda samtools=1.5
+conda install -c bioconda htseq=0.7.2
+conda install -c bioconda hisat2=2.1.0
+conda install -c bioconda fastqc=0.11.5
+conda install -c jfear sratoolkit=2.8.1
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;安装完成后，可以用“which 软件名”来查看该软件安装的位置：&lt;/p&gt;
+
+&lt;p&gt;conda默认安装软件的最新版本，如果想安装指定版本的某个软件，可以先用“conda search 软件名”搜索软件版本&lt;/p&gt;
+
+&lt;p&gt;星号标记的表示是已经安装的版本。要安装其他版本，输入：&lt;/p&gt;
+
+&lt;p&gt;conda install 软件名=版本号
+这时conda会先卸载已安装版本，然后重新安装指定版本。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;查看已安装软件&lt;/strong&gt;：conda list&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;更新指定软件&lt;/strong&gt;：conda update 软件名&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;卸载指定软件&lt;/strong&gt;：conda remove 软件名&lt;/p&gt;
+
+        
+      </description>
+    </item>
     
     <item>
       <title>生物信息学常见1000个软件的安装代码</title>
@@ -44,10 +264,15 @@ tar xvfz cmake-3.3.2.tar.gz
 cd cmake-3.3.2 
 ./configure --prefix=/home/jianmingzeng/biosoft/myBin
 make
-make install 
-## Download and install samtools
+make install
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;## Download and install samtools
 ## http://samtools.sourceforge.net/
 ## http://www.htslib.org/doc/samtools.html
+
+##存放高通量测序比对结果的标准格式
+##功能： Reading/writing/editing/indexing/viewing SAM/BAM/CRAM format
 cd ~/biosoft
 mkdir samtools &amp;amp;&amp;amp;  cd samtools
 wget https://github.com/samtools/samtools/releases/download/1.3.1/samtools-1.3.1.tar.bz2 
@@ -273,12 +498,19 @@ mkdir QuEST &amp;amp;&amp;amp;  cd QuEST
 wget http://mendel.stanford.edu/SidowLab/downloads/quest/QuEST_2.4.tar.gz
 tar xzvf QuEST_2.4.tar.gz
 cd QuEST_2.4 
-## Download and install fastqc
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;## Download and install fastqc
+##可视化展示二代测序数据质量
+##http://www.bioinformatics.babraham.ac.uk/projects/fastqc/
+
 cd ~/biosoft
 mkdir fastqc &amp;amp;&amp;amp;  cd fastqc
-wget http://www.bioinformatics.bbsrc.ac.uk/projects/fastqc/fastqc_v0.11.5.zip
+wget http://www.bioinformatics.babraham.ac.uk/projects/fastqc/fastqc_v0.11.5.zip
 unzip fastqc_v0.11.5.zip
-## Download and install CEAS    
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;## Download and install CEAS    
 ## http://liulab.dfci.harvard.edu/CEAS/download.html
 cd ~/biosoft
 mkdir CEAS  &amp;amp;&amp;amp;  cd CEAS 
@@ -330,9 +562,13 @@ wget http://cole-trapnell-lab.github.io/cufflinks/assets/downloads/cufflinks-2.2
 tar xzvf cufflinks-2.2.1.Linux_x86_64.tar.gz 
 ln -s cufflinks-2.2.1.Linux_x86_64 current
 ~/biosoft/Cufflinks/current/cufflinks
+
 #HISAT-Stringtie2-Ballgown pipeline
+
+
 ## Download and install HISAT 
-# https://ccb.jhu.edu/software/hisat2/index.shtml
+##https://ccb.jhu.edu/software/hisat2/index.shtml
+##功能： 将测序结果比对到参考基因组上
 cd ~/biosoft
 mkdir HISAT  &amp;amp;&amp;amp;  cd HISAT 
 #### readme: https://ccb.jhu.edu/software/hisat2/manual.shtml
@@ -3968,8 +4204,24 @@ http://ip:3838/shiny-examples/010-download/ （ip是你服务器的ip地址）
 &lt;li&gt;exit &lt;strong&gt;or&lt;/strong&gt; logout  &lt;strong&gt;or&lt;/strong&gt; ctrl D 退出root&lt;/li&gt;
 &lt;li&gt;修改root密码 $ sudo passwd&lt;/li&gt;
 &lt;li&gt;修改用户密码 $ sudo passwd username&lt;/li&gt;
-&lt;li&gt;修改主机名： $ sudo gedit /etc/hostname 和 $ sudo gedit /etc/hosts
-&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;修改主机名： $ sudo gedit /etc/hostname 和 $ sudo gedit /etc/hosts&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;ubuntu创建-删除文件及文件夹-强制清空回收站方法&#34;&gt;ubuntu创建、删除文件及文件夹，强制清空回收站方法&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;mkdir 目录名       创建一个目录&lt;/li&gt;
+&lt;li&gt;rmdir 空目录名     删除一个空目录&lt;/li&gt;
+&lt;li&gt;rm 文件名 文件名   删除一个文件或多个文件&lt;/li&gt;
+&lt;li&gt;rm –rf 非空目录名  删除一个非空目录下的一切&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;touch 文件名       创建一个空文件&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;mv file1 file2     将文件 file1，更改文件名为 file2。&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;mv file1 dir1      将文件 file1，移到目录 dir1下，文件名仍为 file1。&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;mv dir1 dir2       若目录 dir2 存在，则将目录 dir1，及其所有文件和子目录，移到目录 dir2 下，新目录名称为 dir1。若目录 dir2 不存在，则将dir1，及其所有文件和子目录，更改为目录 dir2。&lt;/p&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;h3 id=&#34;download&#34;&gt;Download&lt;/h3&gt;
@@ -3985,6 +4237,10 @@ http://ip:3838/shiny-examples/010-download/ （ip是你服务器的ip地址）
 &lt;li&gt;nohup 始终执行&lt;/li&gt;
 &lt;li&gt;ps - aux | grep xxx 显示终端关闭后的后台进程&lt;/li&gt;
 &lt;/ul&gt;
+
+&lt;h3 id=&#34;后台执行&#34;&gt;后台执行&lt;/h3&gt;
+
+&lt;p&gt;-&lt;/p&gt;
 
 &lt;h3 id=&#34;开关机&#34;&gt;开关机&lt;/h3&gt;
 
@@ -4032,12 +4288,19 @@ http://ip:3838/shiny-examples/010-download/ （ip是你服务器的ip地址）
 &lt;li&gt;sudo chmod 644 ××× （所有者有读和写的权限，组用户只有读的权限）&lt;/li&gt;
 &lt;li&gt;sudo chmod 700 ××× （只有所有者有读和写以及执行的权限）&lt;/li&gt;
 &lt;li&gt;sudo chmod 666 ××× （每个人都有读和写的权限）&lt;/li&gt;
-&lt;li&gt;sudo chmod 777 ××× （每个人都有读和写以及执行的权限）&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;sudo chmod 777 ××× （每个人都有读和写以及执行的权限）&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;chmod +x test.py     # 脚本文件添加可执行权限&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;chmod -x test.py     # 脚本文件去除可执行权限&lt;/p&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;h3 id=&#34;磁盘管理&#34;&gt;磁盘管理&lt;/h3&gt;
 
 &lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;sudo mount -t ext4 /dev/sdb /data 挂载到data&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;sudo umount /dev/sdb 卸载&lt;/li&gt;
 &lt;li&gt;mkdir -p 递归创建目录&lt;/li&gt;
 &lt;li&gt;cp 复制&lt;/li&gt;
 &lt;li&gt;rmdir 删除空目录&lt;br /&gt;&lt;/li&gt;
@@ -4048,10 +4311,8 @@ df -kh 查看磁盘挂载&lt;/li&gt;
 m(help)-n(增加一个新分区)-e(扩展分区)-1-4(分几个区)-&amp;hellip;-p(显示分区表)-w(保存分区表)&lt;/li&gt;
 &lt;li&gt;sudo mkfs -t ext4 /dev/sdb 对sdb盘格式化为ext4格式&lt;/li&gt;
 &lt;li&gt;sudo blkid 查看分区的UUID&lt;/li&gt;
-&lt;li&gt;sudo blkid /dev/sda5 查看指定盘的UUID&lt;/li&gt;
-&lt;li&gt;sudo mount -t ext4 /dev/sdb /data 挂载到data&lt;/li&gt;
 
-&lt;li&gt;&lt;p&gt;sudo umount /dev/sdb 卸载&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;sudo blkid /dev/sda5 查看指定盘的UUID&lt;/p&gt;&lt;/li&gt;
 
 &lt;li&gt;&lt;p&gt;sudo chown -R username:root Document/  修改文件夹所有者&lt;/p&gt;&lt;/li&gt;
 

@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <title>NCBI-GEO数据下载 - My Lives</title>
+    <meta property="og:title" content="NCBI-GEO数据下载 - My Lives">
+    
+
+    
+      
+    
+
+    
+
+    
+    
+
+
+<link href='//cdn.bootcss.com/highlight.js/9.12.0/styles/github.min.css' rel='stylesheet' type='text/css' />
+
+
+
+    <link rel="stylesheet" href="/blog/css/style.css" />
+    <link rel="stylesheet" href="/blog/css/fonts.css" />
+    <link rel="stylesheet" href="/blog/css/custom.css" />
+
+  </head>
+
+  
+  <body class="blog">
+    <header class="masthead">
+      <h1><a href="/blog/">My Lives</a></h1>
+
+
+
+      <nav class="menu">
+        <input id="menu-check" type="checkbox" />
+        <label id="menu-label" for="menu-check" class="unselectable">
+          <span class="icon close-icon">✕</span>
+          <span class="icon open-icon">☰</span>
+          <span class="text">Menu</span>
+        </label>
+        <ul>
+        
+        
+        <li><a href="/blog/">Home</a></li>
+        
+        <li><a href="/blog/en/">English</a></li>
+        
+        <li><a href="/blog/cn/">Chinese</a></li>
+        
+        <li><a href="/blog/travel/">Travel</a></li>
+        
+        
+        </ul>
+      </nav>
+    </header>
+
+    <article class="main">
+      <header class="title">
+      
+<h1>NCBI-GEO数据下载</h1>
+
+<h3>
+  2017-11-04</h3>
+<hr>
+
+
+      </header>
+
+
+
+
+
+<h1 id="geo-基础">GEO 基础</h1>
+
+<ul>
+<li>GEO Platform (GPL) 芯片平台</li>
+<li>GEO Sample (GSM) 样本ID号</li>
+<li>GEO Series (GSE) study的ID号</li>
+<li>GEO Dataset (GDS) 数据集的ID号 ## 用法</li>
+</ul>
+
+<h1 id="数据搜索">数据搜索</h1>
+
+<p><strong>方法-</strong></p>
+
+<ol>
+<li><p>在<a href="https://www.ncbi.nlm.nih.gov/">https://www.ncbi.nlm.nih.gov/</a> 中搜索 GSE81916 选择 BioProject查询 Accession：PRJNA323422; GEO: GSE81916</p></li>
+
+<li><p><a href="https://trace.ncbi.nlm.nih.gov/Traces/study/?acc=PRJNA323422">https://trace.ncbi.nlm.nih.gov/Traces/study/?acc=PRJNA323422</a> 可以查询数据具体信息</p></li>
+</ol>
+
+<p><strong>方法二</strong></p>
+
+<ol>
+<li><p>在 Gene Expression Omnibus (<a href="https://www.ncbi.nlm.nih.gov/geo/)搜素GSE81916进入">https://www.ncbi.nlm.nih.gov/geo/)搜素GSE81916进入</a></p></li>
+
+<li><p><a href="https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE81916">https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE81916</a> 数据地址</p></li>
+</ol>
+
+<h1 id="数据下载">数据下载</h1>
+
+<p><strong>ftp地址</strong>
+<a href="ftp://ftp-trace.ncbi.nlm.nih.gov/sra/sra-instant/reads/ByStudy/sra/SRP/SRP075/SRP075747">ftp://ftp-trace.ncbi.nlm.nih.gov/sra/sra-instant/reads/ByStudy/sra/SRP/SRP075/SRP075747</a></p>
+
+<p>可以分为以下几个部分</p>
+
+<ul>
+<li>所有SRA数据的共同部分： <a href="ftp://ftp-trace.ncbi.nlm.nih.gov/sra/sra-instant">ftp://ftp-trace.ncbi.nlm.nih.gov/sra/sra-instant</a></li>
+<li>reads表示存放reads数据，在FTP可以看到另一个选项是analysis，表示分析结果</li>
+<li>ByStudy表示根据Study进行分类，其他还可以根据实验ByExp,根据Run,ByRun.</li>
+<li>sra/SRP/SRP075/SRP075747: 后面部分都是为了便于检索。</li>
+</ul>
+
+<pre><code>#/bin/bash
+# @author: xt
+# @date: 2017-11-04
+
+for i in ` seq 56 62`;
+do
+axel ftp://ftp-trace.ncbi.nlm.nih.gov/sra/sra-instant/reads/ByStudy/sra/SRP/SRP075/SRP075747/SRR35899${i}/SRR35899${i}.sra
+#wget ftp://ftp-trace.ncbi.nlm.nih.gov/sra/sra-instant/reads/ByStudy/sra/SRP/SRP075/SRP075747/SRR35899${i}/SRR35899${i}.sra
+#echo $i 
+done
+</code></pre>
+
+<pre><code># https://www.ncbi.nlm.nih.gov/gquery/?term=GSE81916
+# esearch -db sra -query PRJNA299273  | efetch -format runinfo &gt; runinfo.txt # 这个命令是把所有的结果放到一个文件里，也可以通过 https://trace.ncbi.nlm.nih.gov/Traces/study/?acc=PRJNA323422下载SRR的编号
+# cat runinfo.txt | cut -f 1 -d ',' | grep SRR &gt; sra.ids
+# ~/biosoft/sratoolkit.2.8.2-1-centos_linux64/bin/prefetch --option-file sra.ids # 数据存在/home/shenmy/ncbi/public/sra这个文件下面，找了半天
+mkdir /mnt/d/rna_seq/data  &amp;&amp; cd /mnt/d/rna_seq/data
+perl -lne '$id=substr($_,0,6);print &quot;axel ftp://ftp-trace.ncbi.nih.gov/sra/sra-instant/reads/ByRun/sra/SRR/$id/$_/$_.sra&quot;' SRR_Acc_List.txt &gt;sra_down.sh
+bash sra_down.sh
+# 改成用axel下是因为prefetch下载总是不成功
+ls *.sra|while read id;do(/mnt/d/Software/Biosoft/sratoolkit/sratoolkit.2.8.2-1-ubuntu64/bin/fastq-dump --split-3 $id);done
+rm *.sra
+chmod u-w * 
+</code></pre>
+
+
+  <footer>
+  
+<nav class="post-nav">
+  <span class="nav-prev">&larr; <a href="/blog/cn/2017/11/bioconda/">使用Bioconda管理Linux系统中的生物信息软件</a></span>
+  <span class="nav-next"><a href="/blog/cn/2017/11/transcriptome_analysis/">转录组分析笔记</a> &rarr;</span>
+</nav>
+
+
+
+
+
+<script src="//yihui.name/js/math-code.js"></script>
+<script async src="//cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+<script async src="//yihui.name/js/center-img.js"></script>
+
+  
+
+
+
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+
+
+
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/r.min.js"></script>
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/yaml.min.js"></script>
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/tex.min.js"></script>
+<script>hljs.configure({languages: []}); hljs.initHighlightingOnLoad();</script>
+
+
+
+  
+  <hr>
+  <div class="copyright">&copy; <a href="xxxx">Who care</a> 2017 - Forever, maybe</div>
+  
+  </footer>
+  </article>
+  
+  </body>
+</html>
+

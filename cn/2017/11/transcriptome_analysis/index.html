@@ -4,8 +4,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     
-    <title>R Notebook - My Lives</title>
-    <meta property="og:title" content="R Notebook - My Lives">
+    <title>转录组分析笔记 - My Lives</title>
+    <meta property="og:title" content="转录组分析笔记 - My Lives">
     
 
     
@@ -61,10 +61,10 @@
     <article class="main">
       <header class="title">
       
-<h1>R Notebook</h1>
+<h1>转录组分析笔记</h1>
 
 <h3>
-</h3>
+  2017-11-05</h3>
 <hr>
 
 
@@ -72,19 +72,39 @@
 
 
 
-<p>This is an <a href="http://rmarkdown.rstudio.com">R Markdown</a> Notebook. When you execute code within the notebook, the results appear beneath the code.</p>
-<p>Try executing this chunk by clicking the <em>Run</em> button within the chunk or by placing your cursor inside it and pressing <em>Ctrl+Shift+Enter</em>.</p>
-<pre class="r"><code>plot(cars)</code></pre>
-<p><img src="/blog/cn/2017-09-22-datamining_concepts_files/figure-html/unnamed-chunk-1-1.png" width="672" /></p>
-<p>Add a new chunk by clicking the <em>Insert Chunk</em> button on the toolbar or by pressing <em>Ctrl+Alt+I</em>.</p>
-<p>When you save the notebook, an HTML file containing the code and output will be saved alongside it (click the <em>Preview</em> button or press <em>Ctrl+Shift+K</em> to preview the HTML file).</p>
+
+
+<p>这是一个学习笔记，跟随生信技能树的学习笔记重复。</p>
+
+<p><strong>学习提纲</strong>：<a href="http://www.biotrainee.com/thread-1750-1-1.html">RNA-seq基础入门传送门</a></p>
+
+<p><strong>学习笔记</strong>：<a href="https://taoshengxu.github.io/DocumentGit/pdf/沈梦圆2017年转录组入门合辑0-6.pdf">PANDA姐的转录组入门（0-6）合辑</a></p>
+
+<h1 id="分析软件安装">分析软件安装</h1>
+
+<p>最方便的安装方式就是 Anaconda</p>
+
+<pre><code>wget https://repo.continuum.io/archive/Anaconda3-4.4.0-Linux-x86_64.sh
+
+ conda install -c bioconda samtools=1.5
+ conda install -c bioconda htseq=0.7.2
+ conda install -c bioconda hisat2=2.1.0
+ conda install -c bioconda fastqc=0.11.5
+ conda install -c jfear sratoolkit=2.8.1
+</code></pre>
+
+<h1 id="数据下载">数据下载</h1>
+
+<p>From NCBI GEO</p>
+
+<p>#</p>
 
 
   <footer>
   
 <nav class="post-nav">
-  <span class="nav-prev"></span>
-  <span class="nav-next"><a href="/blog/cn/1/01/"></a> &rarr;</span>
+  <span class="nav-prev">&larr; <a href="/blog/cn/2017/11/ncbi_downlaod/">NCBI-GEO数据下载</a></span>
+  <span class="nav-next"></span>
 </nav>
 
 

@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <title>使用Bioconda管理Linux系统中的生物信息软件 - My Lives</title>
+    <meta property="og:title" content="使用Bioconda管理Linux系统中的生物信息软件 - My Lives">
+    
+
+    
+      
+    
+
+    
+
+    
+    
+
+
+<link href='//cdn.bootcss.com/highlight.js/9.12.0/styles/github.min.css' rel='stylesheet' type='text/css' />
+
+
+
+    <link rel="stylesheet" href="/blog/css/style.css" />
+    <link rel="stylesheet" href="/blog/css/fonts.css" />
+    <link rel="stylesheet" href="/blog/css/custom.css" />
+
+  </head>
+
+  
+  <body class="blog">
+    <header class="masthead">
+      <h1><a href="/blog/">My Lives</a></h1>
+
+
+
+      <nav class="menu">
+        <input id="menu-check" type="checkbox" />
+        <label id="menu-label" for="menu-check" class="unselectable">
+          <span class="icon close-icon">✕</span>
+          <span class="icon open-icon">☰</span>
+          <span class="text">Menu</span>
+        </label>
+        <ul>
+        
+        
+        <li><a href="/blog/">Home</a></li>
+        
+        <li><a href="/blog/en/">English</a></li>
+        
+        <li><a href="/blog/cn/">Chinese</a></li>
+        
+        <li><a href="/blog/travel/">Travel</a></li>
+        
+        
+        </ul>
+      </nav>
+    </header>
+
+    <article class="main">
+      <header class="title">
+      
+<h1>使用Bioconda管理Linux系统中的生物信息软件</h1>
+
+<h3>
+  2017-11-03</h3>
+<hr>
+
+
+      </header>
+
+
+
+
+
+<p><a href="https://zhuanlan.zhihu.com/p/25085567">原文</a></p>
+
+<p>生物信息操作中必不可少的就是Linux系统中各种生物信息学软件的安装。不同软件有不同的安装方法，对系统环境的依赖不同也不同，对于新手来说，经常是一个软件的安装和配置就要折腾很长一段时间时间，大大增加了学习成本。</p>
+
+<p>我自己有两个方法来尽量减少安装软件所消耗的时间：一是直接安装Bio-linux系统，这个系统已经内置了大部分生物信息分析所需要的软件，非常适合新手直接学习分析技术，绕过软件安装和环境配置的麻烦问题。二是使用Bioconda安装和管理各种软件。Bio-linux系统和常用的服务器系统还是有差别的，如果想在学习生物信息分析的同时掌握一些Linux系统的操作甚至维护的技术，配置一台CentOS系统的计算机就很有必要了。这个时候Bioconda就非常有用了。</p>
+
+<p>本文参考知乎专栏以及基因课相关课程 (<a href="http://genek.tv/dirlist/index/id/65">http://genek.tv/dirlist/index/id/65</a>) 对Bioconda的安装和使用做简单介绍。</p>
+
+<h1 id="bioconda介绍">Bioconda介绍</h1>
+
+<p>Bioconda是conda上一个分发生物信息的频道。而conda是最初为管理python包而建立的。以下是相关介绍：</p>
+
+<p>“Conda is a portable package manager primarily for python and precompiled binaries. Miniconda is the base system of conda. It includes a standard python and a few required dependencies such as readline and sqlite. In conda, a channel contains a set of software typically managed by the same group.Bioconda is a channel of conda focusing on bioinformatics software. ”</p>
+
+<p>Bioconda主页：Using bioconda - Bioconda documentation</p>
+
+<p>anaconda、miniconda和conda的区别：FAQs - Bioconda documentation</p>
+
+<p>简单说来：“conda is a package manager, Miniconda is the conda installer, and Anaconda is a scientific Python distribution that also includes conda.”</p>
+
+<p>Bioconda的优点是安装简单，各个软件依赖的环境一同打包且相互隔离，非常适合在服务器中建立自己的生物信息分析环境。</p>
+
+<h1 id="bioconda的下载与安装">Bioconda的下载与安装</h1>
+
+<p>1.下载和安装miniconda</p>
+
+<p>bioconda的使用首先需要安装miniconda(<a href="http://conda.pydata.org/miniconda.html">http://conda.pydata.org/miniconda.html</a>) 。选择linux的64位的python2.7版本（共提供win、Mac、linux三种系统，同时支持python3和python2），直接点击下载。或者复制链接后，用wget下载。下载完成后，在终端键入bash命令进行安装. 之后按照提示点击回车，输入要安装的位置，或者输入yes.</p>
+
+<pre><code>wget https://repo.continuum.io/miniconda/Miniconda2-latest-Linux-x86_64.sh
+bash Miniconda2-latest-Linux-x86_64.sh
+##输入yes后，还没有完成最后安装，还需要source一下
+source ~/.bashrc
+</code></pre>
+
+<p>这时miniconda就安装好了，输入“conda”会显示相应的信息：</p>
+
+<p>2.添加channels</p>
+
+<p>输入“conda list”来查看已经安装的软件：</p>
+
+<pre><code>conda config --add channels conda-forge
+conda config --add channels defaults
+conda config --add channels r
+conda config --add channels bioconda
+</code></pre>
+
+<p>查看已经添加的channels：</p>
+
+<p>conda config &ndash;get channels</p>
+
+<p>3.更新miniconda</p>
+
+<p>conda update conda</p>
+
+<p>4.卸载miniconda  删除miniconda的整个文件夹：</p>
+
+<p>rm -rf ~/miniconda</p>
+
+<p>从环境变量中去掉miniconda：打开~/.bash_profile文件，删掉其中miniconda的路径，关闭并保存</p>
+
+<p>删除隐藏的.condarc 、.conda以及.continuum文件</p>
+
+<h1 id="利用bioconda安装生物信息软件">利用Bioconda安装生物信息软件</h1>
+
+<p>要通过conda安装软件，首先从这里<a href="https://bioconda.github.io/recipes">Available packages</a>查找该软件是否被conda支持。如果支持，只需输入以下命令即可安装：</p>
+
+<pre><code>conda install fastqc（软件名）
+
+conda install -c bioconda samtools=1.5
+conda install -c bioconda htseq=0.7.2
+conda install -c bioconda hisat2=2.1.0
+conda install -c bioconda fastqc=0.11.5
+conda install -c jfear sratoolkit=2.8.1
+</code></pre>
+
+<p>安装完成后，可以用“which 软件名”来查看该软件安装的位置：</p>
+
+<p>conda默认安装软件的最新版本，如果想安装指定版本的某个软件，可以先用“conda search 软件名”搜索软件版本</p>
+
+<p>星号标记的表示是已经安装的版本。要安装其他版本，输入：</p>
+
+<p>conda install 软件名=版本号
+这时conda会先卸载已安装版本，然后重新安装指定版本。</p>
+
+<p><strong>查看已安装软件</strong>：conda list</p>
+
+<p><strong>更新指定软件</strong>：conda update 软件名</p>
+
+<p><strong>卸载指定软件</strong>：conda remove 软件名</p>
+
+
+  <footer>
+  
+<nav class="post-nav">
+  <span class="nav-prev">&larr; <a href="/blog/cn/2017/11/1000soft/">生物信息学常见1000个软件的安装代码</a></span>
+  <span class="nav-next"><a href="/blog/cn/2017/11/ncbi_downlaod/">NCBI-GEO数据下载</a> &rarr;</span>
+</nav>
+
+
+
+
+
+<script src="//yihui.name/js/math-code.js"></script>
+<script async src="//cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+<script async src="//yihui.name/js/center-img.js"></script>
+
+  
+
+
+
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+
+
+
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/r.min.js"></script>
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/yaml.min.js"></script>
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/tex.min.js"></script>
+<script>hljs.configure({languages: []}); hljs.initHighlightingOnLoad();</script>
+
+
+
+  
+  <hr>
+  <div class="copyright">&copy; <a href="xxxx">Who care</a> 2017 - Forever, maybe</div>
+  
+  </footer>
+  </article>
+  
+  </body>
+</html>
+
