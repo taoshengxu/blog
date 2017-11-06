@@ -139,7 +139,7 @@ if __name__ == '__main__':
 
 <h1 id="数据分析">数据分析</h1>
 
-<h3 id="质控">质控</h3>
+<h2 id="质控">质控</h2>
 
 <pre><code>for id in `seq 56 62`do fastq-dump --gzip --split-3 -O /mnt/f/Data/RNA-Seq -A SRR35899${id}done ##很慢，建议后台多线程
 
@@ -154,7 +154,7 @@ ls *gz | while read id; do fastqc -t 4 $id; done
 multiqc *fastqc.zip --pdf
 </code></pre>
 
-<h3 id="python脚本qc汇总">Python脚本QC汇总</h3>
+<p><strong>Python脚本QC汇总</strong></p>
 
 <pre><code>import re
 import zipfile
@@ -210,12 +210,218 @@ bedtools igv -i gene.bed &gt;Bach_sanpshot.txt
 perl -alne '{print &quot;goto $F[0]:$F[1]-$F[2]\nsnapshot $F[3].png&quot;} '
 </code></pre>
 
+<h2 id="hisat2比对">Hisat2比对</h2>
+
+<p>HISAT2是TopHat2/Bowti2的继任者，使用改进的BWT算法，实现了更快的速度和更少的资源占用，作者推荐TopHat2/Bowti2和HISAT的用户转换到HISAT2。
+官网：<a href="https://ccb.jhu.edu/software/hisat2/index.shtml">https://ccb.jhu.edu/software/hisat2/index.shtml</a></p>
+
+<p>1.建立基因组索引or index 下载</p>
+
+<pre><code class="language-shell">#建立基因组索引
+#hisat2-build –p 4 genome.fa genome
+
+#下载索引
+cd ~/reference
+mkdir -p index/hisat &amp;&amp; cd index/hisat
+wget -c ftp://ftp.ccb.jhu.edu/pub/infphilo/hisat2/data/hg19.tar.gz
+wget -c ftp://ftp.ccb.jhu.edu/pub/infphilo/hisat2/data/mm10.tar.gz
+tar zxvf hg19.tar.gz
+tar xvzf mm10.tar.gz
+</code></pre>
+
+<p>2.比对</p>
+
+<pre><code class="language-shell">for i in `seq 56 58`
+do
+    hisat2 -t -p 24 -x /data/Reference/index/hisat2/hg19/genome \
+    -1 /data/RNASeq/fastq/SRR35899${i}_1.fastq.gz \
+    -2 SRR35899${i}_2.fastq.gz \
+    -S /data/RNASeq/fastq/SRR35899${i}.sam &gt; SRR35899${i}.log &amp;
+done
+
+
+##比对结果
+xts@R710:/data/RNASeq/fastq$ for i in `seq 56 58`
+&gt; do
+&gt;     hisat2 -t -p 24 -x /data/Reference/index/hisat2/hg19/genome \
+&gt;     -1 /data/RNASeq/fastq/SRR35899${i}_1.fastq.gz \
+&gt;     -2 SRR35899${i}_2.fastq.gz \
+&gt;     -S /data/RNASeq/fastq/SRR35899${i}.sam &gt; SRR35899${i}.log &amp;
+&gt; done
+[1] 11177
+[2] 11178
+[3] 11179
+xts@R710:/data/RNASeq/fastq$ tipTime loading forward index: 00:00:24
+Time loading forward index: 00:00:24
+Time loading forward index: 00:00:24
+Time loading reference: 00:00:04
+Time loading reference: 00:00:04
+Time loading reference: 00:00:04
+Multiseed full-index search: 00:13:22
+28856780 reads; of these:
+  28856780 (100.00%) were paired; of these:
+    1838981 (6.37%) aligned concordantly 0 times
+    24732654 (85.71%) aligned concordantly exactly 1 time
+    2285145 (7.92%) aligned concordantly &gt;1 times
+    ----
+    1838981 pairs aligned concordantly 0 times; of these:
+      90927 (4.94%) aligned discordantly 1 time
+    ----
+    1748054 pairs aligned 0 times concordantly or discordantly; of these:
+      3496108 mates make up the pairs; of these:
+        2034939 (58.21%) aligned 0 times
+        1221462 (34.94%) aligned exactly 1 time
+        239707 (6.86%) aligned &gt;1 times
+96.47% overall alignment rate
+Time searching: 00:13:26
+Overall time: 00:13:50
+
+Multiseed full-index search: 00:14:42
+25914821 reads; of these:
+  25914821 (100.00%) were paired; of these:
+    1785160 (6.89%) aligned concordantly 0 times
+    21786672 (84.07%) aligned concordantly exactly 1 time
+    2342989 (9.04%) aligned concordantly &gt;1 times
+    ----
+    1785160 pairs aligned concordantly 0 times; of these:
+      53455 (2.99%) aligned discordantly 1 time
+    ----
+    1731705 pairs aligned 0 times concordantly or discordantly; of these:
+      3463410 mates make up the pairs; of these:
+        2187330 (63.16%) aligned 0 times
+        1050929 (30.34%) aligned exactly 1 time
+        225151 (6.50%) aligned &gt;1 times
+95.78% overall alignment rate
+Time searching: 00:14:46
+Overall time: 00:15:10
+[1]   已完成               hisat2 -t -p 24 -x /data/Reference/index/hisat2/hg19/genome -1 /data/RNASeq/fastq/SRR35899${i}_1.fastq.gz -2 SRR35899${i}_2.fastq.gz -S /data/RNASeq/fastq/SRR35899${i}.sam &gt; SRR35899${i}.log
+[3]+  已完成               hisat2 -t -p 24 -x /data/Reference/index/hisat2/hg19/genome -1 /data/RNASeq/fastq/SRR35899${i}_1.fastq.gz -2 SRR35899${i}_2.fastq.gz -S /data/RNASeq/fastq/SRR35899${i}.sam &gt; SRR35899${i}.log
+xts@R710:/data/RNASeq/fastq$ Multiseed full-index search: 00:16:08
+29720636 reads; of these:
+  29720636 (100.00%) were paired; of these:
+    1920019 (6.46%) aligned concordantly 0 times
+    25503958 (85.81%) aligned concordantly exactly 1 time
+    2296659 (7.73%) aligned concordantly &gt;1 times
+    ----
+    1920019 pairs aligned concordantly 0 times; of these:
+      61683 (3.21%) aligned discordantly 1 time
+    ----
+    1858336 pairs aligned 0 times concordantly or discordantly; of these:
+      3716672 mates make up the pairs; of these:
+        2292272 (61.68%) aligned 0 times
+        1196099 (32.18%) aligned exactly 1 time
+        228301 (6.14%) aligned &gt;1 times
+96.14% overall alignment rate
+Time searching: 00:16:12
+Overall time: 00:16:36
+
+</code></pre>
+
+<p>比对脚本map.sh [需要修改]</p>
+
+<pre><code>#! usr/bin/bash
+set -u
+set -e
+set -o pipefail
+
+hg19_ref=/data/Reference/index/hisat/hg19
+mm10_ref=/data/Reference/index/hisat/mm10
+data_path=/data/RNASeq/fastq
+NUM_THREADS=25
+
+ls *.fastq.gz|while read id;do(hisat2 -t -p
+$NUM_THREADS -x $hg19_ref -1 $data_path/${id%_*}_1.fastq.gz -2
+$data_path/${id%_*}_2.fastq.gz 2&gt;${id%_*}_map.log | samtools view -Sb
+- &gt;${id%_*}.bam);done
+
+ls  *.fastq.gz|while read id;do(hisat2 -t -
+p $NUM_THREADS -x $mm10_ref -1 $data_path/${id%_*}_1.fastq.gz -2
+$data_path/${id%_*}_2.fastq.gz 2&gt;${id%_*}_map.log | samtools view -Sb
+- &gt;${id%_*}.bam);done
+
+ ls *.bam|while read id;do(samtools sort --threads $NUM_THREADS $id -o
+${id%.*}_sorted.bam);done
+ ls *_sorted.bam | while read id;do(samtools index $id);done
+</code></pre>
+
+<h2 id="samtools">SAMtools</h2>
+
+<p>SAM（sequence Alignment/mapping)数据格式是目前高通量测序中存放比对数据的标准格式，当然他可以用于存放未比对的数据。</p>
+
+<p>主要功能有：</p>
+
+<ul>
+<li><strong>samtools view : BAM-SAM/SAM-BAM 转换和提取部分比对</strong></li>
+<li><strong>samtools sort : 比对排序</strong></li>
+<li><strong>samtools index: 索引排序比对</strong></li>
+<li>samtools merge: 聚合多个排序比对</li>
+<li>samtools faidx: 建立FASTA索引，提取部分序列</li>
+<li>samtools tview: 文本格式查看序列</li>
+<li>samtools pileup: 产生基于位置的结果和 consensus/indel calling</li>
+</ul>
+
+<p><strong>数据转换sam-bam-sorted bam</strong></p>
+
+<pre><code>for i in `seq 56 58`
+do
+    samtools view -S SRR35899${i}.sam -b &gt; SRR35899${i}.bam
+    samtools sort SRR35899${i}.bam -o SRR35899${i}_sorted.bam
+    samtools index SRR35899${i}_sorted.bam
+done
+</code></pre>
+
+<p>SAMtools其他操作</p>
+
+<pre><code class="language-shell">head -1000 SRR3589957.sam &gt; test.sam
+samtools view -b  test.sam &gt; test.bam
+samtools view test.bam | head
+
+samtools sort test.bam -o default.bam
+samtools view default.bam | head
+ 
+# Sort alignments by leftmost coordinates, or by read name when -n is used
+samtools sort test.bam default
+samtools view default.bam | head
+
+
+#提取1号染色体1234-123456区域的比对read
+samtools view SRR3589957_sorted.bam chr1:1234-123456 | head
+
+#在比如搭配flag(0.1.19版本没有）和flagstat，使用-f或-F参数提取不同匹配情况的read。
+
+# 可以先用flagstat看下总体情况
+samtools flagstat SRR3589957_sorted.bam
+
+#筛选恰好配对的read,就需要用0x10
+samtools view -b -f 0x10 SRR3589957_sorted.bam chr1:1234-123456  &gt; flag.bam
+samtools flagstat flag.bam
+</code></pre>
+
+<h2 id="比对质控">比对质控</h2>
+
+<ul>
+<li>RSeQC——<a href="http://rseqc.sourceforge.net/">http://rseqc.sourceforge.net/</a></li>
+<li>Qualimap——<a href="http://qualimap.bioinfo.cipf.es/">http://qualimap.bioinfo.cipf.es/</a></li>
+<li>Picard——<a href="http://broadinstitute.github.io/picard/">http://broadinstitute.github.io/picard/</a></li>
+</ul>
+
+<p>使用RSeQC来对我们的比对结果进行质控,RSeQC包括了十多个Python脚本，实现很多功能，具体每个脚本的参数用法，都可以在官网学习.</p>
+
+<pre><code># RSeQC的安装，需要先安装gcc；numpy；R；Python2.7
+$ pip install RSeQC
+# 对bam文件进行质控，其余都同样的进行
+$ bam_stat.py  -i SRR3589956_sorted.bam
+
+基因组覆盖率的QC需要提供bed文件，可以直接RSeQC的网站下载，或者可以用gtf转换
+read_distribution.py -i RNA-Seq/aligned/SRR3589956_sorted.bam -r reference/hg19_RefSeq.bed
+</code></pre>
+
 
   <footer>
   
 <nav class="post-nav">
   <span class="nav-prev">&larr; <a href="/blog/cn/2017/11/ncbi_downlaod/">NCBI-GEO数据下载</a></span>
-  <span class="nav-next"><a href="/blog/cn/2017/11/transcriptome_analysis1/">转录组差异表达分析小实战</a> &rarr;</span>
+  <span class="nav-next"><a href="/blog/cn/2017/11/transcriptome_analysis1/">转录组分析笔记（2）</a> &rarr;</span>
 </nav>
 
 

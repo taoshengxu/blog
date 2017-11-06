@@ -157,7 +157,7 @@ support.print_func(&amp;quot;Runoob&amp;quot;)
     </item>
     
     <item>
-      <title>转录组差异表达分析小实战</title>
+      <title>转录组分析笔记（2）</title>
       <link>/blog/cn/2017/11/transcriptome_analysis1/</link>
       <pubDate>Sun, 05 Nov 2017 09:34:40 +0000</pubDate>
       
@@ -387,7 +387,7 @@ if __name__ == &#39;__main__&#39;:
 
 &lt;h1 id=&#34;数据分析&#34;&gt;数据分析&lt;/h1&gt;
 
-&lt;h3 id=&#34;质控&#34;&gt;质控&lt;/h3&gt;
+&lt;h2 id=&#34;质控&#34;&gt;质控&lt;/h2&gt;
 
 &lt;pre&gt;&lt;code&gt;for id in `seq 56 62`do fastq-dump --gzip --split-3 -O /mnt/f/Data/RNA-Seq -A SRR35899${id}done ##很慢，建议后台多线程
 
@@ -402,7 +402,7 @@ ls *gz | while read id; do fastqc -t 4 $id; done
 multiqc *fastqc.zip --pdf
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;h3 id=&#34;python脚本qc汇总&#34;&gt;Python脚本QC汇总&lt;/h3&gt;
+&lt;p&gt;&lt;strong&gt;Python脚本QC汇总&lt;/strong&gt;&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;import re
 import zipfile
@@ -456,6 +456,212 @@ grep -w &#39;gene&#39; gencode.v26lift37.annotation.gtf |grep -w &#39;KRAS&#39;|
 grep -w &#39;gene&#39; gencode.v26lift37.annotation.gtf |grep -w &#39;EGFR&#39;|cut -f 1,4,5 &amp;gt;&amp;gt;gene.bed
 bedtools igv -i gene.bed &amp;gt;Bach_sanpshot.txt
 perl -alne &#39;{print &amp;quot;goto $F[0]:$F[1]-$F[2]\nsnapshot $F[3].png&amp;quot;} &#39;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;hisat2比对&#34;&gt;Hisat2比对&lt;/h2&gt;
+
+&lt;p&gt;HISAT2是TopHat2/Bowti2的继任者，使用改进的BWT算法，实现了更快的速度和更少的资源占用，作者推荐TopHat2/Bowti2和HISAT的用户转换到HISAT2。
+官网：&lt;a href=&#34;https://ccb.jhu.edu/software/hisat2/index.shtml&#34;&gt;https://ccb.jhu.edu/software/hisat2/index.shtml&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;1.建立基因组索引or index 下载&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-shell&#34;&gt;#建立基因组索引
+#hisat2-build –p 4 genome.fa genome
+
+#下载索引
+cd ~/reference
+mkdir -p index/hisat &amp;amp;&amp;amp; cd index/hisat
+wget -c ftp://ftp.ccb.jhu.edu/pub/infphilo/hisat2/data/hg19.tar.gz
+wget -c ftp://ftp.ccb.jhu.edu/pub/infphilo/hisat2/data/mm10.tar.gz
+tar zxvf hg19.tar.gz
+tar xvzf mm10.tar.gz
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;2.比对&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-shell&#34;&gt;for i in `seq 56 58`
+do
+    hisat2 -t -p 24 -x /data/Reference/index/hisat2/hg19/genome \
+    -1 /data/RNASeq/fastq/SRR35899${i}_1.fastq.gz \
+    -2 SRR35899${i}_2.fastq.gz \
+    -S /data/RNASeq/fastq/SRR35899${i}.sam &amp;gt; SRR35899${i}.log &amp;amp;
+done
+
+
+##比对结果
+xts@R710:/data/RNASeq/fastq$ for i in `seq 56 58`
+&amp;gt; do
+&amp;gt;     hisat2 -t -p 24 -x /data/Reference/index/hisat2/hg19/genome \
+&amp;gt;     -1 /data/RNASeq/fastq/SRR35899${i}_1.fastq.gz \
+&amp;gt;     -2 SRR35899${i}_2.fastq.gz \
+&amp;gt;     -S /data/RNASeq/fastq/SRR35899${i}.sam &amp;gt; SRR35899${i}.log &amp;amp;
+&amp;gt; done
+[1] 11177
+[2] 11178
+[3] 11179
+xts@R710:/data/RNASeq/fastq$ tipTime loading forward index: 00:00:24
+Time loading forward index: 00:00:24
+Time loading forward index: 00:00:24
+Time loading reference: 00:00:04
+Time loading reference: 00:00:04
+Time loading reference: 00:00:04
+Multiseed full-index search: 00:13:22
+28856780 reads; of these:
+  28856780 (100.00%) were paired; of these:
+    1838981 (6.37%) aligned concordantly 0 times
+    24732654 (85.71%) aligned concordantly exactly 1 time
+    2285145 (7.92%) aligned concordantly &amp;gt;1 times
+    ----
+    1838981 pairs aligned concordantly 0 times; of these:
+      90927 (4.94%) aligned discordantly 1 time
+    ----
+    1748054 pairs aligned 0 times concordantly or discordantly; of these:
+      3496108 mates make up the pairs; of these:
+        2034939 (58.21%) aligned 0 times
+        1221462 (34.94%) aligned exactly 1 time
+        239707 (6.86%) aligned &amp;gt;1 times
+96.47% overall alignment rate
+Time searching: 00:13:26
+Overall time: 00:13:50
+
+Multiseed full-index search: 00:14:42
+25914821 reads; of these:
+  25914821 (100.00%) were paired; of these:
+    1785160 (6.89%) aligned concordantly 0 times
+    21786672 (84.07%) aligned concordantly exactly 1 time
+    2342989 (9.04%) aligned concordantly &amp;gt;1 times
+    ----
+    1785160 pairs aligned concordantly 0 times; of these:
+      53455 (2.99%) aligned discordantly 1 time
+    ----
+    1731705 pairs aligned 0 times concordantly or discordantly; of these:
+      3463410 mates make up the pairs; of these:
+        2187330 (63.16%) aligned 0 times
+        1050929 (30.34%) aligned exactly 1 time
+        225151 (6.50%) aligned &amp;gt;1 times
+95.78% overall alignment rate
+Time searching: 00:14:46
+Overall time: 00:15:10
+[1]   已完成               hisat2 -t -p 24 -x /data/Reference/index/hisat2/hg19/genome -1 /data/RNASeq/fastq/SRR35899${i}_1.fastq.gz -2 SRR35899${i}_2.fastq.gz -S /data/RNASeq/fastq/SRR35899${i}.sam &amp;gt; SRR35899${i}.log
+[3]+  已完成               hisat2 -t -p 24 -x /data/Reference/index/hisat2/hg19/genome -1 /data/RNASeq/fastq/SRR35899${i}_1.fastq.gz -2 SRR35899${i}_2.fastq.gz -S /data/RNASeq/fastq/SRR35899${i}.sam &amp;gt; SRR35899${i}.log
+xts@R710:/data/RNASeq/fastq$ Multiseed full-index search: 00:16:08
+29720636 reads; of these:
+  29720636 (100.00%) were paired; of these:
+    1920019 (6.46%) aligned concordantly 0 times
+    25503958 (85.81%) aligned concordantly exactly 1 time
+    2296659 (7.73%) aligned concordantly &amp;gt;1 times
+    ----
+    1920019 pairs aligned concordantly 0 times; of these:
+      61683 (3.21%) aligned discordantly 1 time
+    ----
+    1858336 pairs aligned 0 times concordantly or discordantly; of these:
+      3716672 mates make up the pairs; of these:
+        2292272 (61.68%) aligned 0 times
+        1196099 (32.18%) aligned exactly 1 time
+        228301 (6.14%) aligned &amp;gt;1 times
+96.14% overall alignment rate
+Time searching: 00:16:12
+Overall time: 00:16:36
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;比对脚本map.sh [需要修改]&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;#! usr/bin/bash
+set -u
+set -e
+set -o pipefail
+
+hg19_ref=/data/Reference/index/hisat/hg19
+mm10_ref=/data/Reference/index/hisat/mm10
+data_path=/data/RNASeq/fastq
+NUM_THREADS=25
+
+ls *.fastq.gz|while read id;do(hisat2 -t -p
+$NUM_THREADS -x $hg19_ref -1 $data_path/${id%_*}_1.fastq.gz -2
+$data_path/${id%_*}_2.fastq.gz 2&amp;gt;${id%_*}_map.log | samtools view -Sb
+- &amp;gt;${id%_*}.bam);done
+
+ls  *.fastq.gz|while read id;do(hisat2 -t -
+p $NUM_THREADS -x $mm10_ref -1 $data_path/${id%_*}_1.fastq.gz -2
+$data_path/${id%_*}_2.fastq.gz 2&amp;gt;${id%_*}_map.log | samtools view -Sb
+- &amp;gt;${id%_*}.bam);done
+
+ ls *.bam|while read id;do(samtools sort --threads $NUM_THREADS $id -o
+${id%.*}_sorted.bam);done
+ ls *_sorted.bam | while read id;do(samtools index $id);done
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;samtools&#34;&gt;SAMtools&lt;/h2&gt;
+
+&lt;p&gt;SAM（sequence Alignment/mapping)数据格式是目前高通量测序中存放比对数据的标准格式，当然他可以用于存放未比对的数据。&lt;/p&gt;
+
+&lt;p&gt;主要功能有：&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;samtools view : BAM-SAM/SAM-BAM 转换和提取部分比对&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;samtools sort : 比对排序&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;samtools index: 索引排序比对&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;samtools merge: 聚合多个排序比对&lt;/li&gt;
+&lt;li&gt;samtools faidx: 建立FASTA索引，提取部分序列&lt;/li&gt;
+&lt;li&gt;samtools tview: 文本格式查看序列&lt;/li&gt;
+&lt;li&gt;samtools pileup: 产生基于位置的结果和 consensus/indel calling&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;数据转换sam-bam-sorted bam&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;for i in `seq 56 58`
+do
+    samtools view -S SRR35899${i}.sam -b &amp;gt; SRR35899${i}.bam
+    samtools sort SRR35899${i}.bam -o SRR35899${i}_sorted.bam
+    samtools index SRR35899${i}_sorted.bam
+done
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;SAMtools其他操作&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-shell&#34;&gt;head -1000 SRR3589957.sam &amp;gt; test.sam
+samtools view -b  test.sam &amp;gt; test.bam
+samtools view test.bam | head
+
+samtools sort test.bam -o default.bam
+samtools view default.bam | head
+ 
+# Sort alignments by leftmost coordinates, or by read name when -n is used
+samtools sort test.bam default
+samtools view default.bam | head
+
+
+#提取1号染色体1234-123456区域的比对read
+samtools view SRR3589957_sorted.bam chr1:1234-123456 | head
+
+#在比如搭配flag(0.1.19版本没有）和flagstat，使用-f或-F参数提取不同匹配情况的read。
+
+# 可以先用flagstat看下总体情况
+samtools flagstat SRR3589957_sorted.bam
+
+#筛选恰好配对的read,就需要用0x10
+samtools view -b -f 0x10 SRR3589957_sorted.bam chr1:1234-123456  &amp;gt; flag.bam
+samtools flagstat flag.bam
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;比对质控&#34;&gt;比对质控&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;RSeQC——&lt;a href=&#34;http://rseqc.sourceforge.net/&#34;&gt;http://rseqc.sourceforge.net/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Qualimap——&lt;a href=&#34;http://qualimap.bioinfo.cipf.es/&#34;&gt;http://qualimap.bioinfo.cipf.es/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Picard——&lt;a href=&#34;http://broadinstitute.github.io/picard/&#34;&gt;http://broadinstitute.github.io/picard/&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;使用RSeQC来对我们的比对结果进行质控,RSeQC包括了十多个Python脚本，实现很多功能，具体每个脚本的参数用法，都可以在官网学习.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;# RSeQC的安装，需要先安装gcc；numpy；R；Python2.7
+$ pip install RSeQC
+# 对bam文件进行质控，其余都同样的进行
+$ bam_stat.py  -i SRR3589956_sorted.bam
+
+基因组覆盖率的QC需要提供bed文件，可以直接RSeQC的网站下载，或者可以用gtf转换
+read_distribution.py -i RNA-Seq/aligned/SRR3589956_sorted.bam -r reference/hg19_RefSeq.bed
 &lt;/code&gt;&lt;/pre&gt;
 
         
@@ -4139,7 +4345,7 @@ Git &lt;a href=&#34;https://git-scm.com/about&#34;&gt;参考手册ENG&lt;/a&gt;&
     </item>
     
     <item>
-      <title>Ubuntu 安装R, RStudio, Rstudio Server</title>
+      <title>Ubuntu 安装R, RStudio, Rstudio Server, JAVA</title>
       <link>/blog/cn/2017/09/ubuntu_r/</link>
       <pubDate>Tue, 05 Sep 2017 23:03:13 +0000</pubDate>
       
@@ -4238,6 +4444,35 @@ RStudio Server临时下线，不允许web访问，并给用户友好提示
 rstudio-server offline
 RStudio Server临时上线
 rstudio-server online
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;java&#34;&gt;JAVA&lt;/h1&gt;
+
+&lt;pre&gt;&lt;code&gt;##下载 解压
+wget -c http://download.oracle.com/otn-pub/java/jdk/8u11-b12/jdk-8u11-linux-i586.tar.gz
+mkdir -p /usr/lib/jvm
+sudo mv jdk-8u11-linux-i586.tar.gz /usr/lib/jvm
+cd /usr/lib/jvm
+sudo tar xzvf jdk-8u11-linux-i586.tar.gz
+sudo ln -s jdk1.8.0_11 java8
+
+##添加环境变量
+vi ~/.bashrc
+xport JAVA_HOME=/usr/lib/jvm/java8
+export JRE_HOME=${JAVA_HOME}/jre
+export CLASSPATH=.:${JAVA_HOME}/lib:${JRE_HOME}/lib
+export PATH=${JAVA_HOME}/bin:$PATH
+source ~/.bashrc
+
+##配置（似乎不必要）
+##有的系统中会预装OpenJDK，系统默认使用的是这个，而不是刚才装的。
+##所以这一步是通知系统使用Oracle的JDK，非OpenJDK。
+sudo update-alternatives --install /usr/bin/java java /usr/lib/jvm/java8/bin/java 300
+sudo update-alternatives --install /usr/bin/javac javac /usr/lib/jvm/java8/bin/javac 300
+sudo update-alternatives --config java
+
+## 测试验证
+java -version
 &lt;/code&gt;&lt;/pre&gt;
 
         

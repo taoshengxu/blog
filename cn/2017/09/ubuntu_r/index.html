@@ -4,8 +4,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     
-    <title>Ubuntu 安装R, RStudio, Rstudio Server - My Lives</title>
-    <meta property="og:title" content="Ubuntu 安装R, RStudio, Rstudio Server - My Lives">
+    <title>Ubuntu 安装R, RStudio, Rstudio Server, JAVA - My Lives</title>
+    <meta property="og:title" content="Ubuntu 安装R, RStudio, Rstudio Server, JAVA - My Lives">
     
 
     
@@ -61,7 +61,7 @@
     <article class="main">
       <header class="title">
       
-<h1>Ubuntu 安装R, RStudio, Rstudio Server</h1>
+<h1>Ubuntu 安装R, RStudio, Rstudio Server, JAVA</h1>
 
 <h3>
   2017-09-05</h3>
@@ -165,6 +165,35 @@ RStudio Server临时下线，不允许web访问，并给用户友好提示
 rstudio-server offline
 RStudio Server临时上线
 rstudio-server online
+</code></pre>
+
+<h1 id="java">JAVA</h1>
+
+<pre><code>##下载 解压
+wget -c http://download.oracle.com/otn-pub/java/jdk/8u11-b12/jdk-8u11-linux-i586.tar.gz
+mkdir -p /usr/lib/jvm
+sudo mv jdk-8u11-linux-i586.tar.gz /usr/lib/jvm
+cd /usr/lib/jvm
+sudo tar xzvf jdk-8u11-linux-i586.tar.gz
+sudo ln -s jdk1.8.0_11 java8
+
+##添加环境变量
+vi ~/.bashrc
+xport JAVA_HOME=/usr/lib/jvm/java8
+export JRE_HOME=${JAVA_HOME}/jre
+export CLASSPATH=.:${JAVA_HOME}/lib:${JRE_HOME}/lib
+export PATH=${JAVA_HOME}/bin:$PATH
+source ~/.bashrc
+
+##配置（似乎不必要）
+##有的系统中会预装OpenJDK，系统默认使用的是这个，而不是刚才装的。
+##所以这一步是通知系统使用Oracle的JDK，非OpenJDK。
+sudo update-alternatives --install /usr/bin/java java /usr/lib/jvm/java8/bin/java 300
+sudo update-alternatives --install /usr/bin/javac javac /usr/lib/jvm/java8/bin/javac 300
+sudo update-alternatives --config java
+
+## 测试验证
+java -version
 </code></pre>
 
 
