@@ -10,6 +10,52 @@
     <atom:link href="/blog/" rel="self" type="application/rss+xml" />
     
     <item>
+      <title>Markdown&#43;Rmarkdown&#43;Shiny手册</title>
+      <link>/blog/cn/2017/11/markdown_rmarkdown_shiny/</link>
+      <pubDate>Mon, 06 Nov 2017 23:13:24 +0000</pubDate>
+      
+      <guid>/blog/cn/2017/11/markdown_rmarkdown_shiny/</guid>
+      <description>
+        
+
+&lt;p&gt;&lt;a href=&#34;https://taoshengxu.github.io/DocumentGit/pdf/Markdown+RMarkdown+Shiny.pdf&#34;&gt;手册&lt;/a&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h1 id=&#34;markdown中插入数学公式的方法&#34;&gt;Markdown中插入数学公式的方法&lt;/h1&gt;
+
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>常用生物信息学格式介绍</title>
+      <link>/blog/cn/2017/11/data_format/</link>
+      <pubDate>Mon, 06 Nov 2017 22:59:05 +0000</pubDate>
+      
+      <guid>/blog/cn/2017/11/data_format/</guid>
+      <description>
+        &lt;p&gt;&lt;a href=&#34;http://ju.outofmemory.cn/entry/193943&#34;&gt;原文&lt;/a&gt; &lt;a href=&#34;https://taoshengxu.github.io/DocumentGit/pdf/常用生物信息学格式介绍.pdf&#34;&gt;PDF&lt;/a&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;fasta&lt;/li&gt;
+&lt;li&gt;fastq&lt;/li&gt;
+&lt;li&gt;gff2&lt;/li&gt;
+&lt;li&gt;gtf(gff2.5)&lt;/li&gt;
+&lt;li&gt;gff3&lt;/li&gt;
+&lt;li&gt;bed&lt;/li&gt;
+&lt;li&gt;sam、bam&lt;/li&gt;
+&lt;li&gt;vcf&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;另外，有wig、bigWig和bedgraph文件详解，仅仅是为了追踪参考基因组的各个区域的覆盖度，测序深度！而且这些定义好的文件，可以无缝连接到UCSC的Genome Browser工具里面进行可视化！
+&lt;a href=&#34;http://www.bio-info-trainee.com/1815.html&#34;&gt;http://www.bio-info-trainee.com/1815.html&lt;/a&gt;&lt;/p&gt;
+
+        
+      </description>
+    </item>
+    
+    <item>
       <title>ENCODE计划数据,千人基因组计划数据,Roadmap计划数据</title>
       <link>/blog/cn/2017/11/encode_data/</link>
       <pubDate>Mon, 06 Nov 2017 16:44:54 +0000</pubDate>
@@ -588,7 +634,7 @@ map{
 
 &lt;p&gt;&lt;strong&gt;非常棒的学习笔记2&lt;/strong&gt;:&lt;a href=&#34;https://taoshengxu.github.io/DocumentGit/pdf/浙大植物学小白的转录组笔记.pdf&#34;&gt;浙大植物学小白的转录组笔记&lt;/a&gt; &lt;a href=&#34;https://mp.weixin.qq.com/s?__biz=MzAxMDkxODM1Ng==&amp;amp;mid=2247484895&amp;amp;idx=1&amp;amp;sn=678da702fa929789b177d214070dd39a&amp;amp;chksm=9b484564ac3fcc72914b0ae2c1b71adb63fb359cf7e73221be1ddfd3040efa2944c91bee8e3b&amp;amp;mpshare=1&amp;amp;scene=1&amp;amp;srcid=0824NWlPEoAgwVKtIWnkEDd9#rd&#34;&gt;Link2&lt;/a&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;strong&gt;非常棒的学习笔记3&lt;/strong&gt;:&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;非常棒的学习笔记3&lt;/strong&gt;:xx&lt;/p&gt;
 
 &lt;h1 id=&#34;分析软件安装&#34;&gt;分析软件安装&lt;/h1&gt;
 
@@ -935,6 +981,33 @@ read_distribution.py -i RNA-Seq/aligned/SRR3589956_sorted.bam -r reference/hg19_
 上述软件都是alignment-based，目前许多alignment-free软件，如kallisto, silfish, salmon，能够省去比对这一步，直接得到read count，在运行效率上更高。不过最近一篇文献[1]指出这类方法在估计丰度时存在样本特异性和读长偏差。&lt;/p&gt;
 
 &lt;p&gt;3.在&lt;strong&gt;外显子使用水平&lt;/strong&gt;上，其实和基因水平的统计类似。但是值得注意的是为了更好的计数，我们需要提供无重叠的外显子区域的gtf文件。用于分析差异外显子使用的DEXSeq提供了一个Python脚本（dexseq&lt;em&gt;prepare&lt;/em&gt;annotation.py）执行这个任务。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;mkdir -p /data/RNASeq/fastq/matrix/
+for i in `seq 56 58`;
+do htseq-count -s no -r pos -f bam /data/RNASeq/fastq/SRR35899${i}_sorted.bam /data/Reference/gtf/gencode/gencode.v26lift37.annotation.sorted.gtf 1&amp;gt;/data/RNASeq/fastq/matrix/SRR35899${i}.count 2&amp;gt; /data/RNASeq/fastq/matrix/SRR35899${i}.log &amp;amp; done
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;for i in $(seq 56 58); do htseq-count -f bam -r pos -s no \
+/data/RNASeq/fastq/SRR35899${i}_sorted.bam /data/Reference/gtf/gencode/gencode.v26lift37.annotation.sorted.gtf \
+1&amp;gt;SRR35899${i}.count 2&amp;gt;SRR35899${i}_htseq.log &amp;amp;;done
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;表达矩阵&#34;&gt;表达矩阵&lt;/h2&gt;
+
+&lt;p&gt;在RNA-Seq分析中，每一个基因就是一个feature（特征？），而基因被认为是它的所有外显子的和集。在可变剪切分析中，可以单独把每个外显子当作一个feature。而在ChIP-Seq分析中，feature则是预先定义的结合域。但是确定一个read到底属于哪一个feature有时会非常棘手。&lt;/p&gt;
+
+&lt;h2 id=&#34;hoptop-这段描述很有意思-信息量也很多&#34;&gt;hoptop 这段描述很有意思，信息量也很多&lt;/h2&gt;
+
+&lt;p&gt;我们这次分析是人类mRNA-Seq测序的结果，但是我们其实只下载了3个sra文件。一般而言RNA-Seq数据分析都至少要有2个重复，所以必须要有4个sra文件才行。我在仔细读完文章的方法这一段以后，发现他们有一批数据用的是其他课题组的： For 293 cells, the mRNA-seq results of the control samples include (1) those from the doxycycline-treated parental Flp-In T-REx 293 cells by us and (2) those from the doxycycline-treated control Flp-In T-REx 293 cells performed by another group unrelated to us (sample GSM1095127 in GSE44976)。 然后和Jimmy交流之后，他也承认自己只分析了小鼠的数据，而没有分析人类的数据。所以我们需要根据文章提供的线索下载另外一份数据，才能进行下一步的分析。
+这个时候就有一个经常被问到的问题：不同来源的RNA-Seq数据能够直接比较吗？甚至说如果不同来源的RNA-seq数据的构建文库都不一样该如何比较?不同来源的RNA-Seq结果之间比较需要考虑 批次效应（batch effect) 的影响。
+处理批次效应，根据我搜索的结果，是不能使用FPKM/RPKM，关于这个标准化的吐槽，我在biostars上找到了如下观点：
+FPKM/RPKM 不是标准化的方法，它会引入文库特异的协变量
+FPKM/RPKM has never been peer-reviewed, it has been introduced as an ad-hoc measure in a supplementary 没有同行评审
+One of the authors of this paper states, that it should not be used because of faulty arithmetic 作者说算法有问题
+All reviews so far have shown it to be an inferior scale for DE analysis of genes Length normalization is mostly dispensable imo in DE analysis because gene length is constant
+有人建议使用一个Bioconductor包&lt;a href=&#34;http://www.bioconductor.org/packages/devel/bioc/html/sva.html&#34;&gt;http://www.bioconductor.org/packages/devel/bioc/html/sva.html&lt;/a&gt; 我没有具体了解，有生之年去了解补充。
+还有人引用了一篇文献 IVT-seq reveals extreme bias in RNA-sequencing 证明不同文库的RNA-Seq结果会存在很大差异。
+结论： 可以问下原作者他们是如何处理数据的，居然有一个居然没有重复的分析也能过审。改用小鼠数据进行分析。或者使用无重复的分析方法，或者模拟一份数据出来，先把流程走完。&lt;/p&gt;
 
         
       </description>
@@ -4598,154 +4671,6 @@ Git &lt;a href=&#34;https://git-scm.com/about&#34;&gt;参考手册ENG&lt;/a&gt;&
 &lt;li&gt;git merge [branch] 将[branch] 分枝合并到当前分支中&lt;/li&gt;
 &lt;li&gt;git push [alias] [branch]，就会将你的[branch]分支推送成为[alias]远端上的[branch] 分支&lt;/li&gt;
 &lt;/ul&gt;
-
-        
-      </description>
-    </item>
-    
-    <item>
-      <title>HTML基本语法</title>
-      <link>/blog/cn/2017/09/html_basic/</link>
-      <pubDate>Tue, 05 Sep 2017 23:03:13 +0000</pubDate>
-      
-      <guid>/blog/cn/2017/09/html_basic/</guid>
-      <description>
-        &lt;p&gt;wait for&amp;hellip;&lt;/p&gt;
-
-        
-      </description>
-    </item>
-    
-    <item>
-      <title>Ubuntu 安装R, RStudio, Rstudio Server, JAVA</title>
-      <link>/blog/cn/2017/09/ubuntu_r/</link>
-      <pubDate>Tue, 05 Sep 2017 23:03:13 +0000</pubDate>
-      
-      <guid>/blog/cn/2017/09/ubuntu_r/</guid>
-      <description>
-        
-
-&lt;h1 id=&#34;r&#34;&gt;R&lt;/h1&gt;
-
-&lt;ol&gt;
-&lt;li&gt;Ubuntu14.04&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;pre&gt;&lt;code&gt;sudo gedit /etc/apt/sources.list
-# 加入新镜像源：
-deb http://cran.rstudio.com/bin/linux/ubuntu trusty/
-sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 51716619E084DAB9
-# 然后更新一下
-sudo apt-get update
-sudo apt-get install r-base
-
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;ol&gt;
-&lt;li&gt;Ubuntu16.04&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;sudo echo &amp;quot;deb http://cran.rstudio.com/bin/linux/ubuntu xenial/&amp;quot; | sudo tee -a /etc/apt/sources.list 
-gpg --keyserver keyserver.ubuntu.com --recv-key 51716619E084DAB9
-gpg -a --export 51716619E084DAB9 | sudo apt-key add -
-sudo apt-get update
-sudo apt-get install r-base r-base-dev
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h1 id=&#34;rstudio&#34;&gt;Rstudio&lt;/h1&gt;
-
-&lt;p&gt;&lt;a href=&#34;https://www.rstudio.com/products/rstudio/download/&#34;&gt;Latest file&lt;/a&gt;&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;sudo apt-get install gdebi-core
-sudo apt-get install libapparmor1
-sudo gdebi -n rstudio-1.0.44-amd64.deb
-rm rstudio-1.0.44-amd64.deb
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h1 id=&#34;rstudio-server&#34;&gt;Rstudio server&lt;/h1&gt;
-
-&lt;p&gt;&lt;a href=&#34;https://www.rstudio.com/products/rstudio/download-server/&#34;&gt;Latest file&lt;/a&gt;&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;sudo apt-get install gdebi-core
-sudo apt-get install libapparmor1
-wget http://download2.rstudio.org/rstudio-server-0.97.551-amd64.deb
-sudo gdebi rstudio-server-0.97.551-amd64.deb
-
-完成安装后，RStudio Server会自动启动运行
-ps -aux|grep rstudio
-8787端口被打开
-
-访问地址：192.168.1.107:8787
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;pre&gt;&lt;code&gt;root用户无法登陆，新建一个用户进行登陆 
-useradd -d /home/R -m R，创建用户的同时指定主目录 
-passwd R，设置密码
-
-系统设置 
-主要有两个配置文件，默认文件不存在 
-/etc/rstudio/rserver.conf 
-/etc/rstudio/rsession.conf
-
-设置端口和ip控制:
-vi /etc/rstudio/rserver.conf
-www-port=8080#监听端口
-www-address=127.0.0.0#允许访问的IP地址，默认0.0.0.0
-重启服务器，生效
-rstudio-server restart
-
-会话配置管理
-vi /etc/rstudio/rsession.conf
-session-timeout-minutes=30#会话超时时间
-r-cran-repos=http://ftp.ctex.org/mirrors/CRAN#CRAN资源库
-
-rstudio-server start #启动
-rstudio-server stop #停止
-rstudio-server restart #重启
-
-查看运行中R进程
-rstudio-server active-sessions
-指定PID，停止运行中的R进程
-rstudio-server suspend-session &amp;lt;pid&amp;gt;
-停止所有运行中的R进程
-rstudio-server  suspend-all
-强制停止运行中的R进程，优先级最高，立刻执行
-rstudio-server force-suspend-session &amp;lt;pid&amp;gt;
-rstudio-server force-suspend-all
-RStudio Server临时下线，不允许web访问，并给用户友好提示
-rstudio-server offline
-RStudio Server临时上线
-rstudio-server online
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h1 id=&#34;java&#34;&gt;JAVA&lt;/h1&gt;
-
-&lt;pre&gt;&lt;code&gt;##下载 解压
-wget -c http://download.oracle.com/otn-pub/java/jdk/8u11-b12/jdk-8u11-linux-i586.tar.gz
-mkdir -p /usr/lib/jvm
-sudo mv jdk-8u11-linux-i586.tar.gz /usr/lib/jvm
-cd /usr/lib/jvm
-sudo tar xzvf jdk-8u11-linux-i586.tar.gz
-sudo ln -s jdk1.8.0_11 java8
-
-##添加环境变量
-vi ~/.bashrc
-xport JAVA_HOME=/usr/lib/jvm/java8
-export JRE_HOME=${JAVA_HOME}/jre
-export CLASSPATH=.:${JAVA_HOME}/lib:${JRE_HOME}/lib
-export PATH=${JAVA_HOME}/bin:$PATH
-source ~/.bashrc
-
-##配置（似乎不必要）
-##有的系统中会预装OpenJDK，系统默认使用的是这个，而不是刚才装的。
-##所以这一步是通知系统使用Oracle的JDK，非OpenJDK。
-sudo update-alternatives --install /usr/bin/java java /usr/lib/jvm/java8/bin/java 300
-sudo update-alternatives --install /usr/bin/javac javac /usr/lib/jvm/java8/bin/javac 300
-sudo update-alternatives --config java
-
-## 测试验证
-java -version
-&lt;/code&gt;&lt;/pre&gt;
 
         
       </description>
