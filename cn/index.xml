@@ -6,8 +6,264 @@
     <description>Recent content in 中文博客 on My Lives</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 05 Nov 2017 22:02:28 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 06 Nov 2017 16:44:54 +0000</lastBuildDate>
     <atom:link href="/blog/cn/" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>ENCODE计划数据,千人基因组计划数据,Roadmap计划数据</title>
+      <link>/blog/cn/2017/11/encode_data/</link>
+      <pubDate>Mon, 06 Nov 2017 16:44:54 +0000</pubDate>
+      
+      <guid>/blog/cn/2017/11/encode_data/</guid>
+      <description>
+        
+
+&lt;p&gt;&lt;a href=&#34;http://www.bio-info-trainee.com/1825.html&#34;&gt;From Jimmy 原文&lt;/a&gt;(&lt;a href=&#34;http://www.bio-info-trainee.com/1841.html)(http://www.bio-info-trainee.com/1339.html&#34;&gt;http://www.bio-info-trainee.com/1841.html)(http://www.bio-info-trainee.com/1339.html&lt;/a&gt;)&lt;/p&gt;
+
+&lt;p&gt;DNA元件百科全书(Encyclopedia of DNA Elements, ENCODE)ENCODE计划的重要性我就不多说了，如果大家还不是很了解，可以直接跳到本文末尾去下载一下ENCODE教程，好好学习。该计划采用以下几种高通量测序技术来刻画了超过100种不同的细胞系或者组织内的全基因组范围内的基因调控元件信息。本来只是针对人类的，后来对mouse以及fly等模式生物也开始测这些数据并进行分析了， 叫做 modENCODE.&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;chromatin structure (5C)&lt;/li&gt;
+&lt;li&gt;open chromatin (DNase-seq and FAIRE-seq)&lt;/li&gt;
+&lt;li&gt;histone modifications and DNA-binding of over 100 transcription factors (ChIP-seq)&lt;/li&gt;
+&lt;li&gt;RNA transcription (RNAseq and CAGE)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;目前所有数据均全部公开(&lt;a href=&#34;http://genome.ucsc.edu/ENCODE/&#34;&gt;http://genome.ucsc.edu/ENCODE/&lt;/a&gt; )，ENCODE results from 2007 and later are available from the ENCODE Project Portal, encodeproject.org. 并以30篇论文在Nature、Science、Cell、JBC、Genome Biol、Genome Research同时发表(&lt;a href=&#34;http://www.nature.com/encode&#34;&gt;http://www.nature.com/encode&lt;/a&gt; )。
+&lt;strong&gt;所有数据从raw data形式的原始测序数据到比对后的信号文件以及分析好的有意的peaks文件都可以下载&lt;/strong&gt;。&lt;/p&gt;
+
+&lt;p&gt;我这里根据自己的学习情况，简单介绍一些ENCODE计划数据下载方式，包括ENCODE官网下载,UCSC下载，ENSEMBL下载，broad研究所数据，IHEC存放的数据，还有GEO下载这6种形式！！！&lt;/p&gt;
+
+&lt;h1 id=&#34;ucsc&#34;&gt;UCSC&lt;/h1&gt;
+
+&lt;p&gt;直接浏览文件，根据文件夹分类及文件名就可以任意方式下载自己感兴趣的数据&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://hgdownload.cse.ucsc.edu/goldenPath/hg19/encodeDCC/&#34;&gt;http://hgdownload.cse.ucsc.edu/goldenPath/hg19/encodeDCC/&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;大家可能会比较习惯用UCSC提供的Genome Browser工具来可视化CHIP-seq的结果，而且Genome Browser里面非常多的选项可以控制各种在线资料是否跟你的数据一起显示来做对比，所以它必然有ftp服务器存放这些数据，其中比较出名的就是ENCODE计划的相关数据啦.&lt;/p&gt;
+
+&lt;h1 id=&#34;encode计划的官网下载&#34;&gt;ENCODE计划的官网下载&lt;/h1&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://www.encodeproject.org/pipelines/&#34;&gt;https://www.encodeproject.org/pipelines/&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;官网的数据下载，做得像是一个购物网站，大家可以根据自己的需求把数据添加到购物篮，然后统一下载。&lt;/p&gt;
+
+&lt;p&gt;This document describes what data are available at the ENCODE Portal, ways to get started searching and downloading data, and an overview to how the metadata describing the assays and reagents are organized. ENCODE data can be visualized and accessed from other resources, including the UCSC Genome Browser and ENSEMBL.
+进入 &lt;a href=&#34;https://www.encodeproject.org/matrix/?type=Experiment&#34;&gt;https://www.encodeproject.org/matrix/?type=Experiment&lt;/a&gt; 可以看到里面列出了173种细胞系，148种组织，还有一堆癌症样本的，包括CHIP-seq，DNase-seq等在内的十几种高通量测序数据。&lt;/p&gt;
+
+&lt;h1 id=&#34;geo&#34;&gt;GEO&lt;/h1&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://www.ncbi.nlm.nih.gov/geo/info/ENCODE.html&#34;&gt;http://www.ncbi.nlm.nih.gov/geo/info/ENCODE.html&lt;/a&gt;&lt;/p&gt;
+
+&lt;h1 id=&#34;broad-研究所托管的encode计划数据&#34;&gt;Broad 研究所托管的ENCODE计划数据&lt;/h1&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://www.broadinstitute.org/~anshul/projects/encode&#34;&gt;http://www.broadinstitute.org/~anshul/projects/encode&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;原始数据在：&lt;a href=&#34;http://www.broadinstitute.org/~anshul/projects/encode/rawdata/&#34;&gt;http://www.broadinstitute.org/~anshul/projects/encode/rawdata/&lt;/a&gt;&lt;/p&gt;
+
+&lt;h1 id=&#34;ihec&#34;&gt;iHEC&lt;/h1&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://epigenomesportal.ca/ihec/download.html&#34;&gt;http://epigenomesportal.ca/ihec/download.html&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;以文件夹文件的形式直接浏览，根据自己的需求下载即可,除了ENCODE计划的数据，还有Blueprint计划和roadmap计划的数据都可以下载&lt;/p&gt;
+
+&lt;h1 id=&#34;ensembl&#34;&gt;ENSEMBL&lt;/h1&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://asia.ensembl.org/info/website/tutorials/encode.html&#34;&gt;http://asia.ensembl.org/info/website/tutorials/encode.html&lt;/a&gt;&lt;/p&gt;
+
+&lt;h1 id=&#34;结尾&#34;&gt;结尾&lt;/h1&gt;
+
+&lt;p&gt;如果你对ENCODE计划不是很了解，可以先看看一些教程：
+NIH提供的ENCODE计划相关教程： &lt;a href=&#34;https://www.genome.gov/27553900/encode-tutorials/&#34;&gt;https://www.genome.gov/27553900/encode-tutorials/&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://www.genome.gov/27562350/encode-workshop-april-2015-keystone-symposia/&#34;&gt;https://www.genome.gov/27562350/encode-workshop-april-2015-keystone-symposia/&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://www.genome.gov/27561253/encode-workshop-tutorial-october-2014-ashg/&#34;&gt;https://www.genome.gov/27561253/encode-workshop-tutorial-october-2014-ashg/&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://www.genome.gov/27553901/encode-tutorial-may-2013-biology-of-genomes-cshl/&#34;&gt;https://www.genome.gov/27553901/encode-tutorial-may-2013-biology-of-genomes-cshl/&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://www.genome.gov/27563006/encoderoadmap-epigenomics-tutorial-october-2015-ashg/&#34;&gt;https://www.genome.gov/27563006/encoderoadmap-epigenomics-tutorial-october-2015-ashg/&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://www.genome.gov/27555330/encoderoadmap-epigenomics-tutorial-october-2013-ashg/&#34;&gt;https://www.genome.gov/27555330/encoderoadmap-epigenomics-tutorial-october-2013-ashg/&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://www.genome.gov/27551933/encoderoadmap-epigenomics-tutorial-nov-2012-ashg/&#34;&gt;https://www.genome.gov/27551933/encoderoadmap-epigenomics-tutorial-nov-2012-ashg/&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://useast.ensembl.org/info/website/tutorials/encode.html&#34;&gt;http://useast.ensembl.org/info/website/tutorials/encode.html&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://www.encodeproject.org/tutorials/&#34;&gt;https://www.encodeproject.org/tutorials/&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://www.encodeproject.org/tutorials/encode-meeting-2016/&#34;&gt;https://www.encodeproject.org/tutorials/encode-meeting-2016/&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://www.encodeproject.org/tutorials/encode-users-meeting-2015/&#34;&gt;https://www.encodeproject.org/tutorials/encode-users-meeting-2015/&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;DNA元件百科全书(Encyclopedia of DNA Elements, ENCODE)项目旨在描述人类基因组中所编码的全部功能性序列元件。ENCODE计划于2003年9月正式启动，吸引了来自美国、英国、西班牙、日本和新加坡五国32个研究机构的440多名研究人员的参与，经过了9年的努力，研究了147个组织类型，进行了1478次实验，获得并分析了超过15万亿字节的原始数据，确定了400万个基因开关，明确了哪些DNA片段能打开或关闭特定的基因，以及不同类型细胞之间的“开关”存在的差异。证明所谓“垃圾DNA”都是十分有用的基因成分，担任着基因调控重任。证明人体内没有一个DNA片段是无用的。&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h1 id=&#34;千人基因组计划&#34;&gt;千人基因组计划&lt;/h1&gt;
+
+&lt;p&gt;由于时间跨度比较长，最终的数据不只是一千人，最新版共有NA编号开头的1182个人，HG开头的1768个人！它的官方网站是：有一个ppt讲得很清楚如何通过官网做的data portal来下载数据：&lt;a href=&#34;https://www.genome.gov/pages/research/der/ichg-1000genomestutorial/how_to_access_the_data.pdf&#34;&gt;https://www.genome.gov/pages/research/der/ichg-1000genomestutorial/how_to_access_the_data.pdf&lt;/a&gt; 我不喜欢可视化的界面，我比较喜欢直接进入ftp自己翻需要的数据，千人基因组计划不仅仅有自己的ftp站点，而且在NCBI，EBI和sanger研究所里面也有数据源可以下载， 是非常丰富的生信入门资源！&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;ftp://ftp-trace.ncbi.nih.gov/1000genomes/ftp/&#34;&gt;ftp://ftp-trace.ncbi.nih.gov/1000genomes/ftp/&lt;/a&gt;
+&lt;a href=&#34;ftp://ftp.sanger.ac.uk/pub/1000genomes/&#34;&gt;ftp://ftp.sanger.ac.uk/pub/1000genomes/&lt;/a&gt;
+&lt;a href=&#34;ftp://ftp.ebi.ac.uk/pub/databases/1000genomes/&#34;&gt;ftp://ftp.ebi.ac.uk/pub/databases/1000genomes/&lt;/a&gt;
+ &lt;a href=&#34;ftp://ftp.1000genomes.ebi.ac.uk/vol1/ftp&#34;&gt;ftp://ftp.1000genomes.ebi.ac.uk/vol1/ftp&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;千人基因组计划测了5个大的人种，25个亚人种，具体介绍如下：
+09/08/2014 12:00AM          1,663 20131219.populations.tsv
+09/09/2014 12:00AM             97 20131219.superpopulations.tsv
+其实对大部分人来说，除非你想下载千人基因组计划的原始数据来学习生物信息学分析流程，不然用不着这个ftp站点的，它自己在EBI里面的有一个非常好用的可视化界面来浏览千人基因组计划的variation结果&lt;/p&gt;
+
+&lt;p&gt;千人基因组计划 &amp;ndash; 基因组浏览器： &lt;a href=&#34;http://www.ncbi.nlm.nih.gov/variation/tools/1000genomes/&#34;&gt;http://www.ncbi.nlm.nih.gov/variation/tools/1000genomes/&lt;/a&gt;
+&lt;a href=&#34;http://www.ncbi.nlm.nih.gov/projects/SNP/snp_ref.cgi?rs=rs35761398&#34;&gt;http://www.ncbi.nlm.nih.gov/projects/SNP/snp_ref.cgi?rs=rs35761398&lt;/a&gt;  chr1:24201919:24201920
+&lt;a href=&#34;http://www.ncbi.nlm.nih.gov/SNP/snp_ref.cgi?rs=2501432&#34;&gt;http://www.ncbi.nlm.nih.gov/SNP/snp_ref.cgi?rs=2501432&lt;/a&gt;  chr1:24201920
+&lt;a href=&#34;http://www.ncbi.nlm.nih.gov/SNP/snp_ref.cgi?rs=2502992&#34;&gt;http://www.ncbi.nlm.nih.gov/SNP/snp_ref.cgi?rs=2502992&lt;/a&gt;  chr1:24201919
+在千人基因组计划里面看一个rs就能看到各种人群信息：
+&lt;a href=&#34;http://browser.1000genomes.org/Homo_sapiens/Variation/Population?r=1:24201420-24202420;v=rs2501432;vdb=variation;vf=1849472&#34;&gt;http://browser.1000genomes.org/Homo_sapiens/Variation/Population?r=1:24201420-24202420;v=rs2501432;vdb=variation;vf=1849472&lt;/a&gt;
+这些人群信息，可以画一个网路图！ 只需要变化rs ID号即可，当然并不是所有的rs ID号都在千人基因组计划里面有显示的。
+还有一个java软件-可视化检测千人基因组数据&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://bioinformatics.oxfordjournals.org/content/early/2016/03/17/bioinformatics.btw147.short?rss=1&#34;&gt;http://bioinformatics.oxfordjournals.org/content/early/2016/03/17/bioinformatics.btw147.short?rss=1&lt;/a&gt;
+&lt;a href=&#34;http://limousophie35.github.io/Ferret/&#34;&gt;http://limousophie35.github.io/Ferret/&lt;/a&gt;
+但是好像不是很好用！&lt;/p&gt;
+
+&lt;p&gt;在千人基因组计划的ftp主站点里面可以下载所有数据。
+&lt;a href=&#34;ftp://ftp.1000genomes.ebi.ac.uk/vol1/ftp/&#34;&gt;ftp://ftp.1000genomes.ebi.ac.uk/vol1/ftp/&lt;/a&gt;
+&lt;a href=&#34;ftp://ftp.ncbi.nlm.nih.gov/1000genomes/ftp/&#34;&gt;ftp://ftp.ncbi.nlm.nih.gov/1000genomes/ftp/&lt;/a&gt;
+直接看最新版的数据，共有NA编号开头的1182个人，HG开头的1768个人！
+&lt;a href=&#34;ftp://ftp.ncbi.nlm.nih.gov/1000genomes/ftp/phase3/data/&#34;&gt;ftp://ftp.ncbi.nlm.nih.gov/1000genomes/ftp/phase3/data/&lt;/a&gt;
+也可以按照人种来查看这些数据：&lt;a href=&#34;ftp://ftp.1000genomes.ebi.ac.uk/vol1/ftp/data_collections/1000_genomes_project/data/&#34;&gt;ftp://ftp.1000genomes.ebi.ac.uk/vol1/ftp/data_collections/1000_genomes_project/data/&lt;/a&gt;
+每个人的目录下面都有 四个数据文件夹
+Oct 01 2014 00:00    Directory alignment
+Oct 01 2014 00:00    Directory exome&lt;em&gt;alignment
+Oct 01 2014 00:00    Directory high&lt;/em&gt;coverage&lt;em&gt;alignment
+Oct 01 2014 00:00    Directory sequence&lt;/em&gt;read
+这些数据实在是太丰富了！
+也可以直接看最新版的vcf文件，记录了这两千多人的所有变异位点信息！
+可以直接看到所有的位点，具体到每个人在该位点是否变异！
+&lt;a href=&#34;ftp://ftp.1000genomes.ebi.ac.uk/vol1/ftp/release/20130502/&#34;&gt;ftp://ftp.1000genomes.ebi.ac.uk/vol1/ftp/release/20130502/&lt;/a&gt;
+不过它的基因型信息是通过MVNcall+SHAPEIT这个程序call出来的，具体原理见：&lt;a href=&#34;http://www.ncbi.nlm.nih.gov/pubmed/23093610&#34;&gt;http://www.ncbi.nlm.nih.gov/pubmed/23093610&lt;/a&gt;
+而且网站还提供一些教程：&lt;a href=&#34;ftp://ftp.1000genomes.ebi.ac.uk/vol1/ftp/data_collections/1000_genomes_project/working/&#34;&gt;ftp://ftp.1000genomes.ebi.ac.uk/vol1/ftp/data_collections/1000_genomes_project/working/&lt;/a&gt;
+我们肯定可以在千人基因计划的官网下载测序数据，主要是vcf格式的突变！
+Coriell Catalog website: 1000 Genomes Project
+1000 Genomes website: browser.1000genomes.org/index.html (by SNP ID)
+1000 Genomes website: www.1000genomes.org/data (bulk data)
+但是关于它的表达数据，就不是那么简单了！
+The most important available existing expression datasets involving 1000g individuals are probably the following:&lt;/p&gt;
+
+&lt;p&gt;RNAseq (mRNA &amp;amp; miRNA) on 465 individuals (CEU, TSI, GBR, FIN, YRI)&lt;/p&gt;
+
+&lt;p&gt;Pre-publication RNA-sequencing data from the Geuvadis project is available through &lt;a href=&#34;http://www.geuvadis.org&#34;&gt;http://www.geuvadis.org&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://www.ebi.ac.uk/arrayexpress/experiments/E-GEUV-1/samples.html&#34;&gt;http://www.ebi.ac.uk/arrayexpress/experiments/E-GEUV-1/samples.html&lt;/a&gt;
+&lt;a href=&#34;http://www.ebi.ac.uk/arrayexpress/experiments/E-GEUV-2/samples.html&#34;&gt;http://www.ebi.ac.uk/arrayexpress/experiments/E-GEUV-2/samples.html&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;RNAseq on 60 CEU individual [1]&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://www.ebi.ac.uk/arrayexpress/experiments/E-MTAB-197&#34;&gt;http://www.ebi.ac.uk/arrayexpress/experiments/E-MTAB-197&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Expression arrays on about 800 HapMap 3 individuals with a lot of overlap with 1000g data [1,2]&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://www.ebi.ac.uk/arrayexpress/experiments/E-MTAB-198&#34;&gt;http://www.ebi.ac.uk/arrayexpress/experiments/E-MTAB-198&lt;/a&gt;
+&lt;a href=&#34;http://www.ebi.ac.uk/arrayexpress/experiments/E-MTAB-264&#34;&gt;http://www.ebi.ac.uk/arrayexpress/experiments/E-MTAB-264&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;RNAseq for 69 YRI individuals [3]&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://www.ebi.ac.uk/arrayexpress/experiments/E-GEOD-19480&#34;&gt;http://www.ebi.ac.uk/arrayexpress/experiments/E-GEOD-19480&lt;/a&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h1 id=&#34;居然可以下载千人基因组计划的所有数据bam-vcf数据&#34;&gt;居然可以下载千人基因组计划的所有数据bam，vcf数据&lt;/h1&gt;
+
+&lt;p&gt;它有两个ftp站点存储所有的数据！
+&lt;a href=&#34;ftp://ftp.1000genomes.ebi.ac.uk/vol1/ftp/&#34;&gt;ftp://ftp.1000genomes.ebi.ac.uk/vol1/ftp/&lt;/a&gt;
+&lt;a href=&#34;ftp://ftp.ncbi.nlm.nih.gov/1000genomes/ftp/&#34;&gt;ftp://ftp.ncbi.nlm.nih.gov/1000genomes/ftp/&lt;/a&gt;
+直接看最新版的数据，共有NA编号开头的1182个人，HG开头的1768个人！
+&lt;a href=&#34;ftp://ftp.ncbi.nlm.nih.gov/1000genomes/ftp/phase3/data/&#34;&gt;ftp://ftp.ncbi.nlm.nih.gov/1000genomes/ftp/phase3/data/&lt;/a&gt;
+也可以按照人种来查看这些数据：&lt;a href=&#34;ftp://ftp.1000genomes.ebi.ac.uk/vol1/ftp/data_collections/1000_genomes_project/data/&#34;&gt;ftp://ftp.1000genomes.ebi.ac.uk/vol1/ftp/data_collections/1000_genomes_project/data/&lt;/a&gt;
+每个人的目录下面都有 四个数据文件夹&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;Oct 01 2014 00:00    Directory alignment
+Oct 01 2014 00:00    Directory exome_alignment
+Oct 01 2014 00:00    Directory high_coverage_alignment
+Oct 01 2014 00:00    Directory sequence_read
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;这些数据实在是太丰富了！
+也可以直接看最新版的vcf文件，记录了这两千多人的所有变异位点信息！
+可以直接看到所有的位点，具体到每个人在该位点是否变异！
+&lt;a href=&#34;ftp://ftp.1000genomes.ebi.ac.uk/vol1/ftp/release/20130502/&#34;&gt;ftp://ftp.1000genomes.ebi.ac.uk/vol1/ftp/release/20130502/&lt;/a&gt;
+不过它的基因型信息是通过MVNcall+SHAPEIT这个程序call出来的，具体原理见：&lt;a href=&#34;http://www.ncbi.nlm.nih.gov/pubmed/23093610&#34;&gt;http://www.ncbi.nlm.nih.gov/pubmed/23093610&lt;/a&gt;
+而且网站还提供一些教程：&lt;a href=&#34;ftp://ftp.1000genomes.ebi.ac.uk/vol1/ftp/data_collections/1000_genomes_project/working/&#34;&gt;ftp://ftp.1000genomes.ebi.ac.uk/vol1/ftp/data_collections/1000_genomes_project/working/&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;还有Illumina的450K甲基化芯片数据：&lt;a href=&#34;ftp://ftp.1000genomes.ebi.ac.uk/vol1/ftp/data_collections/hgsv_sv_discovery/working/20151214_450k_methylation/&#34;&gt;ftp://ftp.1000genomes.ebi.ac.uk/vol1/ftp/data_collections/hgsv_sv_discovery/working/20151214_450k_methylation/&lt;/a&gt;
+还有一个小程序，&lt;a href=&#34;ftp://ftp.ncbi.nlm.nih.gov/1000genomes/ftp/technical/browser/vcf_to_ped_converter/version_1.1/&#34;&gt;ftp://ftp.ncbi.nlm.nih.gov/1000genomes/ftp/technical/browser/vcf_to_ped_converter/version_1.1/&lt;/a&gt;
+还有Illumina的450K甲基化芯片数据：&lt;a href=&#34;ftp://ftp.1000genomes.ebi.ac.uk/vol1/ftp/data_collections/hgsv_sv_discovery/working/20151214_450k_methylation/&#34;&gt;ftp://ftp.1000genomes.ebi.ac.uk/vol1/ftp/data_collections/hgsv_sv_discovery/working/20151214_450k_methylation/&lt;/a&gt;
+还有一个小程序，&lt;a href=&#34;ftp://ftp.ncbi.nlm.nih.gov/1000genomes/ftp/technical/browser/vcf_to_ped_converter/version_1.1/&#34;&gt;ftp://ftp.ncbi.nlm.nih.gov/1000genomes/ftp/technical/browser/vcf_to_ped_converter/version_1.1/&lt;/a&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h1 id=&#34;roadmap&#34;&gt;roadmap&lt;/h1&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://www.roadmapepigenomics.org/&#34;&gt;http://www.roadmapepigenomics.org/&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;精选的129个细胞系，细胞系的介绍如下：&lt;a href=&#34;http://www.broadinstitute.org/~anshul/projects/roadmap/metadata/EID_metadata.tab&#34;&gt;http://www.broadinstitute.org/~anshul/projects/roadmap/metadata/EID_metadata.tab&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;对每个细胞系，都至少处理了5个核心组蛋白修饰数据，还有其它若干转录因子数据。
+官网介绍的很详细，我就不翻译了：&lt;/p&gt;
+
+&lt;p&gt;The NIH Roadmap Epigenomics Mapping Consortium was launched with the goal of producing a public resource of human epigenomic data to catalyze basic biology and disease-oriented research. The Consortium leverages experimental pipelines built around next-generation sequencing technologies to map DNA methylation, histone modifications, chromatin accessibility and small RNA transcripts in stem cells and primary ex vivo tissues selected to represent the normal counterparts of tissues and organ systems frequently involved in human disease. The Consortium expects to deliver a collection of normal epigenomes that will provide a framework or reference for comparison and integration within a broad array of future studies. The Consortium also aims to close the gap between data generation and its public dissemination by rapid release of raw sequence data, profiles of epigenomics features and higher-level integrated maps to the scientific community. The Consortium is also committed to the development, standardization and dissemination of protocols, reagents and analytical tools to enable the research community to utilize, integrate and expand upon this body of data.&lt;/p&gt;
+
+&lt;p&gt;首先是这个网站：
+&lt;a href=&#34;http://www.encode-roadmap.org/&#34;&gt;http://www.encode-roadmap.org/&lt;/a&gt;
+矩阵很容易看懂roadmap处理了哪些细胞系，进行了什么样的处理，数据可以直接下载。&lt;/p&gt;
+
+&lt;p&gt;然后我比较首先推崇broad研究所的下载方式&lt;/p&gt;
+
+&lt;p&gt;里面还列出了他们用过的peaks caller 工具：
+&lt;a href=&#34;http://www.broadinstitute.org/~anshul/projects/encode/preprocessing/peakcalling/&#34;&gt;http://www.broadinstitute.org/~anshul/projects/encode/preprocessing/peakcalling/&lt;/a&gt;  可以看到，主要有MACS，peakranger，quest，sicer，peakseq，hotspot等等
+直接进入broad分析好的peaks结果：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;[DIR]   Parent Directory    
+-   
+[DIR]   broadPeak/  08-Feb-2015 21:00   -   
+[DIR]   gappedPeak/ 08-Feb-2015 21:00   -   
+[DIR]   lowq/   31-Aug-2014 20:42   -   
+[DIR]   narrowPeak/ 08-Feb-2015 20:59   -   
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;这里面有3种peaks，我现在还没有搞懂是什么意思。&lt;/p&gt;
+
+&lt;p&gt;接着是 iHEC存放的数据：&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://epigenomesportal.ca/ihec/download.html&#34;&gt;http://epigenomesportal.ca/ihec/download.html&lt;/a&gt;
+我还是第一次看到这个数据接口，也是以文件夹文件的形式直接浏览，根据自己的需求下载即可：
+除了ENCODE计划的数据，还有Blueprint计划和roadmap计划的数据都可以下载。
+NIH Roadmap 2014-05-29  Click here for policies
+最后可以从圣路易斯华盛顿大学里面下载&lt;/p&gt;
+
+&lt;p&gt;圣路易斯华盛顿大学Washington University in St. Louis，简称（Wash U，WU）以美国国父乔治·华盛顿命名，始建于1853年2月22日，位于美国密苏里州圣路易斯市，是美国历史上建校最早也是最负盛名的“华盛顿大学”，该校在美国新闻和世界报道（US News &amp;amp; World Report）2014大学综合排名中名列14位。
+里面有一个非常详细的页面来介绍roadmap的各种数据:&lt;a href=&#34;http://egg2.wustl.edu/roadmap/web_portal/processed_data.html&#34;&gt;http://egg2.wustl.edu/roadmap/web_portal/processed_data.html&lt;/a&gt;
+如果你已经了解了roadmap计划，就很容易找到自己的数据，从而直接浏览器或者wget下载即可。
+首先是序列比对结果下载。
+onsolidated Epigenomes:36 bp mappability filtered, pooled and subsampled read alignment files:
+&lt;a href=&#34;http://egg2.wustl.edu/roadmap/data/byFileType/alignments/consolidated/&#34;&gt;http://egg2.wustl.edu/roadmap/data/byFileType/alignments/consolidated/&lt;/a&gt;
+Unconsolidated Epigenomes (Uniform mappability): 36 bp mappability filtered primary alignment files:
+&lt;a href=&#34;http://egg2.wustl.edu/roadmap/data/byFileType/alignments/unconsolidated/&#34;&gt;http://egg2.wustl.edu/roadmap/data/byFileType/alignments/unconsolidated/&lt;/a&gt;
+包括各种peaks记录文件下载
+Narrow contiguous regions of enrichment (peaks) for histone ChIP-seq and DNase-seq
+Data format: NarrowPeak
+&lt;a href=&#34;http://egg2.wustl.edu/roadmap/data/byFileType/peaks/consolidated/narrowPeak/&#34;&gt;http://egg2.wustl.edu/roadmap/data/byFileType/peaks/consolidated/narrowPeak/&lt;/a&gt;
+Broad domains on enrichment for histone ChIP-seq and DNase-seq)
+Data format: BroadPeak
+&lt;a href=&#34;http://egg2.wustl.edu/roadmap/data/byFileType/peaks/consolidated/broadPeak/&#34;&gt;http://egg2.wustl.edu/roadmap/data/byFileType/peaks/consolidated/broadPeak/&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Data format: GappedPeak (subset of domains containing at least one narrow peaks)
+&lt;a href=&#34;http://egg2.wustl.edu/roadmap/data/byFileType/peaks/consolidated/gappedPeak/&#34;&gt;http://egg2.wustl.edu/roadmap/data/byFileType/peaks/consolidated/gappedPeak/&lt;/a&gt;&lt;/p&gt;
+
+        
+      </description>
+    </item>
     
     <item>
       <title>nat123</title>
@@ -663,6 +919,22 @@ $ bam_stat.py  -i SRR3589956_sorted.bam
 基因组覆盖率的QC需要提供bed文件，可以直接RSeQC的网站下载，或者可以用gtf转换
 read_distribution.py -i RNA-Seq/aligned/SRR3589956_sorted.bam -r reference/hg19_RefSeq.bed
 &lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;reads-计数&#34;&gt;Reads 计数&lt;/h1&gt;
+
+&lt;p&gt;定量分为三个水平
+- 基因水平(gene-level)
+- 转录本水平(transcript-level)
+- 外显子使用水平(exon-usage-level)。&lt;/p&gt;
+
+&lt;p&gt;1.在&lt;strong&gt;基因水平&lt;/strong&gt;上，常用的软件为HTSeq-count，featureCounts，BEDTools, Qualimap, Rsubread, GenomicRanges等。以常用的HTSeq-count为例，这些工具要解决的问题就是&lt;strong&gt;根据read和基因位置的overlap判断这个read到底是谁家的孩子&lt;/strong&gt;。值得注意的是不同工具对multimapping reads处理方式也是不同的，例如HTSeq-count就直接当它们不存在。而Qualimpa则是一人一份，平均分配。&lt;/p&gt;
+
+&lt;p&gt;对每个基因计数之后得到的count matrix再后续的分析中，要注意标准化的问题。如果你要比较同一个样本(within-sample)不同基因之间的表达情况，你就需要考虑到&lt;strong&gt;转录本长度&lt;/strong&gt;，因为转录本越长，那么检测的片段也会更多，直接比较等于让小孩和大人进行赛跑。如果你是比较不同样本（across sample）同一个基因的表达情况，虽然不必在意转录本长度，但是你要考虑到&lt;strong&gt;测序深度&lt;/strong&gt;（sequence depth)，毕竟测序深度越高，检测到的概率越大。除了这两个因素外，你还需要考虑GC%所导致的偏差，以及测序仪器的系统偏差。目前对read count标准化的算法有RPKM（SE）, FPKM（PE），TPM, TMM等，不同算法之间的差异与换算方法已经有文章进行整理和吐槽了。但是，有一些下游分析的软件会要求是输入的count matrix是原始数据，未经标准化，比如说DESeq2，这个时候你需要注意你上一步所用软件会不会进行标准化。&lt;/p&gt;
+
+&lt;p&gt;2.在&lt;strong&gt;转录本水平&lt;/strong&gt;上，一般常用工具为Cufflinks和它的继任者StringTie， eXpress。这些软件要处理的难题就时转录本亚型（isoforms）之间通常是有重叠的，当二代测序读长低于转录本长度时，如何进行区分？这些工具大多采用的都是expectation maximization（EM）。好在我们有三代测序。
+上述软件都是alignment-based，目前许多alignment-free软件，如kallisto, silfish, salmon，能够省去比对这一步，直接得到read count，在运行效率上更高。不过最近一篇文献[1]指出这类方法在估计丰度时存在样本特异性和读长偏差。&lt;/p&gt;
+
+&lt;p&gt;3.在&lt;strong&gt;外显子使用水平&lt;/strong&gt;上，其实和基因水平的统计类似。但是值得注意的是为了更好的计数，我们需要提供无重叠的外显子区域的gtf文件。用于分析差异外显子使用的DEXSeq提供了一个Python脚本（dexseq&lt;em&gt;prepare&lt;/em&gt;annotation.py）执行这个任务。&lt;/p&gt;
 
         
       </description>
@@ -4819,230 +5091,6 @@ http://ip:3838/shiny-examples/010-download/ （ip是你服务器的ip地址）
 &lt;hr /&gt;
 
 &lt;p&gt;最近用shiny做了一个页面，也是一个艰难的开始。Mark in(&amp;ldquo;Mon Sep 04 19:03:13 2017&amp;rdquo;)&lt;/p&gt;
-
-        
-      </description>
-    </item>
-    
-    <item>
-      <title>DOS-Ubuntu命令集合</title>
-      <link>/blog/cn/2017/08/a-collection-of-command/</link>
-      <pubDate>Mon, 28 Aug 2017 12:00:58 +0000</pubDate>
-      
-      <guid>/blog/cn/2017/08/a-collection-of-command/</guid>
-      <description>
-        
-
-&lt;h1 id=&#34;dos&#34;&gt;DOS&lt;/h1&gt;
-
-&lt;ul&gt;
-&lt;li&gt;cd /   [root]&lt;/li&gt;
-&lt;li&gt;cd ~  [home or root/user]&lt;/li&gt;
-&lt;li&gt;cd . [Current]&lt;/li&gt;
-&lt;li&gt;cd .. [Father]&lt;/li&gt;
-&lt;li&gt;cd - [previous]&lt;/li&gt;
-&lt;li&gt;pwd [current]&lt;/li&gt;
-&lt;li&gt;d: +Enter [D:/]&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h1 id=&#34;ubuntu&#34;&gt;Ubuntu&lt;/h1&gt;
-
-&lt;h3 id=&#34;basic&#34;&gt;Basic&lt;/h3&gt;
-
-&lt;ul&gt;
-&lt;li&gt;sudo su 进入root&lt;/li&gt;
-&lt;li&gt;exit &lt;strong&gt;or&lt;/strong&gt; logout  &lt;strong&gt;or&lt;/strong&gt; ctrl D 退出root&lt;/li&gt;
-&lt;li&gt;修改root密码 $ sudo passwd&lt;/li&gt;
-&lt;li&gt;修改用户密码 $ sudo passwd username&lt;/li&gt;
-&lt;li&gt;修改主机名： $ sudo gedit /etc/hostname 和 $ sudo gedit /etc/hosts&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&#34;目录操作&#34;&gt;目录操作&lt;/h3&gt;
-
-&lt;ul&gt;
-&lt;li&gt;ls 列出所有文件&lt;/li&gt;
-&lt;li&gt;ls -lh 列出目录的文件的详细信息&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&#34;ubuntu创建-删除文件及文件夹-强制清空回收站方法&#34;&gt;ubuntu创建、删除文件及文件夹，强制清空回收站方法&lt;/h3&gt;
-
-&lt;ul&gt;
-&lt;li&gt;mkdir 目录名       创建一个目录&lt;/li&gt;
-&lt;li&gt;rmdir 空目录名     删除一个空目录&lt;/li&gt;
-&lt;li&gt;rm 文件名 文件名   删除一个文件或多个文件&lt;/li&gt;
-&lt;li&gt;rm –rf 非空目录名  删除一个非空目录下的一切&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;touch 文件名       创建一个空文件&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;mv file1 file2     将文件 file1，更改文件名为 file2。&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;mv file1 dir1      将文件 file1，移到目录 dir1下，文件名仍为 file1。&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;mv dir1 dir2       若目录 dir2 存在，则将目录 dir1，及其所有文件和子目录，移到目录 dir2 下，新目录名称为 dir1。若目录 dir2 不存在，则将dir1，及其所有文件和子目录，更改为目录 dir2。&lt;/p&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&#34;下载&#34;&gt;下载&lt;/h3&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&amp;amp; 加在一个命令之后可以把这个命令放到后台运行&lt;/li&gt;
-&lt;li&gt;Ctrl+Z 可以把一个前台执行的命令放到后台&lt;/li&gt;
-&lt;li&gt;jobs -l 查看后台运行的命令&lt;/li&gt;
-&lt;li&gt;fg %jobnumber 将后台命令调到前台&lt;/li&gt;
-&lt;li&gt;bg %jobnumber 重启后台暂停的命令&lt;/li&gt;
-&lt;li&gt;kill %num 杀死&lt;/li&gt;
-&lt;li&gt;ps 查看进程号PID&lt;/li&gt;
-&lt;li&gt;nohup 始终执行&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;ps - aux | grep xxx 显示终端关闭后的后台进程&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;wget &lt;a href=&#34;ftp://ftp-trace.ncbi.nlm.nih.gov/sra/sra-instant/reads/ByStudy/sra/SRP/SRP075/SRP075747/SRR3589957/SRR3589957.sra&#34;&gt;ftp://ftp-trace.ncbi.nlm.nih.gov/sra/sra-instant/reads/ByStudy/sra/SRP/SRP075/SRP075747/SRR3589957/SRR3589957.sra&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;nohup axel &lt;a href=&#34;ftp://ftp-trace.ncbi.nlm.nih.gov/sra/sra-instant/reads/ByStudy/sra/SRP/SRP075/SRP075747/SRR3589957/SRR3589957.sra&#34;&gt;ftp://ftp-trace.ncbi.nlm.nih.gov/sra/sra-instant/reads/ByStudy/sra/SRP/SRP075/SRP075747/SRR3589957/SRR3589957.sra&lt;/a&gt; &amp;amp; (后台执行)&lt;/p&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&#34;开关机&#34;&gt;开关机&lt;/h3&gt;
-
-&lt;p&gt;重启&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;reboot&lt;/li&gt;
-&lt;li&gt;shutdown -r now 立刻重启(root用户使用)&lt;/li&gt;
-&lt;li&gt;shutdown -r 10 过10分钟自动重启(root用户使用)&lt;/li&gt;
-&lt;li&gt;shutdown -r 20:35 在时间为20:35时候重启(root用户使用)&lt;/li&gt;
-&lt;li&gt;如果是通过shutdown命令设置重启的话，可以用shutdown -c命令取消重启&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;关机&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;halt   立刻关机&lt;/li&gt;
-&lt;li&gt;poweroff 立刻关机&lt;/li&gt;
-&lt;li&gt;shutdown -h now 立刻关机(root用户使用)&lt;/li&gt;
-&lt;li&gt;shutdown -h 10 10分钟后自动关机&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&#34;卸载软件&#34;&gt;卸载软件&lt;/h3&gt;
-
-&lt;ul&gt;
-&lt;li&gt;[dpkg &amp;ndash;list]查找软件
-[sudo apt-get remove &lt;programname&gt;] 卸载&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&#34;查看cpu&#34;&gt;查看CPU&lt;/h3&gt;
-
-&lt;ul&gt;
-&lt;li&gt;top命令 可以再按1
-
-&lt;br /&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&#34;修改权限和所有者&#34;&gt;修改权限和所有者&lt;/h3&gt;
-
-&lt;ul&gt;
-&lt;li&gt;[chmod -R 700 Document/]变更权限(-R参数是递归)&lt;/li&gt;
-&lt;li&gt;[chown -R username:root Document/]修改所有者为root用户组的username用户&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h6 id=&#34;常用几种&#34;&gt;常用几种&lt;/h6&gt;
-
-&lt;ul&gt;
-&lt;li&gt;sudo chmod -[读,写,执行]×××（所有者）×××（组用户）×××（其他用户）&lt;/li&gt;
-&lt;li&gt;sudo chmod 600 ××× （只有所有者有读和写的权限）&lt;/li&gt;
-&lt;li&gt;sudo chmod 644 ××× （所有者有读和写的权限，组用户只有读的权限）&lt;/li&gt;
-&lt;li&gt;sudo chmod 700 ××× （只有所有者有读和写以及执行的权限）&lt;/li&gt;
-&lt;li&gt;sudo chmod 666 ××× （每个人都有读和写的权限）&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;sudo chmod 777 ××× （每个人都有读和写以及执行的权限）&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;chmod +x test.py     # 脚本文件添加可执行权限&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;chmod -x test.py     # 脚本文件去除可执行权限&lt;/p&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&#34;磁盘管理&#34;&gt;磁盘管理&lt;/h3&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;p&gt;&lt;strong&gt;sudo mount -t ext4 /dev/sdb /data 挂载到data&lt;/strong&gt;&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;sudo umount /dev/sdb 卸载&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;mkdir -p 递归创建目录&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;cp 复制&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;rmdir 删除空目录&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;df -lh 查看磁盘空间&lt;br /&gt;
-df -kh 查看磁盘挂载&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;sudo fdisk -lu 显示硬盘及所属分区情况&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;sudo fdisk /dev/sdb 对sbd盘分区&lt;br /&gt;
-m(help)-n(增加一个新分区)-e(扩展分区)-1-4(分几个区)-&amp;hellip;-p(显示分区表)-w(保存分区表)&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;sudo blkid 查看分区的UUID&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;sudo blkid /dev/sda5 查看指定盘的UUID&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;sudo chown -R username:root Document/  修改文件夹所有者&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;(谨慎复制)sudo mkfs -t ext4 /dev/sdb 对sdb盘格式化为ext4格式&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;ubuntu 加载新硬盘教程&lt;a href=&#34;http://note.youdao.com/noteshare?id=19c72003e1f78ed8dafbe12c53c6e150&amp;amp;sub=8E9A1BEDF6AE4F73AB50892F428B249C&#34;&gt;Here&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;ubuntu&lt;a href=&#34;https://taoshengxu.github.io/DocumentGit/pdf/Ubuntu命令手册.pdf&#34;&gt;命令手册&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&#34;vi-操作&#34;&gt;vi 操作&lt;/h3&gt;
-
-&lt;ul&gt;
-&lt;li&gt;基本上vi可以分为三种状态
-
-&lt;ul&gt;
-&lt;li&gt;分别是命令模式（command mode）：移动光标,删除&lt;/li&gt;
-&lt;li&gt;插入模式（Insert mode）：用于输入字符&lt;/li&gt;
-&lt;li&gt;底行模式（last line mode）：设置编辑环境和保存&lt;/li&gt;
-&lt;/ul&gt;&lt;/li&gt;
-&lt;li&gt;进入vi  初始为命令模式
-$vi file&lt;/li&gt;
-&lt;li&gt;进入插入模式： 在命令模式下输入[i]&lt;/li&gt;
-&lt;li&gt;ESC 返回命令模式&lt;/li&gt;
-&lt;li&gt;[:]进入底行模式
-
-&lt;ul&gt;
-&lt;li&gt;[w fileName]以指定名字保存&lt;/li&gt;
-&lt;li&gt;[wq]存盘并退出&lt;/li&gt;
-&lt;li&gt;[q!]不存盘退出&lt;/li&gt;
-&lt;/ul&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;http://www.cnblogs.com/itech/archive/2009/04/17/1438439.html&#34;&gt;更复杂用法&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&#34;ubuntu进入单用户模式-系统修复&#34;&gt;Ubuntu进入单用户模式—系统修复&lt;/h3&gt;
-
-&lt;p&gt;偶尔会遇到Ubuntu无法正常启动的情况，这时候需修改某些文件让系统正常启动，如果直接进入 recovery 模式，默认是文件权限只读，无法修改文件。这是我们需要进入recovery 的单用户模式，获得修改文件的权限。&lt;/p&gt;
-
-&lt;ol&gt;
-&lt;li&gt;&lt;p&gt;重启ubuntu，随即长按shirft进入grub菜单，或等待grub菜单的出现.&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;选择recovery mode，接着用方向键将光标移至recovery mode，按&amp;rdquo;e&amp;rdquo;键进入编辑页面.&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;将 ro recovery nomodeset 改为 rw single init=/bin/bash&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;按 ctrl+x或者F10 进入单用户模式，当前用户即为root。可以进行操作，如：用vi命令修改/etc/fatab文件，按：wq保存退出。&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;修改完成安装ctrl+dele+alt 重启&lt;/p&gt;&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;h1 id=&#34;bash-命令&#34;&gt;Bash 命令&lt;/h1&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;p&gt;| 表示管道命令，命令从前往后执行，前一个命令的输出可以作为后一个命令的输入
-ls  &lt;em&gt;.fastq.gz|while read id;do echo ${id%_&lt;/em&gt;}_1.fastq.gz;done&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;${id%&lt;em&gt;*}表示把id中&lt;/em&gt;后面的内容都去掉&lt;/p&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;hr /&gt;
 
         
       </description>
