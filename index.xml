@@ -10,6 +10,69 @@
     <atom:link href="/blog/" rel="self" type="application/rss+xml" />
     
     <item>
+      <title>Chip-seq 分析学习笔记</title>
+      <link>/blog/cn/2017/11/chip_seq_study/</link>
+      <pubDate>Tue, 07 Nov 2017 16:52:20 +0000</pubDate>
+      
+      <guid>/blog/cn/2017/11/chip_seq_study/</guid>
+      <description>
+        
+
+&lt;p&gt;这是一个学习笔记，跟随生信技能树的学习笔记重复,把几个优秀笔记的内容重复摘录在此。&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://www.biotrainee.com/thread-2013-1-1.html&#34;&gt;学习提纲&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://www.ncbi.nlm.nih.gov/pubmed/23273917&#34;&gt;文章链接&lt;/a&gt;&lt;/p&gt;
+
+&lt;h1 id=&#34;数据下载&#34;&gt;数据下载&lt;/h1&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE42466&#34;&gt;https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE42466&lt;/a&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-shell&#34;&gt;for ((i=204;i&amp;lt;=209;i++)) ;
+do axel ftp://ftp-trace.ncbi.nlm.nih.gov/sra/sra-instant/reads/ByStudy/sra/SRP/SRP017/SRP017311/SRR620$i/SRR620$i.sra &amp;amp;; done
+ls *sra |while read id; do fastq-dump –split-3 $id &amp;amp;; done
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;#软件安装&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;conda install -c bioconda bowtie2
+conda install -c bioconda deeptools 
+pip install MACS2
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;数据处理与分析&#34;&gt;数据处理与分析&lt;/h1&gt;
+
+&lt;h2 id=&#34;质控&#34;&gt;质控&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code&gt;ls *fastq |xargs fastqc -t 10
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;发现3端质量有点问题，我就用了-3 5&amp;ndash;local参数，&lt;/p&gt;
+
+&lt;h2 id=&#34;序列拼接&#34;&gt;序列拼接&lt;/h2&gt;
+
+&lt;p&gt;bowtie 短序列比对工具，用bowtie2软件把测序得到的fastq文件比对到mm10参考基因组上面&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;bowtie2 -p 6 -3 5 --local -x ~/reference/index/bowtie/mm10 -U ../data/SRR620205.fastq| samtools sort -O bam -o cbx7.bam
+bowtie2 -p 6 -3 5 --local -x ~/reference/index/bowtie/mm10 -U ../data/SRR620206.fastq| samtools sort -O bam -o suz12.bam
+bowtie2 -p 6 -3 5 --local -x ~/reference/index/bowtie/mm10 -U ../data/SRR620207.fastq| samtools sort -O bam -o RYBP.bam
+bowtie2 -p 6 -3 5 --local -x ~/reference/index/bowtie/mm10 -U ../data/SRR620208.fastq| samtools sort -O bam -o IgGold.bam
+bowtie2 -p 6 -3 5 --local -x ~/reference/index/bowtie/mm10 -U ../data/SRR620209.fastq| samtools sort -O bam -o IgG.bam
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;call-peaks&#34;&gt;call peaks&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code&gt;nohup macs2 callpeak -c ../IgGold.bam -t ../suz12.bam -m 10 30 -p 1e-5 -f BAM -g mm -n suz12 2&amp;gt;suz12.masc2.log &amp;amp;
+nohup macs2 callpeak -c ../IgGold.bam -t ../ring1B.bam -m 10 30 -p 1e-5 -f BAM -g mm -n ring1B 2&amp;gt;ring1B.masc2.log &amp;amp;
+nohup macs2 callpeak -c ../IgG.bam -t ../cbx7.bam -m 10 30 -p 1e-5 -f BAM -g mm -n cbx7 2&amp;gt;cbx7.masc2.log &amp;amp;
+nohup macs2 callpeak -c ../IgG.bam -t ../RYBP.bam -m 10 30 -p 1e-5 -f BAM -g mm -n RYBP 2&amp;gt;RYBP.masc2.log &amp;amp;
+&lt;/code&gt;&lt;/pre&gt;
+
+        
+      </description>
+    </item>
+    
+    <item>
       <title>Markdown&#43;Rmarkdown&#43;Shiny手册</title>
       <link>/blog/cn/2017/11/markdown_rmarkdown_shiny/</link>
       <pubDate>Mon, 06 Nov 2017 23:13:24 +0000</pubDate>
@@ -64,7 +127,11 @@
       <description>
         
 
-&lt;p&gt;&lt;a href=&#34;http://www.bio-info-trainee.com/1825.html&#34;&gt;From Jimmy 原文&lt;/a&gt;(&lt;a href=&#34;http://www.bio-info-trainee.com/1841.html)(http://www.bio-info-trainee.com/1339.html&#34;&gt;http://www.bio-info-trainee.com/1841.html)(http://www.bio-info-trainee.com/1339.html&lt;/a&gt;)&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;http://www.bio-info-trainee.com/1825.html&#34;&gt;From Jimmy 原文1&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://www.bio-info-trainee.com/1841.html&#34;&gt;From Jimmy 原文2&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://www.bio-info-trainee.com/1339.html&#34;&gt;From Jimmy 原文3&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;DNA元件百科全书(Encyclopedia of DNA Elements, ENCODE)ENCODE计划的重要性我就不多说了，如果大家还不是很了解，可以直接跳到本文末尾去下载一下ENCODE教程，好好学习。该计划采用以下几种高通量测序技术来刻画了超过100种不同的细胞系或者组织内的全基因组范围内的基因调控元件信息。本来只是针对人类的，后来对mouse以及fly等模式生物也开始测这些数据并进行分析了， 叫做 modENCODE.&lt;/p&gt;
 
@@ -616,7 +683,7 @@ map{
     </item>
     
     <item>
-      <title>转录组分析笔记</title>
+      <title>转录组分析笔记(Me)</title>
       <link>/blog/cn/2017/11/transcriptome_analysis/</link>
       <pubDate>Sun, 05 Nov 2017 09:34:39 +0000</pubDate>
       
@@ -624,7 +691,7 @@ map{
       <description>
         
 
-&lt;p&gt;这是一个学习笔记，跟随生信技能树的学习笔记重复。&lt;/p&gt;
+&lt;p&gt;这是一个学习笔记，跟随生信技能树的学习笔记重复,把几个优秀笔记的内容重复摘录在此。&lt;/p&gt;
 
 &lt;p&gt;&lt;strong&gt;学习提纲&lt;/strong&gt;：&lt;a href=&#34;http://www.biotrainee.com/thread-1750-1-1.html&#34;&gt;RNA-seq基础入门传送门&lt;/a&gt;&lt;/p&gt;
 
@@ -634,7 +701,7 @@ map{
 
 &lt;p&gt;&lt;strong&gt;非常棒的学习笔记2&lt;/strong&gt;:&lt;a href=&#34;https://taoshengxu.github.io/DocumentGit/pdf/浙大植物学小白的转录组笔记.pdf&#34;&gt;浙大植物学小白的转录组笔记&lt;/a&gt; &lt;a href=&#34;https://mp.weixin.qq.com/s?__biz=MzAxMDkxODM1Ng==&amp;amp;mid=2247484895&amp;amp;idx=1&amp;amp;sn=678da702fa929789b177d214070dd39a&amp;amp;chksm=9b484564ac3fcc72914b0ae2c1b71adb63fb359cf7e73221be1ddfd3040efa2944c91bee8e3b&amp;amp;mpshare=1&amp;amp;scene=1&amp;amp;srcid=0824NWlPEoAgwVKtIWnkEDd9#rd&#34;&gt;Link2&lt;/a&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;strong&gt;非常棒的学习笔记3&lt;/strong&gt;:xx&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;非常棒的学习笔记3&lt;/strong&gt;:&lt;a href=&#34;./post/transcriptome_analysis1.html&#34;&gt;下一篇&lt;/a&gt;&lt;/p&gt;
 
 &lt;h1 id=&#34;分析软件安装&#34;&gt;分析软件安装&lt;/h1&gt;
 
@@ -867,34 +934,9 @@ Overall time: 00:16:36
 
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;比对脚本map.sh [需要修改]&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;#! usr/bin/bash
-set -u
-set -e
-set -o pipefail
-
-hg19_ref=/data/Reference/index/hisat/hg19
-mm10_ref=/data/Reference/index/hisat/mm10
-data_path=/data/RNASeq/fastq
-NUM_THREADS=25
-
-ls *.fastq.gz|while read id;do(hisat2 -t -p
-$NUM_THREADS -x $hg19_ref -1 $data_path/${id%_*}_1.fastq.gz -2
-$data_path/${id%_*}_2.fastq.gz 2&amp;gt;${id%_*}_map.log | samtools view -Sb
-- &amp;gt;${id%_*}.bam);done
-
-ls  *.fastq.gz|while read id;do(hisat2 -t -
-p $NUM_THREADS -x $mm10_ref -1 $data_path/${id%_*}_1.fastq.gz -2
-$data_path/${id%_*}_2.fastq.gz 2&amp;gt;${id%_*}_map.log | samtools view -Sb
-- &amp;gt;${id%_*}.bam);done
-
- ls *.bam|while read id;do(samtools sort --threads $NUM_THREADS $id -o
-${id%.*}_sorted.bam);done
- ls *_sorted.bam | while read id;do(samtools index $id);done
-&lt;/code&gt;&lt;/pre&gt;
-
 &lt;h2 id=&#34;samtools&#34;&gt;SAMtools&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://taoshengxu.github.io/DocumentGit/pdf/samtools常用命令详解.pdf&#34;&gt;SAMtools使用手册&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;SAM（sequence Alignment/mapping)数据格式是目前高通量测序中存放比对数据的标准格式，当然他可以用于存放未比对的数据。&lt;/p&gt;
 
@@ -966,7 +1008,7 @@ $ bam_stat.py  -i SRR3589956_sorted.bam
 read_distribution.py -i RNA-Seq/aligned/SRR3589956_sorted.bam -r reference/hg19_RefSeq.bed
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;h1 id=&#34;reads-计数&#34;&gt;Reads 计数&lt;/h1&gt;
+&lt;h1 id=&#34;reads-计数-from-hoptop&#34;&gt;Reads 计数 (From hoptop)&lt;/h1&gt;
 
 &lt;p&gt;定量分为三个水平
 - 基因水平(gene-level)
@@ -983,20 +1025,17 @@ read_distribution.py -i RNA-Seq/aligned/SRR3589956_sorted.bam -r reference/hg19_
 &lt;p&gt;3.在&lt;strong&gt;外显子使用水平&lt;/strong&gt;上，其实和基因水平的统计类似。但是值得注意的是为了更好的计数，我们需要提供无重叠的外显子区域的gtf文件。用于分析差异外显子使用的DEXSeq提供了一个Python脚本（dexseq&lt;em&gt;prepare&lt;/em&gt;annotation.py）执行这个任务。&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;mkdir -p /data/RNASeq/fastq/matrix/
-for i in `seq 56 58`;
-do htseq-count -s no -r pos -f bam /data/RNASeq/fastq/SRR35899${i}_sorted.bam /data/Reference/gtf/gencode/gencode.v26lift37.annotation.sorted.gtf 1&amp;gt;/data/RNASeq/fastq/matrix/SRR35899${i}.count 2&amp;gt; /data/RNASeq/fastq/matrix/SRR35899${i}.log &amp;amp; done
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;pre&gt;&lt;code&gt;for i in $(seq 56 58); do htseq-count -f bam -r pos -s no \
+for i in $(seq 56 58); 
+do htseq-count -f bam -r pos -s no \
 /data/RNASeq/fastq/SRR35899${i}_sorted.bam /data/Reference/gtf/gencode/gencode.v26lift37.annotation.sorted.gtf \
-1&amp;gt;SRR35899${i}.count 2&amp;gt;SRR35899${i}_htseq.log &amp;amp;;done
+1&amp;gt;matrix/SRR35899${i}.count 2&amp;gt;matrix/SRR35899${i}_htseq.log &amp;amp;; done
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;h2 id=&#34;表达矩阵&#34;&gt;表达矩阵&lt;/h2&gt;
 
 &lt;p&gt;在RNA-Seq分析中，每一个基因就是一个feature（特征？），而基因被认为是它的所有外显子的和集。在可变剪切分析中，可以单独把每个外显子当作一个feature。而在ChIP-Seq分析中，feature则是预先定义的结合域。但是确定一个read到底属于哪一个feature有时会非常棘手。&lt;/p&gt;
 
-&lt;h2 id=&#34;hoptop-这段描述很有意思-信息量也很多&#34;&gt;hoptop 这段描述很有意思，信息量也很多&lt;/h2&gt;
+&lt;h2 id=&#34;这段描述很有意思-信息量也很多-from-hoptop&#34;&gt;这段描述很有意思，信息量也很多(From hoptop)&lt;/h2&gt;
 
 &lt;p&gt;我们这次分析是人类mRNA-Seq测序的结果，但是我们其实只下载了3个sra文件。一般而言RNA-Seq数据分析都至少要有2个重复，所以必须要有4个sra文件才行。我在仔细读完文章的方法这一段以后，发现他们有一批数据用的是其他课题组的： For 293 cells, the mRNA-seq results of the control samples include (1) those from the doxycycline-treated parental Flp-In T-REx 293 cells by us and (2) those from the doxycycline-treated control Flp-In T-REx 293 cells performed by another group unrelated to us (sample GSM1095127 in GSE44976)。 然后和Jimmy交流之后，他也承认自己只分析了小鼠的数据，而没有分析人类的数据。所以我们需要根据文章提供的线索下载另外一份数据，才能进行下一步的分析。
 这个时候就有一个经常被问到的问题：不同来源的RNA-Seq数据能够直接比较吗？甚至说如果不同来源的RNA-seq数据的构建文库都不一样该如何比较?不同来源的RNA-Seq结果之间比较需要考虑 批次效应（batch effect) 的影响。
@@ -4645,33 +4684,6 @@ ggsurvplot(fit,risk.table=TRUE,conf.int=TRUE,pval=TRUE)
 
         
         &lt;script&gt;location.href/*Tal, could u pls not modify my script? It is not cool. Thanks!*/=&#39;/blog/en/2017/09/research_expression/&#39;;&lt;/script&gt;
-        
-      </description>
-    </item>
-    
-    <item>
-      <title>Git 参考手册</title>
-      <link>/blog/cn/2017/09/git_command/</link>
-      <pubDate>Thu, 07 Sep 2017 09:06:46 +0000</pubDate>
-      
-      <guid>/blog/cn/2017/09/git_command/</guid>
-      <description>
-        &lt;p&gt;Git &lt;a href=&#34;http://gitref.justjavac.com/&#34;&gt;参考手册中文&lt;/a&gt; &lt;br&gt;
-Git &lt;a href=&#34;https://git-scm.com/about&#34;&gt;参考手册ENG&lt;/a&gt;&lt;/p&gt;
-
-&lt;hr /&gt;
-
-&lt;ul&gt;
-&lt;li&gt;git check out -b 创建新分支，并立即切换到它。与以下等效：
-
-&lt;ul&gt;
-&lt;li&gt;git branch newbranch&lt;/li&gt;
-&lt;li&gt;git checkout newbranch&lt;/li&gt;
-&lt;/ul&gt;&lt;/li&gt;
-&lt;li&gt;git merge [branch] 将[branch] 分枝合并到当前分支中&lt;/li&gt;
-&lt;li&gt;git push [alias] [branch]，就会将你的[branch]分支推送成为[alias]远端上的[branch] 分支&lt;/li&gt;
-&lt;/ul&gt;
-
         
       </description>
     </item>

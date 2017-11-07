@@ -4,8 +4,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     
-    <title>转录组分析笔记 - My Lives</title>
-    <meta property="og:title" content="转录组分析笔记 - My Lives">
+    <title>转录组分析笔记(Me) - My Lives</title>
+    <meta property="og:title" content="转录组分析笔记(Me) - My Lives">
     
 
     
@@ -61,7 +61,7 @@
     <article class="main">
       <header class="title">
       
-<h1>转录组分析笔记</h1>
+<h1>转录组分析笔记(Me)</h1>
 
 <h3>
   2017-11-05</h3>
@@ -74,7 +74,7 @@
 
 
 
-<p>这是一个学习笔记，跟随生信技能树的学习笔记重复。</p>
+<p>这是一个学习笔记，跟随生信技能树的学习笔记重复,把几个优秀笔记的内容重复摘录在此。</p>
 
 <p><strong>学习提纲</strong>：<a href="http://www.biotrainee.com/thread-1750-1-1.html">RNA-seq基础入门传送门</a></p>
 
@@ -84,7 +84,7 @@
 
 <p><strong>非常棒的学习笔记2</strong>:<a href="https://taoshengxu.github.io/DocumentGit/pdf/浙大植物学小白的转录组笔记.pdf">浙大植物学小白的转录组笔记</a> <a href="https://mp.weixin.qq.com/s?__biz=MzAxMDkxODM1Ng==&amp;mid=2247484895&amp;idx=1&amp;sn=678da702fa929789b177d214070dd39a&amp;chksm=9b484564ac3fcc72914b0ae2c1b71adb63fb359cf7e73221be1ddfd3040efa2944c91bee8e3b&amp;mpshare=1&amp;scene=1&amp;srcid=0824NWlPEoAgwVKtIWnkEDd9#rd">Link2</a></p>
 
-<p><strong>非常棒的学习笔记3</strong>:xx</p>
+<p><strong>非常棒的学习笔记3</strong>:<a href="./post/transcriptome_analysis1.html">下一篇</a></p>
 
 <h1 id="分析软件安装">分析软件安装</h1>
 
@@ -317,34 +317,9 @@ Overall time: 00:16:36
 
 </code></pre>
 
-<p>比对脚本map.sh [需要修改]</p>
-
-<pre><code>#! usr/bin/bash
-set -u
-set -e
-set -o pipefail
-
-hg19_ref=/data/Reference/index/hisat/hg19
-mm10_ref=/data/Reference/index/hisat/mm10
-data_path=/data/RNASeq/fastq
-NUM_THREADS=25
-
-ls *.fastq.gz|while read id;do(hisat2 -t -p
-$NUM_THREADS -x $hg19_ref -1 $data_path/${id%_*}_1.fastq.gz -2
-$data_path/${id%_*}_2.fastq.gz 2&gt;${id%_*}_map.log | samtools view -Sb
-- &gt;${id%_*}.bam);done
-
-ls  *.fastq.gz|while read id;do(hisat2 -t -
-p $NUM_THREADS -x $mm10_ref -1 $data_path/${id%_*}_1.fastq.gz -2
-$data_path/${id%_*}_2.fastq.gz 2&gt;${id%_*}_map.log | samtools view -Sb
-- &gt;${id%_*}.bam);done
-
- ls *.bam|while read id;do(samtools sort --threads $NUM_THREADS $id -o
-${id%.*}_sorted.bam);done
- ls *_sorted.bam | while read id;do(samtools index $id);done
-</code></pre>
-
 <h2 id="samtools">SAMtools</h2>
+
+<p><a href="https://taoshengxu.github.io/DocumentGit/pdf/samtools常用命令详解.pdf">SAMtools使用手册</a></p>
 
 <p>SAM（sequence Alignment/mapping)数据格式是目前高通量测序中存放比对数据的标准格式，当然他可以用于存放未比对的数据。</p>
 
@@ -416,7 +391,7 @@ $ bam_stat.py  -i SRR3589956_sorted.bam
 read_distribution.py -i RNA-Seq/aligned/SRR3589956_sorted.bam -r reference/hg19_RefSeq.bed
 </code></pre>
 
-<h1 id="reads-计数">Reads 计数</h1>
+<h1 id="reads-计数-from-hoptop">Reads 计数 (From hoptop)</h1>
 
 <p>定量分为三个水平
 - 基因水平(gene-level)
@@ -433,20 +408,17 @@ read_distribution.py -i RNA-Seq/aligned/SRR3589956_sorted.bam -r reference/hg19_
 <p>3.在<strong>外显子使用水平</strong>上，其实和基因水平的统计类似。但是值得注意的是为了更好的计数，我们需要提供无重叠的外显子区域的gtf文件。用于分析差异外显子使用的DEXSeq提供了一个Python脚本（dexseq<em>prepare</em>annotation.py）执行这个任务。</p>
 
 <pre><code>mkdir -p /data/RNASeq/fastq/matrix/
-for i in `seq 56 58`;
-do htseq-count -s no -r pos -f bam /data/RNASeq/fastq/SRR35899${i}_sorted.bam /data/Reference/gtf/gencode/gencode.v26lift37.annotation.sorted.gtf 1&gt;/data/RNASeq/fastq/matrix/SRR35899${i}.count 2&gt; /data/RNASeq/fastq/matrix/SRR35899${i}.log &amp; done
-</code></pre>
-
-<pre><code>for i in $(seq 56 58); do htseq-count -f bam -r pos -s no \
+for i in $(seq 56 58); 
+do htseq-count -f bam -r pos -s no \
 /data/RNASeq/fastq/SRR35899${i}_sorted.bam /data/Reference/gtf/gencode/gencode.v26lift37.annotation.sorted.gtf \
-1&gt;SRR35899${i}.count 2&gt;SRR35899${i}_htseq.log &amp;;done
+1&gt;matrix/SRR35899${i}.count 2&gt;matrix/SRR35899${i}_htseq.log &amp;; done
 </code></pre>
 
 <h2 id="表达矩阵">表达矩阵</h2>
 
 <p>在RNA-Seq分析中，每一个基因就是一个feature（特征？），而基因被认为是它的所有外显子的和集。在可变剪切分析中，可以单独把每个外显子当作一个feature。而在ChIP-Seq分析中，feature则是预先定义的结合域。但是确定一个read到底属于哪一个feature有时会非常棘手。</p>
 
-<h2 id="hoptop-这段描述很有意思-信息量也很多">hoptop 这段描述很有意思，信息量也很多</h2>
+<h2 id="这段描述很有意思-信息量也很多-from-hoptop">这段描述很有意思，信息量也很多(From hoptop)</h2>
 
 <p>我们这次分析是人类mRNA-Seq测序的结果，但是我们其实只下载了3个sra文件。一般而言RNA-Seq数据分析都至少要有2个重复，所以必须要有4个sra文件才行。我在仔细读完文章的方法这一段以后，发现他们有一批数据用的是其他课题组的： For 293 cells, the mRNA-seq results of the control samples include (1) those from the doxycycline-treated parental Flp-In T-REx 293 cells by us and (2) those from the doxycycline-treated control Flp-In T-REx 293 cells performed by another group unrelated to us (sample GSM1095127 in GSE44976)。 然后和Jimmy交流之后，他也承认自己只分析了小鼠的数据，而没有分析人类的数据。所以我们需要根据文章提供的线索下载另外一份数据，才能进行下一步的分析。
 这个时候就有一个经常被问到的问题：不同来源的RNA-Seq数据能够直接比较吗？甚至说如果不同来源的RNA-seq数据的构建文库都不一样该如何比较?不同来源的RNA-Seq结果之间比较需要考虑 批次效应（batch effect) 的影响。

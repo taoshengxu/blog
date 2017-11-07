@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <title>Chip-seq 分析学习笔记 - My Lives</title>
+    <meta property="og:title" content="Chip-seq 分析学习笔记 - My Lives">
+    
+
+    
+      
+    
+
+    
+
+    
+    
+
+
+<link href='//cdn.bootcss.com/highlight.js/9.12.0/styles/github.min.css' rel='stylesheet' type='text/css' />
+
+
+
+    <link rel="stylesheet" href="/blog/css/style.css" />
+    <link rel="stylesheet" href="/blog/css/fonts.css" />
+    <link rel="stylesheet" href="/blog/css/custom.css" />
+
+  </head>
+
+  
+  <body class="blog">
+    <header class="masthead">
+      <h1><a href="/blog/">My Lives</a></h1>
+
+
+
+      <nav class="menu">
+        <input id="menu-check" type="checkbox" />
+        <label id="menu-label" for="menu-check" class="unselectable">
+          <span class="icon close-icon">✕</span>
+          <span class="icon open-icon">☰</span>
+          <span class="text">Menu</span>
+        </label>
+        <ul>
+        
+        
+        <li><a href="/blog/">Home</a></li>
+        
+        <li><a href="/blog/en/">English</a></li>
+        
+        <li><a href="/blog/cn/">Chinese</a></li>
+        
+        <li><a href="/blog/travel/">Travel</a></li>
+        
+        
+        </ul>
+      </nav>
+    </header>
+
+    <article class="main">
+      <header class="title">
+      
+<h1>Chip-seq 分析学习笔记</h1>
+
+<h3>
+  2017-11-07</h3>
+<hr>
+
+
+      </header>
+
+
+
+
+
+<p>这是一个学习笔记，跟随生信技能树的学习笔记重复,把几个优秀笔记的内容重复摘录在此。</p>
+
+<p><a href="http://www.biotrainee.com/thread-2013-1-1.html">学习提纲</a></p>
+
+<p><a href="https://www.ncbi.nlm.nih.gov/pubmed/23273917">文章链接</a></p>
+
+<h1 id="数据下载">数据下载</h1>
+
+<p><a href="https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE42466">https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE42466</a></p>
+
+<pre><code class="language-shell">for ((i=204;i&lt;=209;i++)) ;
+do axel ftp://ftp-trace.ncbi.nlm.nih.gov/sra/sra-instant/reads/ByStudy/sra/SRP/SRP017/SRP017311/SRR620$i/SRR620$i.sra &amp;; done
+ls *sra |while read id; do fastq-dump –split-3 $id &amp;; done
+</code></pre>
+
+<p>#软件安装</p>
+
+<pre><code>conda install -c bioconda bowtie2
+conda install -c bioconda deeptools 
+pip install MACS2
+</code></pre>
+
+<h1 id="数据处理与分析">数据处理与分析</h1>
+
+<h2 id="质控">质控</h2>
+
+<pre><code>ls *fastq |xargs fastqc -t 10
+</code></pre>
+
+<p>发现3端质量有点问题，我就用了-3 5&ndash;local参数，</p>
+
+<h2 id="序列拼接">序列拼接</h2>
+
+<p>bowtie 短序列比对工具，用bowtie2软件把测序得到的fastq文件比对到mm10参考基因组上面</p>
+
+<pre><code>bowtie2 -p 6 -3 5 --local -x ~/reference/index/bowtie/mm10 -U ../data/SRR620205.fastq| samtools sort -O bam -o cbx7.bam
+bowtie2 -p 6 -3 5 --local -x ~/reference/index/bowtie/mm10 -U ../data/SRR620206.fastq| samtools sort -O bam -o suz12.bam
+bowtie2 -p 6 -3 5 --local -x ~/reference/index/bowtie/mm10 -U ../data/SRR620207.fastq| samtools sort -O bam -o RYBP.bam
+bowtie2 -p 6 -3 5 --local -x ~/reference/index/bowtie/mm10 -U ../data/SRR620208.fastq| samtools sort -O bam -o IgGold.bam
+bowtie2 -p 6 -3 5 --local -x ~/reference/index/bowtie/mm10 -U ../data/SRR620209.fastq| samtools sort -O bam -o IgG.bam
+</code></pre>
+
+<h2 id="call-peaks">call peaks</h2>
+
+<pre><code>nohup macs2 callpeak -c ../IgGold.bam -t ../suz12.bam -m 10 30 -p 1e-5 -f BAM -g mm -n suz12 2&gt;suz12.masc2.log &amp;
+nohup macs2 callpeak -c ../IgGold.bam -t ../ring1B.bam -m 10 30 -p 1e-5 -f BAM -g mm -n ring1B 2&gt;ring1B.masc2.log &amp;
+nohup macs2 callpeak -c ../IgG.bam -t ../cbx7.bam -m 10 30 -p 1e-5 -f BAM -g mm -n cbx7 2&gt;cbx7.masc2.log &amp;
+nohup macs2 callpeak -c ../IgG.bam -t ../RYBP.bam -m 10 30 -p 1e-5 -f BAM -g mm -n RYBP 2&gt;RYBP.masc2.log &amp;
+</code></pre>
+
+
+  <footer>
+  
+<nav class="post-nav">
+  <span class="nav-prev">&larr; <a href="/blog/cn/2017/11/markdown_rmarkdown_shiny/">Markdown&#43;Rmarkdown&#43;Shiny手册</a></span>
+  <span class="nav-next"></span>
+</nav>
+
+
+
+
+
+<script src="//yihui.name/js/math-code.js"></script>
+<script async src="//cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+<script async src="//yihui.name/js/center-img.js"></script>
+
+  
+
+
+
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+
+
+
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/r.min.js"></script>
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/yaml.min.js"></script>
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/tex.min.js"></script>
+<script>hljs.configure({languages: []}); hljs.initHighlightingOnLoad();</script>
+
+
+
+  
+  <hr>
+  <div class="copyright">&copy; <a href="xxxx">Who care</a> 2017 - Forever, maybe</div>
+  
+  </footer>
+  </article>
+  
+  </body>
+</html>
+
