@@ -6,8 +6,65 @@
     <description>Recent content in 中文博客 on My Lives</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 07 Nov 2017 16:52:20 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 07 Nov 2017 23:39:50 +0000</lastBuildDate>
     <atom:link href="/blog/cn/" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>甲基化450k芯片</title>
+      <link>/blog/cn/2017/11/humanmethylation450/</link>
+      <pubDate>Tue, 07 Nov 2017 23:39:50 +0000</pubDate>
+      
+      <guid>/blog/cn/2017/11/humanmethylation450/</guid>
+      <description>
+        
+
+&lt;p&gt;&lt;a href=&#34;http://www.biotrainee.com/thread-237-1-1.html&#34;&gt;原文&lt;/a&gt;&lt;/p&gt;
+
+&lt;h1 id=&#34;illumina-humanmethylation450-beadchip-甲基化450k芯片-简介&#34;&gt;Illumina HumanMethylation450 BeadChip （甲基化450k芯片）简介&lt;/h1&gt;
+
+&lt;p&gt;Illumina最早的甲基化芯片是27K（K代表1000，表示大概可以测到的CpG位点数）的数据，后来增加到了450K（主流的甲基化芯片），而目前illumina已经出了新一代产品EPIC（我习惯称之为850K），但是技术核心在450K已经成熟了，所以分析流程这里以450K为主（也是目前数据库主流的甲基化芯片数据）。&lt;/p&gt;
+
+&lt;h1 id=&#34;芯片&#34;&gt;芯片&lt;/h1&gt;
+
+&lt;p&gt;一张芯片包括12个array（如图显示），也就是一张芯片可以做12个sample，一台机子一次可以跑8张芯片，也就是一共96个sample，每个样本可以测到超过450，000个CpG位点的甲基化信息（大概人所有的1%，但是覆盖了多数CpG岛和启动子区），芯片本身包含一些控制探针可以做质控。&lt;/p&gt;
+
+&lt;h1 id=&#34;原理&#34;&gt;原理&lt;/h1&gt;
+
+&lt;p&gt;简而言之，基于亚硫酸盐处理后的DNA序列杂交的信号探测。亚硫酸盐是甲基化探测的“金标准”，不管是芯片或者甲基化测序，都要先对DNA样品进行亚硫酸盐处理，使非甲基化的C变成U，而甲基化的C保持不变，从而在后续的测序或者杂交后区分出来。450K采用了两种探针对甲基化进行测定，Infinium I采用了两种bead（甲基化M和非甲基化U，如图显示），而II只有一种bead（即甲基化和非甲基化在一起），这也导致了它们在后续荧光探测的不同，450K采用了两种荧光探测信号（红光和绿光）。&lt;/p&gt;
+
+&lt;h1 id=&#34;分析需要考虑的问题&#34;&gt;分析需要考虑的问题&lt;/h1&gt;
+
+&lt;ol&gt;
+&lt;li&gt;背景校正&lt;/li&gt;
+&lt;li&gt;红光和绿光的校正&lt;/li&gt;
+&lt;li&gt;控制芯片的使用（illumina450K本身有一些控制芯片，可以用来做质控，如亚硫酸盐处理效率）&lt;/li&gt;
+&lt;li&gt;探针类型（I型和II型）的校正（不同探针类型产生的数据不同）
+这个问题我们之前关注很多，这里附上两篇文献供大家参考，最终我们选择BMIQ的方法（基于ebayes的原理将II型探针的甲基化水平拉伸到I型水平，如下图显示）来做矫正。(图片来源于第1篇文献)&lt;br /&gt;
+文献1： &lt;a href=&#34;http://bioinformatics.oxfordjournals.org/content/29/2/189.short&#34;&gt;http://bioinformatics.oxfordjournals.org/content/29/2/189.short&lt;/a&gt;&lt;br /&gt;
+文献2： &lt;a href=&#34;http://www.tandfonline.com/doi/abs/10.4161/epi.24008&#34;&gt;http://www.tandfonline.com/doi/abs/10.4161/epi.24008&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;位置的校正（芯片上的不同位置产生的数据可能会有偏差）&lt;/li&gt;
+&lt;li&gt;批次的校正（不同的批次做的数据会有偏差）&lt;/li&gt;
+&lt;li&gt;探针序列本身是否可靠（有些探针本身位于repeat区或者包含snp等就会影响杂交及最后的结果，应该去除，附上一片参考文献，里边有list可以用来去除不好的探针）&lt;br /&gt;
+文献：&lt;a href=&#34;http://bmcgenomics.biomedcentral.com/articles/10.1186/1471-2164-15-51&#34;&gt;http://bmcgenomics.biomedcentral.com/articles/10.1186/1471-2164-15-51&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h1 id=&#34;数据处理&#34;&gt;数据处理&lt;/h1&gt;
+
+&lt;ol&gt;
+&lt;li&gt;GenomeStudio
+GS是illumina开发的软件，基于图形界面的操作处理，适合于没有R及编程基础的人使用，但是使用GS需要权限，本人试过挺难破解的，如果有人可以破解，可以提供给论坛小伙伴使用。&lt;/li&gt;
+&lt;li&gt;基于R和bioconductor的pipeline&lt;br /&gt;
+bioconductor里开发了很多package供大家使用，如果你会R，那么处理这个甲基化芯片的数据将变得简单。
+可以处理450K芯片的package有lumi、minfi、wateRmelon、ChAMP等，没有哪一种就特别好，大家都在不断改进，所以只要你知道大概的流程和需要注意的问题，那么你也可以自己写代码处理，只是package可以帮你省很多事情。下边我会附上我的处理流程图和详解，还有我的代码，我的代码是基于minfi的，我再次强调，代码只是手段，你可以用其他的package（例如我的同事很多使用ChAMP），也许会更好。&lt;/li&gt;
+&lt;li&gt;流程图：&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;流程图详解：我们一般下载或者iscan后的原始数据格式为Idat，首先可以得到每个sample的每个probe的p值和bead数，根据p值和bead数可以进行样本和探针的过滤，过滤之后需要用BMIQ的方法进行I和II型探针的校正，矫正之后去掉那些包含snp之类的不好的探针，最后对数据做batch的校正。校正之后的数据就是预处理后的数据了，可以用于更下游的分析，如差异甲基化和甲基化与表达的关联分析等。
+我的代码： &lt;a href=&#34;https://github.com/wkl1990/illumina-450K-analysis，再次强调，我的代码并不完美，如果有bug，请告诉我修改，构建你自己的代码，让自己敲起来。&#34;&gt;https://github.com/wkl1990/illumina-450K-analysis，再次强调，我的代码并不完美，如果有bug，请告诉我修改，构建你自己的代码，让自己敲起来。&lt;/a&gt;&lt;/p&gt;
+
+        
+      </description>
+    </item>
     
     <item>
       <title>Chip-seq 分析学习笔记</title>
@@ -28,9 +85,9 @@
 
 &lt;p&gt;&lt;a href=&#34;https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE42466&#34;&gt;https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE42466&lt;/a&gt;&lt;/p&gt;
 
-&lt;pre&gt;&lt;code class=&#34;language-shell&#34;&gt;for ((i=204;i&amp;lt;=209;i++)) ;
-do axel ftp://ftp-trace.ncbi.nlm.nih.gov/sra/sra-instant/reads/ByStudy/sra/SRP/SRP017/SRP017311/SRR620$i/SRR620$i.sra &amp;amp;; done
-ls *sra |while read id; do fastq-dump –split-3 $id &amp;amp;; done
+&lt;pre&gt;&lt;code class=&#34;language-shell&#34;&gt;for ((i=204;i&amp;lt;=209;i++)); do axel ftp://ftp-trace.ncbi.nlm.nih.gov/sra/sra-instant/reads/ByStudy/sra/SRP/SRP017/SRP017311/SRR620$i/SRR620$i.sra &amp;amp; done
+ls *sra |while read id; do fastq-dump –split-3 $id &amp;amp; done
+ 
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;#软件安装&lt;/p&gt;
@@ -49,15 +106,33 @@ pip install MACS2
 
 &lt;p&gt;发现3端质量有点问题，我就用了-3 5&amp;ndash;local参数，&lt;/p&gt;
 
+&lt;h2 id=&#34;参考基因组下载-建立索引&#34;&gt;参考基因组下载,建立索引&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code&gt;mkdir -p  /data/reference/genome/mm10
+cd /data/reference/genome/mm10
+axel http://hgdownload.cse.ucsc.edu/goldenPath/mm10/bigZips/chromFa.tar.gz
+tar zvxf chromFa.tar.gz 
+cat *.fa &amp;gt; mm10.fa
+rm chr*.fa 
+
+mkdir -p /data/reference/index/bowtie
+cd /data/reference/index/bowtie
+nohup time bowtie2-build  /data/reference/genome/mm10/mm10.fa  /data/reference/index/bowtie/mm10 1&amp;gt;mm10.bowtie_index.log 2&amp;gt;&amp;amp;1 &amp;amp;
+
+&lt;/code&gt;&lt;/pre&gt;
+
 &lt;h2 id=&#34;序列拼接&#34;&gt;序列拼接&lt;/h2&gt;
 
 &lt;p&gt;bowtie 短序列比对工具，用bowtie2软件把测序得到的fastq文件比对到mm10参考基因组上面&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt;bowtie2 -p 6 -3 5 --local -x ~/reference/index/bowtie/mm10 -U ../data/SRR620205.fastq| samtools sort -O bam -o cbx7.bam
-bowtie2 -p 6 -3 5 --local -x ~/reference/index/bowtie/mm10 -U ../data/SRR620206.fastq| samtools sort -O bam -o suz12.bam
-bowtie2 -p 6 -3 5 --local -x ~/reference/index/bowtie/mm10 -U ../data/SRR620207.fastq| samtools sort -O bam -o RYBP.bam
-bowtie2 -p 6 -3 5 --local -x ~/reference/index/bowtie/mm10 -U ../data/SRR620208.fastq| samtools sort -O bam -o IgGold.bam
-bowtie2 -p 6 -3 5 --local -x ~/reference/index/bowtie/mm10 -U ../data/SRR620209.fastq| samtools sort -O bam -o IgG.bam
+&lt;pre&gt;&lt;code&gt;cd /data/ChIPSeq
+
+bowtie2 -p 6 -3 5 --local -x /data/reference/index/bowtie/mm10 -U SRR620204.fastq | samtools sort -O bam -o ring1B.bam
+bowtie2 -p 6 -3 5 --local -x /data/reference/index/bowtie/mm10 -U SRR620205.fastq | samtools sort -O bam -o cbx7.bam
+bowtie2 -p 6 -3 5 --local -x /data/reference/index/bowtie/mm10 -U SRR620206.fastq | samtools sort -O bam -o suz12.bam
+bowtie2 -p 6 -3 5 --local -x /data/reference/index/bowtie/mm10 -U SRR620207.fastq | samtools sort -O bam -o RYBP.bam
+bowtie2 -p 6 -3 5 --local -x /data/reference/index/bowtie/mm10 -U SRR620208.fastq | samtools sort -O bam -o IgGold.bam
+bowtie2 -p 6 -3 5 --local -x /data/reference/index/bowtie/mm10 -U SRR620209.fastq | samtools sort -O bam -o IgG.bam
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;h2 id=&#34;call-peaks&#34;&gt;call peaks&lt;/h2&gt;
@@ -683,13 +758,17 @@ map{
     </item>
     
     <item>
-      <title>转录组分析笔记(Me)</title>
+      <title>转录组分析笔记(Mine)</title>
       <link>/blog/cn/2017/11/transcriptome_analysis/</link>
       <pubDate>Sun, 05 Nov 2017 09:34:39 +0000</pubDate>
       
       <guid>/blog/cn/2017/11/transcriptome_analysis/</guid>
       <description>
         
+
+&lt;p&gt;&lt;a href=&#34;http://www.biotrainee.com/thread-1376-1-1.html&#34;&gt;Jimmy直播我的基因组分析 - 目录&lt;/a&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
 
 &lt;p&gt;这是一个学习笔记，跟随生信技能树的学习笔记重复,把几个优秀笔记的内容重复摘录在此。&lt;/p&gt;
 
@@ -4672,19 +4751,6 @@ Git &lt;a href=&#34;https://git-scm.com/about&#34;&gt;参考手册ENG&lt;/a&gt;&
 &lt;li&gt;git merge [branch] 将[branch] 分枝合并到当前分支中&lt;/li&gt;
 &lt;li&gt;git push [alias] [branch]，就会将你的[branch]分支推送成为[alias]远端上的[branch] 分支&lt;/li&gt;
 &lt;/ul&gt;
-
-        
-      </description>
-    </item>
-    
-    <item>
-      <title>HTML基本语法</title>
-      <link>/blog/cn/2017/09/html_basic/</link>
-      <pubDate>Tue, 05 Sep 2017 23:03:13 +0000</pubDate>
-      
-      <guid>/blog/cn/2017/09/html_basic/</guid>
-      <description>
-        &lt;p&gt;wait for&amp;hellip;&lt;/p&gt;
 
         
       </description>

@@ -84,9 +84,9 @@
 
 <p><a href="https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE42466">https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE42466</a></p>
 
-<pre><code class="language-shell">for ((i=204;i&lt;=209;i++)) ;
-do axel ftp://ftp-trace.ncbi.nlm.nih.gov/sra/sra-instant/reads/ByStudy/sra/SRP/SRP017/SRP017311/SRR620$i/SRR620$i.sra &amp;; done
-ls *sra |while read id; do fastq-dump –split-3 $id &amp;; done
+<pre><code class="language-shell">for ((i=204;i&lt;=209;i++)); do axel ftp://ftp-trace.ncbi.nlm.nih.gov/sra/sra-instant/reads/ByStudy/sra/SRP/SRP017/SRP017311/SRR620$i/SRR620$i.sra &amp; done
+ls *sra |while read id; do fastq-dump –split-3 $id &amp; done
+ 
 </code></pre>
 
 <p>#软件安装</p>
@@ -105,15 +105,33 @@ pip install MACS2
 
 <p>发现3端质量有点问题，我就用了-3 5&ndash;local参数，</p>
 
+<h2 id="参考基因组下载-建立索引">参考基因组下载,建立索引</h2>
+
+<pre><code>mkdir -p  /data/reference/genome/mm10
+cd /data/reference/genome/mm10
+axel http://hgdownload.cse.ucsc.edu/goldenPath/mm10/bigZips/chromFa.tar.gz
+tar zvxf chromFa.tar.gz 
+cat *.fa &gt; mm10.fa
+rm chr*.fa 
+
+mkdir -p /data/reference/index/bowtie
+cd /data/reference/index/bowtie
+nohup time bowtie2-build  /data/reference/genome/mm10/mm10.fa  /data/reference/index/bowtie/mm10 1&gt;mm10.bowtie_index.log 2&gt;&amp;1 &amp;
+
+</code></pre>
+
 <h2 id="序列拼接">序列拼接</h2>
 
 <p>bowtie 短序列比对工具，用bowtie2软件把测序得到的fastq文件比对到mm10参考基因组上面</p>
 
-<pre><code>bowtie2 -p 6 -3 5 --local -x ~/reference/index/bowtie/mm10 -U ../data/SRR620205.fastq| samtools sort -O bam -o cbx7.bam
-bowtie2 -p 6 -3 5 --local -x ~/reference/index/bowtie/mm10 -U ../data/SRR620206.fastq| samtools sort -O bam -o suz12.bam
-bowtie2 -p 6 -3 5 --local -x ~/reference/index/bowtie/mm10 -U ../data/SRR620207.fastq| samtools sort -O bam -o RYBP.bam
-bowtie2 -p 6 -3 5 --local -x ~/reference/index/bowtie/mm10 -U ../data/SRR620208.fastq| samtools sort -O bam -o IgGold.bam
-bowtie2 -p 6 -3 5 --local -x ~/reference/index/bowtie/mm10 -U ../data/SRR620209.fastq| samtools sort -O bam -o IgG.bam
+<pre><code>cd /data/ChIPSeq
+
+bowtie2 -p 6 -3 5 --local -x /data/reference/index/bowtie/mm10 -U SRR620204.fastq | samtools sort -O bam -o ring1B.bam
+bowtie2 -p 6 -3 5 --local -x /data/reference/index/bowtie/mm10 -U SRR620205.fastq | samtools sort -O bam -o cbx7.bam
+bowtie2 -p 6 -3 5 --local -x /data/reference/index/bowtie/mm10 -U SRR620206.fastq | samtools sort -O bam -o suz12.bam
+bowtie2 -p 6 -3 5 --local -x /data/reference/index/bowtie/mm10 -U SRR620207.fastq | samtools sort -O bam -o RYBP.bam
+bowtie2 -p 6 -3 5 --local -x /data/reference/index/bowtie/mm10 -U SRR620208.fastq | samtools sort -O bam -o IgGold.bam
+bowtie2 -p 6 -3 5 --local -x /data/reference/index/bowtie/mm10 -U SRR620209.fastq | samtools sort -O bam -o IgG.bam
 </code></pre>
 
 <h2 id="call-peaks">call peaks</h2>
@@ -129,7 +147,7 @@ nohup macs2 callpeak -c ../IgG.bam -t ../RYBP.bam -m 10 30 -p 1e-5 -f BAM -g mm 
   
 <nav class="post-nav">
   <span class="nav-prev">&larr; <a href="/blog/cn/2017/11/markdown_rmarkdown_shiny/">Markdown&#43;Rmarkdown&#43;Shiny手册</a></span>
-  <span class="nav-next"></span>
+  <span class="nav-next"><a href="/blog/cn/2017/11/humanmethylation450/">甲基化450k芯片</a> &rarr;</span>
 </nav>
 
 
