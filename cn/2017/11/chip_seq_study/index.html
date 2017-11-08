@@ -74,22 +74,109 @@
 
 
 
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
 <p>这是一个学习笔记，跟随生信技能树的学习笔记重复,把几个优秀笔记的内容重复摘录在此。</p>
 
 <p><a href="http://www.biotrainee.com/thread-2013-1-1.html">学习提纲</a></p>
 
-<p><a href="https://www.ncbi.nlm.nih.gov/pubmed/23273917">文章链接</a></p>
+<p><a href="https://mp.weixin.qq.com/s?__biz=MzAxMDkxODM1Ng==&amp;mid=2247485198&amp;idx=1&amp;sn=bfb419c568723c5c121e017b2e265d2f&amp;chksm=9b4847b5ac3fcea303e986c17e19b3750dc145f23a8e18daa74c5de704d4a203f8ba08bed651&amp;mpshare=1&amp;scene=1&amp;srcid=1103lRh7ZlI9oD2bGJJhvqlh#rd">优秀学习笔记</a> <a href="http://www.bio-info-trainee.com/2773.html">链接2</a></p>
+
+<h1 id="chip-seq介绍">ChIP-Seq介绍</h1>
+
+<h2 id="1-了解基础知识">1.了解基础知识</h2>
+
+<ul>
+<li>peak calling的统计学原理 <a href="http://www.plob.org/2014/05/08/7227.html">http://www.plob.org/2014/05/08/7227.html</a></li>
+<li>根据比对的bam文件来对peaks区域可视化 <a href="http://www.bio-info-trainee.com/1843.html">http://www.bio-info-trainee.com/1843.html</a></li>
+<li>wig、bigWig和bedgraph文件详解 <a href="http://www.bio-info-trainee.com/1815.html">http://www.bio-info-trainee.com/1815.html</a></li>
+</ul>
+
+<h2 id="2-文章综述">2.文章综述</h2>
+
+<p>ChIP-seq guidelines and practices of the ENCODE and modENCODE consortia. <a href="https://www.ncbi.nlm.nih.gov/pubmed/22955991">https://www.ncbi.nlm.nih.gov/pubmed/22955991</a></p>
+
+<h2 id="3-chip-seq测序的统计学原理">3.Chip-Seq测序的统计学原理</h2>
+
+<p>TF在基因组上的结合其实是一个随机过程，基因组的每个位置其实都有机会结合某个TF，只是概率不一样，说白了，peak出现的位置，是TF结合的热点，而peak-calling就是为了找到这些热点。</p>
+
+<p>如何定义热点呢？通俗地讲，热点是这样一些位置，这些位置多次被测得的read所覆盖（我们测的是一个细胞群体，read出现次数多，说明该位置被TF结合的几率大）。那么，read数达到多少才叫多？这就要用到统计检验喽。假设TF在基因组上的分布是没有任何规律的，那么，测序得到的read在基因组上的分布也必然是随机的，某个碱基上覆盖的read的数目应该服从二项分布。这其实和高中大学课本上抽小球的过程是类似的。当n很大，p很小时，二项分布可以近似用泊松分布替代。</p>
+
+<p>$$\lambda=n \ast p, p=\frac{l}{s}$$</p>
+
+<p>\(\lambda\)是泊松分布唯一的参数，n是测序得到的read总数目，l是单个read的长度，s是基因组的大小。有了分布，我们可以算出在某个置信概率（如0.00001）下，随机情况下，某个碱基上可以覆盖的read的数目的最小值，当实际观察到的read数目超过这个值（单侧检验）时，我们认为该碱基是TF的一个结合热点。反过来，针对每一个read数目，我们也可以算出对应的置信概率P。
+但是，这只是一个简化的模型，实际情况要复杂好多。比如，由于测序、mapping过程内在的偏好性，以及不同染色质间的差异性，相比全基因组，某些碱基可能内在地会被更多的read所覆盖，这种情况得到的很多peak可能都是假的。MACS考虑到了这一点，当对某个碱基进行假设检验时，MACS只考虑该碱基附近的染色质区段（如10k），此时，上述公式中n表示附近10k区间内的read数目，s被置为10k。当有对照组实验（Control，相比实验组，没有用抗体捕获TF，或用了一个通用抗体）存在时，利用Control组的数据构建泊松分布，当没有Control时，利用实验组，稍大一点的局部区间（比如50k）的数据构建泊松分布。
+这儿还有一个问题，read只是跟随着TF一起沉淀下来的DNA fragment的末端，read的位置并不是真实的TF结合的位置。所以在peak-calling之前，延伸read是必须的。不同TF大小不一样，对read延伸的长度也理应不同。我们知道，测得的read最终其实会近似地平均分配到正负链上，这样，对于一个TF结合热点而言，read在附近正负链上会近似地形成“双峰”。MACS会以某个window size扫描基因组，统计每个window里面read的富集程度，然后抽取（比如1000个）合适的（read富集程度适中，过少，无法建立模型，过大，可能反映的只是某种偏好性）window作样本，建立“双峰模型”。最后，两个峰之间的距离就被认为是TF的长度D，每个read将延伸D/2的长度。见下图：</p>
+
+<h2 id="4-chip-seq实验">4.Chip-seq实验</h2>
+
+<p><strong>数据获取</strong></p>
+
+<ol>
+<li>将蛋白交联到DNA上。 也就是保证蛋白和DNA能够结合，找到互作位点。</li>
+<li>通过超声波剪切DNA链。</li>
+<li>加上附上抗体的磁珠用于免疫沉淀靶蛋白。抗体很重要</li>
+<li>接触蛋白交联；纯化DNA</li>
+<li>测序。</li>
+</ol>
+
+<p><strong>分析流程</strong>：</p>
+
+<ol>
+<li>质量控制, 用到的是FastQC</li>
+<li>序列比对, Bowtie2或这BWA</li>
+<li>peak calling，此处用的MACS</li>
+<li>peak注释, 这里用的Y叔的ChIPseeker</li>
+</ol>
+
+<p><img src="https://taoshengxu.github.io/DocumentGit/img/ChIP-Seq.jpg" alt="" /></p>
 
 <h1 id="数据下载">数据下载</h1>
 
+<p><a href="https://www.ncbi.nlm.nih.gov/pubmed/23273917">RYBP and Cbx7 define specific biological functions of polycomb complexes in mouse embryonic stem cells</a></p>
+
 <p><a href="https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE42466">https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE42466</a></p>
 
-<pre><code class="language-shell">for ((i=204;i&lt;=209;i++)); do axel ftp://ftp-trace.ncbi.nlm.nih.gov/sra/sra-instant/reads/ByStudy/sra/SRP/SRP017/SRP017311/SRR620$i/SRR620$i.sra &amp; done
+<pre><code class="language-bash">for ((i=204;i&lt;=209;i++))
+do
+ axel ftp://ftp-trace.ncbi.nlm.nih.gov/sra/sra-instant/reads/ByStudy/sra/SRP/SRP017/SRP017311/SRR620$i/SRR620$i.sra &amp;
+done
 ls *sra |while read id; do fastq-dump –split-3 $id &amp; done
- 
 </code></pre>
 
-<p>#软件安装</p>
+<p>注意文件： 这里要注意是双端测序还是单端测序。</p>
+
+<p>fastq-dump 转换sra文件成fastq/fasta 文件。</p>
+
+<ul>
+<li>pair-end: fastq-dump &ndash;split-3 *.sra</li>
+<li>single-end: fastq-dump *.sra 或者 fastq-dump &ndash;fasta *sra</li>
+</ul>
+
+<h1 id="下载参考基因组-建立bowtie2索引">下载参考基因组,建立bowtie2索引</h1>
+
+<p>索引可以自己build，也可以下载 <a href="ftp://ftp.ccb.jhu.edu/pub/data/bowtie2_indexes/mm10.zip">ftp://ftp.ccb.jhu.edu/pub/data/bowtie2_indexes/mm10.zip</a></p>
+
+<pre><code class="language-bash">mkdir -p  /data/reference/genome/mm10
+cd /data/reference/genome/mm10
+axel http://hgdownload.cse.ucsc.edu/goldenPath/mm10/bigZips/chromFa.tar.gz
+tar zvxf chromFa.tar.gz 
+cat *.fa &gt; mm10.fa
+rm chr*.fa 
+
+mkdir -p /data/reference/index/bowtie
+cd /data/reference/index/bowtie
+nohup time bowtie2-build  /data/reference/genome/mm10/mm10.fa  /data/reference/index/bowtie/mm10 1&gt;mm10.bowtie_index.log 2&gt;&amp;1 &amp;
+
+</code></pre>
+
+<h1 id="下载注释文件">下载注释文件</h1>
+
+<p><a href="https://genome.ucsc.edu/cgi-bin/hgTables">https://genome.ucsc.edu/cgi-bin/hgTables</a><br />
+（参阅<a href="http://www.bio-info-trainee.com/2136.html）">http://www.bio-info-trainee.com/2136.html）</a>
+<img src="https://taoshengxu.github.io/DocumentGit/img/mm10_ucsc_refseq_bed.jpg" alt="" /></p>
+
+<h1 id="软件安装">软件安装</h1>
 
 <pre><code>conda install -c bioconda bowtie2
 conda install -c bioconda deeptools 
@@ -105,27 +192,11 @@ pip install MACS2
 
 <p>发现3端质量有点问题，我就用了-3 5&ndash;local参数，</p>
 
-<h2 id="参考基因组下载-建立索引">参考基因组下载,建立索引</h2>
-
-<pre><code>mkdir -p  /data/reference/genome/mm10
-cd /data/reference/genome/mm10
-axel http://hgdownload.cse.ucsc.edu/goldenPath/mm10/bigZips/chromFa.tar.gz
-tar zvxf chromFa.tar.gz 
-cat *.fa &gt; mm10.fa
-rm chr*.fa 
-
-mkdir -p /data/reference/index/bowtie
-cd /data/reference/index/bowtie
-nohup time bowtie2-build  /data/reference/genome/mm10/mm10.fa  /data/reference/index/bowtie/mm10 1&gt;mm10.bowtie_index.log 2&gt;&amp;1 &amp;
-
-</code></pre>
-
 <h2 id="序列拼接">序列拼接</h2>
 
 <p>bowtie 短序列比对工具，用bowtie2软件把测序得到的fastq文件比对到mm10参考基因组上面</p>
 
 <pre><code>cd /data/ChIPSeq
-
 bowtie2 -p 6 -3 5 --local -x /data/reference/index/bowtie/mm10 -U SRR620204.fastq | samtools sort -O bam -o ring1B.bam
 bowtie2 -p 6 -3 5 --local -x /data/reference/index/bowtie/mm10 -U SRR620205.fastq | samtools sort -O bam -o cbx7.bam
 bowtie2 -p 6 -3 5 --local -x /data/reference/index/bowtie/mm10 -U SRR620206.fastq | samtools sort -O bam -o suz12.bam
@@ -136,10 +207,143 @@ bowtie2 -p 6 -3 5 --local -x /data/reference/index/bowtie/mm10 -U SRR620209.fast
 
 <h2 id="call-peaks">call peaks</h2>
 
-<pre><code>nohup macs2 callpeak -c ../IgGold.bam -t ../suz12.bam -m 10 30 -p 1e-5 -f BAM -g mm -n suz12 2&gt;suz12.masc2.log &amp;
-nohup macs2 callpeak -c ../IgGold.bam -t ../ring1B.bam -m 10 30 -p 1e-5 -f BAM -g mm -n ring1B 2&gt;ring1B.masc2.log &amp;
-nohup macs2 callpeak -c ../IgG.bam -t ../cbx7.bam -m 10 30 -p 1e-5 -f BAM -g mm -n cbx7 2&gt;cbx7.masc2.log &amp;
-nohup macs2 callpeak -c ../IgG.bam -t ../RYBP.bam -m 10 30 -p 1e-5 -f BAM -g mm -n RYBP 2&gt;RYBP.masc2.log &amp;
+<pre><code class="language-bash">##参数解释
+##-m 建立“双峰模型”用到，默认就算10 30，-p p-value 大于 1e-5，
+##-f 文件来源是bam格式，-g 基因组大小是小鼠的（代号mm），-n 起名字的话叫 cbx7 
+nohup macs2 callpeak -c IgGold.bam -t suz12.bam -m 10 30 -p 1e-5 -f BAM -g mm -n suz12 2&gt;suz12.masc2.log &amp;
+nohup macs2 callpeak -c IgGold.bam -t ring1B.bam -m 10 30 -p 1e-5 -f BAM -g mm -n ring1B 2&gt;ring1B.masc2.log &amp;
+nohup macs2 callpeak -c IgG.bam -t cbx7.bam -m 10 30 -p 1e-5 -f BAM -g mm -n cbx7 2&gt;cbx7.masc2.log &amp;
+nohup macs2 callpeak -c IgG.bam -t RYBP.bam -m 10 30 -p 1e-5 -f BAM -g mm -n RYBP 2&gt;RYBP.masc2.log &amp;
+</code></pre>
+
+<h2 id="bam转换成bw文件">bam转换成bw文件</h2>
+
+<pre><code class="language-bash">ls *.bam |while read id; do samtools index $id $id.bai; done
+ls *bam |while read id
+do 
+  file=$(basename $id )
+  sample=${file%%.*}
+  echo $sample
+  bamCoverage -b $id -o $sample.bw ## 这里有个参数，-p 10 --normalizeUsingRPKM
+  computeMatrix reference-point --referencePoint TSS -b 10000 -a 10000 -R /data/reference/annotation/ChIPSeq/mm10/ucsc.refseq.bed -S $sample.bw --skipZeros -o matrix1_${sample}_TSS.gz --outFileSortedRegions regions1_${sample}_genes.bed
+  plotHeatmap -m matrix1_${sample}_TSS.gz -out ${sample}.png
+done
+</code></pre>
+
+<p>结果文件不只是上述提到的一类，还有如下格式：</p>
+
+<ul>
+<li>NAMEpeaks.xls: 以表格形式存放peak信息，虽然后缀是xls，但其实能用文本编辑器打开，和bed格式类似，但是以1为基，而bed文件是以0为基.也就是说xls的坐标都要减一才是bed文件的坐标</li>
+<li>NAMEpeaks.narrowPeak NAMEpeaks.broadPeak 类似。后面4列表示为， integer score for display， fold-change，-log10pvalue，-log10qvalue，relative summit position to peak start。内容和NAMEpeaks.xls基本一致，适合用于导入R进行分析。</li>
+<li>NAMEsummits.bed：记录每个peak的peak summits，话句话说就是记录极值点的位置。MACS建议用该文件寻找结合位点的motif。</li>
+<li>NAMEmodel.r，能通过$ Rscript NAME_model.r作图，得到是基于你提供数据的peak模型</li>
+</ul>
+
+<h2 id="计算peak数">计算peak数</h2>
+
+<pre><code class="language-bash">wc -l *summits.bed
+</code></pre>
+
+<p>下载原作者的peak数据,可以用于分析结果比较</p>
+
+<pre><code class="language-bash">wget ftp://ftp.ncbi.nlm.nih.gov/geo/series/GSE42nnn/GSE42466/suppl/GSE42466_RYBP_peaks_5.txt.gz
+gzip -d GSE42466_RYBP_peaks_5.txt.gz
+mv GSE42466_RYBP_peaks_5.txt RYBP2_summits.bed
+</code></pre>
+
+<h2 id="整合所有的chipseq的bam文件-画基因的tss附近的profile和heatmap图">整合所有的chipseq的bam文件，画基因的TSS附近的profile和heatmap图</h2>
+
+<pre><code class="language-bash">computeMatrix reference-point -p 10 --referencePoint TSS -b 2000 -a 2000 -S *bw -R /data/reference/annotation/ChIPSeq/mm10/ucsc.refseq.bed --skipZeros -o tmp4.mat.gz
+plotHeatmap -m tmp4.mat.gz -out tmp4.merge.png
+plotProfile --dpi 720 -m tmp4.mat.gz -out tmp4.profile.pdf --plotFileFormat pdf --perGroup
+plotHeatmap --dpi 720 -m tmp4.mat.gz -out tmp4.merge.pdf --plotFileFormat pdf
+</code></pre>
+
+<h2 id="整合所有的chipseq的bam文件-画基因的genebody附近的profile和heatmap图">整合所有的chipseq的bam文件，画基因的genebody附近的profile和heatmap图</h2>
+
+<pre><code class="language-bash">computeMatrix scale-regions -p 10 -S *bw -R /data/reference/annotation/ChIPSeq/mm10/ucsc.refseq.bed -b 3000 -a 3000 -m 5000 --skipZeros -o tmp5.mat.gz
+plotHeatmap -m tmp5.mat.gz -out tmp5.merge.png
+plotProfile --dpi 720 -m tmp5.mat.gz -out tmp5.profile.pdf --plotFileFormat pdf --perGroup
+plotHeatmap --dpi 720 -m tmp5.mat.gz -out tmp5.merge.pdf --plotFileFormat pdf
+</code></pre>
+
+<h1 id="结果注释与可视化">结果注释与可视化</h1>
+
+<p>ChIPseeker R package的功能分为三类:</p>
+
+<ul>
+<li>注释：提取peak附近最近的基因， 注释peak所在区域</li>
+<li>比较：估计ChIP peak数据集中重叠部分的显著性；整合GEO数据集，以便于将当前结果和已知结果比较</li>
+<li>可视化： peak的覆盖情况；TSS区域结合的peak的平均表达谱和热图；基因组注释；TSS距离；peak和基因的重叠。</li>
+</ul>
+
+<pre><code class="language-r">source (&quot;https://bioconductor.org/biocLite.R&quot;)
+biocLite(&quot;ChIPseeker&quot;)
+biocLite(&quot;org.Mm.eg.db&quot;)
+biocLite(&quot;TxDb.Mmusculus.UCSC.mm10.knownGene&quot;)
+biocLite(&quot;clusterProfiler&quot;)
+biocLite(&quot;ReactomePA&quot;)
+biocLite(&quot;DOSE&quot;)
+
+library(&quot;ChIPseeker&quot;)
+library(&quot;org.Mm.eg.db&quot;)
+library(&quot;TxDb.Mmusculus.UCSC.mm10.knownGene&quot;)
+txdb &lt;- TxDb.Mmusculus.UCSC.mm10.knownGene
+library(&quot;clusterProfiler&quot;)
+
+#读入bed文件
+ring1B &lt;- readPeakFile(&quot;F:/Chip-seq_exercise/ring1B_peaks.narrowPeak&quot;)
+#查看peak在全基因组的位置
+covplot(ring1B)##全基因组
+covplot(ring1B,chrs=c(&quot;chr17&quot;, &quot;chr18&quot;))   #指定染色体
+
+#Average Profile of ChIP peaks binding to TSS region
+#(Confidence interval estimated by bootstrap method)
+plotAvgProf(tagMatrix, xlim=c(-3000, 3000), conf = 0.95, resample = 1000)
+</code></pre>
+
+<p><strong>peak的注释</strong></p>
+
+<p>peak的注释用annotatePeak()函数，</p>
+
+<ul>
+<li>TSS (transcription start site) region 可以自己设定，默认是（-3000，3000），</li>
+<li>TxDb 是指某个物种的基因组，例如TxDb.Hsapiens.UCSC.hg38.knownGene, TxDb.Hsapiens.UCSC.hg19.knownGene for human genome hg38 and hg19, TxDb.Mmusculus.UCSC.mm10.knownGene and TxDb.Mmusculus.UCSC.mm9.knownGene for mouse mm10 and mm9.</li>
+</ul>
+
+<pre><code class="language-r">peakAnno &lt;- annotatePeak(ring1B, tssRegion=c(-3000, 3000),
+TxDb=txdb, annoDb=&quot;org.Mm.eg.db&quot;)
+#可视化 Pie and Bar plot
+plotAnnoBar(peakAnno)
+vennpie(peakAnno)
+upsetplot(peakAnno)
+
+#可视化TSS区域的TF binding loci
+plotDistToTSS(peakAnno,
+title=&quot;Distribution of transcription factor-binding loci\nrelative to TSS&quot;)
+
+</code></pre>
+
+<p><strong>多个peak的比较</strong></p>
+
+<p>多个peak set注释时，先构建list,然后用lapply.list(name1=bed<em>file1,name2=bed</em>file2) RYBP的数据有问题，这里加上去，会一直报错。</p>
+
+<pre><code>peaks &lt;- list(cbx7=cbx7,ring1B=ring1B,suz12=suz12)
+promoter &lt;- getPromoters(TxDb=txdb, upstream=3000, downstream=3000)
+tagMatrixList &lt;- lapply(peaks, getTagMatrix, windows=promoter)
+plotAvgProf(tagMatrixList, xlim=c(-3000, 3000))
+plotAvgProf(tagMatrixList, xlim=c(-3000, 3000), conf=0.95,resample=500, facet=&quot;row&quot;)
+tagHeatmap(tagMatrixList, xlim=c(-3000, 3000), color=NULL)
+
+#ChIP peak annotation comparision
+peakAnnoList &lt;- lapply(peaks, annotatePeak, TxDb=txdb,
+tssRegion=c(-3000, 3000), verbose=FALSE)
+plotAnnoBar(peakAnnoList)
+plotDistToTSS(peakAnnoList)
+
+#Overlap of peaks and annotated genes
+genes= lapply(peakAnnoList, function(i) as.data.frame(i)$geneId)
+vennplot(genes)
 </code></pre>
 
 
@@ -147,7 +351,7 @@ nohup macs2 callpeak -c ../IgG.bam -t ../RYBP.bam -m 10 30 -p 1e-5 -f BAM -g mm 
   
 <nav class="post-nav">
   <span class="nav-prev">&larr; <a href="/blog/cn/2017/11/markdown_rmarkdown_shiny/">Markdown&#43;Rmarkdown&#43;Shiny手册</a></span>
-  <span class="nav-next"><a href="/blog/cn/2017/11/humanmethylation450/">甲基化450k芯片</a> &rarr;</span>
+  <span class="nav-next"><a href="/blog/cn/2017/11/humanmethylation450_850k/">DNA Methylation甲基化450k,850k芯片</a> &rarr;</span>
 </nav>
 
 

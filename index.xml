@@ -10,29 +10,52 @@
     <atom:link href="/blog/" rel="self" type="application/rss+xml" />
     
     <item>
-      <title>甲基化450k芯片</title>
-      <link>/blog/cn/2017/11/humanmethylation450/</link>
+      <title>DNA Methylation甲基化450k,850k芯片</title>
+      <link>/blog/cn/2017/11/humanmethylation450_850k/</link>
       <pubDate>Tue, 07 Nov 2017 23:39:50 +0000</pubDate>
       
-      <guid>/blog/cn/2017/11/humanmethylation450/</guid>
+      <guid>/blog/cn/2017/11/humanmethylation450_850k/</guid>
       <description>
         
 
-&lt;p&gt;&lt;a href=&#34;http://www.biotrainee.com/thread-237-1-1.html&#34;&gt;原文&lt;/a&gt;&lt;/p&gt;
-
-&lt;h1 id=&#34;illumina-humanmethylation450-beadchip-甲基化450k芯片-简介&#34;&gt;Illumina HumanMethylation450 BeadChip （甲基化450k芯片）简介&lt;/h1&gt;
+&lt;h1 id=&#34;illumina-humanmethylation-beadchip简介&#34;&gt;Illumina HumanMethylation BeadChip简介&lt;/h1&gt;
 
 &lt;p&gt;Illumina最早的甲基化芯片是27K（K代表1000，表示大概可以测到的CpG位点数）的数据，后来增加到了450K（主流的甲基化芯片），而目前illumina已经出了新一代产品EPIC（我习惯称之为850K），但是技术核心在450K已经成熟了，所以分析流程这里以450K为主（也是目前数据库主流的甲基化芯片数据）。&lt;/p&gt;
 
-&lt;h1 id=&#34;芯片&#34;&gt;芯片&lt;/h1&gt;
+&lt;p&gt;&lt;strong&gt;芯片&lt;/strong&gt;&lt;/p&gt;
 
-&lt;p&gt;一张芯片包括12个array（如图显示），也就是一张芯片可以做12个sample，一台机子一次可以跑8张芯片，也就是一共96个sample，每个样本可以测到超过450，000个CpG位点的甲基化信息（大概人所有的1%，但是覆盖了多数CpG岛和启动子区），芯片本身包含一些控制探针可以做质控。&lt;/p&gt;
+&lt;p&gt;一张芯片包括12个array，也就是一张芯片可以做12个sample，一台机子一次可以跑8张芯片，也就是一共96个sample，每个样本可以测到超过450，000个CpG位点的甲基化信息（大概人所有甲基化位点的1%，但是覆盖了多数CpG岛和启动子区），芯片本身包含一些控制探针可以做质控。&lt;/p&gt;
 
-&lt;h1 id=&#34;原理&#34;&gt;原理&lt;/h1&gt;
+&lt;p&gt;&lt;strong&gt;原理&lt;/strong&gt;&lt;/p&gt;
 
 &lt;p&gt;简而言之，基于亚硫酸盐处理后的DNA序列杂交的信号探测。亚硫酸盐是甲基化探测的“金标准”，不管是芯片或者甲基化测序，都要先对DNA样品进行亚硫酸盐处理，使非甲基化的C变成U，而甲基化的C保持不变，从而在后续的测序或者杂交后区分出来。450K采用了两种探针对甲基化进行测定，Infinium I采用了两种bead（甲基化M和非甲基化U，如图显示），而II只有一种bead（即甲基化和非甲基化在一起），这也导致了它们在后续荧光探测的不同，450K采用了两种荧光探测信号（红光和绿光）。&lt;/p&gt;
 
-&lt;h1 id=&#34;分析需要考虑的问题&#34;&gt;分析需要考虑的问题&lt;/h1&gt;
+&lt;p&gt;&lt;img src=&#34;https://taoshengxu.github.io/DocumentGit/img/DNA_methylation1.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;DNA甲基化指的是包裹在DNA上CG碱基（又叫CpG）的外周的一些蛋白发生变化，进而导致基因或者一些调控因子的表达出现变化，进而导致那些基因或者调控因子控制的表型出现变化，进而导致疾病或者差异的发生。DNA甲基化被认为是表观遗传调控的一种方式，如Cytosine methylation (5-mC)是研究最多的，被认为是哺乳动物中常见的甲基化方式, 最近有一些研究也发现了其他形式的甲基化，如2016年Nature上发表了一篇关于鼠的胚胎干细胞的m6A（N6-methyladenine）形式的甲基化。DAN甲基化被认为对基因表达，染色质重塑，细胞分化，疾病等都有重要影响。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://taoshengxu.github.io/DocumentGit/img/DNA_methylation2.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;甲基化的检测方法&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;目前甲基化检测的方法可以概括为三种：芯片、测序、免疫沉淀。具体选择何种方法主要还是根据实验目的和实验室条件了。但目前来说，甲基化芯片技术从覆盖度，检测灵敏度和价格综合考虑，还是性价比相对高。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://taoshengxu.github.io/DocumentGit/img/DNA_methylation3.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;甲基化芯片常见的Glossary&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;CpG island: Defned as regions 500 bp, 55% GC and expected/observed CpG ratio of 0.65. 40% of gene promoters contain islands.&lt;/li&gt;
+&lt;li&gt;CpG shelves: ~4Kb from islands.&lt;/li&gt;
+&lt;li&gt;CpG shores: ~2Kb from islands, 75% of tissuespecifc differentially methylated regions found in shores. Methylation in shores shows higher correlation with gene expression than CpG islands.&lt;/li&gt;
+&lt;li&gt;Differentially methylated regions (DMR): Cell-, tissue-, and condition- specifc differences in methylation.&lt;/li&gt;
+&lt;li&gt;Enhancer: A short region of DNA that can activate transcription and is often regulated by methylation.&lt;/li&gt;
+&lt;li&gt;Hypermethylation: Most cytosines are methylated. Hypomethylation: Most cytosines do not have 5-mC. Euchromatin and active gene promoters are hypomethylated.&lt;/li&gt;
+&lt;li&gt;Beta value:通常的甲基化衡量方法被称为“Beta”值; 等于甲基化百分比，并定义为“Meth”除以“Meth + Unmeth”。&lt;/li&gt;
+&lt;li&gt;CGI: CpG island 即甲基化岛。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;分析需要考虑的问题&lt;/strong&gt;&lt;/p&gt;
 
 &lt;ol&gt;
 &lt;li&gt;背景校正&lt;/li&gt;
@@ -48,7 +71,7 @@
 文献：&lt;a href=&#34;http://bmcgenomics.biomedcentral.com/articles/10.1186/1471-2164-15-51&#34;&gt;http://bmcgenomics.biomedcentral.com/articles/10.1186/1471-2164-15-51&lt;/a&gt;&lt;/li&gt;
 &lt;/ol&gt;
 
-&lt;h1 id=&#34;数据处理&#34;&gt;数据处理&lt;/h1&gt;
+&lt;p&gt;&lt;strong&gt;数据处理&lt;/strong&gt;&lt;/p&gt;
 
 &lt;ol&gt;
 &lt;li&gt;GenomeStudio
@@ -56,11 +79,31 @@ GS是illumina开发的软件，基于图形界面的操作处理，适合于没�
 &lt;li&gt;基于R和bioconductor的pipeline&lt;br /&gt;
 bioconductor里开发了很多package供大家使用，如果你会R，那么处理这个甲基化芯片的数据将变得简单。
 可以处理450K芯片的package有lumi、minfi、wateRmelon、ChAMP等，没有哪一种就特别好，大家都在不断改进，所以只要你知道大概的流程和需要注意的问题，那么你也可以自己写代码处理，只是package可以帮你省很多事情。下边我会附上我的处理流程图和详解，还有我的代码，我的代码是基于minfi的，我再次强调，代码只是手段，你可以用其他的package（例如我的同事很多使用ChAMP），也许会更好。&lt;/li&gt;
-&lt;li&gt;流程图：&lt;/li&gt;
 &lt;/ol&gt;
 
-&lt;p&gt;流程图详解：我们一般下载或者iscan后的原始数据格式为Idat，首先可以得到每个sample的每个probe的p值和bead数，根据p值和bead数可以进行样本和探针的过滤，过滤之后需要用BMIQ的方法进行I和II型探针的校正，矫正之后去掉那些包含snp之类的不好的探针，最后对数据做batch的校正。校正之后的数据就是预处理后的数据了，可以用于更下游的分析，如差异甲基化和甲基化与表达的关联分析等。
-我的代码： &lt;a href=&#34;https://github.com/wkl1990/illumina-450K-analysis，再次强调，我的代码并不完美，如果有bug，请告诉我修改，构建你自己的代码，让自己敲起来。&#34;&gt;https://github.com/wkl1990/illumina-450K-analysis，再次强调，我的代码并不完美，如果有bug，请告诉我修改，构建你自己的代码，让自己敲起来。&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://taoshengxu.github.io/DocumentGit/img/DNA_methylation4.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;流程图详解：&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;蓝色部分代表的是有关于数据的准备部分&lt;/li&gt;
+&lt;li&gt;红色部分代表的是数据分析部分&lt;/li&gt;
+&lt;li&gt;黄色部门代表数据可视化部分&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;箭头指示了分析流程，首先是load数据，然后是QC（quality control），然后是normalization，然后是SVD分析（看有没有batch effect）。准备完毕之后，黑点代表了一批质量有保证，经过处理，可以直接上马进行数据分析的数据了。之后的分析，DMP代表找出Differential Methylation Probe（差异化CpG位点），DMR代表找出Differential Methylation Region（差异化CpG区域），Block代表Differential Methylation Block（更大范围的差异化region区域），RefFree代表细胞差异被修正过后再找的DMP，EpiMod是基于基因作用网络的差异化分析。&lt;/p&gt;
+
+&lt;p&gt;我们一般下载或者iscan后的原始数据格式为Idat，首先可以得到每个sample的每个probe的p值和bead数，根据p值和bead数可以进行样本和探针的过滤，过滤之后需要用BMIQ的方法进行I和II型探针的校正，矫正之后去掉那些包含snp之类的不好的探针，最后对数据做batch的校正。校正之后的数据就是预处理后的数据了，可以用于更下游的分析，如差异甲基化和甲基化与表达的关联分析等。
+我的代码： &lt;a href=&#34;https://github.com/wkl1990/illumina-450K-analysis&#34;&gt;https://github.com/wkl1990/illumina-450K-analysis&lt;/a&gt; 。&lt;/p&gt;
+
+&lt;h1 id=&#34;数据分析&#34;&gt;数据分析&lt;/h1&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;a href=&#34;http://www.biotrainee.com/thread-237-1-1.html&#34;&gt;Illumina HumanMethylation450 BeadChip甲基化450k芯片预处理初探&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://www.bio-info-trainee.com/2823.html&#34;&gt;850K甲基化芯片数据的分析&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://bioconductor.org/packages/release/bioc/vignettes/ChAMP/inst/doc/ChAMP.html&#34;&gt;Bioconductor ChAMP包&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://blog.csdn.net/joshua_hit/article/details/54982018&#34;&gt;Shiny和Plotly实现可交互DNA甲基化分析包ChAMP&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
 
         
       </description>
@@ -75,22 +118,109 @@ bioconductor里开发了很多package供大家使用，如果你会R，那么处
       <description>
         
 
+&lt;script type=&#34;text/javascript&#34; src=&#34;http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML&#34;&gt;&lt;/script&gt;
+
 &lt;p&gt;这是一个学习笔记，跟随生信技能树的学习笔记重复,把几个优秀笔记的内容重复摘录在此。&lt;/p&gt;
 
 &lt;p&gt;&lt;a href=&#34;http://www.biotrainee.com/thread-2013-1-1.html&#34;&gt;学习提纲&lt;/a&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;a href=&#34;https://www.ncbi.nlm.nih.gov/pubmed/23273917&#34;&gt;文章链接&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://mp.weixin.qq.com/s?__biz=MzAxMDkxODM1Ng==&amp;amp;mid=2247485198&amp;amp;idx=1&amp;amp;sn=bfb419c568723c5c121e017b2e265d2f&amp;amp;chksm=9b4847b5ac3fcea303e986c17e19b3750dc145f23a8e18daa74c5de704d4a203f8ba08bed651&amp;amp;mpshare=1&amp;amp;scene=1&amp;amp;srcid=1103lRh7ZlI9oD2bGJJhvqlh#rd&#34;&gt;优秀学习笔记&lt;/a&gt; &lt;a href=&#34;http://www.bio-info-trainee.com/2773.html&#34;&gt;链接2&lt;/a&gt;&lt;/p&gt;
+
+&lt;h1 id=&#34;chip-seq介绍&#34;&gt;ChIP-Seq介绍&lt;/h1&gt;
+
+&lt;h2 id=&#34;1-了解基础知识&#34;&gt;1.了解基础知识&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;peak calling的统计学原理 &lt;a href=&#34;http://www.plob.org/2014/05/08/7227.html&#34;&gt;http://www.plob.org/2014/05/08/7227.html&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;根据比对的bam文件来对peaks区域可视化 &lt;a href=&#34;http://www.bio-info-trainee.com/1843.html&#34;&gt;http://www.bio-info-trainee.com/1843.html&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;wig、bigWig和bedgraph文件详解 &lt;a href=&#34;http://www.bio-info-trainee.com/1815.html&#34;&gt;http://www.bio-info-trainee.com/1815.html&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;2-文章综述&#34;&gt;2.文章综述&lt;/h2&gt;
+
+&lt;p&gt;ChIP-seq guidelines and practices of the ENCODE and modENCODE consortia. &lt;a href=&#34;https://www.ncbi.nlm.nih.gov/pubmed/22955991&#34;&gt;https://www.ncbi.nlm.nih.gov/pubmed/22955991&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;3-chip-seq测序的统计学原理&#34;&gt;3.Chip-Seq测序的统计学原理&lt;/h2&gt;
+
+&lt;p&gt;TF在基因组上的结合其实是一个随机过程，基因组的每个位置其实都有机会结合某个TF，只是概率不一样，说白了，peak出现的位置，是TF结合的热点，而peak-calling就是为了找到这些热点。&lt;/p&gt;
+
+&lt;p&gt;如何定义热点呢？通俗地讲，热点是这样一些位置，这些位置多次被测得的read所覆盖（我们测的是一个细胞群体，read出现次数多，说明该位置被TF结合的几率大）。那么，read数达到多少才叫多？这就要用到统计检验喽。假设TF在基因组上的分布是没有任何规律的，那么，测序得到的read在基因组上的分布也必然是随机的，某个碱基上覆盖的read的数目应该服从二项分布。这其实和高中大学课本上抽小球的过程是类似的。当n很大，p很小时，二项分布可以近似用泊松分布替代。&lt;/p&gt;
+
+&lt;p&gt;$$\lambda=n \ast p, p=\frac{l}{s}$$&lt;/p&gt;
+
+&lt;p&gt;\(\lambda\)是泊松分布唯一的参数，n是测序得到的read总数目，l是单个read的长度，s是基因组的大小。有了分布，我们可以算出在某个置信概率（如0.00001）下，随机情况下，某个碱基上可以覆盖的read的数目的最小值，当实际观察到的read数目超过这个值（单侧检验）时，我们认为该碱基是TF的一个结合热点。反过来，针对每一个read数目，我们也可以算出对应的置信概率P。
+但是，这只是一个简化的模型，实际情况要复杂好多。比如，由于测序、mapping过程内在的偏好性，以及不同染色质间的差异性，相比全基因组，某些碱基可能内在地会被更多的read所覆盖，这种情况得到的很多peak可能都是假的。MACS考虑到了这一点，当对某个碱基进行假设检验时，MACS只考虑该碱基附近的染色质区段（如10k），此时，上述公式中n表示附近10k区间内的read数目，s被置为10k。当有对照组实验（Control，相比实验组，没有用抗体捕获TF，或用了一个通用抗体）存在时，利用Control组的数据构建泊松分布，当没有Control时，利用实验组，稍大一点的局部区间（比如50k）的数据构建泊松分布。
+这儿还有一个问题，read只是跟随着TF一起沉淀下来的DNA fragment的末端，read的位置并不是真实的TF结合的位置。所以在peak-calling之前，延伸read是必须的。不同TF大小不一样，对read延伸的长度也理应不同。我们知道，测得的read最终其实会近似地平均分配到正负链上，这样，对于一个TF结合热点而言，read在附近正负链上会近似地形成“双峰”。MACS会以某个window size扫描基因组，统计每个window里面read的富集程度，然后抽取（比如1000个）合适的（read富集程度适中，过少，无法建立模型，过大，可能反映的只是某种偏好性）window作样本，建立“双峰模型”。最后，两个峰之间的距离就被认为是TF的长度D，每个read将延伸D/2的长度。见下图：&lt;/p&gt;
+
+&lt;h2 id=&#34;4-chip-seq实验&#34;&gt;4.Chip-seq实验&lt;/h2&gt;
+
+&lt;p&gt;&lt;strong&gt;数据获取&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;将蛋白交联到DNA上。 也就是保证蛋白和DNA能够结合，找到互作位点。&lt;/li&gt;
+&lt;li&gt;通过超声波剪切DNA链。&lt;/li&gt;
+&lt;li&gt;加上附上抗体的磁珠用于免疫沉淀靶蛋白。抗体很重要&lt;/li&gt;
+&lt;li&gt;接触蛋白交联；纯化DNA&lt;/li&gt;
+&lt;li&gt;测序。&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;&lt;strong&gt;分析流程&lt;/strong&gt;：&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;质量控制, 用到的是FastQC&lt;/li&gt;
+&lt;li&gt;序列比对, Bowtie2或这BWA&lt;/li&gt;
+&lt;li&gt;peak calling，此处用的MACS&lt;/li&gt;
+&lt;li&gt;peak注释, 这里用的Y叔的ChIPseeker&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://taoshengxu.github.io/DocumentGit/img/ChIP-Seq.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
 
 &lt;h1 id=&#34;数据下载&#34;&gt;数据下载&lt;/h1&gt;
 
+&lt;p&gt;&lt;a href=&#34;https://www.ncbi.nlm.nih.gov/pubmed/23273917&#34;&gt;RYBP and Cbx7 define specific biological functions of polycomb complexes in mouse embryonic stem cells&lt;/a&gt;&lt;/p&gt;
+
 &lt;p&gt;&lt;a href=&#34;https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE42466&#34;&gt;https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE42466&lt;/a&gt;&lt;/p&gt;
 
-&lt;pre&gt;&lt;code class=&#34;language-shell&#34;&gt;for ((i=204;i&amp;lt;=209;i++)); do axel ftp://ftp-trace.ncbi.nlm.nih.gov/sra/sra-instant/reads/ByStudy/sra/SRP/SRP017/SRP017311/SRR620$i/SRR620$i.sra &amp;amp; done
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;for ((i=204;i&amp;lt;=209;i++))
+do
+ axel ftp://ftp-trace.ncbi.nlm.nih.gov/sra/sra-instant/reads/ByStudy/sra/SRP/SRP017/SRP017311/SRR620$i/SRR620$i.sra &amp;amp;
+done
 ls *sra |while read id; do fastq-dump –split-3 $id &amp;amp; done
- 
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;#软件安装&lt;/p&gt;
+&lt;p&gt;注意文件： 这里要注意是双端测序还是单端测序。&lt;/p&gt;
+
+&lt;p&gt;fastq-dump 转换sra文件成fastq/fasta 文件。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;pair-end: fastq-dump &amp;ndash;split-3 *.sra&lt;/li&gt;
+&lt;li&gt;single-end: fastq-dump *.sra 或者 fastq-dump &amp;ndash;fasta *sra&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&#34;下载参考基因组-建立bowtie2索引&#34;&gt;下载参考基因组,建立bowtie2索引&lt;/h1&gt;
+
+&lt;p&gt;索引可以自己build，也可以下载 &lt;a href=&#34;ftp://ftp.ccb.jhu.edu/pub/data/bowtie2_indexes/mm10.zip&#34;&gt;ftp://ftp.ccb.jhu.edu/pub/data/bowtie2_indexes/mm10.zip&lt;/a&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;mkdir -p  /data/reference/genome/mm10
+cd /data/reference/genome/mm10
+axel http://hgdownload.cse.ucsc.edu/goldenPath/mm10/bigZips/chromFa.tar.gz
+tar zvxf chromFa.tar.gz 
+cat *.fa &amp;gt; mm10.fa
+rm chr*.fa 
+
+mkdir -p /data/reference/index/bowtie
+cd /data/reference/index/bowtie
+nohup time bowtie2-build  /data/reference/genome/mm10/mm10.fa  /data/reference/index/bowtie/mm10 1&amp;gt;mm10.bowtie_index.log 2&amp;gt;&amp;amp;1 &amp;amp;
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;下载注释文件&#34;&gt;下载注释文件&lt;/h1&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://genome.ucsc.edu/cgi-bin/hgTables&#34;&gt;https://genome.ucsc.edu/cgi-bin/hgTables&lt;/a&gt;&lt;br /&gt;
+（参阅&lt;a href=&#34;http://www.bio-info-trainee.com/2136.html）&#34;&gt;http://www.bio-info-trainee.com/2136.html）&lt;/a&gt;
+&lt;img src=&#34;https://taoshengxu.github.io/DocumentGit/img/mm10_ucsc_refseq_bed.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;h1 id=&#34;软件安装&#34;&gt;软件安装&lt;/h1&gt;
 
 &lt;pre&gt;&lt;code&gt;conda install -c bioconda bowtie2
 conda install -c bioconda deeptools 
@@ -106,27 +236,11 @@ pip install MACS2
 
 &lt;p&gt;发现3端质量有点问题，我就用了-3 5&amp;ndash;local参数，&lt;/p&gt;
 
-&lt;h2 id=&#34;参考基因组下载-建立索引&#34;&gt;参考基因组下载,建立索引&lt;/h2&gt;
-
-&lt;pre&gt;&lt;code&gt;mkdir -p  /data/reference/genome/mm10
-cd /data/reference/genome/mm10
-axel http://hgdownload.cse.ucsc.edu/goldenPath/mm10/bigZips/chromFa.tar.gz
-tar zvxf chromFa.tar.gz 
-cat *.fa &amp;gt; mm10.fa
-rm chr*.fa 
-
-mkdir -p /data/reference/index/bowtie
-cd /data/reference/index/bowtie
-nohup time bowtie2-build  /data/reference/genome/mm10/mm10.fa  /data/reference/index/bowtie/mm10 1&amp;gt;mm10.bowtie_index.log 2&amp;gt;&amp;amp;1 &amp;amp;
-
-&lt;/code&gt;&lt;/pre&gt;
-
 &lt;h2 id=&#34;序列拼接&#34;&gt;序列拼接&lt;/h2&gt;
 
 &lt;p&gt;bowtie 短序列比对工具，用bowtie2软件把测序得到的fastq文件比对到mm10参考基因组上面&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;cd /data/ChIPSeq
-
 bowtie2 -p 6 -3 5 --local -x /data/reference/index/bowtie/mm10 -U SRR620204.fastq | samtools sort -O bam -o ring1B.bam
 bowtie2 -p 6 -3 5 --local -x /data/reference/index/bowtie/mm10 -U SRR620205.fastq | samtools sort -O bam -o cbx7.bam
 bowtie2 -p 6 -3 5 --local -x /data/reference/index/bowtie/mm10 -U SRR620206.fastq | samtools sort -O bam -o suz12.bam
@@ -137,10 +251,143 @@ bowtie2 -p 6 -3 5 --local -x /data/reference/index/bowtie/mm10 -U SRR620209.fast
 
 &lt;h2 id=&#34;call-peaks&#34;&gt;call peaks&lt;/h2&gt;
 
-&lt;pre&gt;&lt;code&gt;nohup macs2 callpeak -c ../IgGold.bam -t ../suz12.bam -m 10 30 -p 1e-5 -f BAM -g mm -n suz12 2&amp;gt;suz12.masc2.log &amp;amp;
-nohup macs2 callpeak -c ../IgGold.bam -t ../ring1B.bam -m 10 30 -p 1e-5 -f BAM -g mm -n ring1B 2&amp;gt;ring1B.masc2.log &amp;amp;
-nohup macs2 callpeak -c ../IgG.bam -t ../cbx7.bam -m 10 30 -p 1e-5 -f BAM -g mm -n cbx7 2&amp;gt;cbx7.masc2.log &amp;amp;
-nohup macs2 callpeak -c ../IgG.bam -t ../RYBP.bam -m 10 30 -p 1e-5 -f BAM -g mm -n RYBP 2&amp;gt;RYBP.masc2.log &amp;amp;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;##参数解释
+##-m 建立“双峰模型”用到，默认就算10 30，-p p-value 大于 1e-5，
+##-f 文件来源是bam格式，-g 基因组大小是小鼠的（代号mm），-n 起名字的话叫 cbx7 
+nohup macs2 callpeak -c IgGold.bam -t suz12.bam -m 10 30 -p 1e-5 -f BAM -g mm -n suz12 2&amp;gt;suz12.masc2.log &amp;amp;
+nohup macs2 callpeak -c IgGold.bam -t ring1B.bam -m 10 30 -p 1e-5 -f BAM -g mm -n ring1B 2&amp;gt;ring1B.masc2.log &amp;amp;
+nohup macs2 callpeak -c IgG.bam -t cbx7.bam -m 10 30 -p 1e-5 -f BAM -g mm -n cbx7 2&amp;gt;cbx7.masc2.log &amp;amp;
+nohup macs2 callpeak -c IgG.bam -t RYBP.bam -m 10 30 -p 1e-5 -f BAM -g mm -n RYBP 2&amp;gt;RYBP.masc2.log &amp;amp;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;bam转换成bw文件&#34;&gt;bam转换成bw文件&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;ls *.bam |while read id; do samtools index $id $id.bai; done
+ls *bam |while read id
+do 
+  file=$(basename $id )
+  sample=${file%%.*}
+  echo $sample
+  bamCoverage -b $id -o $sample.bw ## 这里有个参数，-p 10 --normalizeUsingRPKM
+  computeMatrix reference-point --referencePoint TSS -b 10000 -a 10000 -R /data/reference/annotation/ChIPSeq/mm10/ucsc.refseq.bed -S $sample.bw --skipZeros -o matrix1_${sample}_TSS.gz --outFileSortedRegions regions1_${sample}_genes.bed
+  plotHeatmap -m matrix1_${sample}_TSS.gz -out ${sample}.png
+done
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;结果文件不只是上述提到的一类，还有如下格式：&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;NAMEpeaks.xls: 以表格形式存放peak信息，虽然后缀是xls，但其实能用文本编辑器打开，和bed格式类似，但是以1为基，而bed文件是以0为基.也就是说xls的坐标都要减一才是bed文件的坐标&lt;/li&gt;
+&lt;li&gt;NAMEpeaks.narrowPeak NAMEpeaks.broadPeak 类似。后面4列表示为， integer score for display， fold-change，-log10pvalue，-log10qvalue，relative summit position to peak start。内容和NAMEpeaks.xls基本一致，适合用于导入R进行分析。&lt;/li&gt;
+&lt;li&gt;NAMEsummits.bed：记录每个peak的peak summits，话句话说就是记录极值点的位置。MACS建议用该文件寻找结合位点的motif。&lt;/li&gt;
+&lt;li&gt;NAMEmodel.r，能通过$ Rscript NAME_model.r作图，得到是基于你提供数据的peak模型&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;计算peak数&#34;&gt;计算peak数&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;wc -l *summits.bed
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;下载原作者的peak数据,可以用于分析结果比较&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;wget ftp://ftp.ncbi.nlm.nih.gov/geo/series/GSE42nnn/GSE42466/suppl/GSE42466_RYBP_peaks_5.txt.gz
+gzip -d GSE42466_RYBP_peaks_5.txt.gz
+mv GSE42466_RYBP_peaks_5.txt RYBP2_summits.bed
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;整合所有的chipseq的bam文件-画基因的tss附近的profile和heatmap图&#34;&gt;整合所有的chipseq的bam文件，画基因的TSS附近的profile和heatmap图&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;computeMatrix reference-point -p 10 --referencePoint TSS -b 2000 -a 2000 -S *bw -R /data/reference/annotation/ChIPSeq/mm10/ucsc.refseq.bed --skipZeros -o tmp4.mat.gz
+plotHeatmap -m tmp4.mat.gz -out tmp4.merge.png
+plotProfile --dpi 720 -m tmp4.mat.gz -out tmp4.profile.pdf --plotFileFormat pdf --perGroup
+plotHeatmap --dpi 720 -m tmp4.mat.gz -out tmp4.merge.pdf --plotFileFormat pdf
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;整合所有的chipseq的bam文件-画基因的genebody附近的profile和heatmap图&#34;&gt;整合所有的chipseq的bam文件，画基因的genebody附近的profile和heatmap图&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;computeMatrix scale-regions -p 10 -S *bw -R /data/reference/annotation/ChIPSeq/mm10/ucsc.refseq.bed -b 3000 -a 3000 -m 5000 --skipZeros -o tmp5.mat.gz
+plotHeatmap -m tmp5.mat.gz -out tmp5.merge.png
+plotProfile --dpi 720 -m tmp5.mat.gz -out tmp5.profile.pdf --plotFileFormat pdf --perGroup
+plotHeatmap --dpi 720 -m tmp5.mat.gz -out tmp5.merge.pdf --plotFileFormat pdf
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;结果注释与可视化&#34;&gt;结果注释与可视化&lt;/h1&gt;
+
+&lt;p&gt;ChIPseeker R package的功能分为三类:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;注释：提取peak附近最近的基因， 注释peak所在区域&lt;/li&gt;
+&lt;li&gt;比较：估计ChIP peak数据集中重叠部分的显著性；整合GEO数据集，以便于将当前结果和已知结果比较&lt;/li&gt;
+&lt;li&gt;可视化： peak的覆盖情况；TSS区域结合的peak的平均表达谱和热图；基因组注释；TSS距离；peak和基因的重叠。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;source (&amp;quot;https://bioconductor.org/biocLite.R&amp;quot;)
+biocLite(&amp;quot;ChIPseeker&amp;quot;)
+biocLite(&amp;quot;org.Mm.eg.db&amp;quot;)
+biocLite(&amp;quot;TxDb.Mmusculus.UCSC.mm10.knownGene&amp;quot;)
+biocLite(&amp;quot;clusterProfiler&amp;quot;)
+biocLite(&amp;quot;ReactomePA&amp;quot;)
+biocLite(&amp;quot;DOSE&amp;quot;)
+
+library(&amp;quot;ChIPseeker&amp;quot;)
+library(&amp;quot;org.Mm.eg.db&amp;quot;)
+library(&amp;quot;TxDb.Mmusculus.UCSC.mm10.knownGene&amp;quot;)
+txdb &amp;lt;- TxDb.Mmusculus.UCSC.mm10.knownGene
+library(&amp;quot;clusterProfiler&amp;quot;)
+
+#读入bed文件
+ring1B &amp;lt;- readPeakFile(&amp;quot;F:/Chip-seq_exercise/ring1B_peaks.narrowPeak&amp;quot;)
+#查看peak在全基因组的位置
+covplot(ring1B)##全基因组
+covplot(ring1B,chrs=c(&amp;quot;chr17&amp;quot;, &amp;quot;chr18&amp;quot;))   #指定染色体
+
+#Average Profile of ChIP peaks binding to TSS region
+#(Confidence interval estimated by bootstrap method)
+plotAvgProf(tagMatrix, xlim=c(-3000, 3000), conf = 0.95, resample = 1000)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;peak的注释&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;peak的注释用annotatePeak()函数，&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;TSS (transcription start site) region 可以自己设定，默认是（-3000，3000），&lt;/li&gt;
+&lt;li&gt;TxDb 是指某个物种的基因组，例如TxDb.Hsapiens.UCSC.hg38.knownGene, TxDb.Hsapiens.UCSC.hg19.knownGene for human genome hg38 and hg19, TxDb.Mmusculus.UCSC.mm10.knownGene and TxDb.Mmusculus.UCSC.mm9.knownGene for mouse mm10 and mm9.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;peakAnno &amp;lt;- annotatePeak(ring1B, tssRegion=c(-3000, 3000),
+TxDb=txdb, annoDb=&amp;quot;org.Mm.eg.db&amp;quot;)
+#可视化 Pie and Bar plot
+plotAnnoBar(peakAnno)
+vennpie(peakAnno)
+upsetplot(peakAnno)
+
+#可视化TSS区域的TF binding loci
+plotDistToTSS(peakAnno,
+title=&amp;quot;Distribution of transcription factor-binding loci\nrelative to TSS&amp;quot;)
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;多个peak的比较&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;多个peak set注释时，先构建list,然后用lapply.list(name1=bed&lt;em&gt;file1,name2=bed&lt;/em&gt;file2) RYBP的数据有问题，这里加上去，会一直报错。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;peaks &amp;lt;- list(cbx7=cbx7,ring1B=ring1B,suz12=suz12)
+promoter &amp;lt;- getPromoters(TxDb=txdb, upstream=3000, downstream=3000)
+tagMatrixList &amp;lt;- lapply(peaks, getTagMatrix, windows=promoter)
+plotAvgProf(tagMatrixList, xlim=c(-3000, 3000))
+plotAvgProf(tagMatrixList, xlim=c(-3000, 3000), conf=0.95,resample=500, facet=&amp;quot;row&amp;quot;)
+tagHeatmap(tagMatrixList, xlim=c(-3000, 3000), color=NULL)
+
+#ChIP peak annotation comparision
+peakAnnoList &amp;lt;- lapply(peaks, annotatePeak, TxDb=txdb,
+tssRegion=c(-3000, 3000), verbose=FALSE)
+plotAnnoBar(peakAnnoList)
+plotDistToTSS(peakAnnoList)
+
+#Overlap of peaks and annotated genes
+genes= lapply(peakAnnoList, function(i) as.data.frame(i)$geneId)
+vennplot(genes)
 &lt;/code&gt;&lt;/pre&gt;
 
         
@@ -594,6 +841,34 @@ support.print_func(&amp;quot;Runoob&amp;quot;)
 &lt;p&gt;Python 的 from 语句让你从模块中导入一个指定的部分到当前命名空间中。&lt;/p&gt;
 
 &lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;from fib import fibonacci
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;常用语句&#34;&gt;常用语句&lt;/h1&gt;
+
+&lt;h3 id=&#34;读文件&#34;&gt;读文件&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;try:
+    f = open(&#39;/path/to/file&#39;, &#39;r&#39;)
+    print(f.read())
+finally:
+    if f:
+        f.close()
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;#with语句来自动帮我们调用close()方法
+with open(&#39;/path/to/file&#39;, &#39;r&#39;) as f:
+    print(f.read())
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;for line in f.readlines():
+    print(line.strip()) # 把末尾的&#39;\n&#39;删掉
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;写文件&#34;&gt;写文件&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code&gt;with open(&#39;/Users/michael/test.txt&#39;, &#39;w&#39;) as f:
+    f.write(&#39;Hello, world!&#39;)
 &lt;/code&gt;&lt;/pre&gt;
 
         
