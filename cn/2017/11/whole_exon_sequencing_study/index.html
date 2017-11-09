@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <title>外显子测序数据分析学习笔记 - My Lives</title>
+    <meta property="og:title" content="外显子测序数据分析学习笔记 - My Lives">
+    
+
+    
+      
+    
+
+    
+
+    
+    
+
+
+<link href='//cdn.bootcss.com/highlight.js/9.12.0/styles/github.min.css' rel='stylesheet' type='text/css' />
+
+
+
+    <link rel="stylesheet" href="/blog/css/style.css" />
+    <link rel="stylesheet" href="/blog/css/fonts.css" />
+    <link rel="stylesheet" href="/blog/css/custom.css" />
+
+  </head>
+
+  
+  <body class="blog">
+    <header class="masthead">
+      <h1><a href="/blog/">My Lives</a></h1>
+
+
+
+      <nav class="menu">
+        <input id="menu-check" type="checkbox" />
+        <label id="menu-label" for="menu-check" class="unselectable">
+          <span class="icon close-icon">✕</span>
+          <span class="icon open-icon">☰</span>
+          <span class="text">Menu</span>
+        </label>
+        <ul>
+        
+        
+        <li><a href="/blog/">Home</a></li>
+        
+        <li><a href="/blog/en/">English</a></li>
+        
+        <li><a href="/blog/cn/">Chinese</a></li>
+        
+        <li><a href="/blog/travel/">Travel</a></li>
+        
+        
+        </ul>
+      </nav>
+    </header>
+
+    <article class="main">
+      <header class="title">
+      
+<h1>外显子测序数据分析学习笔记</h1>
+
+<h3>
+  2017-11-09</h3>
+<hr>
+
+
+      </header>
+
+
+
+
+
+<p><strong>学习提纲</strong>：</p>
+
+<p>（1）<a href="http://www.bio-info-trainee.com/2735.html">肿瘤全外显子测序数据分析流程</a> <a href="https://mp.weixin.qq.com/s?__biz=MzAxMDkxODM1Ng==&amp;mid=2247485033&amp;idx=1&amp;sn=eb9865b92879e20c4afe285aeb8dc73c&amp;chksm=9b4846d2ac3fcfc4e3f90c6ec8ff533494f3a43c502e3c8e842dafb7496db137c11434fccea4&amp;mpshare=1&amp;scene=1&amp;srcid=0922Ls8z5WWLuNh7ml25V20r#rd">微信连接</a></p>
+
+<p>（2）<a href="https://mp.weixin.qq.com/s?__biz=MzAxMDkxODM1Ng==&amp;mid=2247484873&amp;idx=1&amp;sn=e455578dfac51afece7adb21cb315a17&amp;chksm=9b484572ac3fcc6460b6b9bbb88306f73c399d8e7a96ad8bb472a179a8de518bc70e21a72b0b&amp;mpshare=1&amp;scene=1&amp;srcid=0819fvKioudGMT1TYHXwnXoG#rd">WES分析七步走</a></p>
+
+<p><a href="http://blog.csdn.net/zhu_si_tao/article/details/53321374">GATK流程</a></p>
+
+<p>WES数据分析步骤：A Survey of Computational Tools to Analyze and Interpret Whole Exome Sequencing Data(2016)</p>
+
+<h1 id="数据下载">数据下载</h1>
+
+<p><a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4812767/">Whole-exome sequencing identifies MST1R as a genetic susceptibility gene in nasopharyngeal carcinoma</a></p>
+
+<p>We sequenced the blood samples from 161 NPC cases, including 39 EAO cases, 63 FH+ cases from 52 independent families, and 59 sporadic cases by WES and achieved an average coverage of 49-fold on target (range of 32- to 76-fold). An additional 2,160 NPC cases and 2,433 healthy controls from Hong Kong were further examined for the selected candidate variants. <strong>GEO Accession ID SRA291701</strong></p>
+
+<p>挑选5个样本进行分析 npc.sra.txt</p>
+
+<pre><code>SRX445405    MALE    NPC15   SRR1139956  NPC15F  NO  SRS540548   NPC15F-T
+SRX445406    MALE    NPC15   SRR1139958  NPC15F  NO  SRS540549   NPC15F-N
+SRX445407    MALE    NPC29   SRR1139966  NPC29F  YES SRS540550   NPC29F-T
+SRX445408    MALE    NPC29   SRR1139973  NPC29F  YES SRS540551   NPC29F-N
+SRX445409    FEMALE  NPC10   SRR1139999  NPC10F  NO  SRS540552   NPC10F-T
+SRX445410    FEMALE  NPC10   SRR1140007  NPC10F  NO  SRS540553   NPC10F-N
+SRX445411    FEMALE  NPC34   SRR1140015  NPC34F  NO  SRS540554   NPC34F-T
+SRX445412    FEMALE  NPC34   SRR1140023  NPC34F  NO  SRS540555   NPC34F-N
+SRX445413    MALE    NPC37   SRR1140044  NPC37F  YES SRS540556   NPC37F-T
+SRX445414    MALE    NPC37   SRR1140045  NPC37F  YES SRS540557   NPC37F-N
+</code></pre>
+
+<pre><code class="language-bash">cat npc.sra.txt | cut -f 4| while read id
+# or cut -f 4 npc.sra.txt | while read id
+do echo $id
+axel ftp://ftp-trace.ncbi.nlm.nih.gov/sra/sra-instant/reads/ByStudy/sra/SRP/SRP035/SRP035573/$id/$id.sra &amp;
+done
+</code></pre>
+
+<pre><code class="language-bash">cat npc.sra.txt | while read id
+do
+array=($id)
+echo  ${array[3]}.sra  ${array[7]} fastq-dump --gzip --split-3 -A \  
+   ${array[7]}  ${array[3]}.sra 
+done 
+</code></pre>
+
+<p>刚刚开始没搞清楚，这个太难了，学了好像暂时也没啥好用的，数据、资料收集到这里，以后有空再学习吧，数据太大了，浪费空间和电费了。</p>
+
+
+  <footer>
+  
+<nav class="post-nav">
+  <span class="nav-prev">&larr; <a href="/blog/cn/2017/11/humanmethylation450_850k/">DNA Methylation甲基化450k,850k芯片</a></span>
+  <span class="nav-next"></span>
+</nav>
+
+
+
+
+
+<script src="//yihui.name/js/math-code.js"></script>
+<script async src="//cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+<script async src="//yihui.name/js/center-img.js"></script>
+
+  
+
+
+
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+
+
+
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/r.min.js"></script>
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/yaml.min.js"></script>
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/tex.min.js"></script>
+<script>hljs.configure({languages: []}); hljs.initHighlightingOnLoad();</script>
+
+
+
+  
+  <hr>
+  <div class="copyright">&copy; <a href="xxxx">Who care</a> 2017 - Forever, maybe</div>
+  
+  </footer>
+  </article>
+  
+  </body>
+</html>
+
