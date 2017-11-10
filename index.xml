@@ -1220,7 +1220,7 @@ map{
     </item>
     
     <item>
-      <title>转录组分析笔记(Mine)</title>
+      <title>转录组分析笔记</title>
       <link>/blog/cn/2017/11/transcriptome_analysis/</link>
       <pubDate>Sun, 05 Nov 2017 09:34:39 +0000</pubDate>
       
@@ -1278,7 +1278,7 @@ ls *gz | while read id; do fastqc -t 4 $id; done
 multiqc *fastqc.zip --pdf
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;&lt;strong&gt;Python脚本QC汇总&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Python质控脚本&lt;/strong&gt;&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;import re
 import zipfile
