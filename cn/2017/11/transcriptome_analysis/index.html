@@ -74,10 +74,6 @@
 
 
 
-<p><a href="http://www.biotrainee.com/thread-1376-1-1.html">Jimmy直播我的基因组分析 - 目录</a></p>
-
-<h2 id="https-taoshengxu-github-io-documentgit-img-rnaseq-wes-jpeg"><img src="https://taoshengxu.github.io/DocumentGit/img/RNASeq_WES.jpeg" alt="" /></h2>
-
 <p>这是一个学习笔记，跟随生信技能树的学习笔记重复,把几个优秀笔记的内容重复摘录在此。</p>
 
 <p><strong>学习提纲</strong>：<a href="http://www.biotrainee.com/thread-1750-1-1.html">RNA-seq基础入门传送门</a></p>
@@ -405,7 +401,7 @@ All reviews so far have shown it to be an inferior scale for DE analysis of gene
 还有人引用了一篇文献 IVT-seq reveals extreme bias in RNA-sequencing 证明不同文库的RNA-Seq结果会存在很大差异。
 结论： 可以问下原作者他们是如何处理数据的，居然有一个居然没有重复的分析也能过审。改用小鼠数据进行分析。或者使用无重复的分析方法，或者模拟一份数据出来，先把流程走完。</p>
 
-<h1 id="panda姐实践代码">PANDA姐实践代码</h1>
+<h1 id="panda实践完整代码">PANDA实践完整代码</h1>
 
 <pre><code class="language-bash">##1.SRA to fastq
 
@@ -511,7 +507,7 @@ wc -l Homo_sapiens*.count
 head -n 4 Homo_sapiens*.count
 
 
-perl -lne 'if($ARGV=Homo_sapiens_(.*).count/){print &quot;$1\t$_&quot;}' *|grep -v Homo_sapiens&gt;hg.count
+perl -lne 'if($ARGV=~/Homo_sapiens_(.*)count/){print &quot;$1\t$_&quot;}' *|grep -v Homo_sapiens&gt;hg1.count
 # 先把所有文件进行合并
 setwd(&quot;~/rna_seq/work/matrix&quot;)
 hg &lt;- read.csv(file = &quot;hg.count&quot;,header = F,sep = &quot;\t&quot;)

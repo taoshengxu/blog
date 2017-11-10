@@ -10,6 +10,123 @@
     <atom:link href="/blog/" rel="self" type="application/rss+xml" />
     
     <item>
+      <title>Jimmy 直播基因组学习笔记</title>
+      <link>/blog/cn/2017/11/genomic_live_streaming/</link>
+      <pubDate>Fri, 10 Nov 2017 20:34:59 +0000</pubDate>
+      
+      <guid>/blog/cn/2017/11/genomic_live_streaming/</guid>
+      <description>
+        
+
+&lt;p&gt;&lt;strong&gt;教程&lt;/strong&gt; &lt;a href=&#34;http://www.biotrainee.com/thread-1376-1-1.html&#34;&gt;Jimmy直播我的基因组分析 - 目录&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://taoshengxu.github.io/DocumentGit/img/RNASeq_WES.jpeg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;h1 id=&#34;下载hg19基因组&#34;&gt;下载hg19基因组&lt;/h1&gt;
+
+&lt;pre&gt;&lt;code&gt;cd /data/reference
+mkdir -p genome/hg19  &amp;amp;&amp;amp; cd genome/hg19
+nohup wget http://hgdownload.cse.ucsc.edu/goldenPath/hg19/bigZips/chromFa.tar.gz &amp;amp;
+tar zvfx chromFa.tar.gz
+cat *.fa &amp;gt; hg19.fa
+rm chr*.fa
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;fastq-sam-bam&#34;&gt;fastq-sam-bam&lt;/h1&gt;
+
+&lt;pre&gt;&lt;code&gt;ls *gz |xargs ~/biosoft/fastqc/FastQC/fastqc -t 10
+
+for i in $(seq 1 6) ;do (nohup bwa  mem -t 5 -M /data/reference/index/bwa/hg19  KPGP-00001_L${i}_R1.fq.gz KPGP-00001_L${i}_R2.fq.gz 1&amp;gt;KPGP-00001_L${i}.sam 2&amp;gt;KPGP-00001_L${i}.bwa.align.log &amp;amp;);done
+
+for i in $(seq 1 6) ;do (nohup samtools sort -@ 5 -o KPGP-00001_L${i}.sorted.bam  KPGP-00001_L${i}.sam &amp;amp;);done
+
+for i in $(seq 1 6) ;do (nohup samtools index KPGP-00001_L${i}.sorted.bam &amp;amp;);done
+samtools merge KPGP-00001.merge.bam *.sorted.bam
+samtools sort -@ 50 -O bam -o KPGP-00001.sorted.merge.bam  KPGP-00001.merge.bam
+samtools index  KPGP-00001.sorted.merge.bam
+for i in $(seq 1 6) ;do ( samtools flagstat KPGP-00001_L${i}.sorted.bam &amp;gt;KPGP-00001_L${i}.flagstat.txt );done
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;根据gtf格式的基因注释文件得到人所有基因的染色体坐标&#34;&gt;根据gtf格式的基因注释文件得到人所有基因的染色体坐标&lt;/h1&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://www.biotrainee.com/thread-472-1-1.html&#34;&gt;原文&lt;/a&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;mkdir -p ~/reference/gtf/gencode
+cd  ~/reference/gtf/gencode
+## https://www.gencodegenes.org/releases/current.html
+wget ftp://ftp.sanger.ac.uk/pub/gencode/Gencode_human/release_25/gencode.v25.2wayconspseudos.gtf.gz
+wget ftp://ftp.sanger.ac.uk/pub/gencode/Gencode_human/release_25/gencode.v25.long_noncoding_RNAs.gtf.gz 
+wget ftp://ftp.sanger.ac.uk/pub/gencode/Gencode_human/release_25/gencode.v25.polyAs.gtf.gz 
+wget ftp://ftp.sanger.ac.uk/pub/gencode/Gencode_human/release_25/gencode.v25.annotation.gtf.gz 
+
+## https://www.gencodegenes.org/releases/25lift37.html 
+wget ftp://ftp.sanger.ac.uk/pub/gencode/Gencode_human/release_25/GRCh37_mapping/gencode.v25lift37.annotation.gtf.gz 
+wget ftp://ftp.sanger.ac.uk/pub/gencode/Gencode_human/release_25/GRCh37_mapping/gencode.v25lift37.metadata.HGNC.gz 
+wget ftp://ftp.sanger.ac.uk/pub/gencode/Gencode_human/release_25/GRCh37_mapping/gencode.v25lift37.metadata.EntrezGene.gz 
+wget ftp://ftp.sanger.ac.uk/pub/gencode/Gencode_human/release_25/GRCh37_mapping/gencode.v25lift37.metadata.RefSeq.gz 
+ 
+zcat  gencode.v25.long_noncoding_RNAs.gtf.gz |perl -alne &#39;{next unless $F[2] eq &amp;quot;gene&amp;quot; ;/gene_name \&amp;quot;(.*?)\&amp;quot;;/; print &amp;quot;$F[0]\t$F[3]\t$F[4]\t$1&amp;quot; }&#39; &amp;gt;lncRNA.hg38.position
+zcat  gencode.v25.2wayconspseudos.gtf.gz     |perl -alne &#39;{next unless $F[2] eq &amp;quot;transcript&amp;quot; ;/gene_name \&amp;quot;(.*?)\&amp;quot;;/; print &amp;quot;$F[0]\t$F[3]\t$F[4]\t$1&amp;quot; }&#39; &amp;gt;pseudos.hg38.position
+zcat  gencode.v25.annotation.gtf.gz| grep   protein_coding |perl -alne &#39;{next unless $F[2] eq &amp;quot;gene&amp;quot; ;/gene_name \&amp;quot;(.*?)\&amp;quot;;/; print &amp;quot;$F[0]\t$F[3]\t$F[4]\t$1&amp;quot; }&#39; &amp;gt;protein_coding.hg38.position
+zcat  gencode.v25.annotation.gtf.gz|perl -alne &#39;{next unless $F[2] eq &amp;quot;gene&amp;quot; ;/gene_name \&amp;quot;(.*?)\&amp;quot;;/; print &amp;quot;$F[0]\t$F[3]\t$F[4]\t$1&amp;quot; }&#39; &amp;gt;allGene.hg38.position
+ 
+zcat  gencode.v25lift37.annotation.gtf.gz | grep   protein_coding |perl -alne &#39;{next unless $F[2] eq &amp;quot;gene&amp;quot; ;/gene_name \&amp;quot;(.*?)\&amp;quot;;/; print &amp;quot;$F[0]\t$F[3]\t$F[4]\t$1&amp;quot; }&#39; &amp;gt;protein_coding.hg19.position
+zcat  gencode.v25lift37.annotation.gtf.gz | perl -alne &#39;{next unless $F[2] eq &amp;quot;gene&amp;quot; ;/gene_name \&amp;quot;(.*?)\&amp;quot;;/; print &amp;quot;$F[0]\t$F[3]\t$F[4]\t$1&amp;quot; }&#39; &amp;gt;allGene.hg19.position
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;有个很严重的问题，gencode里面的数据有着HAVANA和ENSEMBL的区别，尤其是在hg38里面，需要区别对待！具体见：&lt;a href=&#34;http://www.bio-info-trainee.com/1991.html&#34;&gt;http://www.bio-info-trainee.com/1991.html&lt;/a&gt; 的解释.&lt;/p&gt;
+
+&lt;h1 id=&#34;call-感兴趣的基因-variation&#34;&gt;Call 感兴趣的基因 variation&lt;/h1&gt;
+
+&lt;pre&gt;&lt;code&gt;grep H3F3A /data/reference/gtf/gencode/protein_coding.hg19.position
+samtools mpileup -r chr1:226249552-226259702  -ugf /data/reference/genome/hg19/hg19.fa *sorted.bam | bcftools call -vmO z -o H3F3A.vcf.gz
+gunzip H3F3A.vcf.gz
+
+/ANNOVAR/annovar/convert2annovar.pl -format vcf4old H3F3A.vcf &amp;gt;H3F3A.annovar
+/ANNOVAR/annovar/annotate_variation.pl -buildver hg19 --geneanno --outfile H3F3A.anno H3F3A.annovar ~/biosoft/ANNOVAR/annovar/humandb/
+/ANNOVAR/annovar/annotate_variation.pl -buildver hg19 --dbtype knownGene --geneanno --outfile H3F3A.anno H3F3A.annovar /ANNOVAR/annovar/humandb/
+&lt;/code&gt;&lt;/pre&gt;
+
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>根据gtf格式的基因注释文件得到人所有基因的染色体坐标</title>
+      <link>/blog/cn/2017/11/gtf_gene_position/</link>
+      <pubDate>Fri, 10 Nov 2017 11:00:13 +0000</pubDate>
+      
+      <guid>/blog/cn/2017/11/gtf_gene_position/</guid>
+      <description>
+        &lt;p&gt;&lt;strong&gt;原文&lt;/strong&gt; ：&lt;a href=&#34;http://www.biotrainee.com/thread-472-1-1.html&#34;&gt;http://www.biotrainee.com/thread-472-1-1.html&lt;/a&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;mkdir -p ~/reference/gtf/gencode
+cd  ~/reference/gtf/gencode
+## https://www.gencodegenes.org/releases/current.html
+wget ftp://ftp.sanger.ac.uk/pub/gencode/Gencode_human/release_25/gencode.v25.2wayconspseudos.gtf.gz
+wget ftp://ftp.sanger.ac.uk/pub/gencode/Gencode_human/release_25/gencode.v25.long_noncoding_RNAs.gtf.gz 
+wget ftp://ftp.sanger.ac.uk/pub/gencode/Gencode_human/release_25/gencode.v25.polyAs.gtf.gz 
+wget ftp://ftp.sanger.ac.uk/pub/gencode/Gencode_human/release_25/gencode.v25.annotation.gtf.gz 
+## https://www.gencodegenes.org/releases/25lift37.html 
+wget ftp://ftp.sanger.ac.uk/pub/gencode/Gencode_human/release_25/GRCh37_mapping/gencode.v25lift37.annotation.gtf.gz 
+wget ftp://ftp.sanger.ac.uk/pub/gencode/Gencode_human/release_25/GRCh37_mapping/gencode.v25lift37.metadata.HGNC.gz 
+wget ftp://ftp.sanger.ac.uk/pub/gencode/Gencode_human/release_25/GRCh37_mapping/gencode.v25lift37.metadata.EntrezGene.gz 
+wget ftp://ftp.sanger.ac.uk/pub/gencode/Gencode_human/release_25/GRCh37_mapping/gencode.v25lift37.metadata.RefSeq.gz 
+
+zcat  gencode.v25.long_noncoding_RNAs.gtf.gz |perl -alne &#39;{next unless $F[2] eq &amp;quot;gene&amp;quot; ;/gene_name \&amp;quot;(.*?)\&amp;quot;;/; print &amp;quot;$F[0]\t$F[3]\t$F[4]\t$1&amp;quot; }&#39; &amp;gt;lncRNA.hg38.position
+zcat  gencode.v25.2wayconspseudos.gtf.gz     |perl -alne &#39;{next unless $F[2] eq &amp;quot;transcript&amp;quot; ;/gene_name \&amp;quot;(.*?)\&amp;quot;;/; print &amp;quot;$F[0]\t$F[3]\t$F[4]\t$1&amp;quot; }&#39; &amp;gt;pseudos.hg38.position
+zcat  gencode.v25.annotation.gtf.gz| grep   protein_coding |perl -alne &#39;{next unless $F[2] eq &amp;quot;gene&amp;quot; ;/gene_name \&amp;quot;(.*?)\&amp;quot;;/; print &amp;quot;$F[0]\t$F[3]\t$F[4]\t$1&amp;quot; }&#39; &amp;gt;protein_coding.hg38.position
+zcat  gencode.v25.annotation.gtf.gz|perl -alne &#39;{next unless $F[2] eq &amp;quot;gene&amp;quot; ;/gene_name \&amp;quot;(.*?)\&amp;quot;;/; print &amp;quot;$F[0]\t$F[3]\t$F[4]\t$1&amp;quot; }&#39; &amp;gt;allGene.hg38.position
+
+zcat  gencode.v25lift37.annotation.gtf.gz | grep   protein_coding |perl -alne &#39;{next unless $F[2] eq &amp;quot;gene&amp;quot; ;/gene_name \&amp;quot;(.*?)\&amp;quot;;/; print &amp;quot;$F[0]\t$F[3]\t$F[4]\t$1&amp;quot; }&#39; &amp;gt;protein_coding.hg19.position
+zcat  gencode.v25lift37.annotation.gtf.gz | perl -alne &#39;{next unless $F[2] eq &amp;quot;gene&amp;quot; ;/gene_name \&amp;quot;(.*?)\&amp;quot;;/; print &amp;quot;$F[0]\t$F[3]\t$F[4]\t$1&amp;quot; }&#39; &amp;gt;allGene.hg19.position
+&lt;/code&gt;&lt;/pre&gt;
+
+        
+      </description>
+    </item>
+    
+    <item>
       <title>外显子测序数据分析学习笔记</title>
       <link>/blog/cn/2017/11/whole_exon_sequencing_study/</link>
       <pubDate>Thu, 09 Nov 2017 18:01:02 +0000</pubDate>
@@ -22,9 +139,25 @@
 
 &lt;p&gt;（1）&lt;a href=&#34;http://www.bio-info-trainee.com/2735.html&#34;&gt;肿瘤全外显子测序数据分析流程&lt;/a&gt; &lt;a href=&#34;https://mp.weixin.qq.com/s?__biz=MzAxMDkxODM1Ng==&amp;amp;mid=2247485033&amp;amp;idx=1&amp;amp;sn=eb9865b92879e20c4afe285aeb8dc73c&amp;amp;chksm=9b4846d2ac3fcfc4e3f90c6ec8ff533494f3a43c502e3c8e842dafb7496db137c11434fccea4&amp;amp;mpshare=1&amp;amp;scene=1&amp;amp;srcid=0922Ls8z5WWLuNh7ml25V20r#rd&#34;&gt;微信连接&lt;/a&gt;&lt;/p&gt;
 
-&lt;p&gt;（2）&lt;a href=&#34;https://mp.weixin.qq.com/s?__biz=MzAxMDkxODM1Ng==&amp;amp;mid=2247484873&amp;amp;idx=1&amp;amp;sn=e455578dfac51afece7adb21cb315a17&amp;amp;chksm=9b484572ac3fcc6460b6b9bbb88306f73c399d8e7a96ad8bb472a179a8de518bc70e21a72b0b&amp;amp;mpshare=1&amp;amp;scene=1&amp;amp;srcid=0819fvKioudGMT1TYHXwnXoG#rd&#34;&gt;WES分析七步走&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;(2) &lt;a href=&#34;https://mp.weixin.qq.com/s?__biz=MzAxMDkxODM1Ng==&amp;amp;mid=2247484873&amp;amp;idx=1&amp;amp;sn=e455578dfac51afece7adb21cb315a17&amp;amp;chksm=9b484572ac3fcc6460b6b9bbb88306f73c399d8e7a96ad8bb472a179a8de518bc70e21a72b0b&amp;amp;mpshare=1&amp;amp;scene=1&amp;amp;srcid=0819fvKioudGMT1TYHXwnXoG#rd&#34;&gt;WES分析七步走&lt;/a&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;a href=&#34;http://blog.csdn.net/zhu_si_tao/article/details/53321374&#34;&gt;GATK流程&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;(3) &lt;a href=&#34;http://www.bio-info-trainee.com/1108.html&#34;&gt;WES 测序质量控制&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;(4) &lt;a href=&#34;http://www.bio-info-trainee.com/1114.html&#34;&gt;WES（二）snp-calling&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;(5) &lt;a href=&#34;http://www.bio-info-trainee.com/1137.html&#34;&gt;WES（三）snp-filter&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;(6) &lt;a href=&#34;http://www.bio-info-trainee.com/1138.html&#34;&gt;WES（四）不同个体的比较&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;(7) &lt;a href=&#34;http://www.bio-info-trainee.com/1150.html&#34;&gt;WES（五）不同软件比较&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;(8) &lt;a href=&#34;http://www.bio-info-trainee.com/1158.html&#34;&gt;WES（六）用annovar注释&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;(9) &lt;a href=&#34;http://www.bio-info-trainee.com/1159.html&#34;&gt;WES（七）看de novo变异情况&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;(10) &lt;a href=&#34;http://blog.csdn.net/zhu_si_tao/article/details/53321374&#34;&gt;GATK流程&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;(11) &lt;a href=&#34;http://www.bio-info-trainee.com/838.html&#34;&gt;GATK使用注意事项&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;WES数据分析步骤：A Survey of Computational Tools to Analyze and Interpret Whole Exome Sequencing Data(2016)&lt;/p&gt;
 
@@ -1095,10 +1228,6 @@ map{
       <description>
         
 
-&lt;p&gt;&lt;a href=&#34;http://www.biotrainee.com/thread-1376-1-1.html&#34;&gt;Jimmy直播我的基因组分析 - 目录&lt;/a&gt;&lt;/p&gt;
-
-&lt;h2 id=&#34;https-taoshengxu-github-io-documentgit-img-rnaseq-wes-jpeg&#34;&gt;&lt;img src=&#34;https://taoshengxu.github.io/DocumentGit/img/RNASeq_WES.jpeg&#34; alt=&#34;&#34; /&gt;&lt;/h2&gt;
-
 &lt;p&gt;这是一个学习笔记，跟随生信技能树的学习笔记重复,把几个优秀笔记的内容重复摘录在此。&lt;/p&gt;
 
 &lt;p&gt;&lt;strong&gt;学习提纲&lt;/strong&gt;：&lt;a href=&#34;http://www.biotrainee.com/thread-1750-1-1.html&#34;&gt;RNA-seq基础入门传送门&lt;/a&gt;&lt;/p&gt;
@@ -1426,7 +1555,7 @@ All reviews so far have shown it to be an inferior scale for DE analysis of gene
 还有人引用了一篇文献 IVT-seq reveals extreme bias in RNA-sequencing 证明不同文库的RNA-Seq结果会存在很大差异。
 结论： 可以问下原作者他们是如何处理数据的，居然有一个居然没有重复的分析也能过审。改用小鼠数据进行分析。或者使用无重复的分析方法，或者模拟一份数据出来，先把流程走完。&lt;/p&gt;
 
-&lt;h1 id=&#34;panda姐实践代码&#34;&gt;PANDA姐实践代码&lt;/h1&gt;
+&lt;h1 id=&#34;panda实践完整代码&#34;&gt;PANDA实践完整代码&lt;/h1&gt;
 
 &lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;##1.SRA to fastq
 
@@ -1532,7 +1661,7 @@ wc -l Homo_sapiens*.count
 head -n 4 Homo_sapiens*.count
 
 
-perl -lne &#39;if($ARGV=Homo_sapiens_(.*).count/){print &amp;quot;$1\t$_&amp;quot;}&#39; *|grep -v Homo_sapiens&amp;gt;hg.count
+perl -lne &#39;if($ARGV=~/Homo_sapiens_(.*)count/){print &amp;quot;$1\t$_&amp;quot;}&#39; *|grep -v Homo_sapiens&amp;gt;hg1.count
 # 先把所有文件进行合并
 setwd(&amp;quot;~/rna_seq/work/matrix&amp;quot;)
 hg &amp;lt;- read.csv(file = &amp;quot;hg.count&amp;quot;,header = F,sep = &amp;quot;\t&amp;quot;)
@@ -5006,139 +5135,6 @@ ggsurvplot(fit,risk.table=TRUE,pval=TRUE)
 #添加置信区间带
 ggsurvplot(fit,risk.table=TRUE,conf.int=TRUE,pval=TRUE)
 &lt;/code&gt;&lt;/pre&gt;
-
-        
-      </description>
-    </item>
-    
-    <item>
-      <title>GSEA 参悟</title>
-      <link>/blog/cn/2017/09/gsea/</link>
-      <pubDate>Thu, 07 Sep 2017 14:56:07 +0000</pubDate>
-      
-      <guid>/blog/cn/2017/09/gsea/</guid>
-      <description>
-        
-
-&lt;p&gt;GSEA（Gene Set Enrichment Analysis）方法是目前在pathway analysis方法中，归类为functional score analysis裡的state of the art.&lt;/p&gt;
-
-&lt;p&gt;还是没搞明白，下次再找好资料研究一下。&lt;/p&gt;
-
-&lt;hr /&gt;
-
-&lt;h1 id=&#34;gsea结果理解&#34;&gt;GSEA结果理解&lt;/h1&gt;
-
-&lt;p&gt;中间从蓝色到红色的过渡“带”表示基因从上调到下调排列（排序可以按照fold change,也可以是p-value)。黑色像条形码的竖线表示该位置的基因属于某个指定通路。绿色有波动的曲线表示富集分数，从0开始计算，属于基因通路增加，不属于则减少。最后看下黑色的条形码是不是富集在一端。&lt;/p&gt;
-
-&lt;p&gt;作者：hoptop
-链接：&lt;a href=&#34;http://www.jianshu.com/p/199b44974480&#34;&gt;http://www.jianshu.com/p/199b44974480&lt;/a&gt;
-來源：简书
-著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;https://taoshengxu.github.io/DocumentGit/img/GSEA.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;首先，可以设定一个衡量差异表达程度的统计量，这里简单起见，用log Fold Change，来把基因排序。上面那个颜色条就表示一共有17425个基因表达，下方数字表示该处对应的基因所在的序号，红色到蓝色，表示从上调到下调。黑色的杠杠，表示在该位置处的基因属于Myc靶基因，那一共就是有188个杠杠。颜色条上方有个数字9109，它表示这这里，基因表达从上调转变成下调。那个位置颜色是白色的，也就是说，倍数差异接近0了。
-在GSEA这个检验里面，我们实际上就是在检验上面颜色条里黑色的杠杠，是否有往颜色条一端富集的趋势。
-实际在做这个检验时，我们是从红色的序号为1的基因出发到蓝色的序号为17425的基因，这个过程中，遍历每一个基因，每次都查看下当前基因是否是Myc靶基因，如果是，则累加一点分数，否，则扣掉一点分数。这个分数的轨迹，也就是上图中的深绿色曲线。
-接下来的问题是，如何得到统计显著性？统计假设检验的本质就是先生成一个零假设的数据分布，然后观察实际数据在这个零假设分布下，是不是在尾端。好了，我们把这句话具现到我们这个GSEA的例子中来。我们有三种方式：&lt;/p&gt;
-
-&lt;ol&gt;
-&lt;li&gt;颜色条不动它，把黑色的杠杠，从颜色条上拿起来，然后再随机的放到颜色条上&lt;/li&gt;
-&lt;li&gt;把样本的分组打乱，随机分组，重新计算排序统计量，然后排序&lt;/li&gt;
-&lt;li&gt;即做1，又做2&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;第一种方式，对算力要求最低，对样本容量没有要求，但是不考虑基因间的相关性，可能导致一定的假阳性。第二种方式，对算力要求较高，要求一定的样本容量（每组重复数）以保证有效置换次数，可以保持基因间的协方差结构，但power会略低。第三种方式，算力要求最高。
-这里假设我们随便选一种方式，重排一次以后，可以按照原先绘制绿色曲线的方法绘制一条新的曲线（零假设的数据），重复这个过程千万次的话，就可以比较精确的得到零假设的覆盖区域了，求取这个阴影的第5到95百分位数的区间，即可绘出结果图中的浅灰色阴影了。
-这样统计检验的显著性，就可视化成为观察绿色曲线与灰色阴影的偏离程度了。绿色曲线离x轴最大的偏离值即为该检验的Enrichment Score (ES)，把它对Myc靶基因的数量再校正一下，就可以得到 Normalized Enrichment Score (NES)。这里我们看下结果，非常显著，这个节奏和刚才用Fisher &amp;rsquo;s exact test的结果，明显不一样，这又是为什么呢？
-请仔细观察GSEA结果图里，排序统计量和颜色条上黑杠杠的分布。可以发现，绝大部分的Myc靶基因，分布在浅蓝色区域，即绝大部分Myc靶基因都是下调，但是只是微弱的下调，所以它们没有在Fisher exact test中被计入为差异基因。&lt;/p&gt;
-
-        
-      </description>
-    </item>
-    
-    <item>
-      <title>基因本体论(Gene Ontology) 与通路分析(Pathway Analysis)</title>
-      <link>/blog/cn/2017/09/ontology/</link>
-      <pubDate>Thu, 07 Sep 2017 12:06:46 +0000</pubDate>
-      
-      <guid>/blog/cn/2017/09/ontology/</guid>
-      <description>
-        
-
-&lt;p&gt;&lt;a href=&#34;https://bioconductor.org/packages/release/bioc/vignettes/clusterProfiler/inst/doc/clusterProfiler.html&#34;&gt;clusterProfiler&lt;/a&gt;包的很多内容还是理解不了，需要找人问问。&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;p&gt;Q1: GO的level，在什么研究中会涉及到？ 一般来说，level越大，GO功能越具体。level就像一棵树树主干一样，发了不同的枝叶，level越大枝叶越详细。&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;Q2： GO over-representation test 是我们最经常用到的基因功能分析，为什么没有考虑到level的问题，一般选择哪种（CC, MF,BP）进行分析？&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;Q3： GO Gene Set Enrichment Analysis 大概的原理我能明白，结果图如阿理解？&lt;/p&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;hr /&gt;
-
-&lt;h1 id=&#34;基因本体论&#34;&gt;基因本体论&lt;/h1&gt;
-
-&lt;p&gt;针对于单个基因特征&lt;/p&gt;
-
-&lt;p&gt;本体论这个词一看就逼格很高的样子，源于哲学，本体论用于描述事物的本质，所以基因本体论就是为了描述基因的本质。GO从三个方面对基因的本质进行描述，&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;p&gt;1）细胞组分（Cellular Component, CC）：一般用来描述基因作用的位置，比如说高尔基体，内质网这样的；&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;2）分子功能（Molecular Function, MF）：可以描述为分子水平的活性，如催化或结合活性；&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;3）生物学过程(BP)：比如说蛋白质磷酸化，细胞粘附都是生物学过程。&lt;/p&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;简单地说，GO就像是给基因贴标签进行注释，比如说给X湿兄贴标签，出没地点——小张聊科研(CC)，文风诙谐幽默(MF)，能够让大家轻松愉悦地学到东西(BP)。&lt;/p&gt;
-
-&lt;p&gt;GO的术语是分层的，呈现出树状结构，上文提到的CC、MF和BP即为GO术语的最顶层，比如说下图是BP的分析结果树状图，最顶端即为BP.
-&lt;img src=&#34;http://img.mp.itc.cn/upload/20170419/a6c07195ca0f4b738699979d31fbbeb2_th.jpeg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
-
-&lt;h1 id=&#34;通路分析&#34;&gt;通路分析&lt;/h1&gt;
-
-&lt;p&gt;针对于群基因（protein）特征&lt;/p&gt;
-
-&lt;p&gt;一个生物学过程的实现会涉及到许多蛋白质，这些蛋白质合在一起就是一个通路。通路分析能够帮助我们更好地了解某个或某一些蛋白质在一个生物学过程中所扮演的角色。通路分析和GO都是对基因进行注释，那么为什么要对基因进行注释呢？因为基因说穿了其实是一串RNA，那么它的功能和结构虽然都是客观存在的，但是要如何描述这些客观的东西是基因注释所要解决的问题。
-最常用的通路分析数据库是京都基因与基因组百科全书 (Kyoto Encyclopedia of Genes and Genomes, KEGG)。1995年，KEGG数据库项目由京都大学化学研究所教授Minoru Kanehisa领头启动。KEGG数据库是手工绘制的KEGG途径图的集合，每个途径图包含分子相互作用和反应的网络，将基因组中的基因与通路中的基因产物（主要是蛋白质）连接。KEGG pathway analysis即为将目的基因定位到KEGG途径图中的过程。下图为small cell lung cancer的KEGG途径图。&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;http://img.mp.itc.cn/upload/20170419/7f13e82686194a129b65cfc5a0403d7b_th.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
-
-&lt;h1 id=&#34;go分析-与-pathyway-分析-总结&#34;&gt;GO分析 与 Pathyway 分析 总结&lt;/h1&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;p&gt;GO数据库分别从功能、参与的生物途径及细胞中的定位对基因产物进行了标准化描述，即对基因产物进行简单注释，通过GO富集分析可以粗略了解差异基因富集在哪些生物学功能、途径或者细胞定位。GO分析好比是将基因分门别类放入一个个功能类群的篮子，而pathway则是将基因一个个具体放到代谢网络中的指定位置。&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;Pathway指代谢通路，对差异基因进行pathway分析，可以了解实验条件下显著改变的代谢通路，在机制研究中显得尤为重要。&lt;/p&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h1 id=&#34;基因功能分析-gene-ontology-和代谢通路-pathway-分析方法-核心&#34;&gt;基因功能分析(Gene Ontology)和代谢通路（pathway）分析方法（核心）&lt;/h1&gt;
-
-&lt;ol&gt;
-&lt;li&gt;进行样本组和对照组基因表达差异分析&lt;/li&gt;
-&lt;li&gt;对获取的差异表达基因进行功能（GO）和信号通路（Pathway）分析&lt;/li&gt;
-&lt;li&gt;在得到功能（GO）和信号通路（Pathway）分析的结果中找出和疾病/研究目标相关的GO 和 Pathway&lt;/li&gt;
-&lt;li&gt;对这些相关的基因功能和信号通路的基因取交集，缩小候选基因的范围。&lt;/li&gt;
-&lt;li&gt;对取交集得到的基因，如果基因数目还比较多（目标基因：1-2个），就将这些基因和差异表达基因再取交集，根据Fold Change 选择差异表达倍数最大的基因作为我们研究的候选基因。&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;&lt;img src=&#34;https://taoshengxu.github.io/DocumentGit/img/go_pathway0.jpg&#34; alt=&#34;&#34; /&gt;
-&lt;img src=&#34;https://taoshengxu.github.io/DocumentGit/img/go_pathway0-1.jpg&#34; alt=&#34;&#34; /&gt;
-&lt;img src=&#34;https://taoshengxu.github.io/DocumentGit/img/go_pathway1.jpg&#34; alt=&#34;&#34; /&gt;
-&lt;img src=&#34;https://taoshengxu.github.io/DocumentGit/img/go_pathway2.jpg&#34; alt=&#34;&#34; /&gt;
-&lt;img src=&#34;https://taoshengxu.github.io/DocumentGit/img/go_pathway3.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
-
-&lt;hr /&gt;
-
-&lt;p&gt;date: &amp;lsquo;2016-12-15 17:07:42&amp;rsquo;&lt;/p&gt;
-
-&lt;p&gt;干Bioinformatics差不多2年半了，却一直到对GO和pathway的区别搞不清楚，现在明白又觉好笑，记几个字在这里。&lt;/p&gt;
-
-&lt;p&gt;一般对一组Gene Set 做GO是想看哪些生物功能；比如一个功能，有很多基因都和这个功能相关，把这个功能相关的所有基因找出来。&lt;/p&gt;
-
-&lt;p&gt;而对一组GeneSet 做Kegg主要是看通路，在通路上的联系。&lt;/p&gt;
 
         
       </description>

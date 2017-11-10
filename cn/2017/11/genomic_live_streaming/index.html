@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <title>Jimmy 直播基因组学习笔记 - My Lives</title>
+    <meta property="og:title" content="Jimmy 直播基因组学习笔记 - My Lives">
+    
+
+    
+      
+    
+
+    
+
+    
+    
+
+
+<link href='//cdn.bootcss.com/highlight.js/9.12.0/styles/github.min.css' rel='stylesheet' type='text/css' />
+
+
+
+    <link rel="stylesheet" href="/blog/css/style.css" />
+    <link rel="stylesheet" href="/blog/css/fonts.css" />
+    <link rel="stylesheet" href="/blog/css/custom.css" />
+
+  </head>
+
+  
+  <body class="blog">
+    <header class="masthead">
+      <h1><a href="/blog/">My Lives</a></h1>
+
+
+
+      <nav class="menu">
+        <input id="menu-check" type="checkbox" />
+        <label id="menu-label" for="menu-check" class="unselectable">
+          <span class="icon close-icon">✕</span>
+          <span class="icon open-icon">☰</span>
+          <span class="text">Menu</span>
+        </label>
+        <ul>
+        
+        
+        <li><a href="/blog/">Home</a></li>
+        
+        <li><a href="/blog/en/">English</a></li>
+        
+        <li><a href="/blog/cn/">Chinese</a></li>
+        
+        <li><a href="/blog/travel/">Travel</a></li>
+        
+        
+        </ul>
+      </nav>
+    </header>
+
+    <article class="main">
+      <header class="title">
+      
+<h1>Jimmy 直播基因组学习笔记</h1>
+
+<h3>
+  2017-11-10</h3>
+<hr>
+
+
+      </header>
+
+
+
+
+
+<p><strong>教程</strong> <a href="http://www.biotrainee.com/thread-1376-1-1.html">Jimmy直播我的基因组分析 - 目录</a></p>
+
+<p><img src="https://taoshengxu.github.io/DocumentGit/img/RNASeq_WES.jpeg" alt="" /></p>
+
+<h1 id="下载hg19基因组">下载hg19基因组</h1>
+
+<pre><code>cd /data/reference
+mkdir -p genome/hg19  &amp;&amp; cd genome/hg19
+nohup wget http://hgdownload.cse.ucsc.edu/goldenPath/hg19/bigZips/chromFa.tar.gz &amp;
+tar zvfx chromFa.tar.gz
+cat *.fa &gt; hg19.fa
+rm chr*.fa
+</code></pre>
+
+<h1 id="fastq-sam-bam">fastq-sam-bam</h1>
+
+<pre><code>ls *gz |xargs ~/biosoft/fastqc/FastQC/fastqc -t 10
+
+for i in $(seq 1 6) ;do (nohup bwa  mem -t 5 -M /data/reference/index/bwa/hg19  KPGP-00001_L${i}_R1.fq.gz KPGP-00001_L${i}_R2.fq.gz 1&gt;KPGP-00001_L${i}.sam 2&gt;KPGP-00001_L${i}.bwa.align.log &amp;);done
+
+for i in $(seq 1 6) ;do (nohup samtools sort -@ 5 -o KPGP-00001_L${i}.sorted.bam  KPGP-00001_L${i}.sam &amp;);done
+
+for i in $(seq 1 6) ;do (nohup samtools index KPGP-00001_L${i}.sorted.bam &amp;);done
+samtools merge KPGP-00001.merge.bam *.sorted.bam
+samtools sort -@ 50 -O bam -o KPGP-00001.sorted.merge.bam  KPGP-00001.merge.bam
+samtools index  KPGP-00001.sorted.merge.bam
+for i in $(seq 1 6) ;do ( samtools flagstat KPGP-00001_L${i}.sorted.bam &gt;KPGP-00001_L${i}.flagstat.txt );done
+</code></pre>
+
+<h1 id="根据gtf格式的基因注释文件得到人所有基因的染色体坐标">根据gtf格式的基因注释文件得到人所有基因的染色体坐标</h1>
+
+<p><a href="http://www.biotrainee.com/thread-472-1-1.html">原文</a></p>
+
+<pre><code class="language-bash">mkdir -p ~/reference/gtf/gencode
+cd  ~/reference/gtf/gencode
+## https://www.gencodegenes.org/releases/current.html
+wget ftp://ftp.sanger.ac.uk/pub/gencode/Gencode_human/release_25/gencode.v25.2wayconspseudos.gtf.gz
+wget ftp://ftp.sanger.ac.uk/pub/gencode/Gencode_human/release_25/gencode.v25.long_noncoding_RNAs.gtf.gz 
+wget ftp://ftp.sanger.ac.uk/pub/gencode/Gencode_human/release_25/gencode.v25.polyAs.gtf.gz 
+wget ftp://ftp.sanger.ac.uk/pub/gencode/Gencode_human/release_25/gencode.v25.annotation.gtf.gz 
+
+## https://www.gencodegenes.org/releases/25lift37.html 
+wget ftp://ftp.sanger.ac.uk/pub/gencode/Gencode_human/release_25/GRCh37_mapping/gencode.v25lift37.annotation.gtf.gz 
+wget ftp://ftp.sanger.ac.uk/pub/gencode/Gencode_human/release_25/GRCh37_mapping/gencode.v25lift37.metadata.HGNC.gz 
+wget ftp://ftp.sanger.ac.uk/pub/gencode/Gencode_human/release_25/GRCh37_mapping/gencode.v25lift37.metadata.EntrezGene.gz 
+wget ftp://ftp.sanger.ac.uk/pub/gencode/Gencode_human/release_25/GRCh37_mapping/gencode.v25lift37.metadata.RefSeq.gz 
+ 
+zcat  gencode.v25.long_noncoding_RNAs.gtf.gz |perl -alne '{next unless $F[2] eq &quot;gene&quot; ;/gene_name \&quot;(.*?)\&quot;;/; print &quot;$F[0]\t$F[3]\t$F[4]\t$1&quot; }' &gt;lncRNA.hg38.position
+zcat  gencode.v25.2wayconspseudos.gtf.gz     |perl -alne '{next unless $F[2] eq &quot;transcript&quot; ;/gene_name \&quot;(.*?)\&quot;;/; print &quot;$F[0]\t$F[3]\t$F[4]\t$1&quot; }' &gt;pseudos.hg38.position
+zcat  gencode.v25.annotation.gtf.gz| grep   protein_coding |perl -alne '{next unless $F[2] eq &quot;gene&quot; ;/gene_name \&quot;(.*?)\&quot;;/; print &quot;$F[0]\t$F[3]\t$F[4]\t$1&quot; }' &gt;protein_coding.hg38.position
+zcat  gencode.v25.annotation.gtf.gz|perl -alne '{next unless $F[2] eq &quot;gene&quot; ;/gene_name \&quot;(.*?)\&quot;;/; print &quot;$F[0]\t$F[3]\t$F[4]\t$1&quot; }' &gt;allGene.hg38.position
+ 
+zcat  gencode.v25lift37.annotation.gtf.gz | grep   protein_coding |perl -alne '{next unless $F[2] eq &quot;gene&quot; ;/gene_name \&quot;(.*?)\&quot;;/; print &quot;$F[0]\t$F[3]\t$F[4]\t$1&quot; }' &gt;protein_coding.hg19.position
+zcat  gencode.v25lift37.annotation.gtf.gz | perl -alne '{next unless $F[2] eq &quot;gene&quot; ;/gene_name \&quot;(.*?)\&quot;;/; print &quot;$F[0]\t$F[3]\t$F[4]\t$1&quot; }' &gt;allGene.hg19.position
+</code></pre>
+
+<p>有个很严重的问题，gencode里面的数据有着HAVANA和ENSEMBL的区别，尤其是在hg38里面，需要区别对待！具体见：<a href="http://www.bio-info-trainee.com/1991.html">http://www.bio-info-trainee.com/1991.html</a> 的解释.</p>
+
+<h1 id="call-感兴趣的基因-variation">Call 感兴趣的基因 variation</h1>
+
+<pre><code>grep H3F3A /data/reference/gtf/gencode/protein_coding.hg19.position
+samtools mpileup -r chr1:226249552-226259702  -ugf /data/reference/genome/hg19/hg19.fa *sorted.bam | bcftools call -vmO z -o H3F3A.vcf.gz
+gunzip H3F3A.vcf.gz
+
+/ANNOVAR/annovar/convert2annovar.pl -format vcf4old H3F3A.vcf &gt;H3F3A.annovar
+/ANNOVAR/annovar/annotate_variation.pl -buildver hg19 --geneanno --outfile H3F3A.anno H3F3A.annovar ~/biosoft/ANNOVAR/annovar/humandb/
+/ANNOVAR/annovar/annotate_variation.pl -buildver hg19 --dbtype knownGene --geneanno --outfile H3F3A.anno H3F3A.annovar /ANNOVAR/annovar/humandb/
+</code></pre>
+
+
+  <footer>
+  
+<nav class="post-nav">
+  <span class="nav-prev">&larr; <a href="/blog/cn/2017/11/gtf_gene_position/">根据gtf格式的基因注释文件得到人所有基因的染色体坐标</a></span>
+  <span class="nav-next"></span>
+</nav>
+
+
+
+
+
+<script src="//yihui.name/js/math-code.js"></script>
+<script async src="//cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+<script async src="//yihui.name/js/center-img.js"></script>
+
+  
+
+
+
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+
+
+
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/r.min.js"></script>
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/yaml.min.js"></script>
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/tex.min.js"></script>
+<script>hljs.configure({languages: []}); hljs.initHighlightingOnLoad();</script>
+
+
+
+  
+  <hr>
+  <div class="copyright">&copy; <a href="xxxx">Who care</a> 2017 - Forever, maybe</div>
+  
+  </footer>
+  </article>
+  
+  </body>
+</html>
+
