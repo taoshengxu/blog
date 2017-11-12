@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <title>SAM文件与SAMtools - My Lives</title>
+    <meta property="og:title" content="SAM文件与SAMtools - My Lives">
+    
+
+    
+      
+    
+
+    
+
+    
+    
+
+
+<link href='//cdn.bootcss.com/highlight.js/9.12.0/styles/github.min.css' rel='stylesheet' type='text/css' />
+
+
+
+    <link rel="stylesheet" href="/blog/css/style.css" />
+    <link rel="stylesheet" href="/blog/css/fonts.css" />
+    <link rel="stylesheet" href="/blog/css/custom.css" />
+
+  </head>
+
+  
+  <body class="blog">
+    <header class="masthead">
+      <h1><a href="/blog/">My Lives</a></h1>
+
+
+
+      <nav class="menu">
+        <input id="menu-check" type="checkbox" />
+        <label id="menu-label" for="menu-check" class="unselectable">
+          <span class="icon close-icon">✕</span>
+          <span class="icon open-icon">☰</span>
+          <span class="text">Menu</span>
+        </label>
+        <ul>
+        
+        
+        <li><a href="/blog/">Home</a></li>
+        
+        <li><a href="/blog/en/">English</a></li>
+        
+        <li><a href="/blog/cn/">Chinese</a></li>
+        
+        <li><a href="/blog/travel/">Travel</a></li>
+        
+        
+        </ul>
+      </nav>
+    </header>
+
+    <article class="main">
+      <header class="title">
+      
+<h1>SAM文件与SAMtools</h1>
+
+<h3>
+  2017-11-12</h3>
+<hr>
+
+
+      </header>
+
+
+
+
+
+<h1 id="sam">SAM</h1>
+
+<p>SAM输出的结果中每一行都包括十二项通过Tab分隔</p>
+
+<pre><code>FCC0YG3ACXX:2:1103:1572:139769#GCTTAATG 99  chr10   60001   0   90M =   60390   479 GAATTCCTTGAGGCCTAAATGCATCGGGGTGCTCTGGTTTTGTTGTTGTTATTTCTGAATGACATTTACTTTGGTGCTCTTTATTTTGCG  CCCFFFFFHHHHHJJJJJJJJIJJJJJJJ?HHGIJJJBFHIJIJIDHIHIEHJJIJJIJJJHHGHHHFFFFFFEDCEEECCDDDDEECDD  XT:A:R  NM:i:0  SM:i:0  AM:i:0  X0:i:2  X1:i:0  XM:i:0  XO:i:0  XG:i:0  MD:Z:90 XA:Z:chr18,+14415,90M,0;    RG:Z:120618_I245_FCC0YG3ACXX_L2_SZAXPI010030-30
+</code></pre>
+
+<pre><code>(1)FCC0YG3ACXX:2:1103:1572:139769#GCTTAATG
+(2)99
+(3)chr10
+(4)60001
+(5)0
+(6)90M
+(7)=
+(8)60390
+(9)479
+(10)GAATTCCTTGAGGCCTAAATGCATCGGGGTGCTCTGGTTTTGTTGTTGTTATTTCTGAATGACATTTACTTTGGTGCTCTTTATTTTGCG
+(11)CCCFFFFFHHHHHJJJJJJJJIJJJJJJJ?HHGIJJJBFHIJIJIDHIHIEHJJIJJIJJJHHGHHHFFFFFFEDCEEECCDDDDEECDD
+(12)XT:A:R  NM:i:0  SM:i:0  AM:i:0  X0:i:2  X1:i:0  XM:i:0  XO:i:0  XG:i:0  MD:Z:90 XA:Z:chr18,+14415,90M,0;    RG:Z:120618_I245_FCC0YG3ACXX_L2_SZAXPI010030-30
+
+
+(1)read的名字
+(2)Flag 为各个标志的和
+(3)比对到的染色体号
+(4)第一个比对上的碱基所在位置
+(5)质量值 
+6. CIGAR  如果CIGAR是*，这个才是判断左右端是否匹配失败的标准
+7. mate比对上的染色体号，如果是“=”，则表示在同一条染色体上，*表示没有比对上
+8. mate第一个比对上的碱基所在位置 
+9. 该read和mate的距离(估计出的片段的长度，当mate 序列位于本序列上游时该值为负值)
+10. 序列 
+11. 序列对应的质量值 (ASCII码格式)
+12. 标记
+</code></pre>
+
+<p>(1)如果PE reads的左右两端均没有比对成功，那么第3,6,7列都是*，4，5，8，9都是0，第2列flag只有77,141这两种情况。</p>
+
+<ul>
+<li>77代表PE,而且PE的两条reads都是unmanned的，</li>
+<li>141跟77一样，只是它们分别指代unmanned的PE的reads的两端,</li>
+</ul>
+
+<p>(2) 如果是左右两端reads只有一个比对成功，另一个reads没有比对上.</p>
+
+<ul>
+<li><p>不管是左端还是右端，第3列都是有染色体的，(第7列是=号[好像不对])，但这并不能说明左端跟右端有着同样的比对结果。而第6列CIGAR是*，这个才是判断左右端是否匹配失败的标准。An unmapped segment without coordinate has a * at this field. However, an unmapped segment may also have an ordinary coordinate such that it can be placed at a desired position after sorting. If RNAME is *, no assumptions can be made about POS and CIGAR. (<a href="https://samtools.github.io/hts-specs/SAMv1.pdf">https://samtools.github.io/hts-specs/SAMv1.pdf</a>)</p></li>
+
+<li><p>这也就是我为什么没有发现第7列有染色体，第3列是*号的reads。即使PE reads的右端匹配，左端未匹配，它只会把这个read比对的染色体写在第3列，而不是第7列！所以说要想探究它是左端还是右端未比对成功，得看flag。</p></li>
+</ul>
+
+<h4 id="flag-标志">Flag 标志</h4>
+
+<p>Flag值解析 <a href="https://broadinstitute.github.io/picard/explain-flags.html">https://broadinstitute.github.io/picard/explain-flags.html</a></p>
+
+<ul>
+<li>1  序列是一对序列中的一个</li>
+<li>2  比对结果是一个pair-end比对的末端</li>
+<li>4  没有找到位点</li>
+<li>8  这个序列是pair中的一个但是没有找到位点</li>
+<li>16  在这个比对上的位点，序列与参考序列反向互补</li>
+<li>32  这个序列在pair-end中的mate序列与参考序列反向互补</li>
+<li>64 序列是 mate 1</li>
+<li>128 序列是 mate 2</li>
+<li></li>
+</ul>
+
+<h4 id="质量值">质量值</h4>
+
+<p>因工具而异。质量值越高这个比对越可信，如果质量值为0，可能是该序列在参考基因组有多种定位的可能性。</p>
+
+<h4 id="cigar">CIGAR</h4>
+
+<p>如37M1D2M1I，这段字符的意思是37个匹配，1个参考序列上的删除，2个匹配，1个参考序列上的插入。M代表的是alignment match(可以是错配)</p>
+
+<h1 id="samtools">SAMtools</h1>
+
+<p><a href="https://taoshengxu.github.io/DocumentGit/pdf/samtools常用命令详解.pdf">SAMtools使用手册</a></p>
+
+<p>SAM（sequence Alignment/mapping)数据格式是目前高通量测序中存放比对数据的标准格式，当然他可以用于存放未比对的数据。</p>
+
+<p>主要功能有：</p>
+
+<ul>
+<li><strong>samtools view : BAM-SAM/SAM-BAM 转换和提取部分比对</strong></li>
+<li><strong>samtools sort : 比对排序</strong></li>
+<li><strong>samtools index: 索引排序比对</strong></li>
+<li>samtools merge: 聚合多个排序比对</li>
+<li>samtools faidx: 建立FASTA索引，提取部分序列</li>
+<li>samtools tview: 文本格式查看序列</li>
+<li>samtools pileup: 产生基于位置的结果和 consensus/indel calling</li>
+</ul>
+
+
+  <footer>
+  
+<nav class="post-nav">
+  <span class="nav-prev">&larr; <a href="/blog/cn/2017/11/genomic_live_streaming/">Jimmy 直播基因组学习笔记</a></span>
+  <span class="nav-next"></span>
+</nav>
+
+
+
+
+
+<script src="//yihui.name/js/math-code.js"></script>
+<script async src="//cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+<script async src="//yihui.name/js/center-img.js"></script>
+
+  
+
+
+
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+
+
+
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/r.min.js"></script>
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/yaml.min.js"></script>
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/tex.min.js"></script>
+<script>hljs.configure({languages: []}); hljs.initHighlightingOnLoad();</script>
+
+
+
+  
+  <hr>
+  <div class="copyright">&copy; <a href="xxxx">Who care</a> 2017 - Forever, maybe</div>
+  
+  </footer>
+  </article>
+  
+  </body>
+</html>
+

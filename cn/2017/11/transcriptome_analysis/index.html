@@ -287,24 +287,6 @@ Overall time: 00:16:36
 
 </code></pre>
 
-<h2 id="samtools">SAMtools</h2>
-
-<p><a href="https://taoshengxu.github.io/DocumentGit/pdf/samtools常用命令详解.pdf">SAMtools使用手册</a></p>
-
-<p>SAM（sequence Alignment/mapping)数据格式是目前高通量测序中存放比对数据的标准格式，当然他可以用于存放未比对的数据。</p>
-
-<p>主要功能有：</p>
-
-<ul>
-<li><strong>samtools view : BAM-SAM/SAM-BAM 转换和提取部分比对</strong></li>
-<li><strong>samtools sort : 比对排序</strong></li>
-<li><strong>samtools index: 索引排序比对</strong></li>
-<li>samtools merge: 聚合多个排序比对</li>
-<li>samtools faidx: 建立FASTA索引，提取部分序列</li>
-<li>samtools tview: 文本格式查看序列</li>
-<li>samtools pileup: 产生基于位置的结果和 consensus/indel calling</li>
-</ul>
-
 <p><strong>数据转换sam-bam-sorted bam</strong></p>
 
 <pre><code>for i in `seq 56 58`

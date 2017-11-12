@@ -6,8 +6,113 @@
     <description>Recent content in 中文博客 on My Lives</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 10 Nov 2017 20:34:59 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 12 Nov 2017 09:32:54 +0000</lastBuildDate>
     <atom:link href="/blog/cn/" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>SAM文件与SAMtools</title>
+      <link>/blog/cn/2017/11/sam_samtools/</link>
+      <pubDate>Sun, 12 Nov 2017 09:32:54 +0000</pubDate>
+      
+      <guid>/blog/cn/2017/11/sam_samtools/</guid>
+      <description>
+        
+
+&lt;h1 id=&#34;sam&#34;&gt;SAM&lt;/h1&gt;
+
+&lt;p&gt;SAM输出的结果中每一行都包括十二项通过Tab分隔&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;FCC0YG3ACXX:2:1103:1572:139769#GCTTAATG 99  chr10   60001   0   90M =   60390   479 GAATTCCTTGAGGCCTAAATGCATCGGGGTGCTCTGGTTTTGTTGTTGTTATTTCTGAATGACATTTACTTTGGTGCTCTTTATTTTGCG  CCCFFFFFHHHHHJJJJJJJJIJJJJJJJ?HHGIJJJBFHIJIJIDHIHIEHJJIJJIJJJHHGHHHFFFFFFEDCEEECCDDDDEECDD  XT:A:R  NM:i:0  SM:i:0  AM:i:0  X0:i:2  X1:i:0  XM:i:0  XO:i:0  XG:i:0  MD:Z:90 XA:Z:chr18,+14415,90M,0;    RG:Z:120618_I245_FCC0YG3ACXX_L2_SZAXPI010030-30
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;(1)FCC0YG3ACXX:2:1103:1572:139769#GCTTAATG
+(2)99
+(3)chr10
+(4)60001
+(5)0
+(6)90M
+(7)=
+(8)60390
+(9)479
+(10)GAATTCCTTGAGGCCTAAATGCATCGGGGTGCTCTGGTTTTGTTGTTGTTATTTCTGAATGACATTTACTTTGGTGCTCTTTATTTTGCG
+(11)CCCFFFFFHHHHHJJJJJJJJIJJJJJJJ?HHGIJJJBFHIJIJIDHIHIEHJJIJJIJJJHHGHHHFFFFFFEDCEEECCDDDDEECDD
+(12)XT:A:R  NM:i:0  SM:i:0  AM:i:0  X0:i:2  X1:i:0  XM:i:0  XO:i:0  XG:i:0  MD:Z:90 XA:Z:chr18,+14415,90M,0;    RG:Z:120618_I245_FCC0YG3ACXX_L2_SZAXPI010030-30
+
+
+(1)read的名字
+(2)Flag 为各个标志的和
+(3)比对到的染色体号
+(4)第一个比对上的碱基所在位置
+(5)质量值 
+6. CIGAR  如果CIGAR是*，这个才是判断左右端是否匹配失败的标准
+7. mate比对上的染色体号，如果是“=”，则表示在同一条染色体上，*表示没有比对上
+8. mate第一个比对上的碱基所在位置 
+9. 该read和mate的距离(估计出的片段的长度，当mate 序列位于本序列上游时该值为负值)
+10. 序列 
+11. 序列对应的质量值 (ASCII码格式)
+12. 标记
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;(1)如果PE reads的左右两端均没有比对成功，那么第3,6,7列都是*，4，5，8，9都是0，第2列flag只有77,141这两种情况。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;77代表PE,而且PE的两条reads都是unmanned的，&lt;/li&gt;
+&lt;li&gt;141跟77一样，只是它们分别指代unmanned的PE的reads的两端,&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;(2) 如果是左右两端reads只有一个比对成功，另一个reads没有比对上.&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;不管是左端还是右端，第3列都是有染色体的，(第7列是=号[好像不对])，但这并不能说明左端跟右端有着同样的比对结果。而第6列CIGAR是*，这个才是判断左右端是否匹配失败的标准。An unmapped segment without coordinate has a * at this field. However, an unmapped segment may also have an ordinary coordinate such that it can be placed at a desired position after sorting. If RNAME is *, no assumptions can be made about POS and CIGAR. (&lt;a href=&#34;https://samtools.github.io/hts-specs/SAMv1.pdf&#34;&gt;https://samtools.github.io/hts-specs/SAMv1.pdf&lt;/a&gt;)&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;这也就是我为什么没有发现第7列有染色体，第3列是*号的reads。即使PE reads的右端匹配，左端未匹配，它只会把这个read比对的染色体写在第3列，而不是第7列！所以说要想探究它是左端还是右端未比对成功，得看flag。&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&#34;flag-标志&#34;&gt;Flag 标志&lt;/h4&gt;
+
+&lt;p&gt;Flag值解析 &lt;a href=&#34;https://broadinstitute.github.io/picard/explain-flags.html&#34;&gt;https://broadinstitute.github.io/picard/explain-flags.html&lt;/a&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;1  序列是一对序列中的一个&lt;/li&gt;
+&lt;li&gt;2  比对结果是一个pair-end比对的末端&lt;/li&gt;
+&lt;li&gt;4  没有找到位点&lt;/li&gt;
+&lt;li&gt;8  这个序列是pair中的一个但是没有找到位点&lt;/li&gt;
+&lt;li&gt;16  在这个比对上的位点，序列与参考序列反向互补&lt;/li&gt;
+&lt;li&gt;32  这个序列在pair-end中的mate序列与参考序列反向互补&lt;/li&gt;
+&lt;li&gt;64 序列是 mate 1&lt;/li&gt;
+&lt;li&gt;128 序列是 mate 2&lt;/li&gt;
+&lt;li&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&#34;质量值&#34;&gt;质量值&lt;/h4&gt;
+
+&lt;p&gt;因工具而异。质量值越高这个比对越可信，如果质量值为0，可能是该序列在参考基因组有多种定位的可能性。&lt;/p&gt;
+
+&lt;h4 id=&#34;cigar&#34;&gt;CIGAR&lt;/h4&gt;
+
+&lt;p&gt;如37M1D2M1I，这段字符的意思是37个匹配，1个参考序列上的删除，2个匹配，1个参考序列上的插入。M代表的是alignment match(可以是错配)&lt;/p&gt;
+
+&lt;h1 id=&#34;samtools&#34;&gt;SAMtools&lt;/h1&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://taoshengxu.github.io/DocumentGit/pdf/samtools常用命令详解.pdf&#34;&gt;SAMtools使用手册&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;SAM（sequence Alignment/mapping)数据格式是目前高通量测序中存放比对数据的标准格式，当然他可以用于存放未比对的数据。&lt;/p&gt;
+
+&lt;p&gt;主要功能有：&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;samtools view : BAM-SAM/SAM-BAM 转换和提取部分比对&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;samtools sort : 比对排序&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;samtools index: 索引排序比对&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;samtools merge: 聚合多个排序比对&lt;/li&gt;
+&lt;li&gt;samtools faidx: 建立FASTA索引，提取部分序列&lt;/li&gt;
+&lt;li&gt;samtools tview: 文本格式查看序列&lt;/li&gt;
+&lt;li&gt;samtools pileup: 产生基于位置的结果和 consensus/indel calling&lt;/li&gt;
+&lt;/ul&gt;
+
+        
+      </description>
+    </item>
     
     <item>
       <title>Jimmy 直播基因组学习笔记</title>
@@ -42,7 +147,7 @@ for i in $(seq 1 6) ;do (nohup samtools sort -@ 5 -o KPGP-00001_L${i}.sorted.bam
 
 for i in $(seq 1 6) ;do (nohup samtools index KPGP-00001_L${i}.sorted.bam &amp;amp;);done
 samtools merge KPGP-00001.merge.bam *.sorted.bam
-samtools sort -@ 50 -O bam -o KPGP-00001.sorted.merge.bam  KPGP-00001.merge.bam
+samtools sort -@ 10 -O bam -o KPGP-00001.sorted.merge.bam  KPGP-00001.merge.bam
 samtools index  KPGP-00001.sorted.merge.bam
 for i in $(seq 1 6) ;do ( samtools flagstat KPGP-00001_L${i}.sorted.bam &amp;gt;KPGP-00001_L${i}.flagstat.txt );done
 &lt;/code&gt;&lt;/pre&gt;
@@ -78,13 +183,189 @@ zcat  gencode.v25lift37.annotation.gtf.gz | perl -alne &#39;{next unless $F[2] e
 
 &lt;h1 id=&#34;call-感兴趣的基因-variation&#34;&gt;Call 感兴趣的基因 variation&lt;/h1&gt;
 
-&lt;pre&gt;&lt;code&gt;grep H3F3A /data/reference/gtf/gencode/protein_coding.hg19.position
+&lt;p&gt;&lt;a href=&#34;http://www.bio-info-trainee.com/2013.html&#34;&gt;原文&lt;/a&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;grep H3F3A /data/reference/gtf/gencode/protein_coding.hg19.position
 samtools mpileup -r chr1:226249552-226259702  -ugf /data/reference/genome/hg19/hg19.fa *sorted.bam | bcftools call -vmO z -o H3F3A.vcf.gz
 gunzip H3F3A.vcf.gz
 
-/ANNOVAR/annovar/convert2annovar.pl -format vcf4old H3F3A.vcf &amp;gt;H3F3A.annovar
-/ANNOVAR/annovar/annotate_variation.pl -buildver hg19 --geneanno --outfile H3F3A.anno H3F3A.annovar ~/biosoft/ANNOVAR/annovar/humandb/
-/ANNOVAR/annovar/annotate_variation.pl -buildver hg19 --dbtype knownGene --geneanno --outfile H3F3A.anno H3F3A.annovar /ANNOVAR/annovar/humandb/
+/data/biosoft/annovar/convert2annovar.pl -format vcf4old H3F3A.vcf &amp;gt;H3F3A.annovar
+/data/biosoft/annovar/annotate_variation.pl -buildver hg19 --geneanno --outfile H3F3A.anno H3F3A.annovar /data/biosoft/annovar/humandb/
+
+#/data/biosoft/annovar/annotate_variation.pl --downdb refGene /data/biosoft/annovar/humandb
+
+/data/biosoft/annovar/annotate_variation.pl -buildver hg19 --dbtype refGene --geneanno --outfile H3F3A.anno H3F3A.annovar /data/biosoft/annovar/humandb/
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;获取感兴趣的基因坐标&#34;&gt;获取感兴趣的基因坐标&lt;/h1&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;grep H3F3A /data/reference/gtf/gencode/protein_coding.hg19.position &amp;gt;&amp;gt; key.list.txt
+grep HLA-DQ /data/reference/gtf/gencode/protein_coding.hg19.position &amp;gt;&amp;gt; key.list.txt
+grep AVPR1 /data/reference/gtf/gencode/protein_coding.hg19.position &amp;gt;&amp;gt; key.list.txt
+grep IRX3 /data/reference/gtf/gencode/protein_coding.hg19.position &amp;gt;&amp;gt; key.list.txt
+grep IRX5 /data/reference/gtf/gencode/protein_coding.hg19.position &amp;gt;&amp;gt; key.list.txt
+grep GLI3 /data/reference/gtf/gencode/protein_coding.hg19.position &amp;gt;&amp;gt; key.list.txt
+grep PAX1 /data/reference/gtf/gencode/protein_coding.hg19.position &amp;gt;&amp;gt; key.list.txt
+grep RUNX2 /data/reference/gtf/gencode/protein_coding.hg19.position &amp;gt;&amp;gt; key.list.txt
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;批量提取我们感兴趣的基因的变异情况&#34;&gt;批量提取我们感兴趣的基因的变异情况&lt;/h1&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;cat key.list.txt |while read id;
+do
+chr=$(echo $id |cut -d&amp;quot; &amp;quot; -f 1|sed &#39;s/chr//&#39; )
+start=$(echo $id |cut -d&amp;quot; &amp;quot; -f 2 )
+end=$(echo $id |cut -d&amp;quot; &amp;quot; -f 3 )
+gene=$(echo $id |cut -d&amp;quot; &amp;quot; -f 4 )
+echo $chr:$start-$end  $gene
+samtools mpileup -r  $chr:$start-$end   -ugf /data/reference/genome/hg19/hg19.fa KPGP-00001.sorted.merge.bam | bcftools call -vmO z -o $gene.vcf.gz
+done
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;前面我们说到有研究表明STAT4上的rs7574865和HLA-DQ的rs9275319是国人群中乙型肝炎病毒（HBV）相关肝细胞癌（HCC）遗传易感基因，那么我们很容易去dbSNP数据库或者我最近强烈推荐 的&lt;a href=&#34;https://www.snpedia.com/index.php/Rs7574865&#34;&gt;Snpedia&lt;/a&gt;数据库&lt;a href=&#34;http://www.bio-info-trainee.com/2100.html&#34;&gt;吐血推荐snpedia数据库，非常丰富的snp信息记录&lt;/a&gt;里面找到它的坐标。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;6   32666295 :Rs9275319--HLA-DQ
+2   191964633 :Rs7574865--STAT4
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;然后我检查了我刚才call到的variation文件，&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;zcat STAT4.vcf.gz |grep -w 191964633 显示为空。
+zcat HLA-DQ* |grep 32666295  也是空。
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;哈哈，我完美的错过了这两个易感位点！！！！谢天谢地！！！&lt;/p&gt;
+
+&lt;h1 id=&#34;bam文件给按照染色体给分割&#34;&gt;bam文件给按照染色体给分割&lt;/h1&gt;
+
+&lt;p&gt;按照染色体（chr1-chr22,chrX,chrY,chrMT）&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;bamtools split -in KPGP-00001.sorted.merge.bam -reference  
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;提取未比对的测序数据&#34;&gt;提取未比对的测序数据&lt;/h1&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;samtools view -f4 KPGP-00001.sorted.merge.bam &amp;gt; KPGP-00001.sorted.merge.unmapped.sam #more fast,  or
+# samtools view sample.bam |perl -alne &#39;{print if $F[2] eq &amp;quot;*&amp;quot; or $F[5] eq &amp;quot;*&amp;quot; }&#39; &amp;gt; sample.unmapped.sam
+
+#提前未比对成功的测序数据(可以分成3类，仅reads1，仅reads2，和两端reads都没有比对成功)
+#小写的f是提取，大写的F是过滤
+samtools view -u -f 4 -F 264 alignments.bam  &amp;gt; tmps1.bam #仅reads1
+samtools view -u -f 8 -F 260 alignments.bam  &amp;gt; tmps2.bam #仅reads2
+samtools view -u -f 12 -F 256 alignments.bam &amp;gt; tmps3.bam #两端reads都没有比对成功
+samtools merge -u - tmps[123].bam | samtools sort -n - unmapped
+bamToFastq -bam unmapped.bam -fq1 unmapped_reads1.fastq -fq2 unmapped_reads2.fastq
+
+#统计一下未比对成功的reads有多少
+cut -f 3,6 KPGP-00001.sorted.merge.unmapped.sam |sort |uniq -c &amp;gt;KPGP-00001.sorted.merge.unmapped.counts 
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;提取左右端测序数据比对到不同染色体的pe-reads&#34;&gt;提取左右端测序数据比对到不同染色体的PE reads&lt;/h1&gt;
+
+&lt;p&gt;左右端测序数据比对到不同染色体的情况，比较有意义，可能是融合基因，也可能是基因之间本来就相似性很大。
+三种具有代表性的肿瘤融合基因BCR-ABL、SLC45A3-ELK4 和PAX3-FOXO1&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;融合基因&lt;/strong&gt;（英语：Fusion gene）是指两个基因的全部或一部分的序列相互融合为一个新的基因的过程。其有可能是染色体易位、中间缺失或染色体倒置所致的结果.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;samtools view KPGP-00001.sorted.merge.bam | perl -alne &#39;{print if $F[6] ne &amp;quot;=&amp;quot;}&#39;  &amp;gt;unpaired.sam 
+cut -f 3,7 unpaired.sam |sort |uniq -c
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;pcr-duplication&#34;&gt;PCR duplication&lt;/h1&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://blog.sina.com.cn/s/blog_69e75efd0102wu57.html&#34;&gt;http://blog.sina.com.cn/s/blog_69e75efd0102wu57.html&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;设一个基因组有A、B两个片段，PCR后得到无论多少条reads，比如nA+mB条，在数据分析的时候，都只保留1条A和1条B（unique reads）用于组装，而去掉(n-1)条A和(m-1)条B。共有(n-1)条A和(m-1)条B被当成duplicatedreads看待，尽管它们是正常PCR的正常产物。&lt;/p&gt;
+
+&lt;p&gt;那么为什么要去除这个duplication呢？主要是因为在call snp的时候，如果某个变异位点的变异碱基都是来自于PCR重复，而我们却认为它深度足够判断是真的变异位点，这个结论其实有很大可能是假阳性。&lt;/p&gt;
+
+&lt;h1 id=&#34;覆盖度详细探究&#34;&gt;覆盖度详细探究&lt;/h1&gt;
+
+&lt;pre&gt;&lt;code&gt;samtools flagstat KPGP-00001.sorted.merge.bam
+
+#全基因组
+samtools mpileup KPGP-00001.sorted.merge.bam |perl -alne &#39;{if($F[3]&amp;gt;100){$depth{&amp;quot;over100&amp;quot;}++}else{$depth{$F[3]}++}}END{print &amp;quot;$_\t$depth{$_}&amp;quot; foreach sort{$a &amp;lt;=&amp;gt; $b}keys %depth}&#39; 
+
+#每一条染色体
+ls KPGP-00001.sorted.merge.REF*.bam |while read id 
+do 
+echo $id
+samtools mpileup $id |perl -alne &#39;{if($F[3]&amp;gt;100){$depth{&amp;quot;over100&amp;quot;}++}else{$depth{$F[3]}++}} END {print &amp;quot;$_\t$depth{$_}&amp;quot; foreach sort{$a &amp;lt;=&amp;gt; $b}keys %depth}&#39; &amp;gt;$id.depth.txt
+done 
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;对比对结果文件进行过滤&#34;&gt;对比对结果文件进行过滤&lt;/h1&gt;
+
+&lt;p&gt;这个地方有问题&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;samtools view -h -F4  -q 5 KPGP-00001.sorted.merge.bam |samtools view -bS |samtools rmdup - KPGP-00001.filter.rmdup.bam
+samtools index KPGP-00001.filter.rmdup.bam
+
+bam文件是二进制文件，我们需要samtools view的命令进行格式转换。
+这个管道的意思分开来说就是运行第一步时过滤的时候已将bam文件转成我们能看的sam格式。
+其中h是在输出的结果中包含头header，F和q是过滤掉没有mapped上的reads（也就是multiple mapping的情况）和低质量的reads。
+第二步是将上一步得出的sam文件再转成bam，
+第三步就是用samtools rmdup过滤掉PCR duplication的情况了，最后得到了过滤了multiple mapping、PCR duplication及低质量比对的bam文件。
+最后利用samtools index对过滤后的bam文件建立索引。
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;用gatk对sam格式的文件进行重排&#34;&gt;用GATK对SAM格式的文件进行重排&lt;/h1&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://www.bio-info-trainee.com/838.html&#34;&gt;GATK使用注意事项&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://github.com/snewhouse/ngs_nextflow/wiki/GATK-Bundle&#34;&gt;https://github.com/snewhouse/ngs_nextflow/wiki/GATK-Bundle&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://github.com/ddcap/halvade/wiki&#34;&gt;https://github.com/ddcap/halvade/wiki&lt;/a&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;# ftp://ftp.broadinstitute.org/bundle/hg19
+
+axel ftp://gsapubftp-anonymous@ftp.broadinstitute.org/bundle/hg19/ucsc.hg19.fasta.gz
+wget ftp://gsapubftp-anonymous@ftp.broadinstitute.org/bundle/hg19/ucsc.hg19.fasta.fai.gz
+gunzip ucsc.hg19.fasta.gz
+bwa index ucsc.hg19.fasta
+# ucsc.hg19.fasta.amb
+# ucsc.hg19.fasta.ann
+# ucsc.hg19.fasta.bwt
+# ucsc.hg19.fasta.pac
+# ucsc.hg19.fasta.sa
+axel ftp://gsapubftp-anonymous@ftp.broadinstitute.org/bundle/hg19/1000G_phase1.indels.hg19.sites.vcf.gz
+axel ftp://gsapubftp-anonymous@ftp.broadinstitute.org/bundle/hg19/1000G_phase1.indels.hg19.sites.vcf.idx.gz
+axel ftp://gsapubftp-anonymous@ftp.broadinstitute.org/bundle/hg19/Mills_and_1000G_gold_standard.indels.hg19.sites.vcf.gz
+axel ftp://gsapubftp-anonymous@ftp.broadinstitute.org/bundle/hg19/Mills_and_1000G_gold_standard.indels.hg19.sites.vcf.idx.gz
+axel ftp://gsapubftp-anonymous@ftp.broadinstitute.org/bundle/hg19/ucsc.hg19.dict.gz
+axel ftp://gsapubftp-anonymous@ftp.broadinstitute.org/bundle/hg19/dbsnp_138.hg19.vcf.gz
+
+ls *.gz |while read id;
+do
+gunzip $id
+done
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;按染色体下载hg19基因组&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;for i in $(seq 1 22) X Y M;
+do echo $i;
+wget http://hgdownload.cse.ucsc.edu/goldenPath/hg19/chromosomes/chr${i}.fa.gz;
+done
+gunzip *.gz
+for i in $(seq 1 22) X Y M;
+do cat chr${i}.fa &amp;gt;&amp;gt; hg19.fasta;
+done
+rm -fr chr*.fasta
+
+bwa index ucsc.hg19.fasta
+
+bwa index -a bwtsw hg19.fasta
+samtools faidx hg19.fasta
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;首先用RealignerTargetCreator找到需要重新比对的区域，输出文件intervals，然后用输出的 tmp.intervals 做输入文件来进行重新比对，也就是用IndelRealigner在这些区域内进行重新比对.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;nohup java -Xmx60g -jar /data/biosoft/GATK/GenomeAnalysisTK.jar -R /data/reference/annotation/GATK/ucsc.hg19.fasta -T RealignerTargetCreator -I KPGP-00001.filter.rmdup.bam -o KPGP-00001.filter.rmdup.intervals -known /data/reference/annotation/GATK/1000G_phase1.indels.b37.vcf.gz 1&amp;gt; KPGP-00001.filter.rmdup.RealignerTargetCreator.log
+
+nohup java -Xmx60g -jar /data/biosoft/GATK/GenomeAnalysisTK.jar  -R /data/reference/annotation/GATK/ucsc.hg19.fasta  -T IndelRealigner  -I KPGP-00001.filter.rmdup.bam  -targetIntervals KPGP-00001.filter.rmdup.intervals -o KPGP-00001.filter.rmdup.realgn.bam  1&amp;gt;KPGP-00001.filter.rmdup.IndelRealigner.log
 &lt;/code&gt;&lt;/pre&gt;
 
         
@@ -1440,24 +1721,6 @@ Time searching: 00:16:12
 Overall time: 00:16:36
 
 &lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&#34;samtools&#34;&gt;SAMtools&lt;/h2&gt;
-
-&lt;p&gt;&lt;a href=&#34;https://taoshengxu.github.io/DocumentGit/pdf/samtools常用命令详解.pdf&#34;&gt;SAMtools使用手册&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;SAM（sequence Alignment/mapping)数据格式是目前高通量测序中存放比对数据的标准格式，当然他可以用于存放未比对的数据。&lt;/p&gt;
-
-&lt;p&gt;主要功能有：&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;samtools view : BAM-SAM/SAM-BAM 转换和提取部分比对&lt;/strong&gt;&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;samtools sort : 比对排序&lt;/strong&gt;&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;samtools index: 索引排序比对&lt;/strong&gt;&lt;/li&gt;
-&lt;li&gt;samtools merge: 聚合多个排序比对&lt;/li&gt;
-&lt;li&gt;samtools faidx: 建立FASTA索引，提取部分序列&lt;/li&gt;
-&lt;li&gt;samtools tview: 文本格式查看序列&lt;/li&gt;
-&lt;li&gt;samtools pileup: 产生基于位置的结果和 consensus/indel calling&lt;/li&gt;
-&lt;/ul&gt;
 
 &lt;p&gt;&lt;strong&gt;数据转换sam-bam-sorted bam&lt;/strong&gt;&lt;/p&gt;
 
@@ -5101,39 +5364,6 @@ roc.test(r1,r2)
 
 &lt;pre&gt;&lt;code class=&#34;language-R&#34;&gt;    gse1009=GEOquery::getGEO(&amp;quot;GSE1009&amp;quot;)
     gse1009[[1]] ## 这就是ExpressionSet对象
-&lt;/code&gt;&lt;/pre&gt;
-
-        
-      </description>
-    </item>
-    
-    <item>
-      <title>生存曲线美化</title>
-      <link>/blog/cn/2017/09/%E7%94%9F%E5%AD%98%E6%9B%B2%E7%BA%BF%E7%BE%8E%E5%8C%96/</link>
-      <pubDate>Thu, 07 Sep 2017 16:27:18 +0000</pubDate>
-      
-      <guid>/blog/cn/2017/09/%E7%94%9F%E5%AD%98%E6%9B%B2%E7%BA%BF%E7%BE%8E%E5%8C%96/</guid>
-      <description>
-        &lt;p&gt;好久以前在微信里看到这个文章。今天整理用rmarkdonw整理在这里，以后更新的我的包里。&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&#34;https://mp.weixin.qq.com/s?__biz=MzIyMDUwOTQwNA==&amp;amp;mid=2247483665&amp;amp;idx=1&amp;amp;sn=05469909bf70e234fb71a3653e51ba8b&amp;amp;scene=23&amp;amp;srcid=072848z8s1DucjVqpZDqAYTu#rd&#34;&gt;原文&lt;/a&gt;&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;library(survival)
-library(ggplot2)
-library(survminer)
-# 载入数据
-#使用Surv（）函数建立基本生存对象
-fit&amp;lt;- survfit(Surv(time, status) ~ sex, data = lung)
-summary(fit) #查看结果
-#使用survminer程序包ggsurvplot（）函数绘制生存曲线
-#简单绘图
-ggsurvplot(fit)
-#分生存曲线下面给出number.at risk
-ggsurvplot(fit,risk.table=TRUE)
-#添加log-rank检验p-value
-ggsurvplot(fit,risk.table=TRUE,pval=TRUE)
-#添加置信区间带
-ggsurvplot(fit,risk.table=TRUE,conf.int=TRUE,pval=TRUE)
 &lt;/code&gt;&lt;/pre&gt;
 
         
