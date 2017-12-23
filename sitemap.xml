@@ -3,6 +3,26 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>/blog/cn/2017/12/python_study/</loc>
+    <lastmod>2017-12-21T11:17:39+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/cn/2017/12/deeplearning/</loc>
+    <lastmod>2017-12-20T21:04:42+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/cn/2017/11/decision_tree/</loc>
+    <lastmod>2017-11-21T09:26:01+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/cn/2017/11/genome_version/</loc>
+    <lastmod>2017-11-13T08:52:07+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>/blog/cn/2017/11/sam_samtools/</loc>
     <lastmod>2017-11-12T09:32:54+00:00</lastmod>
   </url>
@@ -50,11 +70,6 @@
   <url>
     <loc>/blog/cn/2017/11/nat123/</loc>
     <lastmod>2017-11-05T22:02:28+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/blog/cn/2017/11/python_study/</loc>
-    <lastmod>2017-11-05T10:34:22+00:00</lastmod>
   </url>
   
   <url>
@@ -254,7 +269,7 @@
   
   <url>
     <loc>/blog/cn/</loc>
-    <lastmod>2017-11-12T09:32:54+00:00</lastmod>
+    <lastmod>2017-12-21T11:17:39+00:00</lastmod>
   </url>
   
   <url>

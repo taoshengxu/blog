@@ -6,8 +6,339 @@
     <description>Recent content in 中文博客 on My Lives</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 12 Nov 2017 09:32:54 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 21 Dec 2017 11:17:39 +0000</lastBuildDate>
     <atom:link href="/blog/cn/" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>python学习</title>
+      <link>/blog/cn/2017/12/python_study/</link>
+      <pubDate>Thu, 21 Dec 2017 11:17:39 +0000</pubDate>
+      
+      <guid>/blog/cn/2017/12/python_study/</guid>
+      <description>
+        
+
+&lt;p&gt;&lt;a href=&#34;http://www.runoob.com/python/python-tutorial.html&#34;&gt;入门教程&lt;/a&gt;
+&lt;a href=&#34;http://study.163.com/course/courseMain.htm?courseId=378003&#34;&gt;视频教程&lt;/a&gt;&lt;/p&gt;
+
+&lt;h1 id=&#34;认识python&#34;&gt;认识python&lt;/h1&gt;
+
+&lt;h4 id=&#34;实例-python-2-0&#34;&gt;实例(Python 2.0+)&lt;/h4&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;#!/usr/bin/python
+print &amp;quot;Hello, World!&amp;quot;;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h4 id=&#34;实例-python-3-0&#34;&gt;实例(Python 3.0+)&lt;/h4&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;#!/usr/bin/python3
+print(&amp;quot;Hello, World!&amp;quot;);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;python-脚本&#34;&gt;python 脚本&lt;/h1&gt;
+
+&lt;p&gt;所有 Python 文件将以 .py 为扩展名。用 $ python *.py 执行脚本。&lt;/p&gt;
+
+&lt;h1 id=&#34;python语法&#34;&gt;python语法&lt;/h1&gt;
+
+&lt;p&gt;1.Python 的代码块不使用大括号 {} 来控制类，函数以及其他逻辑判断。&lt;/p&gt;
+
+&lt;p&gt;python 最具特色的就是用缩进来写模块。缩进的空白数量是可变的，但是所有代码块语句必须包含相同的缩进空白数量，这个必须严格执行。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;if True:
+  print &amp;quot;True&amp;quot;
+else:
+  print &amp;quot;False&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;2.xx&lt;/p&gt;
+
+&lt;h1 id=&#34;python函数&#34;&gt;python函数&lt;/h1&gt;
+
+&lt;p&gt;语法&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;def functionname( parameters ):
+   &amp;quot;函数_文档字符串&amp;quot;
+   function_suite
+   return [expression]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;示例&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;#!/usr/bin/python
+# -*- coding: UTF-8 -*-
+ 
+# 定义函数
+def printme( str ):
+   &amp;quot;打印任何传入的字符串&amp;quot;
+   print str;
+   return;
+# 调用函数
+printme(&amp;quot;我要调用用户自定义函数!&amp;quot;);
+printme(&amp;quot;再次调用同一函数&amp;quot;);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;python-模块&#34;&gt;Python 模块&lt;/h1&gt;
+
+&lt;p&gt;Python 模块(Module)，是一个 Python 文件，以 .py 结尾，包含了 Python 对象定义和Python语句。&lt;/p&gt;
+
+&lt;p&gt;定义support.py 模块：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;def print_func( par ):
+   print &amp;quot;Hello : &amp;quot;, par
+   return
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;模块的引入&#34;&gt;模块的引入&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;#!/usr/bin/python
+# -*- coding: UTF-8 -*-
+# 导入模块
+import support
+# 现在可以调用模块里包含的函数了
+# 调用方法：模块名.函数名
+support.print_func(&amp;quot;Runoob&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;from-import-语句&#34;&gt;From…import 语句&lt;/h3&gt;
+
+&lt;p&gt;Python 的 from 语句让你从模块中导入一个指定的部分到当前命名空间中。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;from fib import fibonacci
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;常用语句&#34;&gt;常用语句&lt;/h1&gt;
+
+&lt;h3 id=&#34;读文件&#34;&gt;读文件&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;try:
+    f = open(&#39;/path/to/file&#39;, &#39;r&#39;)
+    print(f.read())
+finally:
+    if f:
+        f.close()
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;#with语句来自动帮我们调用close()方法
+with open(&#39;/path/to/file&#39;, &#39;r&#39;) as f:
+    print(f.read())
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;for line in f.readlines():
+    print(line.strip()) # 把末尾的&#39;\n&#39;删掉
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;写文件&#34;&gt;写文件&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code&gt;with open(&#39;/Users/michael/test.txt&#39;, &#39;w&#39;) as f:
+    f.write(&#39;Hello, world!&#39;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;常规语法&#34;&gt;常规语法&lt;/h1&gt;
+
+&lt;p&gt;&lt;strong&gt;import&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;from...import
+如 from A import b,相当于
+import A
+b=A.b
+在此过程中有一个隐含的赋值的过程
+
+import A as B,给予A库一个B的别称，帮助记忆
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;原始字符串&lt;/strong&gt;
+在单引号或者双引号 前面加一个字符 &lt;strong&gt;r&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;运算符&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;a=10
+a+=1  等价于 a=a+1=11
+
+/  除法
+// 除法取整
+% 取余
+** 幂运算  3**2=9
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;三元操作符&lt;/strong&gt;  small =x if x &amp;lt;y else y 条件真为x, 假为y&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;断言&lt;/strong&gt;   assert 3&amp;gt;4&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;循环&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;1. for 
+for i in range(1,8):  注意冒号
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;break&lt;/strong&gt;跳出当前循环&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;continue&lt;/strong&gt; 终止本轮循环，开启下一轮循环（如果循环条件为真）&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;range()函数&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;range([start,]stop[,step=1])&lt;/p&gt;
+
+&lt;p&gt;list(range(5))&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;列表&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;menber=[&amp;quot;a&amp;quot;,&amp;quot;b&amp;quot;,&amp;quot;c&amp;quot;] 单一类型列表
+mix=[1,&amp;quot;a&amp;quot;,3.14,[a,b,c]] 混合类型列表
+
+empty=[]    创建空列表
+empty.append(&amp;quot;小甲鱼&amp;quot;)  向列表添加单一元素
+empty.extend([a,b])     向列表添加另外一个列表
+empty.insert(0,&amp;quot;牡丹&amp;quot;)
+empty.remove(&amp;quot;牡丹&amp;quot;)
+del empty 删除
+pop()从列表中删除最后一个元素并弹出
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;操作符&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;列表比较大小 只比较第一个元素
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;dir(list)&lt;/strong&gt; 列出list的所有内置函数&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;numpy moudle&lt;/strong&gt; API&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://docs.scipy.org/doc/numpy-1.13.0/genindex.html&#34;&gt;https://docs.scipy.org/doc/numpy-1.13.0/genindex.html&lt;/a&gt;&lt;/p&gt;
+
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>深度学习Tensorflow</title>
+      <link>/blog/cn/2017/12/deeplearning/</link>
+      <pubDate>Wed, 20 Dec 2017 21:04:42 +0000</pubDate>
+      
+      <guid>/blog/cn/2017/12/deeplearning/</guid>
+      <description>
+        &lt;p&gt;&lt;a href=&#34;https://jizhi.im/blog/post/gpu-p6&#34;&gt;学习教程&lt;/a&gt;
+&lt;a href=&#34;http://study.163.com/course/courseMain.htm?courseId=1003223001&#34;&gt;斯坦福李飞飞&lt;/a&gt;&lt;/p&gt;
+
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>决策树</title>
+      <link>/blog/cn/2017/11/decision_tree/</link>
+      <pubDate>Tue, 21 Nov 2017 09:26:01 +0000</pubDate>
+      
+      <guid>/blog/cn/2017/11/decision_tree/</guid>
+      <description>
+        
+
+&lt;h1 id=&#34;特征选择问题&#34;&gt;特征选择问题&lt;/h1&gt;
+
+&lt;p&gt;选择信息增益和信息增益比大的特征&lt;/p&gt;
+
+&lt;h1 id=&#34;信息增益-互信息&#34;&gt;信息增益（互信息）&lt;/h1&gt;
+
+&lt;p&gt;表示得知特征X的信息而使得类Y的信息的不确定性减少的程度。&lt;/p&gt;
+
+&lt;h4 id=&#34;信息熵&#34;&gt;信息熵&lt;/h4&gt;
+
+&lt;p&gt;熵越大，随机变量的不确定性就越大。&lt;/p&gt;
+
+&lt;h4 id=&#34;条件熵&#34;&gt;条件熵&lt;/h4&gt;
+
+&lt;p&gt;随机变量X给定条件下随机变量Y的条件熵 H(Y|X)定义为X给定条件下Y的条件概率分布的熵对X的数学期望。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;信息熵和条件熵中概率由数据估计得到，所对应的熵与条件熵分别称为经验熵和经验条件熵&lt;/strong&gt;&lt;/p&gt;
+
+&lt;h1 id=&#34;信息增益比&#34;&gt;信息增益比&lt;/h1&gt;
+
+&lt;p&gt;信息增益与训练数据集经验熵的比值&lt;/p&gt;
+
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>基因组版本对应关系</title>
+      <link>/blog/cn/2017/11/genome_version/</link>
+      <pubDate>Mon, 13 Nov 2017 08:52:07 +0000</pubDate>
+      
+      <guid>/blog/cn/2017/11/genome_version/</guid>
+      <description>
+        
+
+&lt;p&gt;&lt;a href=&#34;http://www.bio-info-trainee.com/1469.html&#34;&gt;原文&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;hg19(UCSC)，GRCH37(NCBI)和Ensembl75(ENSEMBL)是三种国际生物信息学数据库资源收集存储单各自发布的基因组信息。&lt;/p&gt;
+
+&lt;p&gt;hg系列，hg18/19/38是目前使用频率最高的基因组。hg38是目前的最新版本。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;基因组各种版本对应关系&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;GRCh36 (hg18): ENSEMBL release_52.&lt;/li&gt;
+&lt;li&gt;GRCh37 (hg19): ENSEMBL release_59/61/64/68/69/75.&lt;/li&gt;
+&lt;li&gt;GRCh38 (hg38): ENSEMBL release_76/77/78/80/81/82.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&#34;ucsc基因组下载&#34;&gt;UCSC基因组下载&lt;/h1&gt;
+
+&lt;pre&gt;&lt;code&gt;http://hgdownload.cse.ucsc.edu/goldenPath/mm10/bigZips/chromFa.tar.gz
+http://hgdownload.cse.ucsc.edu/goldenPath/mm9/bigZips/chromFa.tar.gz
+http://hgdownload.cse.ucsc.edu/goldenPath/hg19/bigZips/chromFa.tar.gz
+http://hgdownload.cse.ucsc.edu/goldenPath/hg38/bigZips/chromFa.tar.gz
+# 或者用shell脚本指定下载的染色体号
+for i in $(seq 1 22) X Y M;
+do echo $i;
+  wget http://hgdownload.cse.ucsc.edu/goldenPath/hg19/chromosomes/chr${i}.fa.gz;done
+  gunzip *.gz
+  for i in $(seq 1 22) X Y M;
+  do cat chr${i}.fa &amp;gt;&amp;gt; hg19.fasta;
+done
+rm -fr chr*.fasta
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;gtf注释文件&#34;&gt;GTF注释文件&lt;/h1&gt;
+
+&lt;p&gt;&lt;strong&gt;NCBI&lt;/strong&gt;：最新版（hg38）&lt;/p&gt;
+
+&lt;p&gt;● &lt;a href=&#34;ftp://ftp.ncbi.nih.gov/genomes/H_sapiens/GFF/&#34;&gt;ftp://ftp.ncbi.nih.gov/genomes/H_sapiens/GFF/&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;其它版本&lt;/p&gt;
+
+&lt;p&gt;● &lt;a href=&#34;ftp://ftp.ncbi.nlm.nih.gov/genomes/Homo_sapiens/ARCHIVE/&#34;&gt;ftp://ftp.ncbi.nlm.nih.gov/genomes/Homo_sapiens/ARCHIVE/&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Ensembl&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;● &lt;a href=&#34;ftp://ftp.ensembl.org/pub/release-75/gtf/homosapiens/Homosapiens.GRCh37.75.gtf.gz&#34;&gt;ftp://ftp.ensembl.org/pub/release-75/gtf/homosapiens/Homosapiens.GRCh37.75.gtf.gz&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;变化上面链接中的release就可以拿到所有版本信息&lt;/p&gt;
+
+&lt;p&gt;● &lt;a href=&#34;ftp://ftp.ensembl.org/pub/&#34;&gt;ftp://ftp.ensembl.org/pub/&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;UCSC&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;本身需要一系列参数：
+  1. Navigate to http://genome.ucsc.edu/cgi-bin/hgTables
+  2. Select the following options:
+  3. clade: Mammal
+  4. genome: Human
+  5. assembly: Feb. 2009 (GRCh37/hg19)
+  6. group: Genes and Gene Predictions
+  7. track: UCSC Genes
+  8. table: knownGene
+  9. region: Select &amp;quot;genome&amp;quot; for the entire genome.
+  10. output format: GTF - gene transfer format
+  11. output file: enter a file name to save your results to a file, or leave blank to display results in the browser
+  12. Click &#39;get output&#39;.
+&lt;/code&gt;&lt;/pre&gt;
+
+        
+      </description>
+    </item>
     
     <item>
       <title>SAM文件与SAMtools</title>
@@ -363,9 +694,16 @@ samtools faidx hg19.fasta
 
 &lt;p&gt;首先用RealignerTargetCreator找到需要重新比对的区域，输出文件intervals，然后用输出的 tmp.intervals 做输入文件来进行重新比对，也就是用IndelRealigner在这些区域内进行重新比对.&lt;/p&gt;
 
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;nohup java -Xmx60g -jar /data/biosoft/GATK/GenomeAnalysisTK.jar -R /data/reference/annotation/GATK/ucsc.hg19.fasta -T RealignerTargetCreator -I KPGP-00001.filter.rmdup.bam -o KPGP-00001.filter.rmdup.intervals -known /data/reference/annotation/GATK/1000G_phase1.indels.b37.vcf.gz 1&amp;gt; KPGP-00001.filter.rmdup.RealignerTargetCreator.log
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;nohup java -Xmx60g -jar /data/biosoft/GATK/GenomeAnalysisTK.jar -R \
+/data/reference/annotation/GATK/ucsc.hg19.fasta -T RealignerTargetCreator \
+-I KPGP-00001.filter.rmdup.bam -o KPGP-00001.filter.rmdup.intervals \
+-known /data/reference/annotation/GATK/1000G_phase1.indels.hg19.sites.vcf \
+1&amp;gt; KPGP-00001.filter.rmdup.RealignerTargetCreator.log
 
-nohup java -Xmx60g -jar /data/biosoft/GATK/GenomeAnalysisTK.jar  -R /data/reference/annotation/GATK/ucsc.hg19.fasta  -T IndelRealigner  -I KPGP-00001.filter.rmdup.bam  -targetIntervals KPGP-00001.filter.rmdup.intervals -o KPGP-00001.filter.rmdup.realgn.bam  1&amp;gt;KPGP-00001.filter.rmdup.IndelRealigner.log
+nohup java -Xmx60g -jar /data/biosoft/GATK/GenomeAnalysisTK.jar  -R \
+/data/reference/annotation/GATK/ucsc.hg19.fasta  -T IndelRealigner  \
+-I KPGP-00001.filter.rmdup.bam  -targetIntervals KPGP-00001.filter.rmdup.intervals \
+-o KPGP-00001.filter.rmdup.realgn.bam  1&amp;gt;KPGP-00001.filter.rmdup.IndelRealigner.log
 &lt;/code&gt;&lt;/pre&gt;
 
         
@@ -1209,135 +1547,6 @@ exit 0
 &lt;h1 id=&#34;linux环境开机自动启动防掉线脚本&#34;&gt;LINUX环境开机自动启动防掉线脚本&lt;/h1&gt;
 
 &lt;p&gt;&lt;a href=&#34;http://www.nat123.com/Pages_17_682.jsp&#34;&gt;教程&lt;/a&gt;&lt;/p&gt;
-
-        
-      </description>
-    </item>
-    
-    <item>
-      <title>python学习</title>
-      <link>/blog/cn/2017/11/python_study/</link>
-      <pubDate>Sun, 05 Nov 2017 10:34:22 +0000</pubDate>
-      
-      <guid>/blog/cn/2017/11/python_study/</guid>
-      <description>
-        
-
-&lt;p&gt;&lt;a href=&#34;http://www.runoob.com/python/python-tutorial.html&#34;&gt;入门教程&lt;/a&gt;&lt;/p&gt;
-
-&lt;h1 id=&#34;认识python&#34;&gt;认识python&lt;/h1&gt;
-
-&lt;h4 id=&#34;实例-python-2-0&#34;&gt;实例(Python 2.0+)&lt;/h4&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;#!/usr/bin/python
-print &amp;quot;Hello, World!&amp;quot;;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h4 id=&#34;实例-python-3-0&#34;&gt;实例(Python 3.0+)&lt;/h4&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;#!/usr/bin/python3
-print(&amp;quot;Hello, World!&amp;quot;);
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h1 id=&#34;python-脚本&#34;&gt;python 脚本&lt;/h1&gt;
-
-&lt;p&gt;所有 Python 文件将以 .py 为扩展名。用 $ python *.py 执行脚本。&lt;/p&gt;
-
-&lt;h1 id=&#34;python语法&#34;&gt;python语法&lt;/h1&gt;
-
-&lt;p&gt;1.Python 的代码块不使用大括号 {} 来控制类，函数以及其他逻辑判断。&lt;/p&gt;
-
-&lt;p&gt;python 最具特色的就是用缩进来写模块。缩进的空白数量是可变的，但是所有代码块语句必须包含相同的缩进空白数量，这个必须严格执行。&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;if True:
-  print &amp;quot;True&amp;quot;
-else:
-  print &amp;quot;False&amp;quot;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;2.xx&lt;/p&gt;
-
-&lt;h1 id=&#34;python函数&#34;&gt;python函数&lt;/h1&gt;
-
-&lt;p&gt;语法&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;def functionname( parameters ):
-   &amp;quot;函数_文档字符串&amp;quot;
-   function_suite
-   return [expression]
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;示例&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;#!/usr/bin/python
-# -*- coding: UTF-8 -*-
- 
-# 定义函数
-def printme( str ):
-   &amp;quot;打印任何传入的字符串&amp;quot;
-   print str;
-   return;
-# 调用函数
-printme(&amp;quot;我要调用用户自定义函数!&amp;quot;);
-printme(&amp;quot;再次调用同一函数&amp;quot;);
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h1 id=&#34;python-模块&#34;&gt;Python 模块&lt;/h1&gt;
-
-&lt;p&gt;Python 模块(Module)，是一个 Python 文件，以 .py 结尾，包含了 Python 对象定义和Python语句。&lt;/p&gt;
-
-&lt;p&gt;定义support.py 模块：&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;def print_func( par ):
-   print &amp;quot;Hello : &amp;quot;, par
-   return
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h3 id=&#34;模块的引入&#34;&gt;模块的引入&lt;/h3&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;#!/usr/bin/python
-# -*- coding: UTF-8 -*-
-# 导入模块
-import support
-# 现在可以调用模块里包含的函数了
-# 调用方法：模块名.函数名
-support.print_func(&amp;quot;Runoob&amp;quot;)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h3 id=&#34;from-import-语句&#34;&gt;From…import 语句&lt;/h3&gt;
-
-&lt;p&gt;Python 的 from 语句让你从模块中导入一个指定的部分到当前命名空间中。&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;from fib import fibonacci
-
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h1 id=&#34;常用语句&#34;&gt;常用语句&lt;/h1&gt;
-
-&lt;h3 id=&#34;读文件&#34;&gt;读文件&lt;/h3&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;try:
-    f = open(&#39;/path/to/file&#39;, &#39;r&#39;)
-    print(f.read())
-finally:
-    if f:
-        f.close()
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;#with语句来自动帮我们调用close()方法
-with open(&#39;/path/to/file&#39;, &#39;r&#39;) as f:
-    print(f.read())
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;pre&gt;&lt;code&gt;for line in f.readlines():
-    print(line.strip()) # 把末尾的&#39;\n&#39;删掉
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h3 id=&#34;写文件&#34;&gt;写文件&lt;/h3&gt;
-
-&lt;pre&gt;&lt;code&gt;with open(&#39;/Users/michael/test.txt&#39;, &#39;w&#39;) as f:
-    f.write(&#39;Hello, world!&#39;)
-&lt;/code&gt;&lt;/pre&gt;
 
         
       </description>
@@ -5166,205 +5375,6 @@ roc.test(r1,r2)
 &lt;hr /&gt;
 
 &lt;p&gt;在学习&lt;a href=&#34;http://bioconductor.org/packages/release/bioc/vignettes/genefu/inst/doc/genefu.pdf&#34;&gt;genefu包&lt;/a&gt;时候遇到Confusion Matrix，有必要有个系统的学习和总结。&lt;/p&gt;
-
-        
-      </description>
-    </item>
-    
-    <item>
-      <title>Fold Change 与火山图</title>
-      <link>/blog/cn/2017/09/foldchange/</link>
-      <pubDate>Sat, 09 Sep 2017 10:19:35 +0000</pubDate>
-      
-      <guid>/blog/cn/2017/09/foldchange/</guid>
-      <description>
-        
-
-&lt;h1 id=&#34;fold-change&#34;&gt;Fold Change&lt;/h1&gt;
-
-&lt;p&gt;计算公式：样本平均值log2还原的比值&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;https://taoshengxu.github.io/DocumentGit/img/fold_change.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
-
-&lt;h1 id=&#34;火山图-volcano-plot&#34;&gt;火山图（Volcano Plot）&lt;/h1&gt;
-
-&lt;p&gt;火山图只存在于两分组样本比较中，并且有生物学重复(经过相同方式处理的相同样品)
-&lt;img src=&#34;https://taoshengxu.github.io/DocumentGit/img/volcanoplot.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;标准的火山图常用于展示显著差异表达的基因，这里有两个关键词：显著是指P&amp;lt;&amp;gt;差异表达一般我们按照Fold Change(倍数变化)&amp;gt;=2.0作为标准。&lt;/p&gt;
-
-&lt;p&gt;当我们拿到基因表达的P值和倍数后，为了用火山图展示结果，一般需要把倍数进行Log2的转化，比如某基因在实验组表达水平是对照组的4倍，log2（4）=2，同样的如果是1/4，也就是0.25，转换后的结果就是-2。&lt;/p&gt;
-
-&lt;p&gt;同样的道理，对P值进行-log10的转化，-log10（0.05）约等于1.30103，由于P值越小表示越显著，所以我们进行-log10（P value）转化后，转化值越大表示差异约显著，比如-log10（0.001）=3  &amp;gt;  -log10(0.01)=2 &amp;gt;  -log10(0.05)=1.30。&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;https://taoshengxu.github.io/DocumentGit/img/volcanoplot1.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;在上面这个图中，横轴是log2（FC），纵轴是-log10（P value），每个点代表一个基因，平行于Y轴的两条线分别是X=1和X=-1，在X=-1左侧的点是下调2倍以上的基因，在X=1右侧的点是上调2倍以上的基因。同时，平行于X轴有一条虚线Y=1.30，即-log10(0.05），在虚线以上的点表示显著性.&lt;/p&gt;
-
-&lt;p&gt;这样，我们就把虚线Y=1.30以上，X=1右侧和X=-1左侧的基因标记为表达显著差异的基因，一般我们把大于2倍（X=1右侧）的点标记为红色，把小于-2（X=-1左侧）的点标记为绿色，一些我们特别关注的基因需要把基因名标记出来。&lt;/p&gt;
-
-        
-      </description>
-    </item>
-    
-    <item>
-      <title>GCBI 学院</title>
-      <link>/blog/cn/2017/09/gcbiaccdemy/</link>
-      <pubDate>Sat, 09 Sep 2017 09:19:35 +0000</pubDate>
-      
-      <guid>/blog/cn/2017/09/gcbiaccdemy/</guid>
-      <description>
-        &lt;p&gt;GCBI学院里一些视频还是值得看看的,一直想看看一直忘记，记录在这里。 &lt;a href=&#34;http://college.gcbi.com.cn/&#34;&gt;Here&lt;/a&gt;&lt;/p&gt;
-
-        
-      </description>
-    </item>
-    
-    <item>
-      <title>ExpressionSet简单讲解</title>
-      <link>/blog/cn/2017/09/expressionset/</link>
-      <pubDate>Fri, 08 Sep 2017 16:38:17 +0000</pubDate>
-      
-      <guid>/blog/cn/2017/09/expressionset/</guid>
-      <description>
-        
-
-&lt;p&gt;From 生信菜鸟团&lt;/p&gt;
-
-&lt;hr /&gt;
-
-&lt;blockquote&gt;
-&lt;p&gt;这个对象其实是对表达矩阵加上样本分组信息的一个封装，由biobase这个包引入。它是eSet这个对象的继承。&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;h2 id=&#34;一个现成例子&#34;&gt;一个现成例子&lt;/h2&gt;
-
-&lt;blockquote&gt;
-&lt;p&gt;下面是一个具体的例子，来源于CLL这个包，是用hgu95av2芯片测了22个样本&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-R&#34;&gt;    library(CLL)
-    data(sCLLex)
-    sCLLex
-    
-    ExpressionSet (storageMode: lockedEnvironment)
-    assayData: 12625 features, 22 samples  ##表达矩阵
-      element names: exprs 
-    protocolData: none
-    phenoData
-      sampleNames: CLL11.CEL CLL12.CEL ... CLL9.CEL (22 total)
-      varLabels: SampleID Disease   ## 样本分组信息
-      varMetadata: labelDescription
-    featureData: none
-    experimentData: use &#39;experimentData(object)&#39;
-    Annotation: hgu95av2
-    
-    &amp;gt; exprMatrix=exprs(sCLLex)
-    &amp;gt; dim(exprMatrix)
-    [1] 12625    22
-    &amp;gt; meta=pData(sCLLex)
-    &amp;gt; table(meta$Disease)
-    
-    progres.   stable 
-          14        8 
-    &amp;gt; 
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;pre&gt;&lt;code&gt;根据上面的信息可以看出该芯片共12625个探针，这22个样本根据疾病状态分成两组，14vs8
-这个数据对象就可以打包做很多包的分析输入数据。
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;对这个包的分析，重点就是 &lt;strong&gt;&lt;code&gt;exprs&lt;/code&gt; 函数提取表达矩阵&lt;/strong&gt;，&lt;strong&gt;&lt;code&gt;pData&lt;/code&gt; 函数看看该对象的样本分组信息&lt;/strong&gt;。&lt;/p&gt;
-
-&lt;h2 id=&#34;limma等包使用该对象作为输入数据&#34;&gt;limma等包使用该对象作为输入数据&lt;/h2&gt;
-
-&lt;blockquote&gt;
-&lt;p&gt;下面这个例子充分说明了 &lt;code&gt;ExpressionSet&lt;/code&gt; 对象的重要性&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-R&#34;&gt;    &amp;gt; library(limma)
-    &amp;gt; design=model.matrix(~factor(sCLLex$Disease))
-    &amp;gt; fit=lmFit(sCLLex,design)
-    &amp;gt; fit=eBayes(fit)
-    &amp;gt; options(digits = 4)
-    &amp;gt; topTable(fit,coef=2,adjust=&#39;BH&#39;)
-               logFC AveExpr      t   P.Value adj.P.Val     B
-    39400_at  1.0285   5.621  5.836 8.341e-06   0.03344 3.234
-    36131_at -0.9888   9.954 -5.772 9.668e-06   0.03344 3.117
-    33791_at -1.8302   6.951 -5.736 1.049e-05   0.03344 3.052
-    1303_at   1.3836   4.463  5.732 1.060e-05   0.03344 3.044
-    36122_at -0.7801   7.260 -5.141 4.206e-05   0.10619 1.935
-    36939_at -2.5472   6.915 -5.038 5.362e-05   0.11283 1.737
-    41398_at  0.5187   7.602  4.879 7.824e-05   0.11520 1.428
-    32599_at  0.8544   5.746  4.859 8.207e-05   0.11520 1.389
-    36129_at  0.9161   8.209  4.859 8.212e-05   0.11520 1.389
-    37636_at -1.6868   5.697 -4.804 9.355e-05   0.11811 1.282
-    &amp;gt; 
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;还有非常多的其它包会使用 &lt;code&gt;ExpressionSet&lt;/code&gt; 对象，我就不一一介绍了。&lt;/p&gt;
-
-&lt;h2 id=&#34;自己构造-expressionset-对象&#34;&gt;自己构造 &lt;code&gt;ExpressionSet&lt;/code&gt; 对象&lt;/h2&gt;
-
-&lt;blockquote&gt;
-&lt;p&gt;根据上面的讲解，我们知道了在这个对象其实很简单，就是对表达矩阵加上样本分组信息的一个封装。
-所以我们就用上面得到的exprMatrix和meta来构建一个ExpressionSet对象，biobase包里面提供了详细的说明,建议大家仔细看官方手册&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-R&#34;&gt;    metadata &amp;lt;- data.frame(labelDescription=c(&#39;SampleID&#39;, &#39;Disease&#39;),
-                       row.names=c(&#39;SampleID&#39;, &#39;Disease&#39;))
-    phenoData &amp;lt;- new(&amp;quot;AnnotatedDataFrame&amp;quot;,data=meta,varMetadata=metadata)
-    myExpressionSet &amp;lt;- ExpressionSet(assayData=exprMatrix,
-                                     phenoData=phenoData,
-                                     annotation=&amp;quot;hgu95av2&amp;quot;)
-    &amp;gt; myExpressionSet
-    ExpressionSet (storageMode: lockedEnvironment)
-    assayData: 12625 features, 22 samples 
-      element names: exprs 
-    protocolData: none
-    phenoData
-      sampleNames: CLL11.CEL CLL12.CEL ... CLL9.CEL (22 total)
-      varLabels: SampleID Disease
-      varMetadata: labelDescription
-    featureData: none
-    experimentData: use &#39;experimentData(object)&#39;
-    Annotation: hgu95av2 
-    &amp;gt; 
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;blockquote&gt;
-&lt;p&gt;从上面的构造过程可以看出，重点就是表达矩阵加上样本分组信息&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;h2 id=&#34;其它例子&#34;&gt;其它例子&lt;/h2&gt;
-
-&lt;h3 id=&#34;all包的数据自带-expressionset-对象&#34;&gt;ALL包的数据自带 &lt;code&gt;ExpressionSet&lt;/code&gt; 对象&lt;/h3&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-R&#34;&gt;    library(ALL)
-    data(ALL)
-    ALL
-    
-    ExpressionSet (storageMode: lockedEnvironment)
-    assayData: 12625 features, 128 samples
-        element names: exprs
-    protocolData: none
-    phenoData
-        sampleNames: 01005 01010 … LAL4 (128 total)
-        varLabels: cod diagnosis … date last seen (21 total)
-        varMetadata: labelDescription
-    featureData: none
-    experimentData: use ‘experimentData(object)’
-    pubMedIds: 14684422 16243790 
-    Annotation: hgu95av2
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;这个数据非常出名，很多其它算法包都会拿这个数据来举例子，只有真正理解了ExpressionSet对象才能学会bioconductor系列包&lt;/p&gt;
-
-&lt;h2 id=&#34;用geoquery包来下载得到-expressionset-对象&#34;&gt;用GEOquery包来下载得到 &lt;code&gt;ExpressionSet&lt;/code&gt; 对象&lt;/h2&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-R&#34;&gt;    gse1009=GEOquery::getGEO(&amp;quot;GSE1009&amp;quot;)
-    gse1009[[1]] ## 这就是ExpressionSet对象
-&lt;/code&gt;&lt;/pre&gt;
 
         
       </description>

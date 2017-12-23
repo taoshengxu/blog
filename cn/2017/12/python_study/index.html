@@ -64,7 +64,7 @@
 <h1>python学习</h1>
 
 <h3>
-  2017-11-05</h3>
+  2017-12-21</h3>
 <hr>
 
 
@@ -218,18 +218,58 @@ a+=1  等价于 a=a+1=11
 ** 幂运算  3**2=9
 </code></pre>
 
-<p><strong>三元操作符</strong>
-small =x if x &lt;y else y 条件真为x, 假为y</p>
+<p><strong>三元操作符</strong>  small =x if x &lt;y else y 条件真为x, 假为y</p>
 
-<p><strong>断言</strong>
-assert</p>
+<p><strong>断言</strong>   assert 3&gt;4</p>
+
+<p><strong>循环</strong></p>
+
+<pre><code>1. for 
+for i in range(1,8):  注意冒号
+
+</code></pre>
+
+<p><strong>break</strong>跳出当前循环</p>
+
+<p><strong>continue</strong> 终止本轮循环，开启下一轮循环（如果循环条件为真）</p>
+
+<p><strong>range()函数</strong></p>
+
+<p>range([start,]stop[,step=1])</p>
+
+<p>list(range(5))</p>
+
+<p><strong>列表</strong></p>
+
+<pre><code>menber=[&quot;a&quot;,&quot;b&quot;,&quot;c&quot;] 单一类型列表
+mix=[1,&quot;a&quot;,3.14,[a,b,c]] 混合类型列表
+
+empty=[]    创建空列表
+empty.append(&quot;小甲鱼&quot;)  向列表添加单一元素
+empty.extend([a,b])     向列表添加另外一个列表
+empty.insert(0,&quot;牡丹&quot;)
+empty.remove(&quot;牡丹&quot;)
+del empty 删除
+pop()从列表中删除最后一个元素并弹出
+</code></pre>
+
+<p><strong>操作符</strong></p>
+
+<pre><code>列表比较大小 只比较第一个元素
+</code></pre>
+
+<p><strong>dir(list)</strong> 列出list的所有内置函数</p>
+
+<p><strong>numpy moudle</strong> API</p>
+
+<p><a href="https://docs.scipy.org/doc/numpy-1.13.0/genindex.html">https://docs.scipy.org/doc/numpy-1.13.0/genindex.html</a></p>
 
 
   <footer>
   
 <nav class="post-nav">
-  <span class="nav-prev">&larr; <a href="/blog/cn/2017/11/transcriptome_analysis1/">转录组分析笔记（2）</a></span>
-  <span class="nav-next"><a href="/blog/cn/2017/11/nat123/">nat123</a> &rarr;</span>
+  <span class="nav-prev">&larr; <a href="/blog/cn/2017/12/deeplearning/">深度学习Tensorflow</a></span>
+  <span class="nav-next"></span>
 </nav>
 
 

@@ -314,9 +314,16 @@ samtools faidx hg19.fasta
 
 <p>首先用RealignerTargetCreator找到需要重新比对的区域，输出文件intervals，然后用输出的 tmp.intervals 做输入文件来进行重新比对，也就是用IndelRealigner在这些区域内进行重新比对.</p>
 
-<pre><code class="language-bash">nohup java -Xmx60g -jar /data/biosoft/GATK/GenomeAnalysisTK.jar -R /data/reference/annotation/GATK/ucsc.hg19.fasta -T RealignerTargetCreator -I KPGP-00001.filter.rmdup.bam -o KPGP-00001.filter.rmdup.intervals -known /data/reference/annotation/GATK/1000G_phase1.indels.b37.vcf.gz 1&gt; KPGP-00001.filter.rmdup.RealignerTargetCreator.log
+<pre><code class="language-bash">nohup java -Xmx60g -jar /data/biosoft/GATK/GenomeAnalysisTK.jar -R \
+/data/reference/annotation/GATK/ucsc.hg19.fasta -T RealignerTargetCreator \
+-I KPGP-00001.filter.rmdup.bam -o KPGP-00001.filter.rmdup.intervals \
+-known /data/reference/annotation/GATK/1000G_phase1.indels.hg19.sites.vcf \
+1&gt; KPGP-00001.filter.rmdup.RealignerTargetCreator.log
 
-nohup java -Xmx60g -jar /data/biosoft/GATK/GenomeAnalysisTK.jar  -R /data/reference/annotation/GATK/ucsc.hg19.fasta  -T IndelRealigner  -I KPGP-00001.filter.rmdup.bam  -targetIntervals KPGP-00001.filter.rmdup.intervals -o KPGP-00001.filter.rmdup.realgn.bam  1&gt;KPGP-00001.filter.rmdup.IndelRealigner.log
+nohup java -Xmx60g -jar /data/biosoft/GATK/GenomeAnalysisTK.jar  -R \
+/data/reference/annotation/GATK/ucsc.hg19.fasta  -T IndelRealigner  \
+-I KPGP-00001.filter.rmdup.bam  -targetIntervals KPGP-00001.filter.rmdup.intervals \
+-o KPGP-00001.filter.rmdup.realgn.bam  1&gt;KPGP-00001.filter.rmdup.IndelRealigner.log
 </code></pre>
 
 

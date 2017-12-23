@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <title>基因组版本对应关系 - My Lives</title>
+    <meta property="og:title" content="基因组版本对应关系 - My Lives">
+    
+
+    
+      
+    
+
+    
+
+    
+    
+
+
+<link href='//cdn.bootcss.com/highlight.js/9.12.0/styles/github.min.css' rel='stylesheet' type='text/css' />
+
+
+
+    <link rel="stylesheet" href="/blog/css/style.css" />
+    <link rel="stylesheet" href="/blog/css/fonts.css" />
+    <link rel="stylesheet" href="/blog/css/custom.css" />
+
+  </head>
+
+  
+  <body class="blog">
+    <header class="masthead">
+      <h1><a href="/blog/">My Lives</a></h1>
+
+
+
+      <nav class="menu">
+        <input id="menu-check" type="checkbox" />
+        <label id="menu-label" for="menu-check" class="unselectable">
+          <span class="icon close-icon">✕</span>
+          <span class="icon open-icon">☰</span>
+          <span class="text">Menu</span>
+        </label>
+        <ul>
+        
+        
+        <li><a href="/blog/">Home</a></li>
+        
+        <li><a href="/blog/en/">English</a></li>
+        
+        <li><a href="/blog/cn/">Chinese</a></li>
+        
+        <li><a href="/blog/travel/">Travel</a></li>
+        
+        
+        </ul>
+      </nav>
+    </header>
+
+    <article class="main">
+      <header class="title">
+      
+<h1>基因组版本对应关系</h1>
+
+<h3>
+  2017-11-13</h3>
+<hr>
+
+
+      </header>
+
+
+
+
+
+<p><a href="http://www.bio-info-trainee.com/1469.html">原文</a></p>
+
+<p>hg19(UCSC)，GRCH37(NCBI)和Ensembl75(ENSEMBL)是三种国际生物信息学数据库资源收集存储单各自发布的基因组信息。</p>
+
+<p>hg系列，hg18/19/38是目前使用频率最高的基因组。hg38是目前的最新版本。</p>
+
+<p><strong>基因组各种版本对应关系</strong></p>
+
+<ul>
+<li>GRCh36 (hg18): ENSEMBL release_52.</li>
+<li>GRCh37 (hg19): ENSEMBL release_59/61/64/68/69/75.</li>
+<li>GRCh38 (hg38): ENSEMBL release_76/77/78/80/81/82.</li>
+</ul>
+
+<h1 id="ucsc基因组下载">UCSC基因组下载</h1>
+
+<pre><code>http://hgdownload.cse.ucsc.edu/goldenPath/mm10/bigZips/chromFa.tar.gz
+http://hgdownload.cse.ucsc.edu/goldenPath/mm9/bigZips/chromFa.tar.gz
+http://hgdownload.cse.ucsc.edu/goldenPath/hg19/bigZips/chromFa.tar.gz
+http://hgdownload.cse.ucsc.edu/goldenPath/hg38/bigZips/chromFa.tar.gz
+# 或者用shell脚本指定下载的染色体号
+for i in $(seq 1 22) X Y M;
+do echo $i;
+  wget http://hgdownload.cse.ucsc.edu/goldenPath/hg19/chromosomes/chr${i}.fa.gz;done
+  gunzip *.gz
+  for i in $(seq 1 22) X Y M;
+  do cat chr${i}.fa &gt;&gt; hg19.fasta;
+done
+rm -fr chr*.fasta
+</code></pre>
+
+<h1 id="gtf注释文件">GTF注释文件</h1>
+
+<p><strong>NCBI</strong>：最新版（hg38）</p>
+
+<p>● <a href="ftp://ftp.ncbi.nih.gov/genomes/H_sapiens/GFF/">ftp://ftp.ncbi.nih.gov/genomes/H_sapiens/GFF/</a></p>
+
+<p>其它版本</p>
+
+<p>● <a href="ftp://ftp.ncbi.nlm.nih.gov/genomes/Homo_sapiens/ARCHIVE/">ftp://ftp.ncbi.nlm.nih.gov/genomes/Homo_sapiens/ARCHIVE/</a></p>
+
+<p><strong>Ensembl</strong></p>
+
+<p>● <a href="ftp://ftp.ensembl.org/pub/release-75/gtf/homosapiens/Homosapiens.GRCh37.75.gtf.gz">ftp://ftp.ensembl.org/pub/release-75/gtf/homosapiens/Homosapiens.GRCh37.75.gtf.gz</a></p>
+
+<p>变化上面链接中的release就可以拿到所有版本信息</p>
+
+<p>● <a href="ftp://ftp.ensembl.org/pub/">ftp://ftp.ensembl.org/pub/</a></p>
+
+<p><strong>UCSC</strong></p>
+
+<pre><code>本身需要一系列参数：
+  1. Navigate to http://genome.ucsc.edu/cgi-bin/hgTables
+  2. Select the following options:
+  3. clade: Mammal
+  4. genome: Human
+  5. assembly: Feb. 2009 (GRCh37/hg19)
+  6. group: Genes and Gene Predictions
+  7. track: UCSC Genes
+  8. table: knownGene
+  9. region: Select &quot;genome&quot; for the entire genome.
+  10. output format: GTF - gene transfer format
+  11. output file: enter a file name to save your results to a file, or leave blank to display results in the browser
+  12. Click 'get output'.
+</code></pre>
+
+
+  <footer>
+  
+<nav class="post-nav">
+  <span class="nav-prev">&larr; <a href="/blog/cn/2017/11/sam_samtools/">SAM文件与SAMtools</a></span>
+  <span class="nav-next"><a href="/blog/cn/2017/11/decision_tree/">决策树</a> &rarr;</span>
+</nav>
+
+
+
+
+
+<script src="//yihui.name/js/math-code.js"></script>
+<script async src="//cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+<script async src="//yihui.name/js/center-img.js"></script>
+
+  
+
+
+
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+
+
+
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/r.min.js"></script>
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/yaml.min.js"></script>
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/tex.min.js"></script>
+<script>hljs.configure({languages: []}); hljs.initHighlightingOnLoad();</script>
+
+
+
+  
+  <hr>
+  <div class="copyright">&copy; <a href="xxxx">Who care</a> 2017 - Forever, maybe</div>
+  
+  </footer>
+  </article>
+  
+  </body>
+</html>
+
