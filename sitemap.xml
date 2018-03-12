@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>/blog/travel/mark_test/</loc>
+    <lastmod>2018-03-12T11:30:10+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>/blog/cn/2017/12/python_study/</loc>
     <lastmod>2017-12-21T11:17:39+00:00</lastmod>
   </url>
@@ -274,6 +279,7 @@
   
   <url>
     <loc>/blog/travel/</loc>
+    <lastmod>2018-03-12T11:30:10+00:00</lastmod>
   </url>
   
 </urlset>
