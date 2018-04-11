@@ -10,6 +10,67 @@
     <atom:link href="/blog/" rel="self" type="application/rss+xml" />
     
     <item>
+      <title>R语言数据库操作</title>
+      <link>/blog/cn/2018/04/r_database/</link>
+      <pubDate>Wed, 11 Apr 2018 08:53:39 +0000</pubDate>
+      
+      <guid>/blog/cn/2018/04/r_database/</guid>
+      <description>
+        
+
+&lt;h1 id=&#34;rsqlite&#34;&gt;RSQLite&lt;/h1&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-R&#34;&gt;table_name=&amp;quot;howdo&amp;quot;
+colNames=c(&amp;quot;weather&amp;quot;,&amp;quot;food&amp;quot;,&amp;quot;size&amp;quot;,&amp;quot;direction&amp;quot;)
+
+### 1.创建sqlite数据库
+con&amp;lt;-dbConnect(SQLite(), &amp;quot;test.db&amp;quot;)
+
+### 2.判断一个表是否存在
+if(!dbExistsTable(con,table_name))
+{
+  ### 3.写入一个表
+  table_info=as.data.frame(matrix(character(0),ncol=4),stringsAsFactors = FALSE)
+  colnames(table_info)= colNames
+  dbWriteTable(con, table_name, table_info)
+}
+### 4.读表
+DF=dbReadTable(con, table_name)
+### 5.写表
+DF=as.data.frame(t(c(1:4)))
+colnames(DF)=colNames
+dbWriteTable(con,table_name,DF,append = TRUE)
+
+DF1=matrix(sample(1:100,12),ncol=4)
+colnames(DF1)=colNames
+dbWriteTable(con,table_name,DF1,append = TRUE)
+
+DF2=dbReadTable(con, table_name)
+
+### 6.查询语句
+query1=paste(&amp;quot;select * from&amp;quot;,shQuote(table_name), &amp;quot;where weather=&amp;quot;,shQuote(57),
+                     &amp;quot; and food=&amp;quot;,shQuote(26))
+tmp=dbGetQuery(con,query1)
+
+### 7.写入指定单元格
+query2=paste(&amp;quot;UPDATE&amp;quot;,shQuote(table_name), &amp;quot;SET size=&amp;quot;,shQuote(88888), &amp;quot;where weather=&amp;quot;,
+            shQuote(57),&amp;quot;and food=&amp;quot;,shQuote(26))
+dbSendQuery(con,query2)
+
+### 8.删除records
+query3=paste(&amp;quot;DELETE FROM&amp;quot;,shQuote(table_name), &amp;quot;where weather=&amp;quot;,
+            shQuote(57),&amp;quot;and food=&amp;quot;,shQuote(26))
+dbSendQuery(con,query3)
+
+###10.最后断开连接
+dbDisconnect(con) # 断开连接
+&lt;/code&gt;&lt;/pre&gt;
+
+        
+      </description>
+    </item>
+    
+    <item>
       <title>mark一下</title>
       <link>/blog/travel/mark_test/</link>
       <pubDate>Mon, 12 Mar 2018 11:30:10 +0000</pubDate>
@@ -5412,37 +5473,6 @@ mean((ridge.pred - y[test])^2)
 &lt;p&gt;&lt;a href=&#34;https://cran.r-project.org/web/packages/glmnet/vignettes/glmnet_beta.pdf&#34;&gt;https://cran.r-project.org/web/packages/glmnet/vignettes/glmnet_beta.pdf&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;a href=&#34;https://cran.r-project.org/web/packages/glmnet/vignettes/Coxnet.pdf&#34;&gt;https://cran.r-project.org/web/packages/glmnet/vignettes/Coxnet.pdf&lt;/a&gt;&lt;/p&gt;
-
-        
-      </description>
-    </item>
-    
-    <item>
-      <title>Cox 分层原理</title>
-      <link>/blog/cn/2017/09/coxstratified/</link>
-      <pubDate>Wed, 13 Sep 2017 12:43:10 +0000</pubDate>
-      
-      <guid>/blog/cn/2017/09/coxstratified/</guid>
-      <description>
-        
-
-&lt;p&gt;&lt;a href=&#34;https://taoshengxu.github.io/DocumentGit/pdf/Cox+Stratified.pdf&#34;&gt;PPT&lt;/a&gt;&lt;/p&gt;
-
-&lt;h1 id=&#34;首先理解为什么cox模型会对协变量分层处理&#34;&gt;首先理解为什么COX模型会对协变量分层处理？&lt;/h1&gt;
-
-&lt;p&gt;需要分层的变量不满足PH假设，需要分层处理。&lt;/p&gt;
-
-&lt;h1 id=&#34;如何确定-协变量不满足ph假设&#34;&gt;如何确定 协变量不满足PH假设？&lt;/h1&gt;
-
-&lt;p&gt;首先对需要研究的协变量进行多协变量COX回归，挑出不满足PH假设的协变量&lt;/p&gt;
-
-&lt;h1 id=&#34;cross-validated-partial-likelihood-cvpl-for-the-cox-model&#34;&gt;Cross-validated partial likelihood (CVPL) for the Cox model&lt;/h1&gt;
-
-&lt;p&gt;cvpl {in Package survcomp} function&lt;/p&gt;
-
-&lt;h1 id=&#34;toc_3&#34;&gt;&amp;hellip;&lt;/h1&gt;
-
-&lt;p&gt;如果得到一个Subtypes 信息，对subtype分层进行 协变量为 age的COX 回归。目的是研究在不同亚型内，age 是否为影响生存预后的重要因素。&lt;/p&gt;
 
         
       </description>

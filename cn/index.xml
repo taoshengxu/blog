@@ -6,8 +6,69 @@
     <description>Recent content in 中文博客 on My Lives</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 21 Dec 2017 11:17:39 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 11 Apr 2018 08:53:39 +0000</lastBuildDate>
     <atom:link href="/blog/cn/" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>R语言数据库操作</title>
+      <link>/blog/cn/2018/04/r_database/</link>
+      <pubDate>Wed, 11 Apr 2018 08:53:39 +0000</pubDate>
+      
+      <guid>/blog/cn/2018/04/r_database/</guid>
+      <description>
+        
+
+&lt;h1 id=&#34;rsqlite&#34;&gt;RSQLite&lt;/h1&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-R&#34;&gt;table_name=&amp;quot;howdo&amp;quot;
+colNames=c(&amp;quot;weather&amp;quot;,&amp;quot;food&amp;quot;,&amp;quot;size&amp;quot;,&amp;quot;direction&amp;quot;)
+
+### 1.创建sqlite数据库
+con&amp;lt;-dbConnect(SQLite(), &amp;quot;test.db&amp;quot;)
+
+### 2.判断一个表是否存在
+if(!dbExistsTable(con,table_name))
+{
+  ### 3.写入一个表
+  table_info=as.data.frame(matrix(character(0),ncol=4),stringsAsFactors = FALSE)
+  colnames(table_info)= colNames
+  dbWriteTable(con, table_name, table_info)
+}
+### 4.读表
+DF=dbReadTable(con, table_name)
+### 5.写表
+DF=as.data.frame(t(c(1:4)))
+colnames(DF)=colNames
+dbWriteTable(con,table_name,DF,append = TRUE)
+
+DF1=matrix(sample(1:100,12),ncol=4)
+colnames(DF1)=colNames
+dbWriteTable(con,table_name,DF1,append = TRUE)
+
+DF2=dbReadTable(con, table_name)
+
+### 6.查询语句
+query1=paste(&amp;quot;select * from&amp;quot;,shQuote(table_name), &amp;quot;where weather=&amp;quot;,shQuote(57),
+                     &amp;quot; and food=&amp;quot;,shQuote(26))
+tmp=dbGetQuery(con,query1)
+
+### 7.写入指定单元格
+query2=paste(&amp;quot;UPDATE&amp;quot;,shQuote(table_name), &amp;quot;SET size=&amp;quot;,shQuote(88888), &amp;quot;where weather=&amp;quot;,
+            shQuote(57),&amp;quot;and food=&amp;quot;,shQuote(26))
+dbSendQuery(con,query2)
+
+### 8.删除records
+query3=paste(&amp;quot;DELETE FROM&amp;quot;,shQuote(table_name), &amp;quot;where weather=&amp;quot;,
+            shQuote(57),&amp;quot;and food=&amp;quot;,shQuote(26))
+dbSendQuery(con,query3)
+
+###10.最后断开连接
+dbDisconnect(con) # 断开连接
+&lt;/code&gt;&lt;/pre&gt;
+
+        
+      </description>
+    </item>
     
     <item>
       <title>python学习</title>
@@ -5430,107 +5491,6 @@ mean((ridge.pred - y[test])^2)
 &lt;h1 id=&#34;toc_3&#34;&gt;&amp;hellip;&lt;/h1&gt;
 
 &lt;p&gt;如果得到一个Subtypes 信息，对subtype分层进行 协变量为 age的COX 回归。目的是研究在不同亚型内，age 是否为影响生存预后的重要因素。&lt;/p&gt;
-
-        
-      </description>
-    </item>
-    
-    <item>
-      <title>混淆矩阵(Confusion matrix)-ROC曲线-AUC(Area under Curve)</title>
-      <link>/blog/cn/2017/09/confusionmatrix/</link>
-      <pubDate>Sun, 10 Sep 2017 03:11:14 +0000</pubDate>
-      
-      <guid>/blog/cn/2017/09/confusionmatrix/</guid>
-      <description>
-        
-
-&lt;p&gt;混淆矩阵（confusion matrix）是可视化工具，特别用于监督学习， &lt;em&gt;在无监督学习一般叫做匹配矩阵&lt;/em&gt; 。在图像精度评价中，主要用于比较分类结果和实际测得值，可以把分类结果的精度显示在一个混淆矩阵里面。混淆矩阵是通过将每个实测像元的位置和分类与分类图像中的相应位置和分类像比较计算的。&lt;/p&gt;
-
-&lt;p&gt;混淆矩阵的每一列代表了预测类别[1]  ，每一列的总数表示预测为该类别的数据的数目；每一行代表了数据的真实归属类别[1]  ，每一行的数据总数表示该类别的数据实例的数目。每一列中的数值表示真实数据被预测为该类的数目：如下图，第一行第一列中的43表示有43个实际归属第一类的实例被预测为第一类，同理，第二行第一列的2表示有2个实际归属为第二类的实例被错误预测为第一类。&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;如有150个样本数据，这些数据分成3类，每类50个。分类结束后得到的混淆矩阵为：
-                   预测
-              类1 类2 类3
-      类1     43   5   2
-实际  类2      2   45  3
-      类3     0    1   49
-每一行之和为50，表示50个样本，
-第一行说明类1的50个样本有43个分类正确，5个错分为类2，2个错分为类3
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;hr /&gt;
-
-&lt;p&gt;另外一个例子 From:&lt;a href=&#34;http://blog.csdn.net/vesper305/article/details/44927047&#34;&gt;http://blog.csdn.net/vesper305/article/details/44927047&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;假设有一个用来对猫（cats）、狗（dogs）、兔子（rabbits）进行分类的系统，混淆矩阵就是为了进一步分析性能而对该算法测试结果做出的总结。假设总共有 27 只动物：8只猫， 6条狗， 13只兔子。结果的混淆矩阵如下图：
-&lt;img src=&#34;https://taoshengxu.github.io/DocumentGit/img/confusionmatrix0.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;在这个混淆矩阵中，实际有 8只猫，但是系统将其中3只预测成了狗；对于 6条狗，其中有 1条被预测成了兔子，2条被预测成了猫。从混淆矩阵中我们可以看出系统对于区分猫和狗存在一些问题，但是区分兔子和其他动物的效果还是不错的。所有正确的预测结果都在对角线上，所以从混淆矩阵中可以很方便直观的看出哪里有错误，因为他们呈现在对角线外面。&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;https://taoshengxu.github.io/DocumentGit/img/confusionmatrix1.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;在预测分析中，混淆表格（有时候也称为混淆矩阵），是由false positives，false negatives，true positives和true negatives组成的两行两列的表格。它允许我们做出更多的分析，而不仅仅是局限在正确率。准确率对于分类器的性能分析来说，并不是一个很好地衡量指标，因为如果数据集不平衡（每一类的数据样本数量相差太大），很可能会出现误导性的结果。例如，如果在一个数据集中有95只猫，但是只有5条狗，那么某些分类器很可能偏向于将所有的样本预测成猫。整体准确率为95%，但是实际上该分类器对猫的识别率是100%，而对狗的识别率是0%。&lt;/p&gt;
-
-&lt;hr /&gt;
-
-&lt;p&gt;下面内容总结了假设检验的重要内容，清晰全面。&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;https://taoshengxu.github.io/DocumentGit/img/confusionmatrix2.png&#34; alt=&#34;&#34; /&gt;
-&lt;img src=&#34;https://taoshengxu.github.io/DocumentGit/img/confusionmatrix3.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
-
-&lt;h1 id=&#34;roc-曲线&#34;&gt;ROC 曲线&lt;/h1&gt;
-
-&lt;p&gt;&lt;strong&gt;为什么使用Roc和Auc评价分类器&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;ROC曲线和AUC常被用来评价一个二值分类器（binary classifier）的优劣。既然已经这么多标准，为什么还要使用ROC和AUC呢？因为ROC曲线有个很好的特性：当测试集中的正负样本的分布变换的时候，ROC曲线能够保持不变。在实际的数据集中经常会出现样本类不平衡，即正负样本比例差距较大，而且测试数据中的正负样本也可能随着时间变化。&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;ROC曲线&lt;/strong&gt;：接收者操作特征(receiveroperating characteristic),roc曲线上每个点反映着对同一信号刺激的感受性。&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;p&gt;横轴：负正类率(false postive rate FPR)，划分实例中所有负例占所有负例的比例；(1-Specificity)&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;纵轴：真正类率(true postive rate TPR)，Sensitivity(灵敏度)&lt;/p&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;对于一个二分类问题，假设采用逻辑回归分类器，其给出针对每个实例为正类的概率，那么通过设定一个阈值如0.6，概率大于等于0.6的为正类，小于0.6的为负类。对应的就可以算出一组(FPR,TPR),在平面中得到对应坐标点。&lt;strong&gt;随着阈值的逐渐减小，越来越多的实例被划分为正类，但是这些正类中同样也掺杂着真正的负实例，即TPR和FPR会同时增大。阈值最大时，对应坐标点为(0,0),阈值最小时，对应坐标点(1,1)&lt;/strong&gt;。通过调节不同的阀值，从而得到一条曲线。&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;https://taoshengxu.github.io/DocumentGit/img/ROC.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;p&gt;横轴FPR:1-TNR,1-Specificity，FPR越大，预测正类中实际负类越多。&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;纵轴TPR：Sensitivity(正类覆盖率),TPR越大，预测正类中实际正类越多。&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;理想目标：TPR=1，FPR=0,即图中(0,1)点，故ROC曲线越靠拢(0,1)点，越偏离45度对角线越好，Sensitivity、Specificity越大效果越好。&lt;/p&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h1 id=&#34;auc-area-under-curve&#34;&gt;AUC(Area under Curve)&lt;/h1&gt;
-
-&lt;p&gt;Roc曲线下的面积，介于0.5和1之间。Auc作为数值可以直观的评价分类器的好坏，值越大越好。&lt;/p&gt;
-
-&lt;h1 id=&#34;r&#34;&gt;R&lt;/h1&gt;
-
-&lt;pre&gt;&lt;code&gt;library(&amp;quot;pROC&amp;quot;)
-data(aSAH)  
-# Build a ROC object and compute the AUC, draw ROC, print AUC and the best THRESHOLDS  
-roc(aSAH$outcome, aSAH$s100b, plot=TRUE, print.thres=TRUE, print.auc=TRUE)  
-
-roc1 &amp;lt;- plot.roc(aSAH$outcome, aSAH$s100, main=&amp;quot;Statistical comparison&amp;quot;, percent=TRUE, col=&amp;quot;1&amp;quot;)
-roc2 &amp;lt;- lines.roc(aSAH$outcome, aSAH$ndka, percent=TRUE, col=&amp;quot;2&amp;quot;)
-testobj&amp;lt;- roc.test(roc1,roc2)
-text(50, 50, labels=paste(&amp;quot;p-value =&amp;quot;, format.pval(testobj$p.value)), adj=c(0, .5))
-legend(&amp;quot;bottomright&amp;quot;, legend=c(&amp;quot;S100B&amp;quot;, &amp;quot;NDKA&amp;quot;), col=c(&amp;quot;1&amp;quot;, &amp;quot;2&amp;quot;), lwd=2)
-
-r1=roc(vs~wt,mtcars)
-plot.roc(r1)
-r2=roc(vs~mpg,mtcars)
-lines.roc(r2,col=&#39;2&#39;)
-roc.test(r1,r2)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;hr /&gt;
-
-&lt;p&gt;在学习&lt;a href=&#34;http://bioconductor.org/packages/release/bioc/vignettes/genefu/inst/doc/genefu.pdf&#34;&gt;genefu包&lt;/a&gt;时候遇到Confusion Matrix，有必要有个系统的学习和总结。&lt;/p&gt;
 
         
       </description>
