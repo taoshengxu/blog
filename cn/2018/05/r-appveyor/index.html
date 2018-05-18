@@ -4,8 +4,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     
-    <title>R包安装路径设置 - My Lives</title>
-    <meta property="og:title" content="R包安装路径设置 - My Lives">
+    <title>R-appveyor设置 - My Lives</title>
+    <meta property="og:title" content="R-appveyor设置 - My Lives">
     
 
     
@@ -56,10 +56,10 @@
     <article class="main">
       <header class="title">
       
-<h1>R包安装路径设置</h1>
+<h1>R-appveyor设置</h1>
 
 <h3>
-  2018-05-15</h3>
+  2018-05-18</h3>
 <hr>
 
 
@@ -69,27 +69,27 @@
 
 
 
-<h1 id="设置临时安装路径">设置临时安装路径</h1>
+<p><a href="https://github.com/krlmlr/r-appveyor">https://github.com/krlmlr/r-appveyor</a></p>
 
-<blockquote>
-<p>.libPaths()<br />
-.libPaths(.libPaths()[2])</p>
-</blockquote>
+<h2 id="usage">Usage</h2>
 
-<h1 id="设置永久安装路径">设置永久安装路径</h1>
-
-<p>windows设置环境变量</p>
-
-<blockquote>
-<p>R<em>LIBS=D:/R</em>Library</p>
-</blockquote>
+<ol>
+<li>Sign up to <a href="http://appveyor.com">AppVeyor</a>.</li>
+<li><a href="https://ci.appveyor.com/projects/new">Enable testing</a> for your project.</li>
+<li>Run <code>devtools::use_appveyor()</code> in your project.</li>
+<li>(Optional) Adapt <code>appveyor.yml</code> to your needs according to the <a href="http://www.appveyor.com/docs/appveyor-yml">documentation</a>.</li>
+<li>(Optional) Add a badge as described by the output of <code>devtools::use_appveyor()</code>.</li>
+<li>Be sure to supply a <code>.gitattributes</code> file that takes care of fixing CRLF conversion settings that are relevant on Windows.  <a href="/.gitattributes">The one in this repo</a> can be used for starters.</li>
+<li>Push to your repo to start building.</li>
+<li>Enjoy!</li>
+</ol>
 
 
   <footer>
   
 <nav class="post-nav">
-  <span class="nav-prev">&larr; <a href="/blog/cn/2018/04/r_database/">R语言数据库操作</a></span>
-  <span class="nav-next"><a href="/blog/cn/2018/05/r-appveyor/">R-appveyor设置</a> &rarr;</span>
+  <span class="nav-prev">&larr; <a href="/blog/cn/2018/05/r_environment/">R包安装路径设置</a></span>
+  <span class="nav-next"></span>
 </nav>
 
 

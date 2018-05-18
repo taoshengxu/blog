@@ -10,6 +10,34 @@
     <atom:link href="/blog/" rel="self" type="application/rss+xml" />
     
     <item>
+      <title>R-appveyor设置</title>
+      <link>/blog/cn/2018/05/r-appveyor/</link>
+      <pubDate>Fri, 18 May 2018 17:01:56 +0000</pubDate>
+      
+      <guid>/blog/cn/2018/05/r-appveyor/</guid>
+      <description>
+        
+
+&lt;p&gt;&lt;a href=&#34;https://github.com/krlmlr/r-appveyor&#34;&gt;https://github.com/krlmlr/r-appveyor&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;usage&#34;&gt;Usage&lt;/h2&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Sign up to &lt;a href=&#34;http://appveyor.com&#34;&gt;AppVeyor&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://ci.appveyor.com/projects/new&#34;&gt;Enable testing&lt;/a&gt; for your project.&lt;/li&gt;
+&lt;li&gt;Run &lt;code&gt;devtools::use_appveyor()&lt;/code&gt; in your project.&lt;/li&gt;
+&lt;li&gt;(Optional) Adapt &lt;code&gt;appveyor.yml&lt;/code&gt; to your needs according to the &lt;a href=&#34;http://www.appveyor.com/docs/appveyor-yml&#34;&gt;documentation&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;(Optional) Add a badge as described by the output of &lt;code&gt;devtools::use_appveyor()&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;Be sure to supply a &lt;code&gt;.gitattributes&lt;/code&gt; file that takes care of fixing CRLF conversion settings that are relevant on Windows.  &lt;a href=&#34;/blog/.gitattributes&#34;&gt;The one in this repo&lt;/a&gt; can be used for starters.&lt;/li&gt;
+&lt;li&gt;Push to your repo to start building.&lt;/li&gt;
+&lt;li&gt;Enjoy!&lt;/li&gt;
+&lt;/ol&gt;
+
+        
+      </description>
+    </item>
+    
+    <item>
       <title>R包安装路径设置</title>
       <link>/blog/cn/2018/05/r_environment/</link>
       <pubDate>Tue, 15 May 2018 15:36:41 +0000</pubDate>
@@ -20,17 +48,18 @@
 
 &lt;h1 id=&#34;设置临时安装路径&#34;&gt;设置临时安装路径&lt;/h1&gt;
 
-&lt;pre&gt;&lt;code&gt;.libPaths()
-.libPaths(.libPaths()[2])
-&lt;/code&gt;&lt;/pre&gt;
+&lt;blockquote&gt;
+&lt;p&gt;.libPaths()&lt;br /&gt;
+.libPaths(.libPaths()[2])&lt;/p&gt;
+&lt;/blockquote&gt;
 
 &lt;h1 id=&#34;设置永久安装路径&#34;&gt;设置永久安装路径&lt;/h1&gt;
 
 &lt;p&gt;windows设置环境变量&lt;/p&gt;
 
-&lt;p&gt;&lt;code&gt;
-R_LIBS=D:/R_Library
-&lt;/code&gt;`&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;R&lt;em&gt;LIBS=D:/R&lt;/em&gt;Library&lt;/p&gt;
+&lt;/blockquote&gt;
 
         
       </description>
@@ -4990,76 +5019,6 @@ Scikit-learn
 PyBrain
 Theano 
 &lt;/code&gt;&lt;/pre&gt;
-
-        
-      </description>
-    </item>
-    
-    <item>
-      <title>SSE, MSE, RMSE, R-square</title>
-      <link>/blog/cn/2017/09/sse_mse_rmse_r-square/</link>
-      <pubDate>Fri, 22 Sep 2017 09:48:14 +0000</pubDate>
-      
-      <guid>/blog/cn/2017/09/sse_mse_rmse_r-square/</guid>
-      <description>
-        
-
-&lt;pre&gt;&lt;code&gt;SSE(和方差、误差平方和)：The sum of squares due to error
-MSE(均方误、方差)：Mean squared error
-RMSE(均方根、标准差)：Root mean squared error
-R-square(确定系数)：Coefficient of determination
-Adjusted R-square：Degree-of-freedom adjusted coefficient of determination
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h1 id=&#34;sse-和方差-误差平方和&#34;&gt;SSE(和方差、误差平方和)&lt;/h1&gt;
-
-&lt;p&gt;拟合数据和原始数据对应点的误差的平方和&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;https://taoshengxu.github.io/DocumentGit/img/SSE_SSE.gif&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;SSE越接近于0，说明模型选择和拟合更好，数据预测也越成功。接下来的MSE和RMSE因为和SSE是同出一宗，所以效果一样。&lt;/p&gt;
-
-&lt;h1 id=&#34;mse-均方误&#34;&gt;MSE(均方误)&lt;/h1&gt;
-
-&lt;p&gt;预测数据和原始数据对应点误差的平方和的均值，也就是SSE/n，和SSE没有太大的区别，&lt;strong&gt;最常用&lt;/strong&gt;！&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;https://taoshengxu.github.io/DocumentGit/img/SSE_MSE.gif&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
-
-&lt;h1 id=&#34;rmse-均方根&#34;&gt;RMSE(均方根)&lt;/h1&gt;
-
-&lt;p&gt;回归系统的拟合标准差，是MSE的平方根，就算公式如下&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;https://taoshengxu.github.io/DocumentGit/img/SSE_RMSE.gif&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
-
-&lt;hr /&gt;
-
-&lt;p&gt;&lt;strong&gt;在这之前，我们所有的误差参数都是基于预测值(y&lt;em&gt;hat)和原始值(y)之间的误差(即点对点)。从下面开始是所有的误差都是相对原始数据平均值(y&lt;/em&gt;ba)而展开的(即点对全)&lt;/strong&gt;&lt;/p&gt;
-
-&lt;hr /&gt;
-
-&lt;h1 id=&#34;r-square-确定系数&#34;&gt;R-square(确定系数)&lt;/h1&gt;
-
-&lt;h4 id=&#34;1-ssr-sum-of-squares-of-the-regression-即预测数据与原始数据均值之差的平方和&#34;&gt;(1)SSR：Sum of squares of the regression，即预测数据与原始数据均值之差的平方和&lt;/h4&gt;
-
-&lt;p&gt;&lt;img src=&#34;https://taoshengxu.github.io/DocumentGit/img/SSE_SSR.gif&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
-
-&lt;h4 id=&#34;2-sst-total-sum-of-squares-即原始数据和均值之差的平方和&#34;&gt;(2)SST：Total sum of squares，即原始数据和均值之差的平方和&lt;/h4&gt;
-
-&lt;p&gt;&lt;img src=&#34;https://taoshengxu.github.io/DocumentGit/img/SSE_SST.gif&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;SST=SSE+SSR&lt;/p&gt;
-
-&lt;p&gt;“确定系数”是定义为SSR和SST的比值&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;https://taoshengxu.github.io/DocumentGit/img/SSE_R2.gif&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;R-square是通过数据的变化来表征一个拟合的好坏。由上面的表达式可以知道“确定系数”的正常取值范围为[0 1]，越接近1，表明方程的变量对y的解释能力越强，这个模型对数据拟合的也较好。&lt;/strong&gt;&lt;/p&gt;
-
-&lt;hr /&gt;
-
-&lt;p&gt;&lt;img src=&#34;https://taoshengxu.github.io/DocumentGit/img/MSE_RMSE.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;https://taoshengxu.github.io/DocumentGit/img/MAE.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
 
         
       </description>
