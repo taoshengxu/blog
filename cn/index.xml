@@ -211,7 +211,7 @@ Usage  Sign up to AppVeyor. Enable testing for your project. Run devtools::use_a
     </item>
     
     <item>
-      <title>一致性指数Concordance index(C-index) </title>
+      <title>一致性指数Concordance index(CI, C-index)</title>
       <link>/blog/cn/2017/10/concordance_index/</link>
       <pubDate>Sun, 15 Oct 2017 23:06:17 +0000</pubDate>
       
