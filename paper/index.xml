@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Paper Reading on My Lives</title>
+    <link>/blog/paper/</link>
+    <description>Recent content in Paper Reading on My Lives</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 04 Jun 2018 22:33:47 +0000</lastBuildDate>
+    
+	<atom:link href="/blog/paper/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Perturbation clustering for data INtegration and disease Subtyping (PINS)</title>
+      <link>/blog/paper/pins/</link>
+      <pubDate>Mon, 04 Jun 2018 22:33:47 +0000</pubDate>
+      
+      <guid>/blog/paper/pins/</guid>
+      <description>这篇文章发表于Genome Research （Oct-2017） 1.Advantages 进行了大量的实验，收集了很多经典数据集，提供了论文实验结果的代码，能够重复实验。 2.Disadvantages 论文表面</description>
+    </item>
+    
+  </channel>
+</rss>

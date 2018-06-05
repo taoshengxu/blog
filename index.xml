@@ -10,6 +10,223 @@
     <atom:link href="/blog/" rel="self" type="application/rss+xml" />
     
     <item>
+      <title>Perturbation clustering for data INtegration and disease Subtyping (PINS)</title>
+      <link>/blog/paper/pins/</link>
+      <pubDate>Mon, 04 Jun 2018 22:33:47 +0000</pubDate>
+      
+      <guid>/blog/paper/pins/</guid>
+      <description>
+        
+
+&lt;p&gt;这篇文章发表于Genome Research （Oct-2017）&lt;/p&gt;
+
+&lt;h4 id=&#34;1-advantages&#34;&gt;1.Advantages&lt;/h4&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;进行了大量的实验，收集了很多经典数据集，提供了论文实验结果的代码，能够重复实验。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h4 id=&#34;2-disadvantages&#34;&gt;2.Disadvantages&lt;/h4&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;论文表面上看数据实验充分，实验结果惊人的好，证明该方法的有效性。但是其结果对比不具有公平性。&lt;/p&gt;
+
+&lt;p&gt;对单数据集聚类而言，其所谓的CDF-DM矩阵其实判定K-means 在取聚类目标k为何值时能够达到最优聚类结果。而对比的其他方法只是根据其工具集的推荐的方法选择一个聚类目标，与PINS聚类目标不一致。因此比较具有不公平性。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>Gap Statistic 间隔统计量</title>
+      <link>/blog/cn/2018/06/gap_statistic/</link>
+      <pubDate>Mon, 04 Jun 2018 17:53:47 +0000</pubDate>
+      
+      <guid>/blog/cn/2018/06/gap_statistic/</guid>
+      <description>
+        
+
+&lt;p&gt;&lt;a href=&#34;https://blog.csdn.net/baidu_17640849/article/details/70769555&#34;&gt;原文&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://web.stanford.edu/~hastie/Papers/gap.pdf&#34;&gt;Gap statistic&lt;/a&gt;由Tibshirani等人提出，用以解决聚类问题确定所判定类的数目。&lt;/p&gt;
+
+&lt;h3 id=&#34;聚类的紧支测度-measure-of-the-compactness&#34;&gt;聚类的紧支测度 （measure of the compactness）&lt;/h3&gt;
+
+&lt;p&gt;最简单的方法是使用类内样本点之间的欧式距离来表示，记为Dk，DK越小聚类的紧支性越好。&lt;/p&gt;
+
+&lt;p&gt;$$D&lt;em&gt;k = \sum&lt;/em&gt;{x&lt;em&gt;i \in C&lt;/em&gt;k}\sum&lt;em&gt;{x&lt;/em&gt;j\in C&lt;em&gt;k}||x&lt;/em&gt;i - x&lt;em&gt;j ||^2 = 2n&lt;/em&gt;k\sum&lt;em&gt;{x&lt;/em&gt;i\in C&lt;em&gt;k}||x&lt;/em&gt;i - \mu_k||^2$$&lt;/p&gt;
+
+&lt;p&gt;标准化后：&lt;/p&gt;
+
+&lt;p&gt;$$W&lt;em&gt;k = \sum&lt;/em&gt;{k=1}^{K}\frac{1}{2n&lt;em&gt;k}D&lt;/em&gt;k$$&lt;/p&gt;
+
+&lt;p&gt;Wk 是elbow method的基础。&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://datasciencelab.wordpress.com/2013/12/27/finding-the-k-in-k-means-clustering/&#34;&gt;Reference&lt;/a&gt;&lt;/p&gt;
+
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>聚类算法评价指标</title>
+      <link>/blog/cn/2018/06/cluter_criteria/</link>
+      <pubDate>Mon, 04 Jun 2018 17:53:47 +0000</pubDate>
+      
+      <guid>/blog/cn/2018/06/cluter_criteria/</guid>
+      <description>
+        
+
+&lt;p&gt;&lt;a href=&#34;https://blog.csdn.net/sinat_33363493/article/details/52496011&#34;&gt;原文&lt;/a&gt;&lt;br /&gt;
+&lt;a href=&#34;https://www.jianshu.com/p/b5996bf06bd6&#34;&gt;原文1&lt;/a&gt;&lt;/p&gt;
+
+&lt;h1 id=&#34;无监督聚类&#34;&gt;无监督聚类&lt;/h1&gt;
+
+&lt;h3 id=&#34;1-compactness-紧密性-cp&#34;&gt;1. Compactness(紧密性)(CP)&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://taoshengxu.github.io/DocumentGit/img/cluter_criteria1.png&#34; alt=&#34;&#34; /&gt;
+&lt;img src=&#34;https://taoshengxu.github.io/DocumentGit/img/cluter_criteria2.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;CP计算 每一个类各点到聚类中心的平均距离，CP越低意味着类内聚类距离越近&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt; 缺点：没有考虑类间效果
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;2-separation-间隔性-sp&#34;&gt;2. Separation(间隔性)(SP)&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://taoshengxu.github.io/DocumentGit/img/cluter_criteria3.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;SP计算 各聚类中心两两之间平均距离，SP越高意味类间聚类距离越远&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt; 缺点：没有考虑类内效果
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;3-davies-bouldin-index-戴维森堡丁指数-分类适确性指标-db-dbi&#34;&gt;3. Davies-Bouldin Index(戴维森堡丁指数)(分类适确性指标)(DB)(DBI)&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://taoshengxu.github.io/DocumentGit/img/cluter_criteria4.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;DB计算 任意两类别的类内距离平均距离(CP)之和除以两聚类中心距离 求最大值， DB越小意味着类内距离越小 同时类间距离越大&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;  缺点：因使用欧式距离 所以对于环状分布  聚类评测很差
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;4-dunn-validity-index-邓恩指数-dvi&#34;&gt;4. Dunn Validity Index (邓恩指数)(DVI)&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://taoshengxu.github.io/DocumentGit/img/cluter_criteria5.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;DVI计算 任意两个簇元素的最短距离(类间)除以任意簇中的最大距离(类内)，DVI越大意味着类间距离越大 同时类内距离越小&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;缺点：对离散点的聚类测评很高、对环状分布测评效果差
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;5-c-index-for-cox-model&#34;&gt;5. C-index for COX model&lt;/h3&gt;
+
+&lt;h3 id=&#34;6-silhouette-width&#34;&gt;6. Silhouette width&lt;/h3&gt;
+
+&lt;p&gt;轮廓系数（Silhouette coefficient）适用于实际类别信息未知的情况。对于单个样本，设a是与它同类别中其他样本的平均距离，b是与它距离最近不同类别中样本的平均距离。对于一个样本集合，它的轮廓系数是所有样本轮廓系数的平均值。轮廓系数取值范围是[−1,1]，同类别样本越距离相近且不同类别样本距离越远，分数越高。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://taoshengxu.github.io/DocumentGit/img/cluter_criteria15.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;7-survival-analysis&#34;&gt;7. survival analysis&lt;/h3&gt;
+
+&lt;h1 id=&#34;有监督聚类&#34;&gt;有监督聚类&lt;/h1&gt;
+
+&lt;h3 id=&#34;1-cluster-accuracy-准确性-ca&#34;&gt;1、Cluster Accuracy (准确性)(CA)&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://taoshengxu.github.io/DocumentGit/img/cluter_criteria6.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;CA计算 聚类正确的百分比&lt;/p&gt;
+
+&lt;p&gt;CA越大证明聚类效果越好&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;召回率（Recall）&lt;/strong&gt;指的是所有正样本有多少被模型判为正样本&lt;/p&gt;
+
+&lt;p&gt;纯度purity  计算正确聚类的文档数占总文档数的比例）&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://taoshengxu.github.io/DocumentGit/img/cluter_criteria13.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;其中Ω = {ω1,ω2, &amp;hellip; ,ωK}是聚类的集合ωK表示第k个聚类的集合。C = {c1, c2, &amp;hellip; , cJ}是文档集合，cJ表示第J个文档。N表示文档总数。&lt;/p&gt;
+
+&lt;h3 id=&#34;2-roc曲线-二分类&#34;&gt;2. ROC曲线 （二分类）&lt;/h3&gt;
+
+&lt;p&gt;真正类率(true positive rate ,TPR)，刻画的是分类器所识别出的 正实例占所有正实例的比例（正样本预测结果数 / 正样本实际数）。负正类率(false positive rate, FPR)，计算的是分类器错认为正类的负实例占所有负实例的比例（被预测为正的负样本结果数 /负样本实际数）。&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;( TPR=0,FPR=0 ) 把每个实例都预测为负类的模型&lt;br /&gt;
+( TPR=1,FPR=1 ) 把每个实例都预测为正类的模型&lt;br /&gt;
+( TPR=1,FPR=0 ) 理想模型&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h4 id=&#34;3-f值&#34;&gt;3. F值&lt;/h4&gt;
+
+&lt;p&gt;RI方法有个特点就是把准确率和召回率看得同等重要，事实上有时候我们可能需要某一特性更多一点，这时候就适合F值方法.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://taoshengxu.github.io/DocumentGit/img/cluter_criteria14.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;4-rand-index-兰德指数-ri-adjusted-rand-index-调整兰德指数-ari&#34;&gt;4. Rand index(兰德指数)(RI) 、Adjusted Rand index(调整兰德指数)(ARI)&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://taoshengxu.github.io/DocumentGit/img/cluter_criteria7.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;其中C表示实际类别信息，K表示聚类结果，a表示在C与K中都是同类别的元素对数，b表示在C与K中都是不同类别的元素对数。分母表示数据集中可以组成的对数。&lt;/p&gt;
+
+&lt;p&gt;RI取值范围为[0,1]，值越大意味着聚类结果与真实情况越吻合。RI越大表示聚类效果准确性越高 同时每个类内的纯度越高&lt;/p&gt;
+
+&lt;p&gt;为了实现“在聚类结果随机产生的情况下，指标应该接近零”，&lt;strong&gt;调整兰德系数（Adjusted rand index）&lt;/strong&gt;被提出，它具有更高的区分度：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://taoshengxu.github.io/DocumentGit/img/cluter_criteria8.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;ARI取值范围为[−1,1]，值越大意味着聚类结果与真实情况越吻合。从广义的角度来讲，ARI衡量的是两个数据分布的吻合程度。&lt;/p&gt;
+
+&lt;h4 id=&#34;5-normalized-mutual-information-标准互信息-nmi-mutual-information-互信息-mi&#34;&gt;5、Normalized Mutual Information (标准互信息)(NMI)、Mutual Information(互信息)(MI)&lt;/h4&gt;
+
+&lt;p&gt;互信息（Mutual Information）是用来衡量两个数据分布的吻合程度。也是一有用的信息度量，它是指两个事件集合之间的相关性。
+用互信息的方法，在某个类别C中的出现概率高，而在其它类别中的出现概率低的词条T，将获得较高的词条和类别互信息，也就可能被选取为类别C的特征。&lt;/p&gt;
+
+&lt;p&gt;互信息是term的存在与否能给类别c的正确判断带来的信息量。词条和类别的互信息体现了词条和类别的相关程度，互信息越大，词条和类别的相关程度也越大。得到词条和类别之间的相关程度后，选取一定比例的，排名靠前的词条作为最能代表此种类别的特征。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://taoshengxu.github.io/DocumentGit/img/cluter_criteria9.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;标准化互聚类信息都是用熵做分母将MI值调整到0与1之间，一个比较多见的实现是下面所示：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://taoshengxu.github.io/DocumentGit/img/cluter_criteria10.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://taoshengxu.github.io/DocumentGit/img/cluter_criteria11.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;h1 id=&#34;例子讲解&#34;&gt;例子讲解&lt;/h1&gt;
+
+&lt;p&gt;如图认为x代表一类文档，o代表一类文档，方框代表一类文档，
+&lt;img src=&#34;https://taoshengxu.github.io/DocumentGit/img/cluter_criteria12.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;假设一个集合中有N篇文章&lt;br /&gt;
+一个集合中有N(N-1)/2个集合对&lt;br /&gt;
+TP：同一类的文章被分到同一个簇&lt;br /&gt;
+TN：不同类的文章被分到不同簇&lt;br /&gt;
+FP：不同类的文章被分到同一个簇&lt;br /&gt;
+FN：同一类的文章被分到不同簇&lt;/p&gt;
+
+&lt;p&gt;purity = ( 5+ 4 + 3) / 17 = 0.71&lt;/p&gt;
+
+&lt;p&gt;RI = （TP+TN）/（TP+FP+FN+TN）#Rand Index度量的正确的百分比&lt;br /&gt;
+TP＋FP ＝ C(2,6) + C(2,6) + C(2,5) = 15 + 15 + 10 = 40    其中C(n,m)是指在m中任选n个的组合数。&lt;br /&gt;
+TP = C(2,5) + C(2,4) + C(2,3) + C(2,2) = 20&lt;br /&gt;
+FP = 40 - 20 = 20&lt;br /&gt;
+相似的方法可以计算出TN = 72 FN = 24&lt;br /&gt;
+所以RI ＝ ( 20 + 72) / ( 20 + 20 + 72 +24) = 0.68&lt;/p&gt;
+
+&lt;p&gt;准确率Precision=TP/(TP+FP)&lt;/p&gt;
+
+&lt;p&gt;召回率Recall=TP/(TP+FN)&lt;/p&gt;
+
+&lt;p&gt;F1=2×Recall×Precision/(Recall+Precision)&lt;/p&gt;
+&lt;/blockquote&gt;
+
+        
+      </description>
+    </item>
+    
+    <item>
       <title>R-appveyor设置</title>
       <link>/blog/cn/2018/05/r-appveyor/</link>
       <pubDate>Fri, 18 May 2018 17:01:56 +0000</pubDate>
@@ -4561,481 +4778,6 @@ car::outlierTest(m)
 #    rstudent unadjusted p-value Bonferonni p
 # 27 2.050328            0.04887           NA
 
-&lt;/code&gt;&lt;/pre&gt;
-
-        
-      </description>
-    </item>
-    
-    <item>
-      <title>R语言 逐步回归分析</title>
-      <link>/blog/cn/2017/09/step_regression/</link>
-      <pubDate>Fri, 22 Sep 2017 20:10:14 +0000</pubDate>
-      
-      <guid>/blog/cn/2017/09/step_regression/</guid>
-      <description>
-        
-
-&lt;p&gt;From &lt;a href=&#34;http://www.cnblogs.com/liuzezhuang/p/3724497.html&#34;&gt;http://www.cnblogs.com/liuzezhuang/p/3724497.html&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;逐步回归分析是以AIC信息统计量为准则，通过选择最小的AIC信息统计量，来达到删除或增加变量的目的。&lt;/p&gt;
-
-&lt;p&gt;R语言中用于逐步回归分析的函数 step()    drop1()     add1()&lt;/p&gt;
-
-&lt;h1 id=&#34;1-载入数据&#34;&gt;1.载入数据&lt;/h1&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;#首先对数据进行多元线性回归分析
-tdata&amp;lt;-data.frame(
-  x1=c( 7, 1,11,11, 7,11, 3, 1, 2,21, 1,11,10),
-  x2=c(26,29,56,31,52,55,71,31,54,47,40,66,68),
-  x3=c( 6,15, 8, 8, 6, 9,17,22,18, 4,23, 9, 8),
-  x4=c(60,52,20,47,33,22, 6,44,22,26,34,12,12),
-  Y =c(78.5,74.3,104.3,87.6,95.9,109.2,102.7,72.5,
-       93.1,115.9,83.8,113.3,109.4)
-)
-tlm&amp;lt;-lm(Y~x1+x2+x3+x4,data=tdata)
-summary(tlm)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;&lt;img src=&#34;https://taoshengxu.github.io/DocumentGit/img/AIC1.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;通过观察，回归方程的系数都没有通过显著性检验&lt;/p&gt;
-
-&lt;p&gt;#2.逐步回归分析&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;tstep&amp;lt;-step(tlm)
-summary(tstep)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;&lt;img src=&#34;https://taoshengxu.github.io/DocumentGit/img/AIC2.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;结果分析：
-* 当用x1 x2 x3 x4作为回归方程的系数时，AIC的值为26.94&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;p&gt;去掉x3 回归方程的AIC值为24.974；去掉x4 回归方程的AIC值为25.011……&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;由于去x3可以使得AIC达到最小值，因此R会自动去掉x3;&lt;/p&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;*去掉x3之后 AIC的值都增加 逐步回归分析终止,  得到当前最优的回归方程&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;https://taoshengxu.github.io/DocumentGit/img/AIC3.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;回归系数的显著性水平有所提高 但是x2 x4的显著性水平仍然不理想&lt;/p&gt;
-
-&lt;p&gt;#3.逐步回归分析的优化&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;drop1(tstep)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;&lt;img src=&#34;https://taoshengxu.github.io/DocumentGit/img/AIC4.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;#4.进一步进行多元回归分析&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;tlm&amp;lt;-lm(Y~x1+x2,data=tdata)
-summary(tlm)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;&lt;img src=&#34;https://taoshengxu.github.io/DocumentGit/img/AIC5.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;所有的检验均为显著&lt;/p&gt;
-
-&lt;p&gt;因此所得回归方程为&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-math&#34;&gt;y=52.57735+ 1.46831x1+ 0.66225x2.
-&lt;/code&gt;&lt;/pre&gt;
-
-        
-      </description>
-    </item>
-    
-    <item>
-      <title>模型选择准则之AIC和BIC</title>
-      <link>/blog/cn/2017/09/aic_bic/</link>
-      <pubDate>Fri, 22 Sep 2017 19:47:14 +0000</pubDate>
-      
-      <guid>/blog/cn/2017/09/aic_bic/</guid>
-      <description>
-        
-
-&lt;p&gt;转自：&lt;a href=&#34;http://blog.csdn.net/jteng/article/details/40823675&#34;&gt;http://blog.csdn.net/jteng/article/details/40823675&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;很多参数估计问题均采用似然函数作为目标函数，当训练数据足够多时，可以不断提高模型精度，但是以提高模型复杂度为代价的，同时带来一个机器学习中非常普遍的问题——过拟合。所以，模型选择问题在模型复杂度与模型对数据集描述能力（即似然函数）之间寻求最佳平衡。
-人们提出许多信息准则，通过加入模型复杂度的惩罚项来避免过拟合问题，此处我们介绍一下常用的两个模型选择方法.&lt;/p&gt;
-
-&lt;h1 id=&#34;赤池信息准则-akaike-information-criterion-aic&#34;&gt;赤池信息准则（Akaike Information Criterion，AIC）&lt;/h1&gt;
-
-&lt;p&gt;AIC是衡量统计模型拟合优良性的一种标准，由日本统计学家赤池弘次在1974年提出，它建立在熵的概念上，提供了权衡估计模型复杂度和拟合数据优良性的标准。
-通常情况下，AIC定义为：&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-math&#34;&gt;AIC=2k-2ln(L)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;其中k是模型参数个数，L是似然函数。从一组可供选择的模型中选择最佳模型时，通常选择AIC最小的模型。
-当两个模型之间存在较大差异时，差异主要体现在似然函数项，当似然函数差异不显著时，上式第一项，即模型复杂度则起作用，从而参数个数少的模型是较好的选择。
-一般而言，当模型复杂度提高（k增大）时，似然函数L也会增大，从而使AIC变小，但是k过大时，似然函数增速减缓，导致AIC增大，模型过于复杂容易造成过拟合现象。&lt;strong&gt;目标是选取AIC最小的模型&lt;/strong&gt;，AIC不仅要提高模型拟合度（极大似然），而且引入了惩罚项，使模型参数尽可能少，有助于降低过拟合的可能性。&lt;/p&gt;
-
-&lt;h1 id=&#34;贝叶斯信息准则-bayesian-information-criterion-bic&#34;&gt;贝叶斯信息准则（Bayesian Information Criterion，BIC）&lt;/h1&gt;
-
-&lt;p&gt;BIC（Bayesian InformationCriterion）贝叶斯信息准则与AIC相似，用于模型选择,&lt;strong&gt;BIC越小，模型越优&lt;/strong&gt;，1978年由Schwarz提出。训练模型时，增加参数数量，也就是增加模型复杂度，会增大似然函数，但是也会导致过拟合现象，针对该问题，AIC和BIC均引入了与模型参数个数相关的惩罚项，BIC的惩罚项比AIC的大，考虑了样本数量，样本数量过多时，可有效防止模型精度过高造成的模型复杂度过高。&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-math&#34;&gt;BIC=kln(n)-2ln(L)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;其中，k为模型参数个数，n为样本数量，L为似然函数。kln(n)惩罚项在维数过大且训练样本数据相对较少的情况下，可以有效避免出现维度灾难现象。&lt;/p&gt;
-
-        
-      </description>
-    </item>
-    
-    <item>
-      <title>常见的机器学习&amp;数据挖掘知识点</title>
-      <link>/blog/cn/2017/09/datamining_concept/</link>
-      <pubDate>Fri, 22 Sep 2017 16:47:14 +0000</pubDate>
-      
-      <guid>/blog/cn/2017/09/datamining_concept/</guid>
-      <description>
-        
-
-&lt;h1 id=&#34;basis-基础&#34;&gt;Basis(基础)：&lt;/h1&gt;
-
-&lt;pre&gt;&lt;code&gt;SSE(Sum of Squared Error, 平方误差和)
-SAE(Sum of Absolute Error, 绝对误差和)
-SRE(Sum of Relative Error, 相对误差和)
-MSE(Mean Squared Error, 均方误差)
-RMSE(Root Mean Squared Error, 均方根误差)
-RRSE(Root Relative Squared Error, 相对平方根误差)
-MAE(Mean Absolute Error, 平均绝对误差)
-RAE(Root Absolute Error, 平均绝对误差平方根)
-MRSE(Mean Relative Square Error, 相对平均误差)
-RRSE(Root Relative Squared Error, 相对平方根误差)
-Expectation(期望)&amp;amp;Variance(方差)
-Standard Deviation(标准差，也称Root Mean Squared Error, 均方根误差)
-CP(Conditional Probability, 条件概率)
-JP(Joint Probability, 联合概率)
-MP(Marginal Probability, 边缘概率)
-Bayesian Formula(贝叶斯公式)
-CC(Correlation Coefficient, 相关系数)
-Quantile (分位数)
-Covariance(协方差矩阵)
-GD(Gradient Descent, 梯度下降)
-SGD(Stochastic Gradient Descent, 随机梯度下降)
-LMS(Least Mean Squared, 最小均方)
-LSM(Least Square Methods, 最小二乘法)
-NE(Normal Equation, 正规方程)
-MLE(Maximum Likelihood Estimation, 极大似然估计)
-QP(Quadratic Programming, 二次规划)
-L1 /L2 Regularization(L1/L2正则, 以及更多的, 现在比较火的L2.5正则等)
-Eigenvalue(特征值)
-Eigenvector(特征向量)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h1 id=&#34;common-distribution-常见分布&#34;&gt;Common Distribution(常见分布)：&lt;/h1&gt;
-
-&lt;pre&gt;&lt;code&gt;Discrete Distribution(离散型分布)：
-Bernoulli Distribution/Binomial Distribution(贝努利分布/二项分布)
-Negative Binomial Distribution(负二项分布)
-Multinomial Distribution(多项分布)
-Geometric Distribution(几何分布)
-Hypergeometric Distribution(超几何分布)
-Poisson Distribution (泊松分布)
-Continuous Distribution (连续型分布)：
-
-Uniform Distribution(均匀分布)
-Normal Distribution/Gaussian Distribution(正态分布/高斯分布)
-Exponential Distribution(指数分布)
-Lognormal Distribution(对数正态分布)
-Gamma Distribution(Gamma分布)
-Beta Distribution(Beta分布)
-Dirichlet Distribution(狄利克雷分布)
-Rayleigh Distribution(瑞利分布)
-Cauchy Distribution(柯西分布)
-Weibull Distribution (韦伯分布)
-Three Sampling Distribution(三大抽样分布)：
-
-Chi-square Distribution(卡方分布)
-t-distribution(t-分布)
-F-distribution(F-分布)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h1 id=&#34;data-pre-processing-数据预处理&#34;&gt;Data Pre-processing(数据预处理)：&lt;/h1&gt;
-
-&lt;pre&gt;&lt;code&gt;Missing Value Imputation(缺失值填充)
-Discretization(离散化)
-Mapping(映射)
-Normalization(归一化/标准化)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h1 id=&#34;sampling-采样&#34;&gt;Sampling(采样)：&lt;/h1&gt;
-
-&lt;pre&gt;&lt;code&gt;Simple Random Sampling(简单随机采样)
-Offline Sampling(离线等可能K采样)
-Online Sampling(在线等可能K采样)
-Ratio-based Sampling(等比例随机采样)
-Acceptance-rejection Sampling(接受-拒绝采样)
-Importance Sampling(重要性采样)
-MCMC(Markov Chain MonteCarlo 马尔科夫蒙特卡罗采样算法：Metropolis-Hasting&amp;amp; Gibbs)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h1 id=&#34;clustering-聚类&#34;&gt;Clustering(聚类)：&lt;/h1&gt;
-
-&lt;pre&gt;&lt;code&gt;K-MeansK-Mediods
-二分K-Means
-FK-Means
-Canopy
-Spectral-KMeans(谱聚类)
-GMM-EM(混合高斯模型-期望最大化算法解决)
-K-Pototypes
-CLARANS(基于划分)
-BIRCH(基于层次)
-CURE(基于层次)
-STING(基于网格)
-CLIQUE(基于密度和基于网格)
-2014年Science上的密度聚类算法等
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h1 id=&#34;clustering-effectiveness-evaluation-聚类效果评估&#34;&gt;Clustering Effectiveness Evaluation(聚类效果评估)：&lt;/h1&gt;
-
-&lt;pre&gt;&lt;code&gt;Purity(纯度)
-RI(Rand Index, 芮氏指标)
-ARI(Adjusted Rand Index, 调整的芮氏指标)
-NMI(Normalized Mutual Information, 规范化互信息)
-F-meaure(F测量)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h1 id=&#34;classification-regression-分类-回归&#34;&gt;Classification&amp;amp;Regression(分类&amp;amp;回归)：&lt;/h1&gt;
-
-&lt;pre&gt;&lt;code&gt;LR(Linear Regression, 线性回归)
-LR(Logistic Regression, 逻辑回归)
-SR(Softmax Regression, 多分类逻辑回归)
-GLM(Generalized Linear Model, 广义线性模型)
-RR(Ridge Regression, 岭回归/L2正则最小二乘回归)，LASSO(Least Absolute Shrinkage and Selectionator Operator , L1正则最小二乘回归)
-DT(Decision Tree决策树)
-RF(Random Forest, 随机森林)
-GBDT(Gradient Boosting Decision Tree, 梯度下降决策树)
-CART(Classification And Regression Tree 分类回归树)
-KNN(K-Nearest Neighbor, K近邻)
-SVM(Support Vector Machine, 支持向量机, 包括SVC(分类)&amp;amp;SVR(回归))
-CBA(Classification based on Association Rule, 基于关联规则的分类)
-KF(Kernel Function, 核函数) 
-Polynomial Kernel Function(多项式核函数)
-Guassian Kernel Function(高斯核函数)
-Radial Basis Function(RBF径向基函数)
-String Kernel Function 字符串核函数
-NB(Naive Bayesian,朴素贝叶斯)
-BN(Bayesian Network/Bayesian Belief Network/Belief Network 贝叶斯网络/贝叶斯信度网络/信念网络)
-LDA(Linear Discriminant Analysis/Fisher Linear Discriminant 线性判别分析/Fisher线性判别)
-EL(Ensemble Learning, 集成学习) 
-Boosting
-Bagging
-Stacking
-AdaBoost(Adaptive Boosting 自适应增强)
-MEM(Maximum Entropy Model, 最大熵模型)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h1 id=&#34;classification-effectivenessevaluation-分类效果评估&#34;&gt;Classification EffectivenessEvaluation(分类效果评估)：&lt;/h1&gt;
-
-&lt;pre&gt;&lt;code&gt;Confusion Matrix(混淆矩阵)
-Precision(精确度)
-Recall(召回率)
-Accuracy(准确率)
-F-score(F得分)
-ROC Curve(ROC曲线)
-AUC(AUC面积)
-Lift Curve(Lift曲线)
-KS Curve(KS曲线)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h1 id=&#34;pgm-probabilistic-graphical-models-概率图模型&#34;&gt;PGM(Probabilistic Graphical Models, 概率图模型)：&lt;/h1&gt;
-
-&lt;pre&gt;&lt;code&gt;BN(BayesianNetwork/Bayesian Belief Network/ Belief Network , 贝叶斯网络/贝叶斯信度网络/信念网络)
-MC(Markov Chain, 马尔科夫链)
-MEM(Maximum Entropy Model, 最大熵模型)
-HMM(Hidden Markov Model, 马尔科夫模型)
-MEMM(Maximum Entropy Markov Model, 最大熵马尔科夫模型)
-CRF(Conditional Random Field,条件随机场)
-MRF(Markov Random Field, 马尔科夫随机场)
-Viterbi(维特比算法)
-NN(Neural Network, 神经网络)
-
-ANN(Artificial Neural Network, 人工神经网络)
-SNN(Static Neural Network, 静态神经网络)
-BP(Error Back Propagation, 误差反向传播)
-HN(Hopfield Network)
-DNN(Dynamic Neural Network, 动态神经网络)
-RNN(Recurrent Neural Network, 循环神经网络)
-SRN(Simple Recurrent Network, 简单的循环神经网络)
-ESN(Echo State Network, 回声状态网络)
-LSTM(Long Short Term Memory, 长短记忆神经网络)
-CW-RNN(Clockwork-Recurrent Neural Network, 时钟驱动循环神经网络, 2014ICML）等.
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h1 id=&#34;deep-learning-深度学习&#34;&gt;Deep Learning(深度学习)：&lt;/h1&gt;
-
-&lt;pre&gt;&lt;code&gt;Auto-encoder(自动编码器)
-SAE(Stacked Auto-encoders堆叠自动编码器) 
-Sparse Auto-encoders(稀疏自动编码器)
-Denoising Auto-encoders(去噪自动编码器)
-Contractive Auto-encoders(收缩自动编码器)
-RBM(Restricted Boltzmann Machine, 受限玻尔兹曼机)
-DBN(Deep Belief Network, 深度信念网络)
-CNN(Convolutional Neural Network, 卷积神经网络)
-Word2Vec(词向量学习模型)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h1 id=&#34;dimensionality-reduction-降维&#34;&gt;Dimensionality Reduction(降维)：&lt;/h1&gt;
-
-&lt;pre&gt;&lt;code&gt;LDA(Linear Discriminant Analysis/Fisher Linear Discriminant, 线性判别分析/Fish线性判别)
-PCA(Principal Component Analysis, 主成分分析)
-ICA(Independent Component Analysis, 独立成分分析)
-SVD(Singular Value Decomposition 奇异值分解)
-FA(Factor Analysis 因子分析法)
-Text Mining(文本挖掘)：
-
-VSM(Vector Space Model, 向量空间模型)
-Word2Vec(词向量学习模型)
-TF(Term Frequency, 词频)
-TF-IDF(TermFrequency-Inverse Document Frequency, 词频-逆向文档频率)
-MI(Mutual Information, 互信息)
-ECE(Expected Cross Entropy, 期望交叉熵)
-QEMI(二次信息熵)
-IG(Information Gain, 信息增益)
-IGR(Information Gain Ratio, 信息增益率)
-Gini(基尼系数)
-x2 Statistic(x2统计量)
-TEW(Text Evidence Weight, 文本证据权)
-OR(Odds Ratio, 优势率)
-N-Gram Model
-LSA(Latent Semantic Analysis, 潜在语义分析)
-PLSA(Probabilistic Latent Semantic Analysis, 基于概率的潜在语义分析)
-LDA(Latent Dirichlet Allocation, 潜在狄利克雷模型)
-SLM(Statistical Language Model, 统计语言模型)
-NPLM(Neural Probabilistic Language Model, 神经概率语言模型)
-CBOW(Continuous Bag of Words Model, 连续词袋模型)
-Skip-gram(Skip-gram Model)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h1 id=&#34;association-mining-关联挖掘&#34;&gt;Association Mining(关联挖掘)：&lt;/h1&gt;
-
-&lt;pre&gt;&lt;code&gt;Apriori算法
-FP-growth(Frequency Pattern Tree Growth, 频繁模式树生长算法)
-MSApriori(Multi Support-based Apriori, 基于多支持度的Apriori算法)
-GSpan(Graph-based Substructure Pattern Mining, 频繁子图挖掘)
-Sequential Patterns Analysis(序列模式分析)
-
-AprioriAll
-Spade
-GSP(Generalized Sequential Patterns, 广义序列模式)
-PrefixSpan
-Forecast(预测)
-
-LR(Linear Regression, 线性回归)
-SVR(Support Vector Regression, 支持向量机回归)
-ARIMA(Autoregressive Integrated Moving Average Model, 自回归积分滑动平均模型)
-GM(Gray Model, 灰色模型)
-BPNN(BP Neural Network, 反向传播神经网络)
-SRN(Simple Recurrent Network, 简单循环神经网络)
-LSTM(Long Short Term Memory, 长短记忆神经网络)
-CW-RNN(Clockwork Recurrent Neural Network, 时钟驱动循环神经网络)
-……
-Linked Analysis(链接分析)
-
-HITS(Hyperlink-Induced Topic Search, 基于超链接的主题检索算法)
-PageRank(网页排名)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h1 id=&#34;recommendation-engine-推荐引擎&#34;&gt;Recommendation Engine(推荐引擎)：&lt;/h1&gt;
-
-&lt;pre&gt;&lt;code&gt;SVD
-Slope One
-DBR(Demographic-based Recommendation, 基于人口统计学的推荐)
-CBR(Context-based Recommendation, 基于内容的推荐)
-CF(Collaborative Filtering, 协同过滤)
-UCF(User-based Collaborative Filtering Recommendation, 基于用户的协同过滤推荐)
-ICF(Item-based Collaborative Filtering Recommendation, 基于项目的协同过滤推荐)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h1 id=&#34;similarity-measure-distance-measure-相似性与距离度量&#34;&gt;Similarity Measure&amp;amp;Distance Measure(相似性与距离度量)：&lt;/h1&gt;
-
-&lt;pre&gt;&lt;code&gt;EuclideanDistance(欧式距离)
-Chebyshev Distance(切比雪夫距离)
-Minkowski Distance(闵可夫斯基距离)
-Standardized EuclideanDistance(标准化欧氏距离)
-Mahalanobis Distance(马氏距离)
-Cos(Cosine, 余弦)
-Hamming Distance/Edit Distance(汉明距离/编辑距离)
-Jaccard Distance(杰卡德距离)
-Correlation Coefficient Distance(相关系数距离)
-Information Entropy(信息熵)
-KL(Kullback-Leibler Divergence, KL散度/Relative Entropy, 相对熵)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h1 id=&#34;optimization-最优化&#34;&gt;Optimization(最优化)：&lt;/h1&gt;
-
-&lt;h3 id=&#34;non-constrained-optimization-无约束优化&#34;&gt;Non-constrained Optimization(无约束优化)：&lt;/h3&gt;
-
-&lt;pre&gt;&lt;code&gt;Cyclic Variable Methods(变量轮换法)
-Variable Simplex Methods(可变单纯形法)
-Newton Methods(牛顿法)
-Quasi-Newton Methods(拟牛顿法)
-Conjugate Gradient Methods(共轭梯度法)。
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h3 id=&#34;constrained-optimization-有约束优化&#34;&gt;Constrained Optimization(有约束优化)：&lt;/h3&gt;
-
-&lt;pre&gt;&lt;code&gt;Approximation Programming Methods(近似规划法)
-Penalty Function Methods(罚函数法)
-Multiplier Methods(乘子法)。
-Heuristic Algorithm(启发式算法)
-SA(Simulated Annealing, 模拟退火算法)
-GA(Genetic Algorithm, 遗传算法)
-ACO(Ant Colony Optimization, 蚁群算法)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h1 id=&#34;feature-selection-特征选择&#34;&gt;Feature Selection(特征选择)：&lt;/h1&gt;
-
-&lt;pre&gt;&lt;code&gt;Mutual Information(互信息)
-Document Frequence(文档频率)
-Information Gain(信息增益)
-Chi-squared Test(卡方检验)
-Gini(基尼系数)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h1 id=&#34;outlier-detection-异常点检测&#34;&gt;Outlier Detection(异常点检测)：&lt;/h1&gt;
-
-&lt;pre&gt;&lt;code&gt;Statistic-based(基于统计)
-Density-based(基于密度)
-Clustering-based(基于聚类)。
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h1 id=&#34;learning-to-rank-基于学习的排序&#34;&gt;Learning to Rank(基于学习的排序)：&lt;/h1&gt;
-
-&lt;pre&gt;&lt;code&gt;Pointwise 
-McRank
-Pairwise 
-RankingSVM
-RankNet
-Frank
-RankBoost；
-Listwise 
-AdaRank
-SoftRank
-LamdaMART
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h1 id=&#34;tool-工具&#34;&gt;Tool(工具)：&lt;/h1&gt;
-
-&lt;pre&gt;&lt;code&gt;MPI
-Hadoop生态圈
-Spark
-IGraph
-BSP
-Weka
-Mahout
-Scikit-learn
-PyBrain
-Theano 
 &lt;/code&gt;&lt;/pre&gt;
 
         

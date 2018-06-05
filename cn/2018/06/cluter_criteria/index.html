@@ -51,6 +51,8 @@
         
         <li><a href="/blog/cn/">Chinese</a></li>
         
+        <li><a href="/blog/paper/">Paper Reading</a></li>
+        
         <li><a href="/blog/travel/">Travel</a></li>
         
         
@@ -74,7 +76,8 @@
 
 
 
-<p><a href="https://blog.csdn.net/sinat_33363493/article/details/52496011">原文</a></p>
+<p><a href="https://blog.csdn.net/sinat_33363493/article/details/52496011">原文</a><br />
+<a href="https://www.jianshu.com/p/b5996bf06bd6">原文1</a></p>
 
 <h1 id="无监督聚类">无监督聚类</h1>
 
@@ -119,6 +122,10 @@
 
 <h3 id="6-silhouette-width">6. Silhouette width</h3>
 
+<p>轮廓系数（Silhouette coefficient）适用于实际类别信息未知的情况。对于单个样本，设a是与它同类别中其他样本的平均距离，b是与它距离最近不同类别中样本的平均距离。对于一个样本集合，它的轮廓系数是所有样本轮廓系数的平均值。轮廓系数取值范围是[−1,1]，同类别样本越距离相近且不同类别样本距离越远，分数越高。</p>
+
+<p><img src="https://taoshengxu.github.io/DocumentGit/img/cluter_criteria15.png" alt="" /></p>
+
 <h3 id="7-survival-analysis">7. survival analysis</h3>
 
 <h1 id="有监督聚类">有监督聚类</h1>
@@ -131,23 +138,50 @@
 
 <p>CA越大证明聚类效果越好</p>
 
-<h3 id="2-rand-index-兰德指数-ri-adjusted-rand-index-调整兰德指数-ari">2、Rand index(兰德指数)(RI) 、Adjusted Rand index(调整兰德指数)(ARI)</h3>
+<p><strong>召回率（Recall）</strong>指的是所有正样本有多少被模型判为正样本</p>
+
+<p>纯度purity  计算正确聚类的文档数占总文档数的比例）</p>
+
+<p><img src="https://taoshengxu.github.io/DocumentGit/img/cluter_criteria13.png" alt="" /></p>
+
+<p>其中Ω = {ω1,ω2, &hellip; ,ωK}是聚类的集合ωK表示第k个聚类的集合。C = {c1, c2, &hellip; , cJ}是文档集合，cJ表示第J个文档。N表示文档总数。</p>
+
+<h3 id="2-roc曲线-二分类">2. ROC曲线 （二分类）</h3>
+
+<p>真正类率(true positive rate ,TPR)，刻画的是分类器所识别出的 正实例占所有正实例的比例（正样本预测结果数 / 正样本实际数）。负正类率(false positive rate, FPR)，计算的是分类器错认为正类的负实例占所有负实例的比例（被预测为正的负样本结果数 /负样本实际数）。</p>
+
+<blockquote>
+<p>( TPR=0,FPR=0 ) 把每个实例都预测为负类的模型<br />
+( TPR=1,FPR=1 ) 把每个实例都预测为正类的模型<br />
+( TPR=1,FPR=0 ) 理想模型</p>
+</blockquote>
+
+<h4 id="3-f值">3. F值</h4>
+
+<p>RI方法有个特点就是把准确率和召回率看得同等重要，事实上有时候我们可能需要某一特性更多一点，这时候就适合F值方法.</p>
+
+<p><img src="https://taoshengxu.github.io/DocumentGit/img/cluter_criteria14.png" alt="" /></p>
+
+<h3 id="4-rand-index-兰德指数-ri-adjusted-rand-index-调整兰德指数-ari">4. Rand index(兰德指数)(RI) 、Adjusted Rand index(调整兰德指数)(ARI)</h3>
 
 <p><img src="https://taoshengxu.github.io/DocumentGit/img/cluter_criteria7.png" alt="" /></p>
 
-<p>其中C表示实际类别信息，K表示聚类结果，a表示在C与K中都是同类别的元素对数，b表示在C与K中都是不同类别的元素对数</p>
+<p>其中C表示实际类别信息，K表示聚类结果，a表示在C与K中都是同类别的元素对数，b表示在C与K中都是不同类别的元素对数。分母表示数据集中可以组成的对数。</p>
 
-<p>其中表示数据集中可以组成的对数，RI取值范围为[0,1]，值越大意味着聚类结果与真实情况越吻合。</p>
+<p>RI取值范围为[0,1]，值越大意味着聚类结果与真实情况越吻合。RI越大表示聚类效果准确性越高 同时每个类内的纯度越高</p>
 
-<p>RI越大表示聚类效果准确性越高 同时每个类内的纯度越高</p>
-
-<p>为了实现“在聚类结果随机产生的情况下，指标应该接近零”，调整兰德系数（Adjusted rand index）被提出，它具有更高的区分度：</p>
+<p>为了实现“在聚类结果随机产生的情况下，指标应该接近零”，<strong>调整兰德系数（Adjusted rand index）</strong>被提出，它具有更高的区分度：</p>
 
 <p><img src="https://taoshengxu.github.io/DocumentGit/img/cluter_criteria8.png" alt="" /></p>
 
 <p>ARI取值范围为[−1,1]，值越大意味着聚类结果与真实情况越吻合。从广义的角度来讲，ARI衡量的是两个数据分布的吻合程度。</p>
 
-<h4 id="3-normalized-mutual-information-标准互信息-nmi-mutual-information-互信息-mi">3、Normalized Mutual Information (标准互信息)(NMI)、Mutual Information(互信息)(MI)</h4>
+<h4 id="5-normalized-mutual-information-标准互信息-nmi-mutual-information-互信息-mi">5、Normalized Mutual Information (标准互信息)(NMI)、Mutual Information(互信息)(MI)</h4>
+
+<p>互信息（Mutual Information）是用来衡量两个数据分布的吻合程度。也是一有用的信息度量，它是指两个事件集合之间的相关性。
+用互信息的方法，在某个类别C中的出现概率高，而在其它类别中的出现概率低的词条T，将获得较高的词条和类别互信息，也就可能被选取为类别C的特征。</p>
+
+<p>互信息是term的存在与否能给类别c的正确判断带来的信息量。词条和类别的互信息体现了词条和类别的相关程度，互信息越大，词条和类别的相关程度也越大。得到词条和类别之间的相关程度后，选取一定比例的，排名靠前的词条作为最能代表此种类别的特征。</p>
 
 <p><img src="https://taoshengxu.github.io/DocumentGit/img/cluter_criteria9.png" alt="" /></p>
 
@@ -157,12 +191,41 @@
 
 <p><img src="https://taoshengxu.github.io/DocumentGit/img/cluter_criteria11.png" alt="" /></p>
 
+<h1 id="例子讲解">例子讲解</h1>
+
+<p>如图认为x代表一类文档，o代表一类文档，方框代表一类文档，
+<img src="https://taoshengxu.github.io/DocumentGit/img/cluter_criteria12.png" alt="" /></p>
+
+<blockquote>
+<p>假设一个集合中有N篇文章<br />
+一个集合中有N(N-1)/2个集合对<br />
+TP：同一类的文章被分到同一个簇<br />
+TN：不同类的文章被分到不同簇<br />
+FP：不同类的文章被分到同一个簇<br />
+FN：同一类的文章被分到不同簇</p>
+
+<p>purity = ( 5+ 4 + 3) / 17 = 0.71</p>
+
+<p>RI = （TP+TN）/（TP+FP+FN+TN）#Rand Index度量的正确的百分比<br />
+TP＋FP ＝ C(2,6) + C(2,6) + C(2,5) = 15 + 15 + 10 = 40    其中C(n,m)是指在m中任选n个的组合数。<br />
+TP = C(2,5) + C(2,4) + C(2,3) + C(2,2) = 20<br />
+FP = 40 - 20 = 20<br />
+相似的方法可以计算出TN = 72 FN = 24<br />
+所以RI ＝ ( 20 + 72) / ( 20 + 20 + 72 +24) = 0.68</p>
+
+<p>准确率Precision=TP/(TP+FP)</p>
+
+<p>召回率Recall=TP/(TP+FN)</p>
+
+<p>F1=2×Recall×Precision/(Recall+Precision)</p>
+</blockquote>
+
 
   <footer>
   
 <nav class="post-nav">
   <span class="nav-prev">&larr; <a href="/blog/cn/2018/05/r-appveyor/">R-appveyor设置</a></span>
-  <span class="nav-next"></span>
+  <span class="nav-next"><a href="/blog/cn/2018/06/gap_statistic/">Gap Statistic 间隔统计量</a> &rarr;</span>
 </nav>
 
 
