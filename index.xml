@@ -144,7 +144,7 @@
 
 &lt;p&gt;纯度purity  计算正确聚类的文档数占总文档数的比例）&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;https://taoshengxu.github.io/DocumentGit/img/cluter_criteria13.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://taoshengxu.github.io/DocumentGit/img/cluter_criteria13.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
 
 &lt;p&gt;其中Ω = {ω1,ω2, &amp;hellip; ,ωK}是聚类的集合ωK表示第k个聚类的集合。C = {c1, c2, &amp;hellip; , cJ}是文档集合，cJ表示第J个文档。N表示文档总数。&lt;/p&gt;
 
@@ -162,7 +162,7 @@
 
 &lt;p&gt;RI方法有个特点就是把准确率和召回率看得同等重要，事实上有时候我们可能需要某一特性更多一点，这时候就适合F值方法.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;https://taoshengxu.github.io/DocumentGit/img/cluter_criteria14.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://taoshengxu.github.io/DocumentGit/img/cluter_criteria14.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
 
 &lt;h3 id=&#34;4-rand-index-兰德指数-ri-adjusted-rand-index-调整兰德指数-ari&#34;&gt;4. Rand index(兰德指数)(RI) 、Adjusted Rand index(调整兰德指数)(ARI)&lt;/h3&gt;
 
@@ -196,7 +196,7 @@
 &lt;h1 id=&#34;例子讲解&#34;&gt;例子讲解&lt;/h1&gt;
 
 &lt;p&gt;如图认为x代表一类文档，o代表一类文档，方框代表一类文档，
-&lt;img src=&#34;https://taoshengxu.github.io/DocumentGit/img/cluter_criteria12.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+&lt;img src=&#34;https://taoshengxu.github.io/DocumentGit/img/cluter_criteria12.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
 
 &lt;blockquote&gt;
 &lt;p&gt;假设一个集合中有N篇文章&lt;br /&gt;
