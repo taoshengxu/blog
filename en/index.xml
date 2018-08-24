@@ -29,14 +29,5 @@
       <description>论文表达 表达短语 一般性表达 1. readily intelligible to 容易理解 2. the best finish ever for 有史以来最好的... 3. Alternatively authors 另外的作者 4. also known as 5. are statistically significant 统计显著 6. quite intuitively 非常直观的 7. weak yet consistent 弱</description>
     </item>
     
-    <item>
-      <title></title>
-      <link>/blog/en/1/01/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>/blog/en/1/01/</guid>
-      <description>Excellent expression from reading code{white-space: pre;} pre:not([class]) { background-color: white; } if (window.hljs) { hljs.configure({languages: []}); hljs.initHighlightingOnLoad(); if (document.readyState &amp;&amp; document.readyState === &#34;complete&#34;) { window.setTimeout(function() { hljs.initHighlighting(); }, 0); } } h1 { font-size: 34px; } h1.title { font-size: 38px; } h2 { font-size: 30px; } h3 { font-size: 24px; } h4 { font-size: 18px; } h5 { font-size: 16px; } h6 { font-size: 12px; } .table th:not([align]) { text-align:</description>
-    </item>
-    
   </channel>
 </rss>
