@@ -94,6 +94,28 @@
 <pre><code>HTML &lt;!-- XXXX --&gt; 
 </code></pre>
 
+<h1 id="r从bioconductor安装包">R从bioconductor安装包</h1>
+
+<pre><code>source(&quot;http://bioconductor.org/biocLite.R&quot;)
+options(BioC_mirror=&quot;http://mirrors.ustc.edu.cn/bioc/&quot;)
+
+我的做法是把上述两句放到 ~/.Rprofile 的，但是有时候网速慢导致 source 这一步很慢，结果就是启动 R 需要几秒钟或者报错。
+
+最后我直接自定义函数：
+source.bio &lt;- function(){
+    source(&quot;http://bioconductor.org/biocLite.R&quot;)
+    options(BioC_mirror=&quot;http://mirrors.ustc.edu.cn/bioc/&quot;)
+}
+然后仍然放到 ~/.Rprofile ，然后需要装 Bioconductor 的包的时候先运行一下 source.bio() 就好了。
+
+最后，如果你用 Windows 系统的话，上述文件换成 C:\Program Files\R\R-3.4.2\etc\Rprofile.site 这个文件。
+
+作者：知乎用户
+链接：https://www.zhihu.com/question/63601255/answer/360879580
+来源：知乎
+著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
+</code></pre>
+
 <h1 id="markdonw-文字颜色">Markdonw 文字颜色</h1>
 
 <p><font color=red>内容</font></p>
