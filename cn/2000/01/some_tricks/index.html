@@ -76,60 +76,6 @@
 
 
 
-<h1 id="插入公式">插入公式</h1>
-
-<pre><code>add &lt;script type=&quot;text/javascript&quot; src=&quot;http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML&quot;&gt;&lt;/script&gt;
-
-行间公式： $$\lambda=n \ast p, p=\frac{l}{s}$$
-行内公式： \\(\lambda\\)
-</code></pre>
-
-<h1 id="插入图片">插入图片</h1>
-
-<pre><code>https://xxx.github.io/DocumentGit/img/xx.jpg
-</code></pre>
-
-<h1 id="html注释标签">HTML注释标签</h1>
-
-<pre><code>HTML &lt;!-- XXXX --&gt; 
-</code></pre>
-
-<h1 id="r从bioconductor安装包">R从bioconductor安装包</h1>
-
-<pre><code>source(&quot;http://bioconductor.org/biocLite.R&quot;)
-options(BioC_mirror=&quot;http://mirrors.ustc.edu.cn/bioc/&quot;)
-
-我的做法是把上述两句放到 ~/.Rprofile 的，但是有时候网速慢导致 source 这一步很慢，结果就是启动 R 需要几秒钟或者报错。
-
-最后我直接自定义函数：
-source.bio &lt;- function(){
-    source(&quot;http://bioconductor.org/biocLite.R&quot;)
-    options(BioC_mirror=&quot;http://mirrors.ustc.edu.cn/bioc/&quot;)
-}
-然后仍然放到 ~/.Rprofile ，然后需要装 Bioconductor 的包的时候先运行一下 source.bio() 就好了。
-
-最后，如果你用 Windows 系统的话，上述文件换成 C:\Program Files\R\R-3.4.2\etc\Rprofile.site 这个文件。
-
-作者：知乎用户
-链接：https://www.zhihu.com/question/63601255/answer/360879580
-来源：知乎
-著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
-</code></pre>
-
-<h1 id="markdonw-文字颜色">Markdonw 文字颜色</h1>
-
-<p><font color=red>内容</font></p>
-
-<pre><code>&lt;font color=red&gt;内容&lt;/font&gt;
-</code></pre>
-
-<h1 id="windows如何设置环境变量r-libs将r包安装到自定义路径的方法">Windows如何设置环境变量R_LIBS将R包安装到自定义路径的方法</h1>
-
-<ul>
-<li>新建系统环境变量R_LIBS ,值为 自定义R包安装目录。</li>
-<li>重启R,在R中运行.libPaths()即可查看设置是否生效。</li>
-</ul>
-
 <h1 id="有道词典不能联网">有道词典不能联网</h1>
 
 <p>internet选项-连接-局域网设置-去掉复选框-确定</p>
@@ -157,8 +103,8 @@ source.bio &lt;- function(){
   <footer>
   
 <nav class="post-nav">
-  <span class="nav-prev"></span>
-  <span class="nav-next"><a href="/blog/cn/2017/07/preface/">序言</a> &rarr;</span>
+  <span class="nav-prev">&larr; <a href="/blog/cn/1/01/preface/">序言</a></span>
+  <span class="nav-next"><a href="/blog/cn/2000/01/markdowntricks/">Markdown博客技巧汇总</a> &rarr;</span>
 </nav>
 
 

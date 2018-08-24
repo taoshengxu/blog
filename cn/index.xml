@@ -40,12 +40,12 @@ Usage  Sign up to AppVeyor. Enable testing for your project. Run devtools::use_a
     </item>
     
     <item>
-      <title>R包安装路径设置</title>
+      <title>R包安装路径设置及从Bioconductor安装包</title>
       <link>/blog/cn/2018/05/r_environment/</link>
       <pubDate>Tue, 15 May 2018 15:36:41 +0000</pubDate>
       
       <guid>/blog/cn/2018/05/r_environment/</guid>
-      <description>设置临时安装路径 .libPaths() .libPaths(.libPaths()[2]) 设置永久安装路径 windows设置环境变量 RLIBS=D:/RLibrary</description>
+      <description>设置临时安装路径 .libPaths() .libPaths(.libPaths()[2]) 设置永久安装路径 windows设置环境变量 新建系统环境变量R_LIBS ,值为自定义R包安装目录。 重启R,在R中运行.li</description>
     </item>
     
     <item>

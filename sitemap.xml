@@ -258,11 +258,6 @@
   </url>
   
   <url>
-    <loc>/blog/en/2017/08/sem_en1/</loc>
-    <lastmod>2017-08-27T21:01:00+00:00</lastmod>
-  </url>
-  
-  <url>
     <loc>/blog/cn/2017/08/sem3/</loc>
     <lastmod>2017-08-27T20:56:14+00:00</lastmod>
   </url>
@@ -278,8 +273,8 @@
   </url>
   
   <url>
-    <loc>/blog/cn/2017/07/preface/</loc>
-    <lastmod>2017-07-16T14:18:14+00:00</lastmod>
+    <loc>/blog/cn/2000/01/markdowntricks/</loc>
+    <lastmod>2000-01-01T00:00:01+00:00</lastmod>
   </url>
   
   <url>
@@ -314,6 +309,10 @@
   <url>
     <loc>/blog/cn/</loc>
     <lastmod>2018-06-04T17:53:47+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/cn/1/01/preface/</loc>
   </url>
   
   <url>

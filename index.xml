@@ -258,7 +258,7 @@ FP = 40 - 20 = 20&lt;br /&gt;
     </item>
     
     <item>
-      <title>R包安装路径设置</title>
+      <title>R包安装路径设置及从Bioconductor安装包</title>
       <link>/blog/cn/2018/05/r_environment/</link>
       <pubDate>Tue, 15 May 2018 15:36:41 +0000</pubDate>
       
@@ -277,9 +277,36 @@ FP = 40 - 20 = 20&lt;br /&gt;
 
 &lt;p&gt;windows设置环境变量&lt;/p&gt;
 
+&lt;ul&gt;
+&lt;li&gt;新建系统环境变量R_LIBS ,值为自定义R包安装目录。&lt;/li&gt;
+&lt;li&gt;重启R,在R中运行.libPaths()即可查看设置是否生效。&lt;/li&gt;
+&lt;/ul&gt;
+
 &lt;blockquote&gt;
 &lt;p&gt;R&lt;em&gt;LIBS=D:/R&lt;/em&gt;Library&lt;/p&gt;
 &lt;/blockquote&gt;
+
+&lt;h1 id=&#34;r从bioconductor安装包&#34;&gt;R从bioconductor安装包&lt;/h1&gt;
+
+&lt;pre&gt;&lt;code&gt;source(&amp;quot;http://bioconductor.org/biocLite.R&amp;quot;)
+options(BioC_mirror=&amp;quot;http://mirrors.ustc.edu.cn/bioc/&amp;quot;)
+
+我的做法是把上述两句放到 ~/.Rprofile 的，但是有时候网速慢导致 source 这一步很慢，结果就是启动 R 需要几秒钟或者报错。
+
+最后我直接自定义函数：
+source.bio &amp;lt;- function(){
+    source(&amp;quot;http://bioconductor.org/biocLite.R&amp;quot;)
+    options(BioC_mirror=&amp;quot;http://mirrors.ustc.edu.cn/bioc/&amp;quot;)
+}
+然后仍然放到 ~/.Rprofile ，然后需要装 Bioconductor 的包的时候先运行一下 source.bio() 就好了。
+
+最后，如果你用 Windows 系统的话，上述文件换成 C:\Program Files\R\R-3.4.2\etc\Rprofile.site 这个文件。
+
+作者：知乎用户
+链接：https://www.zhihu.com/question/63601255/answer/360879580
+来源：知乎
+著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
+&lt;/code&gt;&lt;/pre&gt;
 
         
       </description>
