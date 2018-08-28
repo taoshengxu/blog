@@ -79,25 +79,72 @@
 <p><a href="http://www.runoob.com/python/python-tutorial.html">入门教程</a>
 <a href="http://study.163.com/course/courseMain.htm?courseId=378003">视频教程</a></p>
 
-<h1 id="认识python">认识python</h1>
+<h2 id="python-ide环境配置">python IDE环境配置</h2>
 
-<h4 id="实例-python-2-0">实例(Python 2.0+)</h4>
+<p><code>环境配置</code> <strong>pycharm+ anaconda</strong></p>
 
-<pre><code class="language-python">#!/usr/bin/python
-print &quot;Hello, World!&quot;;
+<pre><code># 按照anaconda之后 在cmd 命令行创建python解释器
+conda create -n py_27 python=2.7 or  conda create -n py_36 python=3.6
+# 在cmd命令行激活python解释器
+activeate py_27
+# 查看该解释器已经安装的包
+conda list
 </code></pre>
 
-<h4 id="实例-python-3-0">实例(Python 3.0+)</h4>
+<h2 id="python-函数查询">python 函数查询</h2>
 
-<pre><code class="language-python">#!/usr/bin/python3
+<p><strong>1. 查看模块下所有函数</strong></p>
+
+<pre><code class="language-python">dir(module_name)
+
+from sklearn import datasets
+dir(datasets)
+
+['__all__', '__builtins__', '__cached__', '__doc__', '__file__', '__loader__', '__name__', '__package__', '__path__', '__spec__', '_svmlight_format', 'base', 'california_housing', 'clear_data_home', 'covtype', 'dump_svmlight_file', 'fetch_20newsgroups', 'fetch_20newsgroups_vectorized', 'fetch_california_housing', 'fetch_covtype', 'fetch_kddcup99', 'fetch_lfw_pairs', 'fetch_lfw_people', 'fetch_mldata', 'fetch_olivetti_faces', 'fetch_rcv1', 'fetch_species_distributions', 'get_data_home', 'kddcup99', 'lfw', 'load_boston', 'load_breast_cancer', 'load_diabetes', 'load_digits', 'load_files', 'load_iris', 'load_linnerud', 'load_mlcomp', 'load_sample_image', 'load_sample_images', 'load_svmlight_file', 'load_svmlight_files', 'load_wine', 'make_biclusters', 'make_blobs', 'make_checkerboard', 'make_circles', 'make_classification', 'make_friedman1', 'make_friedman2', 'make_friedman3', 'make_gaussian_quantiles', 'make_hastie_10_2', 'make_low_rank_matrix', 'make_moons', 'make_multilabel_classification', 'make_regression', 'make_s_curve', 'make_sparse_coded_signal', 'make_sparse_spd_matrix', 'make_sparse_uncorrelated', 'make_spd_matrix', 'make_swiss_roll', 'mlcomp', 'mldata', 'mldata_filename', 'olivetti_faces', 'rcv1', 'samples_generator', 'species_distributions', 'svmlight_format', 'twenty_newsgroups']
+</code></pre>
+
+<p><strong>2. 查看模块下特定函数信息</strong></p>
+
+<pre><code class="language-python">#方法一：
+help(datasets.load_iris)
+#方法二：
+print(datasets.load_iris.__doc__)
+
+Help on function load_iris in module sklearn.datasets.base:
+load_iris(return_X_y=False)
+    Load and return the iris dataset (classification).
+    
+    The iris dataset is a classic and very easy multi-class classification
+    dataset.
+    =================   ==============
+    Classes                          3
+    Samples per class               50
+    Samples total                  150
+    Dimensionality                   4
+    Features            real, positive
+    =================   ==============
+</code></pre>
+
+<hr />
+
+<h1 id="基本语法">基本语法</h1>
+
+<h2 id="1-认识python">1. 认识python</h2>
+
+<pre><code class="language-python">#实例(Python 2.0+)
+#!/usr/bin/python
+print &quot;Hello, World!&quot;;
+
+#实例(Python 3.0+)
+#!/usr/bin/python3
 print(&quot;Hello, World!&quot;);
 </code></pre>
 
-<h1 id="python-脚本">python 脚本</h1>
+<h2 id="2-python-脚本">2. python 脚本</h2>
 
 <p>所有 Python 文件将以 .py 为扩展名。用 $ python *.py 执行脚本。</p>
 
-<h1 id="python语法">python语法</h1>
+<h2 id="3-python语法">3. python语法</h2>
 
 <p>1.Python 的代码块不使用大括号 {} 来控制类，函数以及其他逻辑判断。</p>
 
@@ -111,7 +158,7 @@ else:
 
 <p>2.xx</p>
 
-<h1 id="python函数">python函数</h1>
+<h3 id="3-1-python函数">3.1 python函数</h3>
 
 <p>语法</p>
 
@@ -136,7 +183,7 @@ printme(&quot;我要调用用户自定义函数!&quot;);
 printme(&quot;再次调用同一函数&quot;);
 </code></pre>
 
-<h1 id="python-模块">Python 模块</h1>
+<h3 id="3-2-python-模块">3.2 Python 模块</h3>
 
 <p>Python 模块(Module)，是一个 Python 文件，以 .py 结尾，包含了 Python 对象定义和Python语句。</p>
 
@@ -147,7 +194,7 @@ printme(&quot;再次调用同一函数&quot;);
    return
 </code></pre>
 
-<h3 id="模块的引入">模块的引入</h3>
+<h4 id="模块的引入">模块的引入</h4>
 
 <pre><code class="language-python">#!/usr/bin/python
 # -*- coding: UTF-8 -*-
@@ -158,7 +205,7 @@ import support
 support.print_func(&quot;Runoob&quot;)
 </code></pre>
 
-<h3 id="from-import-语句">From…import 语句</h3>
+<h4 id="from-import-语句">From…import 语句</h4>
 
 <p>Python 的 from 语句让你从模块中导入一个指定的部分到当前命名空间中。</p>
 
@@ -166,9 +213,9 @@ support.print_func(&quot;Runoob&quot;)
 
 </code></pre>
 
-<h1 id="常用语句">常用语句</h1>
+<h3 id="3-3-常用语句">3.3 常用语句</h3>
 
-<h3 id="读文件">读文件</h3>
+<h4 id="读文件">读文件</h4>
 
 <pre><code class="language-python">try:
     f = open('/path/to/file', 'r')
@@ -187,13 +234,13 @@ with open('/path/to/file', 'r') as f:
     print(line.strip()) # 把末尾的'\n'删掉
 </code></pre>
 
-<h3 id="写文件">写文件</h3>
+<h4 id="写文件">写文件</h4>
 
 <pre><code>with open('/Users/michael/test.txt', 'w') as f:
     f.write('Hello, world!')
 </code></pre>
 
-<h1 id="常规语法">常规语法</h1>
+<h3 id="3-4-常规语法">3.4  常规语法</h3>
 
 <p><strong>import</strong></p>
 
@@ -412,7 +459,7 @@ filter(lambda x:len(x)==0,'hello')返回''
   
 <nav class="post-nav">
   <span class="nav-prev">&larr; <a href="/blog/cn/2017/12/deeplearning/">深度学习Tensorflow</a></span>
-  <span class="nav-next"><a href="/blog/cn/2018/04/r_database/">R语言数据库操作</a> &rarr;</span>
+  <span class="nav-next"><a href="/blog/cn/2017/12/python_sklearn/">python——sklearn学习</a> &rarr;</span>
 </nav>
 
 

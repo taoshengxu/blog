@@ -4,8 +4,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     
-    <title>R语言数据库操作 - My Lives</title>
-    <meta property="og:title" content="R语言数据库操作 - My Lives">
+    <title>无监督特征选择方法 - My Lives</title>
+    <meta property="og:title" content="无监督特征选择方法 - My Lives">
     
 
     
@@ -63,10 +63,10 @@
     <article class="main">
       <header class="title">
       
-<h1>R语言数据库操作</h1>
+<h1>无监督特征选择方法</h1>
 
 <h3>
-  2018-04-11</h3>
+  2018-08-27</h3>
 <hr>
 
 
@@ -76,60 +76,36 @@
 
 
 
-<h1 id="rsqlite">RSQLite</h1>
+<h3 id="1-laplacian-score">1. Laplacian Score</h3>
 
-<pre><code class="language-R">table_name=&quot;howdo&quot;
-colNames=c(&quot;weather&quot;,&quot;food&quot;,&quot;size&quot;,&quot;direction&quot;)
+<p>Laplacian Score (LSCORE) is an unsupervised linear feature extraction method. For each feature/variable, it computes Laplacian score based on an observation that data from the same class are often close to each other. Its power of locality preserving property is used, and the <strong>algorithm selects variables with largest scores.</strong></p>
 
-### 1.创建sqlite数据库
-con&lt;-dbConnect(SQLite(), &quot;test.db&quot;)
+<p><a href="https://www.rdocumentation.org/packages/Rdimtools/versions/0.3.2">Rdimtools </a></p>
 
-### 2.判断一个表是否存在
-if(!dbExistsTable(con,table_name))
-{
-  ### 3.写入一个表
-  table_info=as.data.frame(matrix(character(0),ncol=4),stringsAsFactors = FALSE)
-  colnames(table_info)= colNames
-  dbWriteTable(con, table_name, table_info)
-}
-### 4.读表
-DF=dbReadTable(con, table_name)
-### 5.写表
-DF=as.data.frame(t(c(1:4)))
-colnames(DF)=colNames
-dbWriteTable(con,table_name,DF,append = TRUE)
-
-DF1=matrix(sample(1:100,12),ncol=4)
-colnames(DF1)=colNames
-dbWriteTable(con,table_name,DF1,append = TRUE)
-
-DF2=dbReadTable(con, table_name)
-
-### 6.查询语句
-query1=paste(&quot;select * from&quot;,shQuote(table_name), &quot;where weather=&quot;,shQuote(57),
-                     &quot; and food=&quot;,shQuote(26))
-tmp=dbGetQuery(con,query1)
-
-### 7.写入指定单元格
-query2=paste(&quot;UPDATE&quot;,shQuote(table_name), &quot;SET size=&quot;,shQuote(88888), &quot;where weather=&quot;,
-            shQuote(57),&quot;and food=&quot;,shQuote(26))
-dbSendQuery(con,query2)
-
-### 8.删除records
-query3=paste(&quot;DELETE FROM&quot;,shQuote(table_name), &quot;where weather=&quot;,
-            shQuote(57),&quot;and food=&quot;,shQuote(26))
-dbSendQuery(con,query3)
-
-###10.最后断开连接
-dbDisconnect(con) # 断开连接
+<pre><code class="language-r">Rdimtools：do.lscore(X, ndim = 2, type = c(&quot;proportion&quot;, 0.1), preprocess = c(&quot;null&quot;,
+&quot;center&quot;, &quot;scale&quot;, &quot;cscale&quot;, &quot;whiten&quot;, &quot;decorrelate&quot;), t = 10)
 </code></pre>
+
+<h3 id="2-package-idmining">2.Package ‘IDmining’</h3>
+
+<p>Intrinsic Dimension for Data Mining</p>
+
+<p><a href="https://cran.r-project.org/web/packages/IDmining/IDmining.pdf">https://cran.r-project.org/web/packages/IDmining/IDmining.pdf</a></p>
+
+<h3 id="3-unsupervised-learning-in-r">3.Unsupervised Learning in R</h3>
+
+<p><a href="https://rpubs.com/williamsurles/310847">https://rpubs.com/williamsurles/310847</a></p>
+
+<h3 id="4-python包scikit-feature">4. python包scikit-feature</h3>
+
+<p><a href="http://featureselection.asu.edu/index.php">http://featureselection.asu.edu/index.php</a></p>
 
 
   <footer>
   
 <nav class="post-nav">
-  <span class="nav-prev">&larr; <a href="/blog/cn/2017/12/python_sklearn/">python——sklearn学习</a></span>
-  <span class="nav-next"><a href="/blog/cn/2018/05/r_environment/">R包安装路径设置及从Bioconductor安装包</a> &rarr;</span>
+  <span class="nav-prev">&larr; <a href="/blog/cn/2018/08/machinelearing_rpackages/">R语言机器学习包</a></span>
+  <span class="nav-next"></span>
 </nav>
 
 

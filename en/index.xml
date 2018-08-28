@@ -6,10 +6,19 @@
     <description>Recent content in English Blog on My Lives</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 07 Sep 2017 09:56:07 +0000</lastBuildDate>
+    <lastBuildDate>Sat, 25 Aug 2018 17:19:39 +0000</lastBuildDate>
     
 	<atom:link href="/blog/en/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>邮件致谢10种表达</title>
+      <link>/blog/en/2018/08/email_thanks/</link>
+      <pubDate>Sat, 25 Aug 2018 17:19:39 +0000</pubDate>
+      
+      <guid>/blog/en/2018/08/email_thanks/</guid>
+      <description>邮件的开头 Thank you for contacting us. Thank you for your prompt reply. Thank you for providing the requested information. Thank you for getting back to me.” Thank you for providing the requested information. Thank you for all your assistance. I truly appreciate … your help in resolving the problem.” Thank you raising your concerns. Thank</description>
+    </item>
     
     <item>
       <title>Bioconductor workflow</title>
@@ -22,11 +31,11 @@
     
     <item>
       <title>Excellent expression from Reading</title>
-      <link>/blog/en/2017/09/research_expression/</link>
-      <pubDate>Thu, 07 Sep 2017 09:56:07 +0000</pubDate>
+      <link>/blog/en/1/01/research_expression/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>/blog/en/2017/09/research_expression/</guid>
-      <description>论文表达 表达短语 一般性表达 1. readily intelligible to 容易理解 2. the best finish ever for 有史以来最好的... 3. Alternatively authors 另外的作者 4. also known as 5. are statistically significant 统计显著 6. quite intuitively 非常直观的 7. weak yet consistent 弱</description>
+      <guid>/blog/en/1/01/research_expression/</guid>
+      <description>论文表达 Current paper Visualization plays an important role in understanding and in knowledge advancement on base of empirical data. In initial stages of research of such type, visualization helps to explore the data interactively, to get an overview and to create meaningful hypotheses; in later stages, it helps to control and to steer partially automated analyses; and in final stages, where fully automated data analysis procedures are</description>
     </item>
     
   </channel>

@@ -277,6 +277,30 @@ fisher.test(xtabs(~W.Hnd + Clap,data=survey))
 </tbody>
 </table>
 
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Test 2-TRUE</th>
+<th>Test 2-FALSE</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>Test 1</td>
+<td>a</td>
+<td>b</td>
+</tr>
+
+<tr>
+<td>Test 1</td>
+<td>c</td>
+<td>d</td>
+</tr>
+</tbody>
+</table>
+
 <p>假设事件发生前后参与调查的人数未发生变化，a+b=a+c。只要检验b=c是否成立，即可知道事件发生前后人们心理趋向是否发生变化。若b=c成立，则b服从二项分布。</p>
 
 <p>$$b \backsim B(b+c,\frac{1}{2})$$</p>
@@ -301,6 +325,52 @@ mcnemar.test(performance)
 </code></pre>
 
 <p>结果：P值结果具有显著性，原假设为小概率事件，推翻原假设，事件发生前后，&rdquo;Approve&rdquo;和&rdquo;Disapprove&rdquo;比率发生变化。</p>
+
+<p><strong>4.Wilcoxon-Mann-Whitney秩和检验（rank sum test（或test U））</strong></p>
+
+<p><code>目的：</code><strong>比较不满足总体为Gaussian正态分布的两个独立样本群组的平均值</strong></p>
+
+<p>例如：你想要看看两个足球队在一年进球数均值是否一样。以下为每个队在一年6场比赛中的进球数：</p>
+
+<p>Team A: 6, 8, 2, 4, 4, 5
+Team B: 7, 10, 4, 3, 5, 6</p>
+
+<p><code>R语言实现</code></p>
+
+<pre><code>a = c(6, 8, 2, 4, 4, 5)
+b = c(7, 10, 4, 3, 5, 6)
+wilcox.test(a,b, correct=FALSE)
+ 
+Wilcoxon rank sum test
+data: a and b
+W = 14, p-value = 0.5174
+alternative hypothesis: true location shift is not equal to 0
+
+##或者
+a = c(6, 8, 2, 4, 4, 5)
+b = c(7, 10, 4, 3, 5, 6)
+wilcox.test(b,a, correct=FALSE)
+ 
+Wilcoxon rank sum test
+data: b and a
+W = 22, p-value = 0.5174
+alternative hypothesis: true location shift is not equal to 0
+</code></pre>
+
+<p><strong>p-value大于0.05，因此我们可接受null hypothesis H0，即两个群组的均值统计相等。</strong></p>
+
+<p>值W的计算如下</p>
+
+<pre><code>sum.rank.a = sum(rank(c(a,b))[1:6]) #sum of ranks assigned to the group a
+ W = sum.rank.a – (length(a)*(length(a)+1)) / 2
+ W
+[1] 14
+ 
+sum.rank.b = sum(rank(c(a,b))[7:12]) #sum of ranks assigned to the group b
+ W = sum.rank.b – (length(b)*(length(b)+1)) / 2 
+ W
+[1] 22
+</code></pre>
 
 <h1 id="拟合优度检验">拟合优度检验</h1>
 

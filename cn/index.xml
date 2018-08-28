@@ -6,10 +6,46 @@
     <description>Recent content in 中文博客 on My Lives</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 04 Jun 2018 17:53:47 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 27 Aug 2018 22:00:43 +0000</lastBuildDate>
     
 	<atom:link href="/blog/cn/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>无监督特征选择方法</title>
+      <link>/blog/cn/2018/08/unsupervised_featureselection/</link>
+      <pubDate>Mon, 27 Aug 2018 22:00:43 +0000</pubDate>
+      
+      <guid>/blog/cn/2018/08/unsupervised_featureselection/</guid>
+      <description>1. Laplacian Score Laplacian Score (LSCORE) is an unsupervised linear feature extraction method. For each feature/variable, it computes Laplacian score based on an observation that data from the same class are often close to each other. Its power of locality preserving property is used, and the algorithm selects variables with largest scores. Rdimtools Rdimtools：do.lsco</description>
+    </item>
+    
+    <item>
+      <title>R语言机器学习包</title>
+      <link>/blog/cn/2018/08/machinelearing_rpackages/</link>
+      <pubDate>Mon, 27 Aug 2018 21:57:43 +0000</pubDate>
+      
+      <guid>/blog/cn/2018/08/machinelearing_rpackages/</guid>
+      <description>mlr包 CARET DMwR</description>
+    </item>
+    
+    <item>
+      <title>R语言机器学习包</title>
+      <link>/blog/cn/2018/08/machinelearing_rpackages/</link>
+      <pubDate>Mon, 27 Aug 2018 21:57:43 +0000</pubDate>
+      
+      <guid>/blog/cn/2018/08/machinelearing_rpackages/</guid>
+      <description>mlr包 CARET DMwR</description>
+    </item>
+    
+    <item>
+      <title>Entropy、 交叉熵、相对熵、巴氏距离（Bhattacharyya distance）</title>
+      <link>/blog/cn/2018/08/entropy/</link>
+      <pubDate>Sun, 26 Aug 2018 21:32:06 +0000</pubDate>
+      
+      <guid>/blog/cn/2018/08/entropy/</guid>
+      <description>原文1 原文2 原文3 信息量(自信息) 定义：假设X是一个离散型随机变量，其取值集合为χ，概率分布函数为p(x)=P(X=x),x∈χ,我们定义事</description>
+    </item>
     
     <item>
       <title>Gap Statistic 间隔统计量</title>
@@ -58,12 +94,21 @@ Usage  Sign up to AppVeyor. Enable testing for your project. Run devtools::use_a
     </item>
     
     <item>
+      <title>python——sklearn学习</title>
+      <link>/blog/cn/2017/12/python_sklearn/</link>
+      <pubDate>Thu, 21 Dec 2017 11:17:40 +0000</pubDate>
+      
+      <guid>/blog/cn/2017/12/python_sklearn/</guid>
+      <description>中文文档 英文文档</description>
+    </item>
+    
+    <item>
       <title>python学习</title>
       <link>/blog/cn/2017/12/python_study/</link>
       <pubDate>Thu, 21 Dec 2017 11:17:39 +0000</pubDate>
       
       <guid>/blog/cn/2017/12/python_study/</guid>
-      <description>入门教程 视频教程 认识python 实例(Python 2.0+) #!/usr/bin/python print &amp;quot;Hello, World!&amp;quot;; 实例(Python 3.0+) #!/usr/bin/python3 print(&amp;quot;Hello, World!&amp;quot;); python 脚本 所有 Python 文件将以 .py 为扩展名。用 $ python *.py 执行脚本。 py</description>
+      <description>入门教程 视频教程 python IDE环境配置 环境配置 pycharm+ anaconda # 按照anaconda之后 在cmd 命令行创建python解释器 conda create -n py_27 python=2.7 or conda create -n py_36 python=3.6 # 在cmd命</description>
     </item>
     
     <item>
@@ -235,51 +280,6 @@ Usage  Sign up to AppVeyor. Enable testing for your project. Run devtools::use_a
       
       <guid>/blog/cn/2017/10/concordance_index/</guid>
       <description>原文 所谓C-index，英文名全称concordance index，最早是由范德堡大学（Vanderbilt University）生物统计教</description>
-    </item>
-    
-    <item>
-      <title>R统计分析 </title>
-      <link>/blog/cn/2017/10/r_statistics/</link>
-      <pubDate>Fri, 13 Oct 2017 11:12:29 +0000</pubDate>
-      
-      <guid>/blog/cn/2017/10/r_statistics/</guid>
-      <description>概率分布 样本抽样 1. 简单随机抽样 sample(x,size,replace=FALSE, prob #数据被抽取的权重值) 2. 按权重的样本抽样 sample(1:10,5,replace=TRUE,prob=1:10) 3. 分层随机抽样 例如：男性占20%，女性占80%，如果通过抽样来统</description>
-    </item>
-    
-    <item>
-      <title>Logistic回归</title>
-      <link>/blog/cn/2017/10/logistic/</link>
-      <pubDate>Thu, 12 Oct 2017 21:06:48 +0000</pubDate>
-      
-      <guid>/blog/cn/2017/10/logistic/</guid>
-      <description>原文 http://blog.csdn.net/ariessurfer/article/details/41310525 Logistic回归为概率型非线性回归模型，是研究二分类观察结果 Y 与一些影响因素(x1,x2,..,xn)之间关系的一种多变量分析方法</description>
-    </item>
-    
-    <item>
-      <title>R语言-线性回归-lm()</title>
-      <link>/blog/cn/2017/09/r_function_regression/</link>
-      <pubDate>Fri, 22 Sep 2017 21:10:14 +0000</pubDate>
-      
-      <guid>/blog/cn/2017/09/r_function_regression/</guid>
-      <description>From http://blog.sina.com.cn/s/blog_6fbfcfb50102va2k.html 1. 回归的多面性 回归类型 用途 --- 简单线性 个量化的解释变量来预测一个量化的响应变量（一个因变量、一个自变量） 多项式 一个量化的解释变量预测一个量</description>
-    </item>
-    
-    <item>
-      <title>R语言 逐步回归分析</title>
-      <link>/blog/cn/2017/09/step_regression/</link>
-      <pubDate>Fri, 22 Sep 2017 20:10:14 +0000</pubDate>
-      
-      <guid>/blog/cn/2017/09/step_regression/</guid>
-      <description>From http://www.cnblogs.com/liuzezhuang/p/3724497.html 逐步回归分析是以AIC信息统计量为准则，通过选择最小的AIC信息统计量，来达到删除或增加变量的目的。 R语言中用于逐步回归分析的函数 step() drop1() add1()</description>
-    </item>
-    
-    <item>
-      <title>模型选择准则之AIC和BIC</title>
-      <link>/blog/cn/2017/09/aic_bic/</link>
-      <pubDate>Fri, 22 Sep 2017 19:47:14 +0000</pubDate>
-      
-      <guid>/blog/cn/2017/09/aic_bic/</guid>
-      <description>转自：http://blog.csdn.net/jteng/article/details/40823675 很多参数估计问题均采用似然函数作</description>
     </item>
     
   </channel>

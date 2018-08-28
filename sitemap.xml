@@ -3,6 +3,31 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>/blog/cn/2018/08/unsupervised_featureselection/</loc>
+    <lastmod>2018-08-27T22:00:43+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/cn/2018/08/machinelearing_rpackages/</loc>
+    <lastmod>2018-08-27T21:57:43+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/cn/2018/08/machinelearing_rpackages/</loc>
+    <lastmod>2018-08-27T21:57:43+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/cn/2018/08/entropy/</loc>
+    <lastmod>2018-08-26T21:32:06+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/en/2018/08/email_thanks/</loc>
+    <lastmod>2018-08-25T17:19:39+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>/blog/paper/pins/</loc>
     <lastmod>2018-06-04T22:33:47+00:00</lastmod>
   </url>
@@ -35,6 +60,11 @@
   <url>
     <loc>/blog/travel/mark_test/</loc>
     <lastmod>2018-03-12T11:30:10+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/cn/2017/12/python_sklearn/</loc>
+    <lastmod>2017-12-21T11:17:40+00:00</lastmod>
   </url>
   
   <url>
@@ -223,11 +253,6 @@
   </url>
   
   <url>
-    <loc>/blog/en/2017/09/research_expression/</loc>
-    <lastmod>2017-09-07T09:56:07+00:00</lastmod>
-  </url>
-  
-  <url>
     <loc>/blog/cn/2017/09/git_command/</loc>
     <lastmod>2017-09-07T09:06:46+00:00</lastmod>
   </url>
@@ -284,7 +309,11 @@
   
   <url>
     <loc>/blog/en/</loc>
-    <lastmod>2017-09-07T09:56:07+00:00</lastmod>
+    <lastmod>2018-08-25T17:19:39+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/en/1/01/research_expression/</loc>
   </url>
   
   <url>
@@ -303,7 +332,7 @@
   
   <url>
     <loc>/blog/cn/</loc>
-    <lastmod>2018-06-04T17:53:47+00:00</lastmod>
+    <lastmod>2018-08-27T22:00:43+00:00</lastmod>
   </url>
   
   <url>

@@ -10,6 +10,357 @@
     <atom:link href="/blog/" rel="self" type="application/rss+xml" />
     
     <item>
+      <title>无监督特征选择方法</title>
+      <link>/blog/cn/2018/08/unsupervised_featureselection/</link>
+      <pubDate>Mon, 27 Aug 2018 22:00:43 +0000</pubDate>
+      
+      <guid>/blog/cn/2018/08/unsupervised_featureselection/</guid>
+      <description>
+        
+
+&lt;h3 id=&#34;1-laplacian-score&#34;&gt;1. Laplacian Score&lt;/h3&gt;
+
+&lt;p&gt;Laplacian Score (LSCORE) is an unsupervised linear feature extraction method. For each feature/variable, it computes Laplacian score based on an observation that data from the same class are often close to each other. Its power of locality preserving property is used, and the &lt;strong&gt;algorithm selects variables with largest scores.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://www.rdocumentation.org/packages/Rdimtools/versions/0.3.2&#34;&gt;Rdimtools &lt;/a&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;Rdimtools：do.lscore(X, ndim = 2, type = c(&amp;quot;proportion&amp;quot;, 0.1), preprocess = c(&amp;quot;null&amp;quot;,
+&amp;quot;center&amp;quot;, &amp;quot;scale&amp;quot;, &amp;quot;cscale&amp;quot;, &amp;quot;whiten&amp;quot;, &amp;quot;decorrelate&amp;quot;), t = 10)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;2-package-idmining&#34;&gt;2.Package ‘IDmining’&lt;/h3&gt;
+
+&lt;p&gt;Intrinsic Dimension for Data Mining&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://cran.r-project.org/web/packages/IDmining/IDmining.pdf&#34;&gt;https://cran.r-project.org/web/packages/IDmining/IDmining.pdf&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;3-unsupervised-learning-in-r&#34;&gt;3.Unsupervised Learning in R&lt;/h3&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://rpubs.com/williamsurles/310847&#34;&gt;https://rpubs.com/williamsurles/310847&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;4-python包scikit-feature&#34;&gt;4. python包scikit-feature&lt;/h3&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://featureselection.asu.edu/index.php&#34;&gt;http://featureselection.asu.edu/index.php&lt;/a&gt;&lt;/p&gt;
+
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>R语言机器学习包</title>
+      <link>/blog/cn/2018/08/machinelearing_rpackages/</link>
+      <pubDate>Mon, 27 Aug 2018 21:57:43 +0000</pubDate>
+      
+      <guid>/blog/cn/2018/08/machinelearing_rpackages/</guid>
+      <description>
+        &lt;ul&gt;
+&lt;li&gt;mlr包&lt;/li&gt;
+&lt;li&gt;CARET&lt;/li&gt;
+&lt;li&gt;DMwR&lt;/li&gt;
+&lt;/ul&gt;
+
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>R语言机器学习包</title>
+      <link>/blog/cn/2018/08/machinelearing_rpackages/</link>
+      <pubDate>Mon, 27 Aug 2018 21:57:43 +0000</pubDate>
+      
+      <guid>/blog/cn/2018/08/machinelearing_rpackages/</guid>
+      <description>
+        &lt;ul&gt;
+&lt;li&gt;mlr包&lt;/li&gt;
+&lt;li&gt;CARET&lt;/li&gt;
+&lt;li&gt;DMwR&lt;/li&gt;
+&lt;/ul&gt;
+
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>Entropy、 交叉熵、相对熵、巴氏距离（Bhattacharyya distance）</title>
+      <link>/blog/cn/2018/08/entropy/</link>
+      <pubDate>Sun, 26 Aug 2018 21:32:06 +0000</pubDate>
+      
+      <guid>/blog/cn/2018/08/entropy/</guid>
+      <description>
+        
+
+&lt;script type=&#34;text/javascript&#34; src=&#34;http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML&#34;&gt;&lt;/script&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://blog.csdn.net/u013829973/article/details/80936272&#34;&gt;原文1&lt;/a&gt; &lt;a href=&#34;https://www.jianshu.com/p/43318a3dc715?from=timeline&amp;amp;isappinstalled=0&#34;&gt;原文2&lt;/a&gt; &lt;a href=&#34;http://blog.sina.com.cn/s/blog_85f1ffb70101e6p1.html&#34;&gt;原文3&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;信息量-自信息&#34;&gt;信息量(自信息)&lt;/h2&gt;
+
+&lt;p&gt;定义：假设X是一个离散型随机变量，其取值集合为χ，概率分布函数为p(x)=P(X=x),x∈χ,我们定义事件X=x0的自信息为：
+$$
+I(x0)=−log(p(x0))
+$$&lt;/p&gt;
+
+&lt;p&gt;一个事件发生的概率越大，则它所携带的信息量就越小，而当p(x0)=1时，熵将等于0，也就是说该事件的发生包含的信息量小。&lt;/p&gt;
+
+&lt;p&gt;举个例子，小明平时不爱学习，考试经常不及格，而小王是个勤奋学习的好学生，经常得满分，所以我们可以做如下假设：
+事件A：小明考试及格，对应的概率P(xA)=0.1，信息量为I(xA)=−log(0.1)=3.3219.
+事件B：小王考试及格，对应的概率P(xB)=0.999，信息量为I(xB)=−log(0.999)=0.0014&lt;/p&gt;
+
+&lt;p&gt;可以看出，结果非常符合直观：小明及格的可能性很低(十次考试只有一次及格)，因此如果某次考试及格了（大家都会说：XXX竟然及格了！），必然会引入较大的信息量，对应的I值也较高。而对于小王而言，考试及格是大概率事件，在事件B发生前，大家普遍认为事件B的发生几乎是确定的，因此当某次考试小王及格这个事件发生时并不会引入太多的信息量，相应的I值也非常的低。&lt;/p&gt;
+
+&lt;h4 id=&#34;5-mutual-information-互信息-mi-normalized-mutual-information-标准互信息-nmi&#34;&gt;5、Mutual Information(互信息)(MI)，Normalized Mutual Information (标准互信息)(NMI)&lt;/h4&gt;
+
+&lt;p&gt;&lt;strong&gt;互信息（Mutual Information）&lt;/strong&gt;是用来衡量两个数据分布的吻合程度，是指两个事件集合之间的相关性。&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;特征选择：&lt;/code&gt;用互信息的方法，在某个类别C中的出现概率高，而在其它类别中的出现概率低的词条T，将获得较高的词条和类别互信息，也就可能被选取为类别C的特征。互信息是term的存在与否能给类别c的正确判断带来的信息量。词条和类别的互信息体现了词条和类别的相关程度，互信息越大，词条和类别的相关程度也越大。得到词条和类别之间的相关程度后，选取一定比例的，排名靠前的词条作为最能代表此种类别的特征。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://taoshengxu.github.io/DocumentGit/img/cluter_criteria9.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;标准化互聚类信息都是用熵做分母将MI值调整到0与1之间，一个比较多见的实现是下面所示：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://taoshengxu.github.io/DocumentGit/img/cluter_criteria10.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;例子-假设对于17个样本点-v1-v2-v17-进行聚类&#34;&gt;例子：假设对于17个样本点(v1,v2,&amp;hellip;,v17)进行聚类&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://images.cnblogs.com/cnblogs_com/ziqiao/stanford%E8%81%9A%E7%B1%BB%E4%BE%8B%E5%AD%90.jpg&#34; alt=&#34;img&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;比如标准结果是图中的叉叉点点圈圈，我的聚类结果是图中标注的三个圈。&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;或者我的结果: A = [1 1 1 1 1 1   2 2 2 2 2 2    3 3 3 3 3];&lt;/p&gt;
+
+&lt;p&gt;标准的结果   : B = [1 2 1 1 1 1   1 2 2 2 2 3    1 1 3 3 3];&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;code&gt;问题：&lt;/code&gt;衡量我的结果和标准结果有多大的区别，若我的结果和他的差不多，结果应该为1，若我做出来的结果很差，结果应趋近于0。
+$$
+MI(X,Y)=\sum&lt;em&gt;{i=1}^{|X|}\sum&lt;/em&gt;{j=1}^{|Y|}P(i,j)log(\frac{P(i,j)}{P(i)P^{&amp;lsquo;}(j)})
+$$
+首先计算上式分子中联合概率分布 \(P(i,j)=\frac{|X&lt;em&gt;i\cap Y&lt;/em&gt;j|}{N}\)&lt;/p&gt;
+
+&lt;p&gt;X=unique(A)=[1 2 3]，Y=unique(B)=[1 2 3];&lt;/p&gt;
+
+&lt;p&gt;分子p(x,y)为x和y的联合分布概率，&lt;/p&gt;
+
+&lt;p&gt;p(1,1)=&lt;sup&gt;5&lt;/sup&gt;&amp;frasl;&lt;sub&gt;17&lt;/sub&gt;, p(1,2)=&lt;sup&gt;1&lt;/sup&gt;&amp;frasl;&lt;sub&gt;17&lt;/sub&gt;, p(1,3)=0;&lt;/p&gt;
+
+&lt;p&gt;p(2,1)=&lt;sup&gt;1&lt;/sup&gt;&amp;frasl;&lt;sub&gt;17&lt;/sub&gt;, p(2,2)=&lt;sup&gt;4&lt;/sup&gt;&amp;frasl;&lt;sub&gt;17&lt;/sub&gt;, p(2,3)=&lt;sup&gt;1&lt;/sup&gt;&amp;frasl;&lt;sub&gt;17&lt;/sub&gt;;&lt;/p&gt;
+
+&lt;p&gt;p(3,1)=&lt;sup&gt;2&lt;/sup&gt;&amp;frasl;&lt;sub&gt;17&lt;/sub&gt;, p(3,2)=0, p(3,3)=&lt;sup&gt;3&lt;/sup&gt;&amp;frasl;&lt;sub&gt;17&lt;/sub&gt;;&lt;/p&gt;
+
+&lt;p&gt;分母p(x)为x的概率函数，p(y)为y的概率函数，x和y分别来自于A和B中的分布，所以即使x=y时，p(x)和p(y)也可能是不一样的。&lt;/p&gt;
+
+&lt;p&gt;对p(x)： p(1)=&lt;sup&gt;6&lt;/sup&gt;&amp;frasl;&lt;sub&gt;17&lt;/sub&gt; p(2)=&lt;sup&gt;6&lt;/sup&gt;&amp;frasl;&lt;sub&gt;17&lt;/sub&gt; p(3)=&lt;sup&gt;5&lt;/sup&gt;&amp;frasl;&lt;sub&gt;17&lt;/sub&gt;&lt;/p&gt;
+
+&lt;p&gt;对p(y)： p(1)=&lt;sup&gt;8&lt;/sup&gt;&amp;frasl;&lt;sub&gt;17&lt;/sub&gt; p(2)=&lt;sup&gt;5&lt;/sup&gt;&amp;frasl;&lt;sub&gt;17&lt;/sub&gt; P(3)=&lt;sup&gt;4&lt;/sup&gt;&amp;frasl;&lt;sub&gt;17&lt;/sub&gt;&lt;/p&gt;
+
+&lt;p&gt;这样就可以算出MI值了。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;互信息&lt;/strong&gt;
+$$
+NMI(X,Y)=\frac{2MI(X,Y)}{H(X)+H(Y)}
+$$
+H(X)和H(Y)分别为X和Y的熵，下面的公式中log的底b=2。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://images.cnblogs.com/cnblogs_com/ziqiao/shang.png&#34; alt=&#34;img&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;例如H(X) =  -p(1)&lt;em&gt;log2(p(1)) - -p(2)&lt;/em&gt;log2(p(2)) -p(3)*log2(p(3))。&lt;/p&gt;
+
+&lt;h2 id=&#34;熵-entropy&#34;&gt;熵（Entropy）&lt;/h2&gt;
+
+&lt;p&gt;定义：对于一个随机变量XX而言，它的所有可能取值的信息量的期望\(（E[I(x)])就称为熵。
+当XX是离散的：
+$$
+H(X)=E[I(x)]=−∑_{x∈X}p(x)logp(x)
+$$&lt;/p&gt;
+
+&lt;p&gt;当X是连续的随机变量：熵定义为：
+$$
+H(X)=−∫_{x∈X}p(x)logp(x)dx
+$$
+&lt;strong&gt;自信息只能处理单个的输出。而熵是对整个概率分布中不确定性总量进行量化&lt;/strong&gt;。&lt;/p&gt;
+
+&lt;p&gt;约定：p=0时，定义0log0=0。通常对数以2为底或者e为底，这是熵的单位称作比特（bit）或者纳特（nat）
+当随机变量只取两个值的时候，即X分布为：P(X=1)=p，P(X=0)=1−p，0&amp;lt;=p&amp;lt;=1。&lt;/p&gt;
+
+&lt;p&gt;还是通过上边的例子来说明，假设小明的考试结果是一个0-1分布X只有两个取值{0：不及格，1：及格}，在某次考试结果公布前，小明的考试结果有多大的不确定度呢？你肯定会说：十有八九不及格！因为根据先验知识，小明及格的概率仅有0.1,90%的可能都是不及格的。怎么来度量这个不确定度？求期望！不错，我们对所有可能结果带来的额外信息量求取均值（期望），其结果不就能够衡量出小明考试成绩的不确定度了吗。
+即：
+HA(x)=−[p(xA)log(p(xA))+(1−p(xA))log(1−p(xA))]=0.4690
+对应小王的熵：
+HB(x)=−[p(xB)log(p(xB))+(1−p(xB))log(1−p(xB))]=0.0114
+虽然小明考试结果的不确定性较低，毕竟十次有9次都不及格，但是也比不上小王（1000次考试只有一次才可能不及格，结果相当的确定）
+我们再假设一个成绩相对普通的学生小东，他及格的概率是P(xC)=0.5,即及格与否的概率是一样的，对应的熵：
+HC(x)=−[p(xC)log(p(xC))+(1−p(xC))log(1−p(xC))]=1
+其熵为1，他的不确定性比前边两位同学要高很多，在成绩公布之前，很难准确猜测出他的考试结果。
+可以看出，&lt;strong&gt;熵其实是信息量的期望值，它是一个随机变量的不确定性的度量。熵越大，随机变量的不确定性越大&lt;/strong&gt;。&lt;/p&gt;
+
+&lt;h2 id=&#34;相对熵-kl-kullback-leibler-divergence-散度&#34;&gt;相对熵&amp;ndash;KL（Kullback-Leibler divergence）散度&lt;/h2&gt;
+
+&lt;p&gt;&lt;strong&gt;描述两个概率分布P和Q差异的一种方法,在信息论中，D(P||Q)表示当用概率分布Q来拟合真实分布P时，产生的信息损耗，其中P表示真实分布，Q表示P的拟合分布。相对熵可以衡量两个随机分布之间的距离，当两个随机分布相同时，它们的相对熵为零，当两个随机分布的差别增大时，它们的相对熵也会增大。所以相对熵（KL散度）可以用于比较文本的相似度，先统计出词的频率，然后计算相对熵。&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;KL距离，是对同一个随机变量X的两个单独的概率分布的度量。记为\(D_{KL}(p||q)\)。 它度量当真实分布为p时，假设分布q的无效性。&lt;/p&gt;
+
+&lt;p&gt;$$
+D&lt;em&gt;{KL}(p||q)=Ep[logp(x)q(x)]=∑&lt;/em&gt;{x∈χ}p(x)logp(x)q(x)  &lt;br /&gt;
+=∑&lt;em&gt;{x∈χ}[p(x)logp(x)−p(x)logq(x)] &lt;br /&gt;
+=∑&lt;/em&gt;{x∈χ}p(x)logp(x)−∑&lt;em&gt;{x∈χ}p(x)logq(x) &lt;br /&gt;
+=−H(p)−∑&lt;/em&gt;{x∈χ}p(x)logq(x) &lt;br /&gt;
+=−H(p)+Ep[−logq(x)] &lt;br /&gt;
+=Hp(q)−H(p)
+$$&lt;/p&gt;
+
+&lt;p&gt;并且为了保证连续性，做如下约定：
+0log0/0=0，0log0/q=0，plogp/0=∞
+显然，当p=q时,两者之间的相对熵DKL(p||q)=0
+上式最后的Hp(q)表示在p分布下，使用q进行编码需要的bit数，而H(p)表示对真实分布p所需要的最小编码bit数。基于此，相对熵的意义就很明确了：DKL(p||q)表示在真实分布为p的前提下，使用q分布进行编码相对于使用真实分布p进行编码（即最优编码）所多出来的bit数。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;重要性质 ：&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;1.它是非负的。&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;2.不是对称的:对于某些P和Q，DKL(p||q)DKL(p||q)不等于DKL(q||p)DKL(q||p),这样意味着选择DKL(p||q)DKL(p||q)还是DKL(q||p)DKL(q||p)影响很大&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;例子&lt;/p&gt;
+
+&lt;p&gt;假如一个字符发射器，随机发出0和1两种字符，真实发出概率分布为A，但实际不知道A的具体分布。通过观察，得到概率分布B与C，各个分布的具体情况如下：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://gss2.bdstatic.com/-fo3dSag_xI4khGkpoWK1HF6hhy/baike/s%3D160/sign=7c3a2d55bb7eca8016053de1a1239712/95eef01f3a292df52ed52763b7315c6034a873b6.jpg&#34; alt=&#34;img&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://gss2.bdstatic.com/-fo3dSag_xI4khGkpoWK1HF6hhy/baike/s%3D156/sign=c23f2c659cdda144de0968b784b6d009/8d5494eef01f3a29e31d5db89225bc315d607ceb.jpg&#34; alt=&#34;img&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://gss0.bdstatic.com/-4o3dSag_xI4khGkpoWK1HF6hhy/baike/s%3D158/sign=6956084631f33a879a6d041ffe5d1018/2e2eb9389b504fc2690d3b73eedde71190ef6d72.jpg&#34; alt=&#34;img&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;可以计算出得到如下：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://gss3.bdstatic.com/7Po3dSag_xI4khGkpoWK1HF6hhy/baike/s%3D366/sign=2c3e1328d6c451daf2f60aed80fc52a5/b64543a98226cffc29fc34c4b2014a90f703eaf6.jpg&#34; alt=&#34;img&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://gss2.bdstatic.com/-fo3dSag_xI4khGkpoWK1HF6hhy/baike/s%3D378/sign=b52422c4da58ccbf1fbcb33d21d9bcd4/fd039245d688d43f816e1a84761ed21b0ff43b84.jpg&#34; alt=&#34;img&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;也可以看出，按照概率分布B进行编码，要比按照C进行编码，平均每个符号增加的比特数目少。从分布上也可以看出，实际上B比C更接近实际分布（因为其与A分布的相对熵更小）.&lt;/p&gt;
+
+&lt;h2 id=&#34;交叉熵-cross-entropy&#34;&gt;交叉熵(Cross-Entropy)&lt;/h2&gt;
+
+&lt;p&gt;交叉熵容易跟相对熵搞混，二者联系紧密，但又有所区别。假设有两个分布p，q则它们在给定样本集上的交叉熵定义如下：
+$$
+CEH(p,q)=Ep[−logq]=−∑x∈χp(x)logq(x)=H(p)+DKL(p||q)
+$$&lt;/p&gt;
+
+&lt;p&gt;可以看出，交叉熵与上一节定义的相对熵仅相差了H(p),当p已知时，可以把H(p)看做一个常数，此时交叉熵与KL距离在行为上是等价的，都反映了分布p、q的相似程度。最小化交叉熵等于最小化KL距离。它们都将在p=q时取得最小值H(p)（p=q时KL距离为0），因此有的工程文献中将最小化KL距离的方法称为Principle of Minimum Cross-Entropy (MCE)或Minxent方法。&lt;/p&gt;
+
+&lt;h4 id=&#34;由交叉熵到logistic-regression&#34;&gt;由交叉熵到logistic regression&lt;/h4&gt;
+
+&lt;p&gt;&lt;strong&gt;特别的，在logistic regression中&lt;/strong&gt;
+p:真实样本分布，服从参数为p的0-1分布，即X∼B(1,p)
+q:待估计的模型，服从参数为q的0-1分布，即X∼B(1,q)
+两者的交叉熵为：
+$$
+CEH(p,q)   &lt;br /&gt;
+=−∑x∈χp(x)logq(x)  &lt;br /&gt;
+=−[Pp(x=1)logPq(x=1)+Pp(x=0)logPq(x=0)] &lt;br /&gt;
+=−[plogq+(1−p)log(1−q)] \&lt;br /&gt;
+=−[yloghθ(x)+(1−y)log(1−hθ(x))]&lt;br /&gt;
+$$&lt;/p&gt;
+
+&lt;p&gt;对所有训练样本取均值得：
+$$
+−(1/m)∑^m_{i=1}[y(i)loghθ(x(i))+(1−y(i))log(1−hθ(x(i)))]
+$$
+这个结果&lt;strong&gt;与通过极大似然估计方法求出来的结果是一致的；最小化交叉熵损失函数等价于求极大似然估计；从二者的公式来看，只是差了一个负号而已。&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;那么LR的损失函数为什么不用平方损失呢？因为平方损失函数不是凸函数，使用梯度下降法无法求得局部最小（全局最小），而交叉熵损失函数是凸函数，使用梯度下降法可以找到全局最优解。&lt;/strong&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;bhattacharyya-distance巴氏距离&#34;&gt;Bhattacharyya distance巴氏距离&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;在统计理论中，&lt;strong&gt;Bhattacharyya距离用来度量两个离散或连续概率分布的相似性&lt;/strong&gt;。&lt;/li&gt;
+&lt;li&gt;它与Bhattacharyya系数（Bhattacharyya coefficient）高度相关，后者是用来度量两个统计样本的重叠度的。所有这些命名都是为了纪念A. Bhattacharyya，一个在1930年工作于印度统计局的统计学家&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;该系数可以用来度量两个样本集的相似性。它通常在分类问题中被用来判断类别的可分性。&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;定义&lt;/p&gt;
+
+&lt;p&gt;对于定义在同一个定义域X上的两个离散概率分布p和q来说，它们之间的Bhattacharyya距离可定义如下：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://upload.wikimedia.org/math/b/a/d/badf93af7fd3dce1978276df77bf3264.png&#34; alt=&#34;D_B(p,q) = -\ln \left( BC(p,q) \right)&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;这里&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://upload.wikimedia.org/math/b/3/0/b30f018b6017164a220084802c4417cc.png&#34; alt=&#34;BC(p,q) = \sum_{x\in X} \sqrt{p(x) q(x)}&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;被称为Bhattacharyya系数。&lt;/p&gt;
+
+&lt;p&gt;对于连续概率分布，Bhattacharyya系数可以定义如下：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://upload.wikimedia.org/math/7/1/6/716ecb5f3bcb9b3256e713b9149cdc70.png&#34; alt=&#34;BC(p,q) = \int \sqrt{p(x) q(x)}\, dx&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;在以上两种情况下，0&amp;lt;=BC&amp;lt;=1并且0&amp;lt;=DB&amp;lt;=∞。DB并不遵循三角不等式，但是&lt;a href=&#34;http://blog.sina.com.cn/s/blog_85f1ffb70101e65d.html&#34;&gt;Hellinger距离&lt;/a&gt;满足三角不等式。&lt;/p&gt;
+
+&lt;p&gt;对于一个多维高斯分布来说pi=N(mi,Pi)，&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://upload.wikimedia.org/math/5/3/4/5343dbab9715adc082917563efac53d3.png&#34; alt=&#34;D_B={1\over 8}(m_1-m_2)^T P^{-1}(m_1-m_2)+{1\over 2}\ln \,\left({\det P \over \sqrt{\det P_1 \, \det P_2} }\right)&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;这里mi和Pi分别代表该分布的均值和方差，并且&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://upload.wikimedia.org/math/4/6/d/46dd37a40d8bcd7cd90824e9308e210d.png&#34; alt=&#34;P={P_1+P_2 \over 2}&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;注意到，在这种情况下Bhattacharyya距离的第一项类似于Mahalanobis距离（马氏距离）。&lt;/p&gt;
+
+&lt;h4 id=&#34;bhattacharyya系数&#34;&gt;Bhattacharyya系数&lt;/h4&gt;
+
+&lt;p&gt;Bhattacharyya系数用来度量两个统计样本的重叠度。该系数可以用来度量两个样本集的可分性。&lt;/p&gt;
+
+&lt;p&gt;计算Bhattacharyya系数包含了一个基本的关于两个样本集重合度的积分运算。两个样本集中的定义域被分成了事前定义的几份，这种划分可以体现在下面的定义中：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://upload.wikimedia.org/math/0/7/8/07864c05ee66eeaa6eec0c528f94ab03.png&#34; alt=&#34;\mathrm{Bhattacharyya} = \sum_{i=1}^{n}\sqrt{(\mathbf{\Sigma a}_i\cdot\mathbf{\Sigma b}_i)}&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;其中a，b代表样本，n代表划分的数目，∑ai和∑bi分别代表两个样本集中在第i个划分中的样本之和。&lt;/p&gt;
+
+&lt;p&gt;对于两个样本集来说，如果相同划分中的样本数越多，样本和越大，则该式的值越大。划分数的选择取决于每一个样本集中的样本数：太少的划分将因为过高估计了重叠区域而减小精度，而太多的划分将会因为在本该有重叠的区域没有恰好重叠而减小精度（最精细的划分将会使每一个相同的区间中都没有重叠）。&lt;/p&gt;
+
+&lt;p&gt;如果在每一个划分区间内的乘积都为零，则Bhattacharyya系数也为零。这就意味着如果A和B两个样本集都与样本集C完全可分，则BC（A，C）=B（B，C）=0，即Bhattacharyya系数对于A和B无法区分。&lt;/p&gt;
+
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>邮件致谢10种表达</title>
+      <link>/blog/en/2018/08/email_thanks/</link>
+      <pubDate>Sat, 25 Aug 2018 17:19:39 +0000</pubDate>
+      
+      <guid>/blog/en/2018/08/email_thanks/</guid>
+      <description>
+        
+
+&lt;h3 id=&#34;邮件的开头&#34;&gt;邮件的开头&lt;/h3&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Thank you for contacting us.&lt;/li&gt;
+&lt;li&gt;Thank you for your prompt reply.&lt;/li&gt;
+&lt;li&gt;Thank you for providing the requested information.&lt;/li&gt;
+&lt;li&gt;Thank you for getting back to me.”&lt;/li&gt;
+&lt;li&gt;Thank you for providing the requested information.&lt;/li&gt;
+&lt;li&gt;Thank you for all your assistance.&lt;/li&gt;
+&lt;li&gt;I truly appreciate … your help in resolving the problem.”&lt;/li&gt;
+&lt;li&gt;Thank you raising your concerns.&lt;/li&gt;
+&lt;li&gt;Thank you for your feedback.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h3 id=&#34;邮件的结尾&#34;&gt;邮件的结尾&lt;/h3&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Thank you for your kind cooperation.&lt;/li&gt;
+&lt;li&gt;Thank you for your attention to this matter.&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;Thank you for your understanding.&lt;/li&gt;
+&lt;/ol&gt;
+
+        
+        &lt;script&gt;location.href/*Tal, could u pls not modify my script? It is not cool. Thanks!*/=&#39;/blog/en/2018/08/email_thanks/&#39;;&lt;/script&gt;
+        
+      </description>
+    </item>
+    
+    <item>
       <title>Perturbation clustering for data INtegration and disease Subtyping (PINS)</title>
       <link>/blog/paper/pins/</link>
       <pubDate>Mon, 04 Jun 2018 22:33:47 +0000</pubDate>
@@ -387,6 +738,21 @@ dbDisconnect(con) # 断开连接
     </item>
     
     <item>
+      <title>python——sklearn学习</title>
+      <link>/blog/cn/2017/12/python_sklearn/</link>
+      <pubDate>Thu, 21 Dec 2017 11:17:40 +0000</pubDate>
+      
+      <guid>/blog/cn/2017/12/python_sklearn/</guid>
+      <description>
+        &lt;p&gt;&lt;a href=&#34;http://sklearn.apachecn.org/cn/0.19.0/&#34;&gt;中文文档&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://scikit-learn.org/stable/index.html&#34;&gt;英文文档&lt;/a&gt;&lt;/p&gt;
+
+        
+      </description>
+    </item>
+    
+    <item>
       <title>python学习</title>
       <link>/blog/cn/2017/12/python_study/</link>
       <pubDate>Thu, 21 Dec 2017 11:17:39 +0000</pubDate>
@@ -398,25 +764,72 @@ dbDisconnect(con) # 断开连接
 &lt;p&gt;&lt;a href=&#34;http://www.runoob.com/python/python-tutorial.html&#34;&gt;入门教程&lt;/a&gt;
 &lt;a href=&#34;http://study.163.com/course/courseMain.htm?courseId=378003&#34;&gt;视频教程&lt;/a&gt;&lt;/p&gt;
 
-&lt;h1 id=&#34;认识python&#34;&gt;认识python&lt;/h1&gt;
+&lt;h2 id=&#34;python-ide环境配置&#34;&gt;python IDE环境配置&lt;/h2&gt;
 
-&lt;h4 id=&#34;实例-python-2-0&#34;&gt;实例(Python 2.0+)&lt;/h4&gt;
+&lt;p&gt;&lt;code&gt;环境配置&lt;/code&gt; &lt;strong&gt;pycharm+ anaconda&lt;/strong&gt;&lt;/p&gt;
 
-&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;#!/usr/bin/python
-print &amp;quot;Hello, World!&amp;quot;;
+&lt;pre&gt;&lt;code&gt;# 按照anaconda之后 在cmd 命令行创建python解释器
+conda create -n py_27 python=2.7 or  conda create -n py_36 python=3.6
+# 在cmd命令行激活python解释器
+activeate py_27
+# 查看该解释器已经安装的包
+conda list
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;h4 id=&#34;实例-python-3-0&#34;&gt;实例(Python 3.0+)&lt;/h4&gt;
+&lt;h2 id=&#34;python-函数查询&#34;&gt;python 函数查询&lt;/h2&gt;
 
-&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;#!/usr/bin/python3
+&lt;p&gt;&lt;strong&gt;1. 查看模块下所有函数&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;dir(module_name)
+
+from sklearn import datasets
+dir(datasets)
+
+[&#39;__all__&#39;, &#39;__builtins__&#39;, &#39;__cached__&#39;, &#39;__doc__&#39;, &#39;__file__&#39;, &#39;__loader__&#39;, &#39;__name__&#39;, &#39;__package__&#39;, &#39;__path__&#39;, &#39;__spec__&#39;, &#39;_svmlight_format&#39;, &#39;base&#39;, &#39;california_housing&#39;, &#39;clear_data_home&#39;, &#39;covtype&#39;, &#39;dump_svmlight_file&#39;, &#39;fetch_20newsgroups&#39;, &#39;fetch_20newsgroups_vectorized&#39;, &#39;fetch_california_housing&#39;, &#39;fetch_covtype&#39;, &#39;fetch_kddcup99&#39;, &#39;fetch_lfw_pairs&#39;, &#39;fetch_lfw_people&#39;, &#39;fetch_mldata&#39;, &#39;fetch_olivetti_faces&#39;, &#39;fetch_rcv1&#39;, &#39;fetch_species_distributions&#39;, &#39;get_data_home&#39;, &#39;kddcup99&#39;, &#39;lfw&#39;, &#39;load_boston&#39;, &#39;load_breast_cancer&#39;, &#39;load_diabetes&#39;, &#39;load_digits&#39;, &#39;load_files&#39;, &#39;load_iris&#39;, &#39;load_linnerud&#39;, &#39;load_mlcomp&#39;, &#39;load_sample_image&#39;, &#39;load_sample_images&#39;, &#39;load_svmlight_file&#39;, &#39;load_svmlight_files&#39;, &#39;load_wine&#39;, &#39;make_biclusters&#39;, &#39;make_blobs&#39;, &#39;make_checkerboard&#39;, &#39;make_circles&#39;, &#39;make_classification&#39;, &#39;make_friedman1&#39;, &#39;make_friedman2&#39;, &#39;make_friedman3&#39;, &#39;make_gaussian_quantiles&#39;, &#39;make_hastie_10_2&#39;, &#39;make_low_rank_matrix&#39;, &#39;make_moons&#39;, &#39;make_multilabel_classification&#39;, &#39;make_regression&#39;, &#39;make_s_curve&#39;, &#39;make_sparse_coded_signal&#39;, &#39;make_sparse_spd_matrix&#39;, &#39;make_sparse_uncorrelated&#39;, &#39;make_spd_matrix&#39;, &#39;make_swiss_roll&#39;, &#39;mlcomp&#39;, &#39;mldata&#39;, &#39;mldata_filename&#39;, &#39;olivetti_faces&#39;, &#39;rcv1&#39;, &#39;samples_generator&#39;, &#39;species_distributions&#39;, &#39;svmlight_format&#39;, &#39;twenty_newsgroups&#39;]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;2. 查看模块下特定函数信息&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;#方法一：
+help(datasets.load_iris)
+#方法二：
+print(datasets.load_iris.__doc__)
+
+Help on function load_iris in module sklearn.datasets.base:
+load_iris(return_X_y=False)
+    Load and return the iris dataset (classification).
+    
+    The iris dataset is a classic and very easy multi-class classification
+    dataset.
+    =================   ==============
+    Classes                          3
+    Samples per class               50
+    Samples total                  150
+    Dimensionality                   4
+    Features            real, positive
+    =================   ==============
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;hr /&gt;
+
+&lt;h1 id=&#34;基本语法&#34;&gt;基本语法&lt;/h1&gt;
+
+&lt;h2 id=&#34;1-认识python&#34;&gt;1. 认识python&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;#实例(Python 2.0+)
+#!/usr/bin/python
+print &amp;quot;Hello, World!&amp;quot;;
+
+#实例(Python 3.0+)
+#!/usr/bin/python3
 print(&amp;quot;Hello, World!&amp;quot;);
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;h1 id=&#34;python-脚本&#34;&gt;python 脚本&lt;/h1&gt;
+&lt;h2 id=&#34;2-python-脚本&#34;&gt;2. python 脚本&lt;/h2&gt;
 
 &lt;p&gt;所有 Python 文件将以 .py 为扩展名。用 $ python *.py 执行脚本。&lt;/p&gt;
 
-&lt;h1 id=&#34;python语法&#34;&gt;python语法&lt;/h1&gt;
+&lt;h2 id=&#34;3-python语法&#34;&gt;3. python语法&lt;/h2&gt;
 
 &lt;p&gt;1.Python 的代码块不使用大括号 {} 来控制类，函数以及其他逻辑判断。&lt;/p&gt;
 
@@ -430,7 +843,7 @@ else:
 
 &lt;p&gt;2.xx&lt;/p&gt;
 
-&lt;h1 id=&#34;python函数&#34;&gt;python函数&lt;/h1&gt;
+&lt;h3 id=&#34;3-1-python函数&#34;&gt;3.1 python函数&lt;/h3&gt;
 
 &lt;p&gt;语法&lt;/p&gt;
 
@@ -455,7 +868,7 @@ printme(&amp;quot;我要调用用户自定义函数!&amp;quot;);
 printme(&amp;quot;再次调用同一函数&amp;quot;);
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;h1 id=&#34;python-模块&#34;&gt;Python 模块&lt;/h1&gt;
+&lt;h3 id=&#34;3-2-python-模块&#34;&gt;3.2 Python 模块&lt;/h3&gt;
 
 &lt;p&gt;Python 模块(Module)，是一个 Python 文件，以 .py 结尾，包含了 Python 对象定义和Python语句。&lt;/p&gt;
 
@@ -466,7 +879,7 @@ printme(&amp;quot;再次调用同一函数&amp;quot;);
    return
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;h3 id=&#34;模块的引入&#34;&gt;模块的引入&lt;/h3&gt;
+&lt;h4 id=&#34;模块的引入&#34;&gt;模块的引入&lt;/h4&gt;
 
 &lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;#!/usr/bin/python
 # -*- coding: UTF-8 -*-
@@ -477,7 +890,7 @@ import support
 support.print_func(&amp;quot;Runoob&amp;quot;)
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;h3 id=&#34;from-import-语句&#34;&gt;From…import 语句&lt;/h3&gt;
+&lt;h4 id=&#34;from-import-语句&#34;&gt;From…import 语句&lt;/h4&gt;
 
 &lt;p&gt;Python 的 from 语句让你从模块中导入一个指定的部分到当前命名空间中。&lt;/p&gt;
 
@@ -485,9 +898,9 @@ support.print_func(&amp;quot;Runoob&amp;quot;)
 
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;h1 id=&#34;常用语句&#34;&gt;常用语句&lt;/h1&gt;
+&lt;h3 id=&#34;3-3-常用语句&#34;&gt;3.3 常用语句&lt;/h3&gt;
 
-&lt;h3 id=&#34;读文件&#34;&gt;读文件&lt;/h3&gt;
+&lt;h4 id=&#34;读文件&#34;&gt;读文件&lt;/h4&gt;
 
 &lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;try:
     f = open(&#39;/path/to/file&#39;, &#39;r&#39;)
@@ -506,13 +919,13 @@ with open(&#39;/path/to/file&#39;, &#39;r&#39;) as f:
     print(line.strip()) # 把末尾的&#39;\n&#39;删掉
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;h3 id=&#34;写文件&#34;&gt;写文件&lt;/h3&gt;
+&lt;h4 id=&#34;写文件&#34;&gt;写文件&lt;/h4&gt;
 
 &lt;pre&gt;&lt;code&gt;with open(&#39;/Users/michael/test.txt&#39;, &#39;w&#39;) as f:
     f.write(&#39;Hello, world!&#39;)
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;h1 id=&#34;常规语法&#34;&gt;常规语法&lt;/h1&gt;
+&lt;h3 id=&#34;3-4-常规语法&#34;&gt;3.4  常规语法&lt;/h3&gt;
 
 &lt;p&gt;&lt;strong&gt;import&lt;/strong&gt;&lt;/p&gt;
 
@@ -2753,2058 +3166,6 @@ bash sra_down.sh
 ls *.sra|while read id;do(/mnt/d/Software/Biosoft/sratoolkit/sratoolkit.2.8.2-1-ubuntu64/bin/fastq-dump --split-3 $id);done
 rm *.sra
 chmod u-w * 
-&lt;/code&gt;&lt;/pre&gt;
-
-        
-      </description>
-    </item>
-    
-    <item>
-      <title>使用Bioconda管理Linux系统中的生物信息软件</title>
-      <link>/blog/cn/2017/11/bioconda/</link>
-      <pubDate>Fri, 03 Nov 2017 17:20:54 +0000</pubDate>
-      
-      <guid>/blog/cn/2017/11/bioconda/</guid>
-      <description>
-        
-
-&lt;p&gt;&lt;a href=&#34;https://zhuanlan.zhihu.com/p/25085567&#34;&gt;原文&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;生物信息操作中必不可少的就是Linux系统中各种生物信息学软件的安装。不同软件有不同的安装方法，对系统环境的依赖不同也不同，对于新手来说，经常是一个软件的安装和配置就要折腾很长一段时间时间，大大增加了学习成本。&lt;/p&gt;
-
-&lt;p&gt;我自己有两个方法来尽量减少安装软件所消耗的时间：一是直接安装Bio-linux系统，这个系统已经内置了大部分生物信息分析所需要的软件，非常适合新手直接学习分析技术，绕过软件安装和环境配置的麻烦问题。二是使用Bioconda安装和管理各种软件。Bio-linux系统和常用的服务器系统还是有差别的，如果想在学习生物信息分析的同时掌握一些Linux系统的操作甚至维护的技术，配置一台CentOS系统的计算机就很有必要了。这个时候Bioconda就非常有用了。&lt;/p&gt;
-
-&lt;p&gt;本文参考知乎专栏以及基因课相关课程 (&lt;a href=&#34;http://genek.tv/dirlist/index/id/65&#34;&gt;http://genek.tv/dirlist/index/id/65&lt;/a&gt;) 对Bioconda的安装和使用做简单介绍。&lt;/p&gt;
-
-&lt;h1 id=&#34;bioconda介绍&#34;&gt;Bioconda介绍&lt;/h1&gt;
-
-&lt;p&gt;Bioconda是conda上一个分发生物信息的频道。而conda是最初为管理python包而建立的。以下是相关介绍：&lt;/p&gt;
-
-&lt;p&gt;“Conda is a portable package manager primarily for python and precompiled binaries. Miniconda is the base system of conda. It includes a standard python and a few required dependencies such as readline and sqlite. In conda, a channel contains a set of software typically managed by the same group.Bioconda is a channel of conda focusing on bioinformatics software. ”&lt;/p&gt;
-
-&lt;p&gt;Bioconda主页：Using bioconda - Bioconda documentation&lt;/p&gt;
-
-&lt;p&gt;anaconda、miniconda和conda的区别：FAQs - Bioconda documentation&lt;/p&gt;
-
-&lt;p&gt;简单说来：“conda is a package manager, Miniconda is the conda installer, and Anaconda is a scientific Python distribution that also includes conda.”&lt;/p&gt;
-
-&lt;p&gt;Bioconda的优点是安装简单，各个软件依赖的环境一同打包且相互隔离，非常适合在服务器中建立自己的生物信息分析环境。&lt;/p&gt;
-
-&lt;h1 id=&#34;bioconda的下载与安装&#34;&gt;Bioconda的下载与安装&lt;/h1&gt;
-
-&lt;p&gt;1.下载和安装miniconda&lt;/p&gt;
-
-&lt;p&gt;bioconda的使用首先需要安装miniconda(&lt;a href=&#34;http://conda.pydata.org/miniconda.html&#34;&gt;http://conda.pydata.org/miniconda.html&lt;/a&gt;) 。选择linux的64位的python2.7版本（共提供win、Mac、linux三种系统，同时支持python3和python2），直接点击下载。或者复制链接后，用wget下载。下载完成后，在终端键入bash命令进行安装. 之后按照提示点击回车，输入要安装的位置，或者输入yes.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;wget https://repo.continuum.io/miniconda/Miniconda2-latest-Linux-x86_64.sh
-bash Miniconda2-latest-Linux-x86_64.sh
-##输入yes后，还没有完成最后安装，还需要source一下
-source ~/.bashrc
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;这时miniconda就安装好了，输入“conda”会显示相应的信息：&lt;/p&gt;
-
-&lt;p&gt;2.添加channels&lt;/p&gt;
-
-&lt;p&gt;输入“conda list”来查看已经安装的软件：&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;conda config --add channels conda-forge
-conda config --add channels defaults
-conda config --add channels r
-conda config --add channels bioconda
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;查看已经添加的channels：&lt;/p&gt;
-
-&lt;p&gt;conda config &amp;ndash;get channels&lt;/p&gt;
-
-&lt;p&gt;3.更新miniconda&lt;/p&gt;
-
-&lt;p&gt;conda update conda&lt;/p&gt;
-
-&lt;p&gt;4.卸载miniconda  删除miniconda的整个文件夹：&lt;/p&gt;
-
-&lt;p&gt;rm -rf ~/miniconda&lt;/p&gt;
-
-&lt;p&gt;从环境变量中去掉miniconda：打开~/.bash_profile文件，删掉其中miniconda的路径，关闭并保存&lt;/p&gt;
-
-&lt;p&gt;删除隐藏的.condarc 、.conda以及.continuum文件&lt;/p&gt;
-
-&lt;h1 id=&#34;利用bioconda安装生物信息软件&#34;&gt;利用Bioconda安装生物信息软件&lt;/h1&gt;
-
-&lt;p&gt;要通过conda安装软件，首先从这里&lt;a href=&#34;https://bioconda.github.io/recipes&#34;&gt;Available packages&lt;/a&gt;查找该软件是否被conda支持。如果支持，只需输入以下命令即可安装：&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;conda install fastqc（软件名）
-
-conda install -c bioconda samtools=1.5
-conda install -c bioconda htseq=0.7.2
-conda install -c bioconda hisat2=2.1.0
-conda install -c bioconda fastqc=0.11.5
-conda install -c jfear sratoolkit=2.8.1
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;安装完成后，可以用“which 软件名”来查看该软件安装的位置：&lt;/p&gt;
-
-&lt;p&gt;conda默认安装软件的最新版本，如果想安装指定版本的某个软件，可以先用“conda search 软件名”搜索软件版本&lt;/p&gt;
-
-&lt;p&gt;星号标记的表示是已经安装的版本。要安装其他版本，输入：&lt;/p&gt;
-
-&lt;p&gt;conda install 软件名=版本号
-这时conda会先卸载已安装版本，然后重新安装指定版本。&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;查看已安装软件&lt;/strong&gt;：conda list&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;更新指定软件&lt;/strong&gt;：conda update 软件名&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;卸载指定软件&lt;/strong&gt;：conda remove 软件名&lt;/p&gt;
-
-        
-      </description>
-    </item>
-    
-    <item>
-      <title>生物信息学常见1000个软件的安装代码</title>
-      <link>/blog/cn/2017/11/1000soft/</link>
-      <pubDate>Fri, 03 Nov 2017 15:42:35 +0000</pubDate>
-      
-      <guid>/blog/cn/2017/11/1000soft/</guid>
-      <description>
-        
-
-&lt;p&gt;引自Jiangming Zeng&lt;a href=&#34;http://mp.weixin.qq.com/s?__biz=MzAxMDkxODM1Ng==&amp;amp;mid=2247484870&amp;amp;idx=1&amp;amp;sn=d336ed1951b5cff14c591201084622fd&amp;amp;chksm=9b48457dac3fcc6bb25bdb2a0e744013a3c11d0b7b8cc8b9f274560260618c07bdf438611752&amp;amp;mpshare=1&amp;amp;scene=1&amp;amp;srcid=08174RqFPmfWUyO1PO1Xh9Uz#rd&#34;&gt;原文&lt;/a&gt;&lt;/p&gt;
-
-&lt;h1 id=&#34;分析软件&#34;&gt;分析软件&lt;/h1&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;## annovar and GATK 
-## Download and install sratoolkit
-## http://www.ncbi.nlm.nih.gov/Traces/sra/sra.cgi?view=software
-## http://www.ncbi.nlm.nih.gov/books/NBK158900/
-cd ~/biosoft
-mkdir sratoolkit &amp;amp;&amp;amp;  cd sratoolkit
-wget http://ftp-trace.ncbi.nlm.nih.gov/sra/sdk/2.6.3/sratoolkit.2.6.3-centos_linux64.tar.gz
-##
-##  Length: 63453761 (61M) [application/x-gzip]
-##  Saving to: &amp;quot;sratoolkit.2.6.3-centos_linux64.tar.gz&amp;quot;
-tar zxvf sratoolkit.2.6.3-centos_linux64.tar.gz
-~/biosoft/sratoolkit/sratoolkit.2.6.3-centos_linux64/bin/fastdump -h
-mkdir -p  ~/biosoft/myBin
-echo &#39;export PATH=/home/jianmingzeng/biosoft/myBin/bin:$PATH&#39; &amp;gt;&amp;gt;~/.bashrc 
-source ~/.bashrc
-cd ~/biosoft
-mkdir cmake &amp;amp;&amp;amp;  cd cmake
-wget http://cmake.org/files/v3.3/cmake-3.3.2.tar.gz
-tar xvfz cmake-3.3.2.tar.gz
-cd cmake-3.3.2 
-./configure --prefix=/home/jianmingzeng/biosoft/myBin
-make
-make install
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;## Download and install samtools
-## http://samtools.sourceforge.net/
-## http://www.htslib.org/doc/samtools.html
-
-##存放高通量测序比对结果的标准格式
-##功能： Reading/writing/editing/indexing/viewing SAM/BAM/CRAM format
-cd ~/biosoft
-mkdir samtools &amp;amp;&amp;amp;  cd samtools
-wget https://github.com/samtools/samtools/releases/download/1.3.1/samtools-1.3.1.tar.bz2 
-tar xvfj samtools-1.3.1.tar.bz2 
-cd samtools-1.3.1 
-./configure --prefix=/home/jianmingzeng/biosoft/myBin
-make
-make install
-~/biosoft/myBin/bin/samtools --help
-~/biosoft/myBin/bin/plot-bamstats --help
-cd htslib-1.3.1
-./configure --prefix=/home/jianmingzeng/biosoft/myBin
-make
-make install
-~/biosoft/myBin/bin/tabix
-# ## Download and install tabix 
-# cd ~/biosoft
-# mkdir tabix &amp;amp;&amp;amp;  cd tabix
-# # http://genometoolbox.blogspot.com/2013/11/installing-tabix-on-unix.html
-# tar xvfj tabix-0.2.6.tar.bz2 
-# cd tabix-0.2.6
-# make
-# cd ~/biosoft
-# ## http://samtools.github.io/bcftools/
-# mkdir htslib &amp;amp;&amp;amp;  cd htslib  
-# git clone git://github.com/samtools/htslib.git 
-# cd htslib
-# make 
-## Download and install bcftools
-## http://www.htslib.org/download/
-## http://www.htslib.org/doc/bcftools-1.0.html
-cd ~/biosoft
-mkdir bcftools &amp;amp;&amp;amp;  cd bcftools
-wget https://github.com/samtools/bcftools/releases/download/1.3.1/bcftools-1.3.1.tar.bz2
-tar xvfj bcftools-1.3.1.tar.bz2
-cd bcftools-1.3.1 
-make
-cp bcftools /home/jianmingzeng/biosoft/myBin
-~/biosoft/myBin/bin/bcftools --help
-## Download and install vcftools
-## https://vcftools.github.io/index.html 
-## http://vcftools.sourceforge.net/specs.html
-cd ~/biosoft
-mkdir vcftools &amp;amp;&amp;amp;  cd vcftools
-# wget https://codeload.github.com/vcftools/vcftools/legacy.zip/master -O  vcftools-vcftools-v0.1.14-24-gac1bfd5.zip 
-# unzip vcftools-vcftools-v0.1.14-24-gac1bfd5.zip 
-# mv vcftools-vcftools-ac1bfd5 vcftools-v0.1.14-24
-# cd vcftools-v0.1.14-24
-# export PERL5LIB=/home/jianmingzeng/biosoft/vcftools/vcftools-v0.1.14-24/src/perl/
-# ./autogen.sh 
-# ./configure     --prefix=/home/jianmingzeng/biosoft/myBin
-# make 
-# make install 
-# ~/biosoft/myBin/bin/vcftools --help
-wget https://sourceforge.net/projects/vcftools/files/vcftools_0.1.13.tar.gz 
-tar zxvf vcftools_0.1.13.tar.gz
-cd  vcftools_0.1.13
-make
-## Download and install ANNOVAR  
-cd ~/biosoft
-# The latest version of ANNOVAR (2016Feb01) can be downloaded here (registration required)
-# http://www.openbioinformatics.org/annovar/annovar_download_form.php 
-mkdir ANNOVAR  &amp;amp;&amp;amp;  cd ANNOVAR  
-## Download and install samstat
-## http://samstat.sourceforge.net/
-## http://www.htslib.org/doc/samtools.html
-cd ~/biosoft
-mkdir samstat &amp;amp;&amp;amp;  cd samstat
-wget http://liquidtelecom.dl.sourceforge.net/project/samstat/samstat-1.5.tar.gz
-tar zxvf  samstat-1.5.tar.gz 
-cd samstat-1.5 
-./configure --prefix=/home/jianmingzeng/biosoft/myBin
-make
-make install
-~/biosoft/myBin/bin/samstat --help
-## Download and install picardtools
-## https://sourceforge.net/projects/picard/
-## https://github.com/broadinstitute/picard
-cd ~/biosoft
-mkdir picardtools &amp;amp;&amp;amp;  cd picardtools
-wget http://ncu.dl.sourceforge.net/project/picard/picard-tools/1.119/picard-tools-1.119.zip
-unzip picard-tools-1.119.zip 
-## Download and install freebayes
-## https://github.com/ekg/freebayes
-## http://clavius.bc.edu/~erik/CSHL-advanced-sequencing/freebayes-tutorial.html
-cd ~/biosoft
-mkdir freebayes &amp;amp;&amp;amp;  cd freebayes
-## wget -O freebayes-master.zip  https://codeload.github.com/ekg/freebayes/zip/master
-## unzip freebayes-master.zip
-wget http://clavius.bc.edu/~erik/freebayes/freebayes-5d5b8ac0.tar.gz
-tar xzvf freebayes-5d5b8ac0.tar.gz
-cd freebayes
-make
- ~/biosoft/freebayes/freebayes/bin/freebayes
-cd ~/biosoft
-## https://sourceforge.net/projects/varscan/files/
-## http://varscan.sourceforge.net/index.html
-mkdir VarScan  &amp;amp;&amp;amp;  cd VarScan  
-wget https://sourceforge.net/projects/varscan/files/VarScan.v2.3.9.jar 
-cd ~/biosoft
-mkdir SnpEff &amp;amp;&amp;amp;  cd SnpEff
-##  http://snpeff.sourceforge.net/
-##  http://snpeff.sourceforge.net/SnpSift.html 
-##  http://snpeff.sourceforge.net/SnpEff_manual.html
-wget http://sourceforge.net/projects/snpeff/files/snpEff_latest_core.zip 
-## java -jar snpEff.jar download GRCh37.75
-## java -Xmx4G -jar snpEff.jar -i vcf -o vcf GRCh37.75 example.vcf &amp;gt; example_snpeff.vcf
-unzip snpEff_latest_core.zip
-## https://github.com/najoshi/sickle
-cd ~/biosoft
-mkdir sickle &amp;amp;&amp;amp; cd sickle
-wget https://codeload.github.com/najoshi/sickle/zip/master -O sickle.zip
-unzip sickle.zip
-cd sickle-master
-make
-~/biosoft/sickle/sickle-master/sickle -h
-cd ~/biosoft
-## http://www.usadellab.org/cms/?page=trimmomatic
-## http://www.usadellab.org/cms/uploads/supplementary/Trimmomatic/TrimmomaticManual_V0.32.pdf
-mkdir Trimmomatic &amp;amp;&amp;amp; cd Trimmomatic
-wget http://www.usadellab.org/cms/uploads/supplementary/Trimmomatic/Trimmomatic-0.36.zip 
-unzip Trimmomatic-0.36.zip 
-java -jar ~/biosoft/Trimmomatic/Trimmomatic-0.36/trimmomatic-0.36.jar -h
-## Download and install bedtools
-cd ~/biosoft
-mkdir bedtools &amp;amp;&amp;amp;  cd bedtools
-wget https://github.com/arq5x/bedtools2/releases/download/v2.25.0/bedtools-2.25.0.tar.gz
-## Length: 19581105 (19M) [application/octet-stream] 
-tar -zxvf bedtools-2.25.0.tar.gz
-cd bedtools2
-make
-#~/biosoft/bedtools/bedtools2/bin/
-## Download and install PeakRanger
-cd ~/biosoft
-mkdir PeakRanger &amp;amp;&amp;amp;  cd PeakRanger
-wget https://sourceforge.net/projects/ranger/files/PeakRanger-1.18-Linux-x86_64.zip 
-## Length: 1517587 (1.4M) [application/octet-stream]
-unzip PeakRanger-1.18-Linux-x86_64.zip
-~/biosoft/PeakRanger/bin/peakranger -h
-## Download and install bowtie
-cd ~/biosoft
-mkdir bowtie &amp;amp;&amp;amp;  cd bowtie
-wget https://sourceforge.net/projects/bowtie-bio/files/bowtie2/2.2.9/bowtie2-2.2.9-linux-x86_64.zip 
-#Length: 27073243 (26M) [application/octet-stream]
-#Saving to: &amp;quot;download&amp;quot;   ## I made a mistake here for downloading the bowtie2 
-mv download  bowtie2-2.2.9-linux-x86_64.zip
-unzip bowtie2-2.2.9-linux-x86_64.zip
-## Download and install BWA
-cd ~/biosoft
-mkdir bwa &amp;amp;&amp;amp;  cd bwa
-#http://sourceforge.net/projects/bio-bwa/files/
-wget https://sourceforge.net/projects/bio-bwa/files/bwa-0.7.15.tar.bz2 
-tar xvfj bwa-0.7.15.tar.bz2 # x extracts, v is verbose (details of what it is doing), f skips prompting for each individual file, and j tells it to unzip .bz2 files
-cd bwa-0.7.15
-make
-#export PATH=$PATH:/path/to/bwa-0.7.15 # Add bwa to your PATH by editing ~/.bashrc file (or .bash_profile or .profile file)
-# /path/to/ is an placeholder. Replace with real path to BWA on your machine
-#source ~/.bashrc
-## Download and install macs2  
-## // https://pypi.python.org/pypi/MACS2/
-cd ~/biosoft
-mkdir macs2 &amp;amp;&amp;amp;  cd macs2
-## just stick to PyPI release: https://pypi.python.org/pypi/MACS2
-wget https://pypi.python.org/packages/9f/99/a8ac96b357f6b0a6f559fe0f5a81bcae12b98579551620ce07c5183aee2c/MACS2-2.1.1.20160309.tar.gz -O MACS2-2.1.1.tar.gz 
-tar zxvf  MACS2-2.1.1.tar.gz 
-cd  MACS2-2.1.1.20160309/
-python setup.py install --user 
-## https://docs.python.org/2/install/
-~/.local/bin/macs2 --help
-#wget https://codeload.github.com/taoliu/MACS/zip/master -O MACS-master.zip
-#unzip MACS-master.zip
-#cd MACS-master 
-## So you can&#39;t just pull github snapshot then run setup.py to install MACS2. Instead
-# ImageMagick
-cd ~/biosoft
-mkdir ImageMagick &amp;amp;&amp;amp;  cd ImageMagick
-## http://www.imagemagick.org/ 
-cd ~/biosoft
-mkdir weblogo &amp;amp;&amp;amp;  cd weblogo
-## http://weblogo.berkeley.edu/
-wget http://weblogo.berkeley.edu/release/weblogo.2.8.2.tar.gz
-tar zxvf weblogo.2.8.2.tar.gz
-cd weblogo
-export PATH=$PATH:/home/jianmingzeng/biosoft/weblogo/weblogo
-source ~/.bashrc
-cd ~/biosoft
-mkdir Ghostscript &amp;amp;&amp;amp;  cd Ghostscript
-# http://www.ghostscript.com/download/gsdnld.html
-# http://www.ghostscript.com/doc/9.20/Readme.htm
-wget https://github.com/ArtifexSoftware/ghostpdl-downloads/releases/download/gs920/ghostscript-9.20-linux-x86_64.tgz 
-tar zxvf ghostscript-9.20-linux-x86_64.tgz
-cp ghostscript-9.20-linux-x86_64/gs-920-linux_x86_64  ~/biosoft/myBin/bin/gs
-## make sure the &amp;quot;gs&amp;quot; program is executable 
-## Download and install homer (Hypergeometric Optimization of Motif EnRichment)
-## // http://homer.salk.edu/homer/
-## // http://blog.qiubio.com:8080/archives/3024 
-## The commands gs, seqlogo, blat, and samtools should now work from the command line
-cd ~/biosoft
-mkdir homer &amp;amp;&amp;amp;  cd homer
-wget http://homer.salk.edu/homer/configureHomer.pl 
-perl configureHomer.pl -install
-perl configureHomer.pl -install hg19
-## Download and install SWEMBL
-cd ~/biosoft
-mkdir SWEMBL &amp;amp;&amp;amp;  cd SWEMBL
-#### readme: http://www.ebi.ac.uk/~swilder/SWEMBL/beginners.html
-wget http://www.ebi.ac.uk/~swilder/SWEMBL/SWEMBL.3.3.1.tar.bz2 
-tar xvfj SWEMBL.3.3.1.tar.bz2
-cd SWEMBL.3.3.1/
-make
-## error 
-## Download and install SISSRs
-cd ~/biosoft
-mkdir SISSRs &amp;amp;&amp;amp;  cd SISSRs
-#### readme: https://dir.nhlbi.nih.gov/papers/lmi/epigenomes/sissrs/SISSRs-Manual.pdf
-wget http://dir.nhlbi.nih.gov/papers/lmi/epigenomes/sissrs/sissrs_v1.4.tar.gz
-tar xzvf sissrs_v1.4.tar.gz
-~/biosoft/SISSRs/sissrs.pl
-## Download and install SISSRs
-cd ~/biosoft
-mkdir QuEST &amp;amp;&amp;amp;  cd QuEST
-#### http://mendel.stanford.edu/SidowLab/downloads/quest/
-wget http://mendel.stanford.edu/SidowLab/downloads/quest/QuEST_2.4.tar.gz
-tar xzvf QuEST_2.4.tar.gz
-cd QuEST_2.4 
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;## Download and install fastqc
-##可视化展示二代测序数据质量
-##http://www.bioinformatics.babraham.ac.uk/projects/fastqc/
-
-cd ~/biosoft
-mkdir fastqc &amp;amp;&amp;amp;  cd fastqc
-wget http://www.bioinformatics.babraham.ac.uk/projects/fastqc/fastqc_v0.11.5.zip
-unzip fastqc_v0.11.5.zip
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;## Download and install CEAS    
-## http://liulab.dfci.harvard.edu/CEAS/download.html
-cd ~/biosoft
-mkdir CEAS  &amp;amp;&amp;amp;  cd CEAS 
-wget  http://liulab.dfci.harvard.edu/CEAS/src/CEAS-Package-1.0.2.tar.gz
-tar zxvf CEAS-Package-1.0.2.tar.gz
-cd  CEAS-Package-1.0.2
-python setup.py install --user 
-## http://liulab.dfci.harvard.edu/CEAS/usermanual.html
- ~/.local/bin/ceas --help  
-mkdir annotation  &amp;amp;&amp;amp;  cd annotation  
-wget http://liulab.dfci.harvard.edu/CEAS/src/hg19.refGene.gz ; gunzip hg19.refGene.gz 
-# http://hgdownload.cse.ucsc.edu/goldenPath/hg19/database/refGene.txt.gz ##  gunzip refGene.txt.gz ; mv refGene.txt  hg19refGene.txt
-## Download and install CEAS    
-## http://liulab.dfci.harvard.edu/CEAS/download.html
-cd ~/biosoft
-mkdir crossmap  &amp;amp;&amp;amp;  cd crossmap 
-pip install CrossMap --user
-## http://crossmap.sourceforge.net/#use-pip-to-install-crossmap
-mkdir chain_files  &amp;amp;&amp;amp;  cd chain_files  
-wget http://hgdownload.soe.ucsc.edu/goldenPath/mm10/liftOver/mm10ToMm9.over.chain.gz
-wget http://hgdownload.soe.ucsc.edu/goldenPath/mm9/liftOver/mm9ToMm10.over.chain.gz 
-wget http://hgdownload.soe.ucsc.edu/goldenPath/hg38/liftOver/hg38ToHg19.over.chain.gz 
-wget http://hgdownload.soe.ucsc.edu/goldenPath/hg38/liftOver/hg38ToHg19.over.chain.gz 
-# http://hgdownload.cse.ucsc.edu/goldenPath/hg19/database/refGene.txt.gz ##  gunzip refGene.txt.gz ; mv refGene.txt  hg19refGene.txt
-# Usage: CrossMap.py bed ~/biosoft/crossmap/chain_files/mm9ToMm10.over.chain.gz  test.mm9.bed3
-cd ~/biosoft
-# http://www.broadinstitute.org/cancer/cga/rnaseqc_run
-# http://www.broadinstitute.org/cancer/cga/rnaseqc_download
-mkdir RNA-SeQC  &amp;amp;&amp;amp;  cd RNA-SeQC 
-#### readme: http://www.broadinstitute.org/cancer/cga/sites/default/files/data/tools/rnaseqc/RNA-SeQC_Help_v1.1.2.pdf
-wget http://www.broadinstitute.org/cancer/cga/tools/rnaseqc/RNA-SeQC_v1.1.8.jar 
-#TopHat+Cufflinks+ pipeline
-## Download and install TopHat 
-# https://ccb.jhu.edu/software/tophat/index.shtml
-cd ~/biosoft
-mkdir TopHat  &amp;amp;&amp;amp;  cd TopHat 
-#### readme: https://ccb.jhu.edu/software/tophat/manual.shtml
-wget https://ccb.jhu.edu/software/tophat/downloads/tophat-2.1.1.Linux_x86_64.tar.gz
-tar xzvf tophat-2.1.1.Linux_x86_64.tar.gz 
-ln -s tophat-2.1.1.Linux_x86_64 current 
-# ~/biosoft/TopHat/current/tophat2
-## Download and install Cufflinks 
-#  http://cole-trapnell-lab.github.io/cufflinks/
-cd ~/biosoft
-mkdir Cufflinks  &amp;amp;&amp;amp;  cd Cufflinks 
-#### readme: http://cole-trapnell-lab.github.io/cufflinks/manual/
-#### install:http://cole-trapnell-lab.github.io/cufflinks/install/
-wget http://cole-trapnell-lab.github.io/cufflinks/assets/downloads/cufflinks-2.2.1.Linux_x86_64.tar.gz
-tar xzvf cufflinks-2.2.1.Linux_x86_64.tar.gz 
-ln -s cufflinks-2.2.1.Linux_x86_64 current
-~/biosoft/Cufflinks/current/cufflinks
-
-#HISAT-Stringtie2-Ballgown pipeline
-
-
-## Download and install HISAT 
-##https://ccb.jhu.edu/software/hisat2/index.shtml
-##功能： 将测序结果比对到参考基因组上
-cd ~/biosoft
-mkdir HISAT  &amp;amp;&amp;amp;  cd HISAT 
-#### readme: https://ccb.jhu.edu/software/hisat2/manual.shtml
-wget ftp://ftp.ccb.jhu.edu/pub/infphilo/hisat2/downloads/hisat2-2.0.4-Linux_x86_64.zip
-unzip hisat2-2.0.4-Linux_x86_64.zip
-ln -s hisat2-2.0.4  current 
-## ~/biosoft/HISAT/current/hisat2-build
-## ~/biosoft/HISAT/current/hisat2  
-## Download and install StringTie
-## https://ccb.jhu.edu/software/stringtie/  ## https://ccb.jhu.edu/software/stringtie/index.shtml?t=manual
-cd ~/biosoft
-mkdir StringTie &amp;amp;&amp;amp;  cd StringTie 
-wget http://ccb.jhu.edu/software/stringtie/dl/stringtie-1.2.3.Linux_x86_64.tar.gz 
-tar zxvf  stringtie-1.2.3.Linux_x86_64.tar.gz
-ln -s stringtie-1.2.3.Linux_x86_64 current
-# ~/biosoft/StringTie/current/stringtie
-cd ~/biosoft
-mkdir RSEM &amp;amp;&amp;amp;  cd RSEM 
-wget https://codeload.github.com/deweylab/RSEM/tar.gz/v1.2.31
-mv v1.2.31  RSEM.v1.2.31.tar.gz 
-tar zxvf RSEM.v1.2.31.tar.gz  
-## Download and install HTSeq  
-## http://www-huber.embl.de/users/anders/HTSeq/doc/overview.html
-## https://pypi.python.org/pypi/HTSeq
-cd ~/biosoft
-mkdir HTSeq &amp;amp;&amp;amp;  cd HTSeq
-wget  https://pypi.python.org/packages/72/0f/566afae6c149762af301a19686cd5fd1876deb2b48d09546dbd5caebbb78/HTSeq-0.6.1.tar.gz 
-tar zxvf HTSeq-0.6.1.tar.gz
-cd HTSeq-0.6.1
-python setup.py install --user 
-~/.local/bin/htseq-count  --help
-## ftp://ftp.sanger.ac.uk/pub/gencode/Gencode_mouse/release_M1/
-## http://hgdownload-test.cse.ucsc.edu/goldenPath/mm10/liftOver/
-## GRCm38/mm10 (Dec, 2011) 
-## ls *bam |while read id;do ( ~/.local/bin/htseq-count  -f bam  $id   genecode/mm9/gencode.vM1.annotation.gtf.gz  1&amp;gt;${id%%.*}.gene.counts ) ;done 
-## ls *bam |while read id;do ( ~/.local/bin/htseq-count  -f bam -i exon_id  $id   genecode/mm9/gencode.vM1.annotation.gtf.gz  1&amp;gt;${id%%.*}.exon.counts ) ;done
-## Download and install kallisto
-## https://pachterlab.github.io/kallisto/starting
-cd ~/biosoft
-mkdir kallisto &amp;amp;&amp;amp;  cd kallisto 
-wget https://github.com/pachterlab/kallisto/releases/download/v0.43.0/kallisto_linux-v0.43.0.tar.gz
-#tar zxvf  
-## Download and install Sailfish
-## http://www.cs.cmu.edu/~ckingsf/software/sailfish/  ## 
-cd ~/biosoft
-mkdir Sailfish &amp;amp;&amp;amp;  cd Sailfish 
-wget   https://github.com/kingsfordgroup/sailfish/releases/download/v0.9.2/SailfishBeta-0.9.2_DebianSqueeze.tar.gz 
-#tar zxvf  
-## Download and install salmon
-## http://salmon.readthedocs.io/en/latest/salmon.html ## 
-cd ~/biosoft
-mkdir salmon &amp;amp;&amp;amp;  cd salmon 
-## https://github.com/COMBINE-lab/salmon
-#tar zxvf  
-cd ~/biosoft
-mkdir GDC  &amp;amp;&amp;amp;  cd GDC  
-# https://gdc.cancer.gov/access-data/gdc-data-transfer-tool
-# http://gdc-docs.nci.nih.gov/Data_Transfer_Tool/Users_Guide/Getting_Started/
-wget https://gdc.nci.nih.gov/files/public/file/gdc-client_v1.2.0_Ubuntu14.04_x64.zip 
-unzip gdc-client_v1.2.0_Ubuntu14.04_x64.zip
-cd ~/biosoft/myBin/bin
-## http://hgdownload.cse.ucsc.edu/admin/exe/
-wget http://hgdownload.cse.ucsc.edu/admin/exe/linux.x86_64/bedToBigBed
-wget http://hgdownload.cse.ucsc.edu/admin/exe/linux.x86_64/bedSort
-wget http://hgdownload.cse.ucsc.edu/admin/exe/linux.x86_64/bedGraphToBigWig
-wget http://hgdownload.cse.ucsc.edu/admin/exe/linux.x86_64/fetchChromSizes
-wget http://hgdownload.cse.ucsc.edu/admin/exe/linux.x86_64/wigToBigWig
-wget http://hgdownload.cse.ucsc.edu/admin/exe/linux.x86_64/liftOver
-wget http://hgdownload.cse.ucsc.edu/admin/exe/linux.x86_64/bigWigToBedGraph
-wget http://hgdownload.cse.ucsc.edu/admin/exe/linux.x86_64/bigBedToBed
-wget http://hgdownload.cse.ucsc.edu/admin/exe/linux.x86_64/blat/blat
-wget http://hgdownload.cse.ucsc.edu/admin/exe/linux.x86_64/blat/gfClient
-wget http://hgdownload.cse.ucsc.edu/admin/exe/linux.x86_64/blat/gfServer
-## Download and install variationtoolkit
-## https://code.google.com/archive/p/variationtoolkit/downloads 
-cd ~/biosoft
-mkdir variationtoolkit &amp;amp;&amp;amp;  cd variationtoolkit  
-wget https://storage.googleapis.com/google-code-archive-downloads/v2/code.google.com/variationtoolkit/archive.tar.gz
-tar zxvf archive.tar.gz 
-cd variationtoolkit
-make
-## Download and install transvar
-# http://bioinformatics.mdanderson.org/main/Transvar
-cd ~/biosoft
-# https://bitbucket.org/wanding/transvar
-mkdir transvar &amp;amp;&amp;amp;  cd transvar  
-wget https://bitbucket.org/wanding/transvar/get/v2.1.19.20160221.zip 
-unzip v2.1.19.20160221.zip 
-cd wanding-transvar-5dd8a7366999 
-python setup.py install --user 
-cd ~/biosoft
-# http://kobas.cbi.pku.edu.cn/download.php 
-mkdir kobas &amp;amp;&amp;amp;  cd kobas  
-# wget http://kobas.cbi.pku.edu.cn/download_file.php?type=seq_pep&amp;amp;filename=hsa.pep.fasta.gz 
-# wget http://kobas.cbi.pku.edu.cn/download_file.php?type=sqlite3&amp;amp;filename=hsa.db.gz 
-wget http://kobas.cbi.pku.edu.cn/kobas-2.1.1/kobas-2.1.1.tar.gz 
-tar zxvf kobas-2.1.1.tar.gz 
-cd kobas-2.1.1_20160822
-# * Download the KOBAS organism data package (organism.db.gz) from KOBAS Backend databases download website
-# * Download the KOBAS specific species data package from KOBAS Backend databases download website (for example, hsa.db.gz)
-# * Download the specific sequence file from KOBAS sequence files download website (for example, hsa.pep.fasta.gz)
-# * `gunzip organism.db.gz`
-# * `gunzip hsa.db.gz`
-# * Move all databases into ${kobas_home}/sqlite3/ (for example, organism.db, hsa.db)
-# * `gunzip hsa.pep.fasta.gz`
-# * Move the fasta sequence file into ${kobas_home}/seq_pep/
-# * `makeblastdb -in hsa.pep.fasta -dbtype prot`
-pip install RPy2 --user 
-pip install Numpy --user 
-pip install Pandas --user 
-pip install BioPython --user 
-pip install matplotlib --user 
-pip install PySQLite --user 
-source(&amp;quot;http://bioconductor.org/biocLite.R&amp;quot;)
-biocLite(&amp;quot;qvalue&amp;quot;)
-## Download and install bamtools
-## https://github.com/pezmaster31/bamtools/wiki/Building-and-installing
-cd ~/biosoft
-mkdir bamtools &amp;amp;&amp;amp;  cd bamtools  
-git clone git://github.com/pezmaster31/bamtools.git 
-cd bamtools
-cmake --version  ## BamTools requires CMake (version &amp;gt;= 2.6.4).
-mkdir build &amp;amp;&amp;amp;  cd build 
-cmake ../ 
-make
-~/biosoft/bamtools/bamtools/bin/bamtools
-## Download and install BAMStats
-## http://bamstats.sourceforge.net/
-## https://sourceforge.net/projects/bamstats/files/
-cd ~/biosoft
-mkdir BAMStats &amp;amp;&amp;amp;  cd BAMStats  
-wget https://nchc.dl.sourceforge.net/project/bamstats/BAMStats-1.25.zip 
-unzip BAMStats-1.25.zip
-#java -jar  ~/biosoft/BAMStats/BAMStats-1.25/BAMStats-1.25.jar  --help
-## Download and install Qualimap 
-## http://qualimap.bioinfo.cipf.es/
-cd ~/biosoft
-mkdir Qualimap &amp;amp;&amp;amp;  cd Qualimap  
-wget https://bitbucket.org/kokonech/qualimap/downloads/qualimap_v2.2.1.zip 
-## readme  http://qualimap.bioinfo.cipf.es/doc_html/index.html
-## example results :http://kokonech.github.io/qualimap/HG00096.chr20_bamqc/qualimapReport.html 
-unzip qualimap_v2.2.1.zip 
-~/biosoft/bamtools/bamtools/bin/bamtools
-~/biosoft/Qualimap/qualimap_v2.2.1/qualimap --help ## --java-mem-size=4G
-## modify ~/.bashrc by adding PATH=$PATH:~/.local/bin/
-## Download and install deepTools
-## https://github.com/fidelram/deepTools
-## http://deeptools.readthedocs.io/en/latest/content/example_usage.html
-pip install pyBigWig --user 
-cd ~/biosoft
-mkdir deepTools &amp;amp;&amp;amp;  cd deepTools  
-git clone https://github.com/fidelram/deepTools ## 130M,
-cd deepTools
-python setup.py install --user
-## 17 tools in ~/.local/bin/
-~/.local/bin/deeptools
-cd ~/biosoft
-mkdir ngsplot &amp;amp;&amp;amp;  cd ngsplot  
-## download by yourself :https://drive.google.com/drive/folders/0B1PVLadG_dCKN1liNFY0MVM1Ulk  
-tar -zxvf ngsplot-2.61.tar.gz
-tar zxvf ngsplot.eg.bam.tar.gz
-echo &#39;export PATH=/home/jianmingzeng/biosoft/ngsplot/ngsplot/bin:$PATH&#39; &amp;gt;&amp;gt;~/.bashrc  
-echo &#39;export NGSPLOT=/home/jianmingzeng/biosoft/ngsplot/ngsplot&#39; &amp;gt;&amp;gt;~/.bashrc 
-source ~/.bashrc
-install.packages(&amp;quot;doMC&amp;quot;, dep=T)
-install.packages(&amp;quot;caTools&amp;quot;, dep=T)
-install.packages(&amp;quot;utils&amp;quot;, dep=T)
-source(&amp;quot;http://bioconductor.org/biocLite.R&amp;quot;)
-biocLite( &amp;quot;BSgenome&amp;quot; )
-biocLite( &amp;quot;Rsamtools&amp;quot; )
-biocLite( &amp;quot;ShortRead&amp;quot; )
-cd ~/biosoft
-mkdir breakdancer &amp;amp;&amp;amp;  cd breakdancer  
-# http://breakdancer.sourceforge.net/
-# you need to install 2 perl module by yourself : http://breakdancer.sourceforge.net/moreperl.html
-wget https://sourceforge.net/projects/breakdancer/files/breakdancer-1.1.2_2013_03_08.zip 
-unzip breakdancer-1.1.2_2013_03_08.zip 
-cd breakdancer-1.1.2/cpp
-make  ##something wrong !
-## usage: http://breakdancer.sourceforge.net/pipeline.html
-cd ~/biosoft
-# http://boevalab.com/FREEC/
-mkdir Control-FREEC &amp;amp;&amp;amp; cd Control-FREEC
-# https://github.com/BoevaLab/FREEC/releases
-wget https://github.com/BoevaLab/FREEC/archive/v10.3.zip 
-unzip v10.3.zip 
-# https://www.ncbi.nlm.nih.gov/pubmed/22155870
-# http://boevalab.com/FREEC/tutorial.html
-# http://samtools.sourceforge.net/pileup.shtml
-cd ~/biosoft
-# https://github.com/dellytools/delly
-mkdir delly &amp;amp;&amp;amp; cd delly 
-# git clone --recursive https://github.com/dellytools/delly.git
-# cd delly 
-# make all
-# make PARALLEL=1 -B src/delly
-wget https://github.com/dellytools/delly/releases/download/v0.7.6/delly_v0.7.6_linux_x86_64bit 
-chmod 777 delly_v0.7.6_linux_x86_64bit 
-~/biosoft/delly/delly_v0.7.6_linux_x86_64bit  --help 
-## delly call -t DEL -g hg19.fa -o s1.bcf -x hg19.excl sample1.bam
-## ./delly/src/bcftools/bcftools view delly.bcf &amp;gt; delly.vcf
-## The SV type can be DEL, DUP, INV, TRA, or INS for deletions, tandem duplications, inversions, translocations and small insertions, respectively.
-## In addition, you can filter input reads more stringently using -q 20 and -s 15.
-cd ~/biosoft
-# https://www.cog-genomics.org/plink2/data#merge_list
-mkdir PLINK &amp;amp;&amp;amp; cd PLINK 
-wget https://www.cog-genomics.org/static/bin/plink170113/plink_linux_x86_64.zip 
-unzip plink_linux_x86_64.zip
-~/biosoft/PLINK/plink
-## Download and install Scalpel
-cd ~/biosoft
-mkdir Scalpel &amp;amp;&amp;amp;  cd Scalpel
-wget https://downloads.sourceforge.net/project/scalpel/scalpel-0.5.3.tar.gz  
-tar zxvf scalpel-0.5.3.tar.gz
-cd scalpel-0.5.3
-make
-~/biosoft/Scalpel/scalpel-0.5.3/scalpel-discovery  --help
-~/biosoft/Scalpel/scalpel-0.5.3/scalpel-export  --help
-cd ~/biosoft
-# https://www.cog-genomics.org/plink2/data#merge_list
-mkdir firehose &amp;amp;&amp;amp; cd firehose 
-wget http://gdac.broadinstitute.org/runs/code/firehose_get_latest.zip
-unzip firehose_get_latest.zip 
-~/biosoft/firehose/firehose_get
-~/biosoft/firehose/firehose_get -tasks clinical analyses latest brca 
-cd ~/biosoft
-# https://www.cog-genomics.org/plink2/data#merge_list
-mkdir fastpop &amp;amp;&amp;amp; cd fastpop 
-wget https://sourceforge.net/projects/fastpop/files/FastPop.tar.gz 
-wget https://jaist.dl.sourceforge.net/project/fastpop/FastPop_Instruction.pdf
-tar zxvf FastPop.tar.gz  
-pip install cnvkit --user
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h1 id=&#34;转录组-de-novo分析流程的软件全代码&#34;&gt;转录组 de novo分析流程的软件全代码&lt;/h1&gt;
-
-&lt;p&gt;Trinotate/Trinity/TransDecoder/sqlite/NCBI BLAST+/HMMER/PFAM signalP v4 /tmhmm v2 /RNAMMER 有些软件需要教育邮箱注册才行哦~~&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;## Trinotate/Trinity/TransDecoder/sqlite/NCBI BLAST+/HMMER/PFAM 
-## signalP v4 /tmhmm v2 /RNAMMER
-cd ~/biosoft
-mkdir hmmer &amp;amp;&amp;amp;  cd hmmer
-wget http://eddylab.org/software/hmmer/2.3/hmmer-2.3.tar.gz 
-tar zxvf hmmer-2.3.tar.gz
-cd hmmer-2.3
-./configure --prefix=/home/jmzeng/my-bin
-#./configure --prefix=/home/jianmingzeng/biosoft/myBin
-make
-make install
-#for file in hmmalign hmmbuild hmmcalibrate hmmconvert hmmemit hmmfetch hmmindex hmmpfam hmmsearch ; do\
-#      cp src/$file /home/jmzeng/my-bin/bin/;\
-#   done
-#for file in hmmer hmmalign hmmbuild hmmcalibrate hmmconvert hmmemit hmmfetch hmmindex hmmpfam hmmsearch; do\
-#      cp documentation/man/$file.man /home/jmzeng/my-bin/man/man1/$file.1;\
-#   done
-cp /home/jmzeng/my-bin/bin/hmmsearch /home/jmzeng/my-bin/bin/hmmsearch2
-cd ~/biosoft
-mkdir CBS &amp;amp;&amp;amp;  cd CBS
-#   signalP v4 (free academic download) http://www.cbs.dtu.dk/cgi-bin/nph-sw_request?signalp
-#   tmhmm v2 (free academic download) http://www.cbs.dtu.dk/cgi-bin/nph-sw_request?tmhmm
-#   RNAMMER (free academic download) http://www.cbs.dtu.dk/cgi-bin/sw_request?rnammer
-mkdir signalp-4.1
-mkdir rnammer-1.2
-## be sure to untar it in a new directory
-## it&#39;s a perl script, we need to modify it according to readme http://trinotate.github.io/#SoftwareRequired
-## vi ~/biosoft/CBS/signalp-4.1/signalp
-tar zxvf signalp-4.1e.Linux.tar.gz 
-tar zxvf rnammer-1.2.src.tar.Z 
-tar zxvf tmhmm-2.0c.Linux.tar.gz 
-## it&#39;s a perl script, we need to modify it according to readme http://trinotate.github.io/#SoftwareRequired
-## vi ~/biosoft/CBS/tmhmm-2.0c/bin/tmhmm 
-## vi ~/biosoft/CBS/tmhmm-2.0c/bin/tmhmmformat.pl
-which perl  ## /usr/bin/perl
-cd ~/biosoft
-mkdir blastPlus &amp;amp;&amp;amp;  cd blastPlus
-#   ftp://ftp.ncbi.nlm.nih.gov/blast/executables/LATEST
-wget ftp://ftp.ncbi.nlm.nih.gov/blast/executables/LATEST/ncbi-blast-2.5.0+-x64-linux.tar.gz
-blastBinFolder=~/biosoft/blastPlus/ncbi-blast-2.5.0+/bin
-$blastBinFolder/makeblastdb -help
-#   http://www.cbs.dtu.dk/services/doc/signalp-4.1.readme
-cd ~/biosoft
-mkdir TransDecoder &amp;amp;&amp;amp;  cd TransDecoder
-#   https://transdecoder.github.io/
-# https://github.com/TransDecoder/TransDecoder/releases
-wget https://github.com/TransDecoder/TransDecoder/archive/v3.0.0.tar.gz  -O TransDecoder.v3.0.0.tar.gz 
-tar zxvf TransDecoder.v3.0.0.tar.gz 
-cd TransDecoder-3.0.0 
-make
-~/biosoft/TransDecoder/TransDecoder-3.0.0/TransDecoder.LongOrfs -h
-~/biosoft/TransDecoder/TransDecoder-3.0.0/TransDecoder.Predict -h
-## sqlite3  --help
-cd ~/biosoft
-mkdir Trinotate &amp;amp;&amp;amp;  cd Trinotate
-#   http://trinotate.github.io/
-#   https://github.com/Trinotate/Trinotate/releases
-wget https://github.com/Trinotate/Trinotate/archive/v3.0.1.tar.gz  -O Trinotate.v3.0.1.tar.gz 
-tar zxvf Trinotate.v3.0.1.tar.gz
-~/biosoft/Trinotate/Trinotate-3.0.1/Trinotate -h
-wget https://data.broadinstitute.org/Trinity/Trinotate_v3_RESOURCES/Pfam-A.hmm.gz
-wget https://data.broadinstitute.org/Trinity/Trinotate_v3_RESOURCES/uniprot_sprot.pep.gz
-wget https://data.broadinstitute.org/Trinity/Trinotate_v3_RESOURCES/Trinotate_v3.sqlite.gz  -O Trinotate.sqlite.gz
-gunzip Trinotate.sqlite.gz
-gunzip uniprot_sprot.pep.gz
-makeblastdb -in uniprot_sprot.pep -dbtype prot
-gunzip Pfam-A.hmm.gz
-hmmpress Pfam-A.hmm
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h1 id=&#34;基因组-gtf-bed-注释&#34;&gt;基因组，gtf，bed，注释&lt;/h1&gt;
-
-&lt;p&gt;前面既然把我多年累积的软件安装代码共享了，就顺便把我最近做直播我的基因组的一些数据下载代码共享吧&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;cd ~/reference
-mkdir -p genome/hg19  &amp;amp;&amp;amp; cd genome/hg19 
-nohup wget http://hgdownload.cse.ucsc.edu/goldenPath/hg19/bigZips/chromFa.tar.gz &amp;amp;
-tar zvfx chromFa.tar.gz
-cat *.fa &amp;gt; hg19.fa
-rm chr*.fa
- 
- 
-cd ~/reference
-mkdir -p genome/hg38  &amp;amp;&amp;amp; cd genome/hg38 
-nohup wget http://hgdownload.cse.ucsc.edu/goldenPath/hg38/bigZips/hg38.fa.gz  &amp;amp;
- 
-cd ~/reference
-mkdir -p  genome/mm10  &amp;amp;&amp;amp; cd genome/mm10 
-nohup wget http://hgdownload.cse.ucsc.edu/goldenPath/mm10/bigZips/chromFa.tar.gz  &amp;amp;
-tar zvfx chromFa.tar.gz
-cat *.fa &amp;gt; mm10.fa
-rm chr*.fa
- 
- 
-cd ~/biosoft/RNA-SeQC
-wget http://www.broadinstitute.org/cancer/cga/sites/default/files/data/tools/rnaseqc/ThousandReads.bam
-wget http://www.broadinstitute.org/cancer/cga/sites/default/files/data/tools/rnaseqc/gencode.v7.annotation_goodContig.gtf.gz
-wget http://www.broadinstitute.org/cancer/cga/sites/default/files/data/tools/rnaseqc/Homo_sapiens_assembly19.fasta.gz
-wget http://www.broadinstitute.org/cancer/cga/sites/default/files/data/tools/rnaseqc/Homo_sapiens_assembly19.other.tar.gz
-wget http://www.broadinstitute.org/cancer/cga/sites/default/files/data/tools/rnaseqc/gencode.v7.gc.txt
-wget http://www.broadinstitute.org/cancer/cga/sites/default/files/data/tools/rnaseqc/rRNA.tar.gz
- 
-cd ~/reference
-mkdir -p index/bowtie &amp;amp;&amp;amp; cd index/bowtie 
-nohup time ~/biosoft/bowtie/bowtie2-2.2.9/bowtie2-build  ~/reference/genome/hg19/hg19.fa  ~/reference/index/bowtie/hg19 1&amp;gt;hg19.bowtie_index.log 2&amp;gt;&amp;amp;1 &amp;amp;
-nohup time ~/biosoft/bowtie/bowtie2-2.2.9/bowtie2-build  ~/reference/genome/hg38/hg38.fa  ~/reference/index/bowtie/hg38 1&amp;gt;hg38.bowtie_index.log 2&amp;gt;&amp;amp;1 &amp;amp;
-nohup time ~/biosoft/bowtie/bowtie2-2.2.9/bowtie2-build  ~/reference/genome/mm10/mm10.fa  ~/reference/index/bowtie/mm10 1&amp;gt;mm10.bowtie_index.log 2&amp;gt;&amp;amp;1 &amp;amp;
-  
-cd ~/reference
-mkdir -p index/bwa &amp;amp;&amp;amp; cd index/bwa 
-nohup time ~/biosoft/bwa/bwa-0.7.15/bwa index   -a bwtsw   -p ~/reference/index/bwa/hg19  ~/reference/genome/hg19/hg19.fa 1&amp;gt;hg19.bwa_index.log 2&amp;gt;&amp;amp;1   &amp;amp;
-nohup time ~/biosoft/bwa/bwa-0.7.15/bwa index   -a bwtsw   -p ~/reference/index/bwa/hg38  ~/reference/genome/hg38/hg38.fa 1&amp;gt;hg38.bwa_index.log 2&amp;gt;&amp;amp;1   &amp;amp;
-nohup time ~/biosoft/bwa/bwa-0.7.15/bwa index   -a bwtsw   -p ~/reference/index/bwa/mm10  ~/reference/genome/mm10/mm10.fa 1&amp;gt;mm10.bwa_index.log 2&amp;gt;&amp;amp;1   &amp;amp;
-  
-cd ~/reference
-mkdir -p index/hisat &amp;amp;&amp;amp; cd index/hisat 
-nohup wget ftp://ftp.ccb.jhu.edu/pub/infphilo/hisat2/data/hg19.tar.gz  &amp;amp;
-nohup wget ftp://ftp.ccb.jhu.edu/pub/infphilo/hisat2/data/hg38.tar.gz  &amp;amp;
-nohup wget ftp://ftp.ccb.jhu.edu/pub/infphilo/hisat2/data/grcm38.tar.gz &amp;amp;
-nohup wget ftp://ftp.ccb.jhu.edu/pub/infphilo/hisat2/data/mm10.tar.gz  &amp;amp;
-tar zxvf hg19.tar.gz
-tar zxvf grcm38.tar.gz
-tar zxvf hg38.tar.gz
-tar zxvf mm10.tar.gz 
-  
-  
-mkdir -p ~/annotation/variation/human/ExAC
-cd ~/annotation/variation/human/ExAC
-## http://exac.broadinstitute.org/
-## ftp://ftp.broadinstitute.org/pub/ExAC_release/current
-wget ftp://ftp.broadinstitute.org/pub/ExAC_release/current/ExAC.r0.3.1.sites.vep.vcf.gz.tbi 
-nohup wget ftp://ftp.broadinstitute.org/pub/ExAC_release/current/ExAC.r0.3.1.sites.vep.vcf.gz &amp;amp;
-wget ftp://ftp.broadinstitute.org/pub/ExAC_release/current/cnv/exac-final-cnv.gene.scores071316 
-wget ftp://ftp.broadinstitute.org/pub/ExAC_release/current/cnv/exac-final.autosome-1pct-sq60-qc-prot-coding.cnv.bed
- 
- 
-mkdir -p ~/annotation/variation/human/dbSNP
-cd ~/annotation/variation/human/dbSNP
-## https://www.ncbi.nlm.nih.gov/projects/SNP/
-## ftp://ftp.ncbi.nih.gov/snp/organisms/human_9606_b147_GRCh38p2/
-## ftp://ftp.ncbi.nih.gov/snp/organisms/human_9606_b147_GRCh37p13/
-nohup wget ftp://ftp.ncbi.nih.gov/snp/organisms/human_9606_b147_GRCh37p13/VCF/All_20160601.vcf.gz &amp;amp;
-wget ftp://ftp.ncbi.nih.gov/snp/organisms/human_9606_b147_GRCh37p13/VCF/All_20160601.vcf.gz.tbi 
- 
- 
-mkdir -p ~/annotation/variation/human/1000genomes
-cd ~/annotation/variation/human/1000genomes 
-## ftp://ftp.1000genomes.ebi.ac.uk/vol1/ftp/release/20130502/ 
-nohup wget  -c -r -nd -np -k -L -p  ftp://ftp.1000genomes.ebi.ac.uk/vol1/ftp/release/20130502 &amp;amp;
- 
-mkdir -p ~/annotation/variation/human/cosmic
-cd ~/annotation/variation/human/cosmic
-## we need to register before we can download this file. 
- 
-mkdir -p ~/annotation/variation/human/ESP6500
-cd ~/annotation/variation/human/ESP6500
-# http://evs.gs.washington.edu/EVS/
-nohup wget http://evs.gs.washington.edu/evs_bulk_data/ESP6500SI-V2-SSA137.GRCh38-liftover.snps_indels.vcf.tar.gz &amp;amp; 
- 
-mkdir -p ~/annotation/variation/human/UK10K
-cd ~/annotation/variation/human/UK10K
-# http://www.uk10k.org/
-nohup wget ftp://ngs.sanger.ac.uk/production/uk10k/UK10K_COHORT/REL-2012-06-02/UK10K_COHORT.20160215.sites.vcf.gz &amp;amp; 
- 
-mkdir -p ~/annotation/variation/human/gonl
-cd ~/annotation/variation/human/gonl
-## http://www.nlgenome.nl/search/
-## https://molgenis26.target.rug.nl/downloads/gonl_public/variants/release5/
-nohup wget  -c -r -nd -np -k -L -p  https://molgenis26.target.rug.nl/downloads/gonl_public/variants/release5  &amp;amp;
- 
-mkdir -p ~/annotation/variation/human/omin
-cd ~/annotation/variation/human/omin
- 
-mkdir -p ~/annotation/variation/human/GWAS
-cd ~/annotation/variation/human/GWAS
- 
-mkdir -p ~/annotation/variation/human/hapmap
-cd ~/annotation/variation/human/hapmap
-# ftp://ftp.ncbi.nlm.nih.gov/hapmap/
-wget ftp://ftp.ncbi.nlm.nih.gov/hapmap/phase_3/relationships_w_pops_051208.txt 
-nohup wget -c -r -np -k -L -p  -nd -A.gz ftp://ftp.ncbi.nlm.nih.gov/hapmap/phase_3/hapmap3_reformatted &amp;amp;
-# ftp://ftp.hgsc.bcm.tmc.edu/pub/data/HapMap3-ENCODE/ENCODE3/ENCODE3v1/
-wget ftp://ftp.hgsc.bcm.tmc.edu/pub/data/HapMap3-ENCODE/ENCODE3/ENCODE3v1/bcm-encode3-QC.txt 
-wget ftp://ftp.hgsc.bcm.tmc.edu/pub/data/HapMap3-ENCODE/ENCODE3/ENCODE3v1/bcm-encode3-submission.txt.gz
- 
- 
- 
- 
-## 1 million single nucleotide polymorphisms (SNPs) for DNA samples from each of the three ethnic groups in Singapore – Chinese, Malays and Indians.
-## The Affymetrix Genome-Wide Human SNP Array 6.0   &amp;amp;&amp;amp; The Illumina Human1M single BeadChip 
-## http://www.statgen.nus.edu.sg/~SGVP/
-## http://www.statgen.nus.edu.sg/~SGVP/singhap/files-website/samples-information.txt
-# http://www.statgen.nus.edu.sg/~SGVP/singhap/files-website/genotypes/2009-01-30/QC/
- 
-## Singapore Sequencing Malay Project (SSMP) 
-mkdir -p ~/annotation/variation/human/SSMP
-cd ~/annotation/variation/human/SSMP
-## http://www.statgen.nus.edu.sg/~SSMP/
-## http://www.statgen.nus.edu.sg/~SSMP/download/vcf/2012_05 
- 
- 
-## Singapore Sequencing Indian Project (SSIP) 
-mkdir -p ~/annotation/variation/human/SSIP
-cd ~/annotation/variation/human/SSIP
-# http://www.statgen.nus.edu.sg/~SSIP/
-## http://www.statgen.nus.edu.sg/~SSIP/download/vcf/dataFreeze_Feb2013
- 
- 
- 
-wget ftp://ftp.ensembl.org/pub/release-75/gtf/homo_sapiens/Homo_sapiens.GRCh37.75.gtf.gz 
-wget ftp://ftp.ensembl.org/pub/release-86/gtf/homo_sapiens/Homo_sapiens.GRCh38.86.chr.gtf.gz 
- 
-mkdir -p ~/reference/gtf/gencode
-cd  ~/reference/gtf/gencode
-## https://www.gencodegenes.org/releases/current.html
-wget ftp://ftp.sanger.ac.uk/pub/gencode/Gencode_human/release_25/gencode.v25.2wayconspseudos.gtf.gz
-wget ftp://ftp.sanger.ac.uk/pub/gencode/Gencode_human/release_25/gencode.v25.long_noncoding_RNAs.gtf.gz 
-wget ftp://ftp.sanger.ac.uk/pub/gencode/Gencode_human/release_25/gencode.v25.polyAs.gtf.gz 
-wget ftp://ftp.sanger.ac.uk/pub/gencode/Gencode_human/release_25/gencode.v25.annotation.gtf.gz 
-## https://www.gencodegenes.org/releases/25lift37.html 
-wget ftp://ftp.sanger.ac.uk/pub/gencode/Gencode_human/release_25/GRCh37_mapping/gencode.v25lift37.annotation.gtf.gz 
-wget ftp://ftp.sanger.ac.uk/pub/gencode/Gencode_human/release_25/GRCh37_mapping/gencode.v25lift37.metadata.HGNC.gz 
-wget ftp://ftp.sanger.ac.uk/pub/gencode/Gencode_human/release_25/GRCh37_mapping/gencode.v25lift37.metadata.EntrezGene.gz 
-wget ftp://ftp.sanger.ac.uk/pub/gencode/Gencode_human/release_25/GRCh37_mapping/gencode.v25lift37.metadata.RefSeq.gz 
- 
- 
-mkdir -p ~/reference/gtf/ensembl/homo_sapiens_86
-cd  ~/reference/gtf/ensembl/homo_sapiens_86
-## http://asia.ensembl.org/info/data/ftp/index.html
- 
- 
- 
-cd ~/reference
-mkdir -p  genome/human_g1k_v37  &amp;amp;&amp;amp; cd genome/human_g1k_v37
-# http://ftp.1000genomes.ebi.ac.uk/vol1/ftp/technical/reference/ 
-nohup wget http://ftp.1000genomes.ebi.ac.uk/vol1/ftp/technical/reference/human_g1k_v37.fasta.gz  &amp;amp;
-gunzip human_g1k_v37.fasta.gz
-wget http://ftp.1000genomes.ebi.ac.uk/vol1/ftp/technical/reference/human_g1k_v37.fasta.fai
-wget http://ftp.1000genomes.ebi.ac.uk/vol1/ftp/technical/reference/README.human_g1k_v37.fasta.txt
-java -jar ~/biosoft/picardtools/picard-tools-1.119/CreateSequenceDictionary.jar R=human_g1k_v37.fasta O=human_g1k_v37.dict
- 
-## ftp://ftp.broadinstitute.org/bundle/b37/
-mkdir -p ~/annotation/GATK
-cd ~/annotation/variation/GATK
-wget ftp://gsapubftp-anonymous@ftp.broadinstitute.org/bundle/b37/1000G_phase1.snps.high_confidence.b37.vcf.gz 
-wget ftp://gsapubftp-anonymous@ftp.broadinstitute.org/bundle/b37/dbsnp_138.b37.vcf.gz
-wget ftp://gsapubftp-anonymous@ftp.broadinstitute.org/bundle/b37/human_g1k_v37.fasta.gz 
-wget ftp://gsapubftp-anonymous@ftp.broadinstitute.org/bundle/b37/NA12878.HiSeq.WGS.bwa.cleaned.raw.subset.b37.sites.vcf.gz
-wget ftp://gsapubftp-anonymous@ftp.broadinstitute.org/bundle/b37/Mills_and_1000G_gold_standard.indels.b37.vcf.gz 
-wget ftp://gsapubftp-anonymous@ftp.broadinstitute.org/bundle/b37/hapmap_3.3.b37.vcf.gz
-wget ftp://gsapubftp-anonymous@ftp.broadinstitute.org/bundle/b37/1000G_phase1.indels.b37.vcf.gz 
-wget ftp://gsapubftp-anonymous@ftp.broadinstitute.org/bundle/b37/1000G_phase1.indels.b37.vcf.idx.gz
-gunzip 1000G_phase1.indels.b37.vcf.idx.gz
-gunzip 1000G_phase1.indels.b37.vcf.gz
-  
-  
-mkdir -p  ~/institute/ENSEMBL/gtf
-cd  ~/institute/ENSEMBL/gtf
-wget ftp://ftp.ensembl.org/pub/release-87/gtf/homo_sapiens/Homo_sapiens.GRCh38.87.chr.gtf.gz 
-wget ftp://ftp.ensembl.org/pub/release-87/gtf/mus_musculus/Mus_musculus.GRCm38.87.chr.gtf.gz
-wget ftp://ftp.ensembl.org/pub/release-87/gtf/danio_rerio/Danio_rerio.GRCz10.87.chr.gtf.gz
- 
- 
- 
- 
- 
-cd ~/institute/TCGA/firehose
-## https://gdac.broadinstitute.org/
-wget http://gdac.broadinstitute.org/runs/stddata__2016_01_28/data/ACC/20160128/gdac.broadinstitute.org_ACC.Merge_snp__genome_wide_snp_6__broad_mit_edu__Level_3__segmented_scna_minus_germline_cnv_hg19__seg.Level_3.2016012800.0.0.tar.gz  -O ACC.gistic.seg.tar.gz
-wget http://gdac.broadinstitute.org/runs/stddata__2016_01_28/data/ACC/20160128/gdac.broadinstitute.org_ACC.Merge_snp__genome_wide_snp_6__broad_mit_edu__Level_3__segmented_scna_hg19__seg.Level_3.2016012800.0.0.tar.gz  -O ACC.raw.seg.tar.gz 
-wget http://gdac.broadinstitute.org/runs/stddata__2016_01_28/data/ACC/20160128/gdac.broadinstitute.org_ACC.Mutation_Packager_Calls.Level_3.2016012800.0.0.tar.gz -O ACC.maf.tar.gz
-wget http://gdac.broadinstitute.org/runs/stddata__2016_01_28/data/ACC/20160128/gdac.broadinstitute.org_ACC.Mutation_Packager_Oncotated_Calls.Level_3.2016012800.0.0.tar.gz -O ACC.maf.anno.tar.gz
-&lt;/code&gt;&lt;/pre&gt;
-
-        
-      </description>
-    </item>
-    
-    <item>
-      <title>一致性指数Concordance index(CI, C-index)</title>
-      <link>/blog/cn/2017/10/concordance_index/</link>
-      <pubDate>Sun, 15 Oct 2017 23:06:17 +0000</pubDate>
-      
-      <guid>/blog/cn/2017/10/concordance_index/</guid>
-      <description>
-        
-
-&lt;p&gt;&lt;a href=&#34;http://mp.weixin.qq.com/s?__biz=MzAxNjM2MDI2MQ==&amp;amp;mid=205481962&amp;amp;idx=1&amp;amp;sn=f09dd122f7282be8d26b803d0039a195#rd&#34;&gt;原文&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;所谓C-index，英文名全称&lt;strong&gt;concordance index&lt;/strong&gt;，最早是由范德堡大学（Vanderbilt University）生物统计教教授Frank E Harrell Jr 1996年提出，主要用于计算生存分析中的COX模型预测值与真实之间的区分度（discrimination）；现阶段用的最多的是肿瘤患者预后模型的预测精度。&lt;/p&gt;
-
-&lt;p&gt;一般评价模型的好坏主要有两个方面，&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;p&gt;一是模型的拟合优度（Goodness of Fit),常见的评价指标主要有R方，-2logL,AIC,BIC等等；&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;另外一个是模型的预测精度，主要就是模型的真实值与预测值之间的差的大小，均方误差，相对误差等。&lt;/p&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;从临床应用的角度来说，我们更注重后者，即统计建模主要是用于预测，而从C-index的概念大家看出它属于模型评价指标的后者，这一指标比前面提到的几个指标看起来更高大上，一般文献中用的也比较多。&lt;/p&gt;
-
-&lt;p&gt;C-index本质上是估计了预测结果与实际观察到的结果相一致的概率，即资料所有病人对子中预测结果与实际结果一致的对子所占的比例。有点类似于ROC曲线下面积。&lt;/p&gt;
-
-&lt;p&gt;&lt;font color=red&gt;&lt;strong&gt;C-index的计算方法是:把所研究的资料中的所有研究对象随机地两两组成对子。以生存分析为例,对于一对病人,如果生存时间较长的一位,其预测生存时间长于生存时间较短的一位,或预测的生存概率高的一位的生存时间长于生存概率低的另一位,则称之为预测结果与实际结果一致。&lt;/strong&gt;&lt;/font&gt;&lt;/p&gt;
-
-&lt;p&gt;C-index的计算步骤为:&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;p&gt;(1)产生所有的病例配对。若有n个观察个体,则所有的对子数应为Cn2(组合数).&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;(2)排除下面两种对子:对子中具有较小观察时间的个体没有达到观察终点及对子中两个个体都没达到观察终点。剩余的为有用对子。&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;(3)计算有用对子中,预测结果和实际相一致的对子数,即具有较坏预测结果个体的实际观察时间较短。&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;(4)计算。C= 一致对子数/有用对子数。&lt;/p&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;strong&gt;C-index在0.5-1之间。0.5为完全不一致,说明该模型没有预测作用,1为完全一致,说明该模型预测结果与实际完全一致。&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;在实际应用中,很难找到完全一致的预测模型,既往研究认为,C-index&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;p&gt;在0.50-0.70为较低准确度,&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;在0.71-0.90之间为中等准确度;&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;而高于0.90则为高准确度。&lt;/p&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;当C-index检验由同一样本建成的模型时易造成偏倚,因此再采用重抽样技术(Bootstrap)可以几乎无偏倚的检验预测模型的准确度。Bootstrap是非参数统计中一种重要的估计统计量方差进而进行区间估计的统计方法,是现代统计应用较为广泛的一种统计方法。&lt;/p&gt;
-
-&lt;p&gt;Bootstrap方法核心思想和基本步骤如下:&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;p&gt;(1)采用重抽样技术从原始样本中抽取一定数量的样本,此过程允许重复抽样。&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;(2)根据抽出的样本计算给定的统计量T。&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;(3)重复上述N次(一般大于1000),得到N个统计量T。&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;(4)计算上述N个统计量T的样木方差,得到统计量的方差。&lt;/p&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Bootstarap方法只是对单一样本且样本量较小的资料，如果数据集很大可以按照不同的比例将数据集拆分，一部分用于建模一部分用于验证。关于交叉验证（Cross-validation），由于篇幅有限，留作下次探讨。&lt;/p&gt;
-
-&lt;h1 id=&#34;r软件实现&#34;&gt;R软件实现：&lt;/h1&gt;
-
-&lt;p&gt;&lt;font color=red&gt;Note: 在生存分析中一般直接有c-index输出，直接采用就ok.&lt;/font&gt;&lt;/p&gt;
-
-&lt;p&gt;C-index的R软件计算实现有两种实现方法，一种是用到Harrell本人的的R包Hmisc package；另一种是Le Kang, Weijie Chen 2014年12月18日发布的R compareC Package&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;############################
-#### Method 1.Hmisc code ###
-############################
-data &amp;lt;- read.csv(&amp;quot;survivaldta.csv&amp;quot;)
-library(Hmisc) 
-library(survival) ###加载survival包，主要用于建立模型###
-f &amp;lt;- cph(Surv(time,death)~x1+x2+x3，data=survivldata) ###拟合cox模型
-fp &amp;lt;- predict(f)###模型的预测值
-cindex.orig=1-rcorr.cens(fp,Surv(time,death)) [[1]]###计算出的C-index
-
-###############################
-#### Method 2.compareC code ###
-###############################
-data &amp;lt;- read.csv(&amp;quot;survivaldta.csv&amp;quot;) 
-library(compareC) 
-library(survival) 
-cindex &amp;lt;- cindex(Surv(time,death) ~ x1+x2+x3,data=survivldata)###计算出的C-index
-
-###############################
-#### Bootstrap code ###
-###############################
-bootit=200
-for(i in 1:bootit){
-case=noNA[group==&amp;quot;long&amp;quot;,] 
-control=noNA[group==&amp;quot;&amp;lt;24&amp;quot;,]
-bootindex.case=sample(1:nrow(case),replace=T)
-boot.case.data=case[bootindex.case,]
-bootindex.control=sample(1:nrow(control),replace=T)
-boot.control.data=control[bootindex.control,]
-boot.data=rbind(boot.case.data,boot.control.data)
-dstr.boot=svydesign(id=~1, prob=~inv_weight, fpc=~ssize, data=boot.data)
-boot.fit=svycoxph(Surv(survival,surv_cens) ~x1+x2+x3,data=boot.data,x=TRUE,design=dstr.boot)
-cindex.train=1-rcorr.cens(lp.boot,Surv(boot.data$survival, boot.data$surv_cens))[[1]]
-cindex.test=1-rcorr.cens(lp_=.test,Surv(noNA$survival,noNA$surv_cens))[[1]]
-bias=rep(1,bootit)
-bias[i]=abs(cindex.train-cindex.test) }
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h1 id=&#34;参考文献&#34;&gt;参考文献&lt;/h1&gt;
-
-&lt;p&gt;Harrell FE, Califf RM, Pryor DB, Lee KL, and Rosati RA. (1982) Evaluating the yield of medical tests. The Journal of the American Medical Association, 247(18), 2543–2546&lt;/p&gt;
-
-&lt;p&gt;Pencina MJ and D’Agostino RB. (2004) Overall C as a measure of discrimination in survival analysis: model specific population value and confidence interval estimation. Statistics in Medicine, 23(13), 2109–2123&lt;/p&gt;
-
-&lt;p&gt;Kang L, Chen W, Petrick NA, and Gallas BD. (2014) Comparing two correlated C indices with right-censored survival outcome: a one-shot nonparametric approach. Statistics in Medicine, 34(4), 685–703, doi: 10.1002/sim.6370&lt;/p&gt;
-
-&lt;p&gt;Hmisc Reference manual：&lt;a href=&#34;http://cran.r-project.org/web/packages/Hmisc/Hmisc.pdf&#34;&gt;http://cran.r-project.org/web/packages/Hmisc/Hmisc.pdf&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;compareC Reference manual: &lt;a href=&#34;http://cran.r-project.org/web/packages/compareC/compareC.pdf&#34;&gt;http://cran.r-project.org/web/packages/compareC/compareC.pdf&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;Frank.Harrell :&lt;a href=&#34;http://biostat.mc.vanderbilt.edu/wiki/Main/FrankHarrell&#34;&gt;http://biostat.mc.vanderbilt.edu/wiki/Main/FrankHarrell&lt;/a&gt;&lt;/p&gt;
-
-&lt;h1 id=&#34;5-ways-to-estimate-concordance-index-for-cox-models-in-r&#34;&gt;5 Ways to Estimate Concordance Index for Cox Models in R&lt;/h1&gt;
-
-&lt;p&gt;Why Results Aren&amp;rsquo;t Identical?&lt;/p&gt;
-
-&lt;p&gt;Harrell&amp;rsquo;s concordance index (c-index) can be used to evaluate the discriminatory power and the predictive accuracy of Cox models. An easy way out as a surrogate for ROC analysis.&lt;/p&gt;
-
-&lt;h2 id=&#34;approach-1&#34;&gt;Approach 1&lt;/h2&gt;
-
-&lt;p&gt;Use function &amp;ldquo;rcorrcens&amp;rdquo; in package &amp;ldquo;Hmisc&amp;rdquo;&lt;/p&gt;
-
-&lt;p&gt;Limitations:&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;p&gt;Can only handle un-censored data&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;Roughly handle categorical predictor with more than 2 categories&lt;/p&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;pre&gt;&lt;code&gt;Sample code:
-library(survival)
-library(Hmisc)
-attach(sample.data)
-surv &amp;lt;- Surv(survival, censor)
-rcorrcens(surv ~ group)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&#34;approach-2&#34;&gt;Approach 2&lt;/h2&gt;
-
-&lt;p&gt;Direct output from coxph
-Require higher version of R, say R 2.15, didn&amp;rsquo;t test with older versions&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;Sample code:
-library(survival)
-attach(sample.data)
-surv &amp;lt;- Surv(survival, censor)
-sum.surv &amp;lt;- summary(coxph(surv ~ group))
-c_index &amp;lt;- sum.surv$concordance
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&#34;approach-3&#34;&gt;Approach 3&lt;/h2&gt;
-
-&lt;p&gt;Use function &amp;ldquo;survConcordance&amp;rdquo;
-Result is the same as in Approach 2&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;Sample code:
-library(survival)
-attach(sample.data)
-surv &amp;lt;- Surv(survival, censor)
-fit &amp;lt;- coxph( surv ~ group)
-survConcordance(surv ~ predict(fit))
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&#34;approach-4&#34;&gt;Approach 4&lt;/h2&gt;
-
-&lt;p&gt;Use package &amp;ldquo;survcomp&amp;rdquo; in bioconductor&lt;/p&gt;
-
-&lt;p&gt;Different result from Approach &lt;sup&gt;2&lt;/sup&gt;&amp;frasl;&lt;sub&gt;3&lt;/sub&gt;&lt;/p&gt;
-
-&lt;p&gt;The disparity is due to two different estimation approaches that are used to handle tied risks (i.e. cases when  two observations have the same survival with the same x). The method that approaches &lt;sup&gt;4&lt;/sup&gt;&amp;frasl;&lt;sub&gt;5&lt;/sub&gt; use ignores the tied risks,  the other method (approaches &lt;sup&gt;2&lt;/sup&gt;&amp;frasl;&lt;sub&gt;3&lt;/sub&gt;) takes into consideration of the tied risks. In terms of formulation/symbol (for illustration only):&lt;/p&gt;
-
-&lt;p&gt;Approaches &lt;sup&gt;4&lt;/sup&gt;&amp;frasl;&lt;sub&gt;5&lt;/sub&gt; used:&lt;/p&gt;
-
-&lt;p&gt;Concordance = #all concordant pairs/#total pairs ignoring ties.&lt;/p&gt;
-
-&lt;p&gt;Approaches &lt;sup&gt;2&lt;/sup&gt;&amp;frasl;&lt;sub&gt;3&lt;/sub&gt; used:&lt;/p&gt;
-
-&lt;p&gt;Concordance = (#all concordant pairs + #tied pairs/2)/(#total pairs including ties).
-Those #s can be obtained in the output of Approach 3.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;Sample code:
-source(&amp;quot;http://bioconductor.org/biocLite.R&amp;quot;)
-biocLite(&amp;quot;survcomp&amp;quot;)
-library(survcomp)
-surv &amp;lt;- Surv(survival, censor) 
-fit &amp;lt;- coxph(surv ~ group, data= sample.data)
-coxPredict &amp;lt;- predict(fit, data=sample.data, type=&amp;quot;risk&amp;quot;)  
-concordance.index(x=coxPredict, surv.time=survival, surv.event=censor, method=&amp;quot;noether&amp;quot;)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&#34;approach-5&#34;&gt;Approach 5&lt;/h2&gt;
-
-&lt;p&gt;Use function &amp;ldquo;cph&amp;rdquo; in package &amp;ldquo;rms&amp;rdquo;
-Provide both un-adjusted and bias adjusted c-index
-Un-adjusted c-index is the same as the one from Approach 4&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;Sample code: 
-library(rms)
-surv &amp;lt;- Surv(survival, censor) 
-set.seed(1)
-fit.cph &amp;lt;- cph(surv ~ group, data= sample.data, x=TRUE, y=TRUE, surv=TRUE)
-  
-# Get the Dxy
-v &amp;lt;- validate.cph(fit.cph, dxy=TRUE, B=1000)
-Dxy = v[rownames(v)==&amp;quot;Dxy&amp;quot;, colnames(v)==&amp;quot;index.corrected&amp;quot;]
-orig_Dxy = v[rownames(v)==&amp;quot;Dxy&amp;quot;, colnames(v)==&amp;quot;index.orig&amp;quot;]
-# The c-statistic according to Dxy=2(c-0.5)
-bias_corrected_c_index  &amp;lt;- abs(Dxy)/2+0.5
-orig_c_index &amp;lt;- abs(Orig.Dxy)/2+0.5
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&#34;combining-approaches-2-3-4-5-and-calculate-p-value-for-testing-two-c-indices-for-both-estimation-methods&#34;&gt;Combining Approaches &lt;sup&gt;2&lt;/sup&gt;&amp;frasl;&lt;sub&gt;3&lt;/sub&gt; &amp;amp; &lt;sup&gt;4&lt;/sup&gt;&amp;frasl;&lt;sub&gt;5&lt;/sub&gt; and Calculate p-value for Testing Two C-indices for Both Estimation Methods&lt;/h2&gt;
-
-&lt;p&gt;Did not find it elsewhere online. Hope someone could find this helpful.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;Sample code:
-surv &amp;lt;- Surv(survival, censor)
-c_index &amp;lt;- function(group, ties=TRUE){
-  fit &amp;lt;- coxph(surv ~ group, data=sample.data)
-  coxPredict &amp;lt;- predict(fit, data=sample.data, type=&amp;quot;risk&amp;quot;)  
-  
-  # Approaches 4/5
-  if (ties==F) {
-  concordance.index(x=coxPredict, surv.time=survival, surv.event=censor, method=&amp;quot;noether&amp;quot;)
-  }
-  # Approaches 2/3
-  else if (ties==T) {
-  survConcordance(surv ~ coxPredict, data=sample.data)
-  }
-}
-c_index_ties1 &amp;lt;- c_index(group=group1, ties=TRUE)
-c_index_ties2 &amp;lt;- c_index(group=group2, ties=TRUE)
-
-c_index_no_ties1 &amp;lt;- c_index_ties(group=group1, ties=F)
-c_index_no_ties2 &amp;lt;- c_index_ties(group=group2, ties=F)
-
-# p-value of testing two c-indices ignoring ties
-round(cindex.comp(c_index_no_ties1, c_index_no_ties2)$p.value,3)
-
-# Function for p-value of testing two c-indices accounting for ties
-# t-test for dependent variables is used for significance 
-# Input variables are objects obtained from the first function
-
-cindex.p.ties &amp;lt;- function(c_index_ties1, c_index_ties2, c_index_no_ties1, c_index_no_ties2) {
-    eps &amp;lt;- 1E-15
-    n &amp;lt;- c_index_no_ties1$n
-    r &amp;lt;- cor(c_index_no_ties1$data$x, c_index_no_ties2$data$x, use=&amp;quot;complete.obs&amp;quot;, method=&amp;quot;spearman&amp;quot;)
-    if ((1 - abs(r)) &amp;gt; eps) {
-      t.stat &amp;lt;- (c_index_ties1$concordance - c_index_ties2$concordance) / sqrt(c_index_ties1$std.err^2 + c_index_ties2$std.err^2 - 2 * r * c_index_ties1$std.err * c_index_ties2$std.err)
-      diff.ci.p &amp;lt;- pt(q=t.stat, df=n - 1, lower.tail=FALSE)
-    } else { diff.ci.p &amp;lt;- 1 }
-    return(list(&amp;quot;p.value&amp;quot;=diff.ci.p))
-  }
-cindex.p.ties(c_index_ties1=c_index_ties1, c_index_ties2=c_index_ties2, c_index_no_ties1=c_index_no_ties1, c_index_no_ties2=c_index_no_ties2)
-&lt;/code&gt;&lt;/pre&gt;
-
-        
-      </description>
-    </item>
-    
-    <item>
-      <title>R统计分析 </title>
-      <link>/blog/cn/2017/10/r_statistics/</link>
-      <pubDate>Fri, 13 Oct 2017 11:12:29 +0000</pubDate>
-      
-      <guid>/blog/cn/2017/10/r_statistics/</guid>
-      <description>
-        
-
-&lt;script type=&#34;text/javascript&#34; src=&#34;http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML&#34;&gt;&lt;/script&gt;
-
-&lt;h1 id=&#34;概率分布&#34;&gt;概率分布&lt;/h1&gt;
-
-&lt;p&gt;&lt;img src=&#34;https://taoshengxu.github.io/DocumentGit/img/R_probility.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
-
-&lt;h1 id=&#34;样本抽样&#34;&gt;样本抽样&lt;/h1&gt;
-
-&lt;h4 id=&#34;1-简单随机抽样&#34;&gt;1. 简单随机抽样&lt;/h4&gt;
-
-&lt;pre&gt;&lt;code&gt;sample(x,size,replace=FALSE,
-       prob #数据被抽取的权重值)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h4 id=&#34;2-按权重的样本抽样&#34;&gt;2. 按权重的样本抽样&lt;/h4&gt;
-
-&lt;pre&gt;&lt;code&gt;sample(1:10,5,replace=TRUE,prob=1:10)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h4 id=&#34;3-分层随机抽样&#34;&gt;3. 分层随机抽样&lt;/h4&gt;
-
-&lt;p&gt;例如：男性占20%，女性占80%，如果通过抽样来统计组群的平均身高，性别不同会对统计结果有直接影响，因此可以根据男女性别比例采用分层抽样。&lt;/p&gt;
-
-&lt;p&gt;分层抽样的好处是可以根据每层分别抽样不同数量的样本&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;strata(data, stratanames=NULL, size, method=c(&amp;quot;srswor&amp;quot;,&amp;quot;srswr&amp;quot;,&amp;quot;poisson&amp;quot;,
-&amp;quot;systematic&amp;quot;), pik,description=FALSE)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;pre&gt;&lt;code&gt;library(&amp;quot;sampling&amp;quot;)
-x= strata(data=iris,c(&amp;quot;Species&amp;quot;),size=c(3,3,5),method=&amp;quot;srswor&amp;quot;)
-getdata(iris,x)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h4 id=&#34;4-系统抽样&#34;&gt;4. 系统抽样&lt;/h4&gt;
-
-&lt;p&gt;例如：要对从全天经过某一路口的车辆号牌进行抽样调查，如果采用简单随机抽样，早、晚高峰的经过的车辆会被过多抽取。&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;系统抽样：&lt;/strong&gt;将样本总体从1~N编号，然后随机确定抽样起点，以固定间隔k=N/n进行等间隔抽样。因此如果整体数据呈现有序排列形式，系统抽样会获得更好的结果，但是周期数据将会导致偏向性。&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;library(&amp;quot;doBy&amp;quot;)
-sampleBy(~1,frac=.3,data=x,systematic=TRUE)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h1 id=&#34;列联表&#34;&gt;列联表&lt;/h1&gt;
-
-&lt;p&gt;&lt;strong&gt;列联表：&lt;/strong&gt;以表格形式记录分类变量的频数。卡方独立性检验考察变量之间是否存在依存关系。&lt;/p&gt;
-
-&lt;table&gt;
-&lt;thead&gt;
-&lt;tr&gt;
-&lt;th&gt;&amp;ndash;&lt;/th&gt;
-&lt;th&gt;预测-垃圾邮件&lt;/th&gt;
-&lt;th&gt;预测-非垃圾邮件&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-
-&lt;tbody&gt;
-&lt;tr&gt;
-&lt;td&gt;实际-垃圾邮件&lt;/td&gt;
-&lt;td&gt;a&lt;/td&gt;
-&lt;td&gt;b&lt;/td&gt;
-&lt;/tr&gt;
-
-&lt;tr&gt;
-&lt;td&gt;实际-非垃圾邮件&lt;/td&gt;
-&lt;td&gt;c&lt;/td&gt;
-&lt;td&gt;d&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
-
-&lt;h4 id=&#34;创建列联表&#34;&gt;创建列联表&lt;/h4&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;d=data.frame(x=c(&amp;quot;1&amp;quot;,&amp;quot;2&amp;quot;,&amp;quot;2&amp;quot;,&amp;quot;1&amp;quot;)),
-             y=c(&amp;quot;A&amp;quot;,&amp;quot;B&amp;quot;,&amp;quot;A&amp;quot;,&amp;quot;B&amp;quot;),
-             num=c(3,5,8,7)
-xt=xtabs(num ~ x + y,data=d)
-
-##边际量
-margin.table(xt) 
-margin.table(xt,1)#行
-margin.table(xt,2)#列
-##边际百分比
-prop.table(xt)
-prop.table(xt,1)#行
-prop.table(xt,2)#列
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h1 id=&#34;独立性检验&#34;&gt;独立性检验&lt;/h1&gt;
-
-&lt;table&gt;
-&lt;thead&gt;
-&lt;tr&gt;
-&lt;th&gt;&amp;ndash;&lt;/th&gt;
-&lt;th&gt;A-TRUE&lt;/th&gt;
-&lt;th&gt;A-FALSE&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-
-&lt;tbody&gt;
-&lt;tr&gt;
-&lt;td&gt;B-TURE&lt;/td&gt;
-&lt;td&gt;a&lt;/td&gt;
-&lt;td&gt;b&lt;/td&gt;
-&lt;/tr&gt;
-
-&lt;tr&gt;
-&lt;td&gt;B-FALSE&lt;/td&gt;
-&lt;td&gt;c&lt;/td&gt;
-&lt;td&gt;d&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
-
-&lt;p&gt;假设A 与 B 独立，则P(AB)=P(A)*P(B).&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;1. 卡方检验&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;对两个变量的独立性进行检验，统计量如下：&lt;/p&gt;
-
-&lt;p&gt;$$\sum_{i=1}^{r}\sum_{j=1}^{c}\frac{(O_{ij}-E_{ij})^2}{E_{ij}} \backsim {\chi}^2(r-1)(c-1)$$&lt;/p&gt;
-
-&lt;p&gt;其中，\(O_{ij}\)为列联表中（i,j）的记录值，\(E_{ij}=N * P(i)* P(j)\)为两变量相互独立时单元的期望值。&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;library(&amp;quot;MASS&amp;quot;)
-data(survey)
-xtabs(~Sex + Exer,data=survey)##性别和运动的列联表
-##              Exer
-##Sex      Freq None Some
-##Female   49   11   58
-##Male     65   13   40
-
-chisq.test(xtabs(~Sex + Exer,data=survey))
-##  Pearson&#39;s Chi-squared test
-##data:  xtabs(~Sex + Exer, data = survey)
-##X-squared = 5.7184, df = 2, p-value = 0.05731
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;结果：p值不具有显著性，因此不能推翻原假设H0（性别与运动独立），接受H0(原假设不是小概率事件).&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;https://taoshengxu.github.io/DocumentGit/img/pvalue1.jpg&#34; alt=&#34;&#34; /&gt;
-&lt;img src=&#34;https://taoshengxu.github.io/DocumentGit/img/pvalue2.jpg&#34; alt=&#34;&#34; /&gt;
-&lt;img src=&#34;https://taoshengxu.github.io/DocumentGit/img/pvalue3.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;2. Fisher检验&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;针对列联表中样本数量较少，或者样本分布过分倾向某个单元，卡方检验的结果可能不准确。chisq.test()进行检验会显示警告信息。&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;xtabs(~W.Hnd + Clap,data=survey)
-##       Clap
-##W.Hnd   Left Neither Right
-##Left     9       5     4
-##Right   29      45   143
-chisq.test(xtabs(~W.Hnd + Clap,data=survey))
-##  Pearson&#39;s Chi-squared test
-##data:  xtabs(~W.Hnd + Clap, data = survey)
-##X-squared = 19.252, df = 2, p-value = 6.598e-05
-
-##Warning message:
-##In chisq.test(xtabs(~W.Hnd + Clap, data = survey)) :
-##  Chi-squared近似算法有可能不准
-
-fisher.test(xtabs(~W.Hnd + Clap,data=survey))
-##  Fisher&#39;s Exact Test for Count Data
-
-##data:  xtabs(~W.Hnd + Clap, data = survey)
-##p-value = 0.0001413
-##alternative hypothesis: two.sided
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;结果：显示P值具有显著性，推翻原假设【用于写字的手与鼓掌时放在上面的手独立】（原假设为小概率事件），接受两者之间有关系。&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;3. McNemar检验&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;McNemar检验检验事件发生前后被调查者的反应变化，比如推行罚款政策后系安全带人数的变化。在事件之前进行问卷调查Test1,事件发生之后问卷调查Test2.&lt;/p&gt;
-
-&lt;table&gt;
-&lt;thead&gt;
-&lt;tr&gt;
-&lt;th&gt;&amp;ndash;&lt;/th&gt;
-&lt;th&gt;Test 2-TRUE&lt;/th&gt;
-&lt;th&gt;Test 2-FALSE&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-
-&lt;tbody&gt;
-&lt;tr&gt;
-&lt;td&gt;Test 1&lt;/td&gt;
-&lt;td&gt;a&lt;/td&gt;
-&lt;td&gt;b&lt;/td&gt;
-&lt;/tr&gt;
-
-&lt;tr&gt;
-&lt;td&gt;Test 1&lt;/td&gt;
-&lt;td&gt;c&lt;/td&gt;
-&lt;td&gt;d&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
-
-&lt;p&gt;假设事件发生前后参与调查的人数未发生变化，a+b=a+c。只要检验b=c是否成立，即可知道事件发生前后人们心理趋向是否发生变化。若b=c成立，则b服从二项分布。&lt;/p&gt;
-
-&lt;p&gt;$$b \backsim B(b+c,\frac{1}{2})$$&lt;/p&gt;
-
-&lt;p&gt;二项分布B(n,p)中当n (列联表中b+c)较大时，可以近视视作正态分布。&lt;/p&gt;
-
-&lt;p&gt;$$b \backsim N(\frac{b+c}{2},\frac{b+c}{4})$$&lt;/p&gt;
-
-&lt;p&gt;将b标准化，使之服从N(0,1),并用连续校正，得到&lt;/p&gt;
-
-&lt;p&gt;$$\frac{(|b-c|-1)^2}{b+c} \backsim \chi^2(1)$$&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;performance=matrix(c(794,86,150,570),nrow=2,dimnames=list(
-                          &amp;quot;1st survey&amp;quot;=c(&amp;quot;Approve&amp;quot;,&amp;quot;Disapprove&amp;quot;),
-                          &amp;quot;2st survey&amp;quot;=c(&amp;quot;Approve&amp;quot;,&amp;quot;Disapprove&amp;quot;)))
-                          
-mcnemar.test(performance)
-
-##  McNemar&#39;s Chi-squared test with continuity correction
-##data:  performance
-##McNemar&#39;s chi-squared = 16.818, df = 1, p-value = 4.115e-05
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;结果：P值结果具有显著性，原假设为小概率事件，推翻原假设，事件发生前后，&amp;rdquo;Approve&amp;rdquo;和&amp;rdquo;Disapprove&amp;rdquo;比率发生变化。&lt;/p&gt;
-
-&lt;h1 id=&#34;拟合优度检验&#34;&gt;拟合优度检验&lt;/h1&gt;
-
-&lt;p&gt;统计分析中，常常假设数据服从某种分布，特别是数据量超过一定数值时，一般假设数据服从正态分布。&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;1. 卡方检验&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;为了验证数据是否服从某种特定分布，通常先要创建列联表。&lt;/p&gt;
-
-&lt;p&gt;例如：分析用左手写字的人数与用右手写字的人数比率是否为30%：70%。&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;library(&amp;quot;MASS&amp;quot;)
-data(survey)
-table(survey$W.Hnd)
-chisq.test(table(survey$W.Hnd),p=c(0.3,0.7))
-
-#Chi-squared test for given probabilities
-#data:  table(survey$W.Hnd)
-#X-squared = 56.252, df = 1, p-value = 6.376e-14
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;结果：p值显著，原假设为小概率事件，拒绝原假设，左手写字的人数与用右手写字的人数比率为30%：70%不成立。&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;2. Shapiro-Wilk（夏皮罗-威尔克）检验&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;Shapiro-Wilk用于检验样本是否来源于正态分布的总体&lt;/strong&gt;（样本是否从正态分布的数据中抽取的）。&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt; shapiro.test(rnorm(1000))
-##  Shapiro-Wilk normality test
-##data:  rnorm(1000)
-##W = 0.99883, p-value = 0.7749
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;结果：p值不显著，原假设不为小概率事件，接受原假设，肯定样本来源于正态分布整体。&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;3. Kolmogorov-smirnov test（柯尔莫哥-斯米诺夫 K-S）检验&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;将数据的累积分布函数与要比较的分布的累积分布函数之间的&lt;strong&gt;最大距离&lt;/strong&gt;作为统计量。&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;https://taoshengxu.github.io/DocumentGit/img/KS_test.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;例如： 检验两组正态分布的随机数据之间是否拥有相同的分布。&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;ks.test(rnorm(100),rnorm(100))
-
-#   Two-sample Kolmogorov-Smirnov test
-#data:  rnorm(100) and rnorm(100)
-#D = 0.1, p-value = 0.6994
-#alternative hypothesis: two-sided
-##p值不显著，原假设不为小概率事件，接受原假设，两组样本具有相同分布。
-
-ks.test(rnorm(100),runif(100))
-#   Two-sample Kolmogorov-Smirnov test
-#data:  rnorm(100) and runif(100)
-#D = 0.54, p-value = 4.335e-13
-#alternative hypothesis: two-sided
-##p值显著，原假设为小概率事件，拒绝原假设，两组样本不具有相同分布。
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;&lt;strong&gt;4. Q-Q（Quantile-Quantile）图&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;Q-Q图&lt;/strong&gt;是一种检验数据是否服从某种特定分布的可视化方法。&lt;/p&gt;
-
-&lt;p&gt;例如：要检验X是否服从正态分布。若\(X \backsim N(\mu,\delta^2)\),则&lt;/p&gt;
-
-&lt;p&gt;$$Z=\frac{X-\mu}{\delta} \backsim N(0,1)$$&lt;/p&gt;
-
-&lt;p&gt;$$X=\mu + \delta Z$$&lt;/p&gt;
-
-&lt;p&gt;若将(X,Z)绘制到坐标平面，则为一条直线。X是待检验的已知数据，Z为标准正态分布数据，因此找到与X对应的Z即可，可以通过分位数完成。&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;x=rnorm(1000,mean=10,sd=1)
-qqnorm(x)
-qqline(x,lty=2)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;&lt;img src=&#34;https://taoshengxu.github.io/DocumentGit/img/Q-Qplot1.jpeg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;x=runif(1000)
-qqnorm(x)
-qqline(x,lty=2)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h1 id=&#34;相关分析&#34;&gt;相关分析&lt;/h1&gt;
-
-&lt;p&gt;&lt;strong&gt;1.Pearson（皮尔逊）相关系数&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;https://taoshengxu.github.io/DocumentGit/Pearsoncorrelation.gif&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;当两个变量的标准差都不为零时，相关系数才有定义，皮尔逊相关系数适用于：&lt;/p&gt;
-
-&lt;ol&gt;
-&lt;li&gt;两个变量之间是线性关系，都是连续数据。&lt;/li&gt;
-&lt;li&gt;两个变量的总体是正态分布，或接近正态的单峰分布。&lt;/li&gt;
-&lt;li&gt;两个变量的观测值是成对的，每对观测值之间相互独立。&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;&lt;strong&gt;2.Spearman Rank(斯皮尔曼等级)相关系数&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;斯皮尔曼等级相关系数用来估计两个变量X、Y之间的相关性，其中变量间的相关性可以使用单调函数来描述。如果两个变量取值的两个集合中均不存在相同的两个元素，那么，当其中一个变量可以表示为另一个变量的很好的单调函数时（即两个变量的变化趋势相同），两个变量之间的ρ可以达到+1或-1。&lt;/p&gt;
-
-&lt;p&gt;假设两个随机变量分别为X、Y（也可以看做两个集合），它们的元素个数均为N，两个随机变量取的第i（1&amp;lt;=i&amp;lt;=N）个值分别用Xi、Yi表示。对X、Y进行排序（同时为升序或降序），得到两个元素排行集合x、y，其中元素xi、yi分别为Xi在X中的排行以及Yi在Y中的排行。将集合x、y中的元素对应相减得到一个排行差分集合d，其中di=xi-yi，1&amp;lt;=i&amp;lt;=N。随机变量X、Y之间的斯皮尔曼等级相关系数可以由x、y或者d计算得到，其计算方式如下所示：&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;https://taoshengxu.github.io/DocumentGit/img/SpearmanRank1.gif&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;https://taoshengxu.github.io/DocumentGit/img/SpearmanRank2.gif&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;3.Kendall Rank（肯德尔等级）相关系数&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;xxx&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;4.相关系数检验&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;*原假设：相关系数为0&lt;/p&gt;
-
-&lt;p&gt;*备选假设： 相关系数不为0.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;cor(iris$Sepal.Width,iris$Sepal.Length)
-cor(iris[,1:4])
-library(corrgram)#可视化显示相关系数
-corrgram(iris,upper.panel=panel.conf)
-
-m=matrix(c(1:10),(1:10)^2),ncol=2))
-cor(m,method=&amp;quot;spearman&amp;quot;)
-
-cor.test(c(1,2,3,4,5),c(1,0,3,4,5),method=&amp;quot;pearson&amp;quot;)
-cor.test(c(1,2,3,4,5),c(1,0,3,4,5),method=&amp;quot;spearman&amp;quot;)
-cor.test(c(1,2,3,4,5),c(1,0,3,4,5),method=&amp;quot;kendall&amp;quot;)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h1 id=&#34;估计与检验&#34;&gt;估计与检验&lt;/h1&gt;
-
-&lt;p&gt;&lt;strong&gt;1.单样本均值&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;$$\frac{\overline{X}-\mu}{S/\sqrt{n}} \backsim t(n-1)$$&lt;/p&gt;
-
-&lt;p&gt;显著性水平为a时，关于整体均值的95%置信水平的置信区间为：&lt;/p&gt;
-
-&lt;p&gt;$$(\overline{X} - t(n-1;\alpha/2) * S/\sqrt{n},\overline{X} + t(n-1;\alpha/2) * S/\sqrt{n}$$&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;https://taoshengxu.github.io/DocumentGit/img/t_test.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;零假设&lt;/strong&gt;：整体均值为mu.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;x=rnorm(30)
-t.test(x)
-t.test(x,mu=0)
-##  One Sample t-test
-##data:  x
-##t = 0.052695, df = 29, p-value = 0.9583
-##alternative hypothesis: true mean is not equal to 0
-##95 percent confidence interval:
-## -0.3502195  0.3687436
-##sample estimates:
-##  mean of x 
-##0.009262058 
-
-y=rnorm(30,mean=10)
-t.test(y)
-t.test(y,mu=10)
-
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;结果： 推断整体均值为0.009262058，总体均值95%置信区间为（-0.3502195,  0.3687436）。p值不显著，不能拒绝0假设，总体均值可以被视为0，0也在95%置信区间内。&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;2.两独立样本均值&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;从两个总体分别抽取样本，根据样本推断两个整体均值是否一致。&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;https://taoshengxu.github.io/DocumentGit/img/twosample_test1.jpg&#34; alt=&#34;&#34; /&gt;
-&lt;img src=&#34;https://taoshengxu.github.io/DocumentGit/img/twosample_test2.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;sleep2=sleep[,-3]
-tapply(sleep2$extra,sleep2$group,mean)
-var.test(extra ~ group,data = sleep2)##首先检验两组样本方差是否一致
-
-##F test to compare two variances
-##data:  extra by group
-##F = 0.79834, num df = 9, denom df = 9, p-value = 0.7427
-##alternative hypothesis: true ratio of variances is not equal to 1
-##95 percent confidence interval:
-##  0.198297 3.214123
-##sample estimates:
-##  ratio of variances 
-##0.7983426 
-## 原假设：两者方差无差别。因此不能拒绝原假设。
-
-t.test(extra ~ group,data = sleep2,paired=FALSE,var.equal=TRUE)
-##Two Sample t-test
-##data:  extra by group
-##t = -1.8608, df = 18, p-value = 0.07919
-##alternative hypothesis: true difference in means is not equal to 0
-##95 percent confidence interval:
-##  -3.363874  0.203874
-##sample estimates:
-##  mean in group 1 mean in group 2 
-##0.75            2.33 
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;t.test中paired=FALSE表示两独立样本检验,TRUE表示配对样本检验，var.equal=TRUE表示两样本方差一致。&lt;/p&gt;
-
-&lt;p&gt;结果：P值不显著，不能推翻原假设，因此可以认为两组总体均值无差异。&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;3.两配对样本均值&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;https://taoshengxu.github.io/DocumentGit/img/twosample_test3.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;t.test(extra ~ group,data = sleep2,paired=TRUE,var.equal=TRUE)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;结果：P值显著，推翻原假设，服用两种安眠药后睡眠时间增加程度不同。&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;4.两样本方差&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;评估两独立总体的方差是否一致。两样本方差检验一般不独立使用，常配合其他检验使用，如在两独立样本检验中，如果两检验两总体方差一致，则将t.test()的var.equal设置为TRUE.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;https://taoshengxu.github.io/DocumentGit/img/twosample_test4.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;https://taoshengxu.github.io/DocumentGit/img/twosample_test5.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;5.单样本比率&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;5.两 样本比率&lt;/strong&gt;&lt;/p&gt;
-
-        
-      </description>
-    </item>
-    
-    <item>
-      <title>Logistic回归</title>
-      <link>/blog/cn/2017/10/logistic/</link>
-      <pubDate>Thu, 12 Oct 2017 21:06:48 +0000</pubDate>
-      
-      <guid>/blog/cn/2017/10/logistic/</guid>
-      <description>
-        
-
-&lt;script type=&#34;text/javascript&#34; src=&#34;http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML&#34;&gt;&lt;/script&gt;
-
-&lt;p&gt;原文 &lt;a href=&#34;http://blog.csdn.net/ariessurfer/article/details/41310525&#34;&gt;http://blog.csdn.net/ariessurfer/article/details/41310525&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;Logistic回归为概率型非线性回归模型，是研究二分类观察结果 Y 与一些影响因素(x1,x2,..,xn)之间关系的一种多变量分析方法。通常的问题是，研究某些因素条件下某个结果是否发生，比如医学中根据病人的一些症状来判断它是否患有某种病。&lt;/p&gt;
-
-&lt;h1 id=&#34;lr分类器-logistic-regression-classifier&#34;&gt;LR分类器: Logistic Regression Classifier&lt;/h1&gt;
-
-&lt;p&gt;在分类情形下，经过学习后的LR分类器是一组权值\(W=(w_0,w_1,&amp;hellip;,w_n)\)，当测试样本的数据输入时，这组权值与测试数据按照线性加和得到:&lt;/p&gt;
-
-&lt;p&gt;$$x=w_0+ w_1x_1+&amp;hellip;+w_nx_n$$&lt;/p&gt;
-
-&lt;p&gt;之后按照&lt;strong&gt;Logistic(sigmoid函数)&lt;/strong&gt;的形式求出&lt;/p&gt;
-
-&lt;p&gt;$$f(x)=\frac{1}{1+e^x}$$&lt;/p&gt;
-
-&lt;p&gt;由于Logistic函数的定义域为(-inf,inf)，值域为(0,1)，因此最基本的LR分类器适合对两类目标进行分类。所以Logistic回归最关键的问题就是研究如何求得权值\(W=(w_0,w_1,&amp;hellip;,w_n)\)。用极大似然估计。&lt;/p&gt;
-
-&lt;h1 id=&#34;logistic回归模型&#34;&gt;Logistic回归模型&lt;/h1&gt;
-
-&lt;p&gt;Logistic回归模型可以表示为&lt;/p&gt;
-
-&lt;p&gt;考虑具有个独立变量的向量\(X=(x_0,x_1,&amp;hellip;,x_n)\)，&lt;/p&gt;
-
-&lt;p&gt;(1)在变量X条件下某事件发生的概率p为：&lt;/p&gt;
-
-&lt;p&gt;$$P(y=1|x)=\pi(x)=\frac{1}{1+e^{-g(x)}}$$&lt;/p&gt;
-
-&lt;p&gt;其中\(g(x)=w_0+ w_1x_1+&amp;hellip;+w_nx_n\)&lt;/p&gt;
-
-&lt;p&gt;(2)在变量X条件下不发生的概率1-p为:&lt;/p&gt;
-
-&lt;p&gt;$$P(y=0|x)=1-P(y=1|x)= 1-\frac{1}{1+e^{-g(x)}} =\frac{1}{1+e^{g(x)}} $$&lt;/p&gt;
-
-&lt;p&gt;(3)事件的发生比（the odds of experiencing an event）:事件发生与不发生的概率之比odds&lt;/p&gt;
-
-&lt;p&gt;$$\frac{P(y=1|x)}{P(y=0|x)}=\frac{p}{1-p} =e^{g(x)}$$&lt;/p&gt;
-
-&lt;p&gt;$$ln(\frac{p}{1-p})=g(x)=w_0+ w_1x_1+&amp;hellip;+w_nx_n$$&lt;/p&gt;
-
-&lt;h1 id=&#34;logistic回归极大似然估计&#34;&gt;Logistic回归极大似然估计&lt;/h1&gt;
-
-&lt;p&gt;假设有m个观测样本\(X=(x_0,x_1,&amp;hellip;,x_m)\)，观测值分别为\(Y=(y_0,y_1,&amp;hellip;,y_m)\)，设给定条件下时间发生的概率\(p_i=P(y_i=1|x_i)\)，时间不发生的概率为\(P(y_i=0|x_i)=1-p_i\)。所以得到一个观测值的概率为&lt;/p&gt;
-
-&lt;p&gt;$$P(y_i)=p_i^{y_i}(1-p_i)^{1-y_i}$$&lt;/p&gt;
-
-&lt;p&gt;因为各个观测样本之间相互独立，整体事件发生的概率为各边缘分布的乘积，得到似然函数为&lt;/p&gt;
-
-&lt;p&gt;$$L(w)=\prod_{i=1}^{m}=\{\pi(x_i)\}^{y_i}\{1-\pi(x_i)\}^{1-y_i} $$&lt;/p&gt;
-
-&lt;p&gt;然后用极大似然估计求得权值\(W=(w_0,w_1,&amp;hellip;,w_n)\)的估计。&lt;/p&gt;
-
-        
-      </description>
-    </item>
-    
-    <item>
-      <title>R语言-线性回归-lm()</title>
-      <link>/blog/cn/2017/09/r_function_regression/</link>
-      <pubDate>Fri, 22 Sep 2017 21:10:14 +0000</pubDate>
-      
-      <guid>/blog/cn/2017/09/r_function_regression/</guid>
-      <description>
-        
-
-&lt;script type=&#34;text/javascript&#34; src=&#34;http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML&#34;&gt;&lt;/script&gt;
-
-&lt;p&gt;From &lt;a href=&#34;http://blog.sina.com.cn/s/blog_6fbfcfb50102va2k.html&#34;&gt;http://blog.sina.com.cn/s/blog_6fbfcfb50102va2k.html&lt;/a&gt;&lt;/p&gt;
-
-&lt;h1 id=&#34;1-回归的多面性&#34;&gt;1. 回归的多面性&lt;/h1&gt;
-
-&lt;pre&gt;&lt;code&gt;回归类型    用途
----
-简单线性    个量化的解释变量来预测一个量化的响应变量（一个因变量、一个自变量）
-多项式   一个量化的解释变量预测一个量化的响应变量，模型的关系是n阶多项式（一个预测变量，但同时包含变量的幂）
-多元线性    用两个或多个量化的解释变量预测一个量化的响应变量（不止一个预测变量）
-多变量     用一个或多个解释变量预测多个响应变量
-Logistic    用一个或多个解释变量预测一个类别型变量
-泊松      用一个或多个解释变量预测一个代表频数的响应变量
-Cox         用一个或多个解释变量预测一个事件（死亡、失败或旧病复发）发生的时间
-时间序列  对误差项相关的时间序列数据建模
-非线性   用一个或多个量化的解释变量预测一个量化的响应变量，不过模型是非线性的
-非参数   用一个或多个量化的解释变量预测一个量化的响应变量，模型的形式源自数据形式，不事先设定
-稳健      用一个或多个量化的解释变量预测一个量化的响应变量，能抵御强影响点的干扰
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h1 id=&#34;2-用lm-拟合回归模型&#34;&gt;2. 用lm()拟合回归模型&lt;/h1&gt;
-
-&lt;p&gt;myfit&amp;lt;-lm(formula,data)&lt;/p&gt;
-
-&lt;p&gt;formula指要拟合的模型形式，data是一个数据框，包含了用于拟合模型的数据。&lt;/p&gt;
-
-&lt;p&gt;formula形式如下：Y~X1+X2+……+Xk （~左边为响应变量，右边为各个预测变量，预测变量之间用+符号分隔）。&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;R表达式中常用的符号&lt;/strong&gt;&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;符号 用途
----
-~  | 分隔符号，左边为响应变量，右边为解释变量，eg：要通过x、z和w预测y，代码为y~x+z+w
-+  | 分隔预测变量
-： | 表示预测变量的交互项  eg：要通过x、z及x与z的交互项预测y，代码为y~x+z+x:z
-*  | 表示所有可能交互项的简洁方式，代码y~x*z*w可展开为y~x+z+w+x:z+x:w+z:w+x:z:w
-^  | 表示交互项达到某个次数，代码y~(x+z+w)^2可展开为y~x+z+w+x:z+x:w+z:w
-.  | 表示包含除因变量外的所有变量，eg：若一个数据框包含变量x、y、z和w，代码y~.可展开为y~x+z+w
--  | 减号，表示从等式中移除某个变量，eg：y~(x+z+w)^2-x:w可展开为y~x+z+w+x:z+z:w
--1 | 删除截距项，eg：表示y~x-1拟合y在x上的回归，并强制直线通过原点
-I（） | 从算术的角度来解释括号中的元素。Eg：y~x+(z+w)^2将展开为y~x+z+w+z:w。相反，代码y~x+I((z+w)^2)将展开为y~x+h，h是一个由z和w的平方和创建的新变量
-function | 可以在表达式中用的数学函数，例如log(y)~x+z+w表示通过x、z和w来预测log(y)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;&lt;strong&gt;交互项&lt;/strong&gt;是指你的几个变量一块生成了一个新的影响，比如不同性别的不同专业可能会对成绩有不同的影响，性别影响成绩，专业影响成绩，但是性别和专业和在一起又产生新影响。这时候就需要交互项。具体用不用看你的方程,一般不用。&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;对拟合线性模型非常有用的其他函数&lt;/strong&gt;&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;函数 用途
----
-Summary（）展示拟合的详细结果
-Coefficients（）列出拟合模型的模型参数（截距项和斜率）
-confint（） 提供模型参数的置信区间（默认95%）
-fitted（）列出拟合模型的预测值
-residuals（）列出拟合模型的残差值
-anova（）生成一个拟合模型的方差分析，或者比较两个或更多拟合模型的方差分析表
-deviance() 计算残差平和和
-vcov（）列出模型参数的协方差矩阵
-AIC（）输出赤池信息统计量
-plot（）生成评价拟合模型的诊断图
-predict（）用拟合模型对新的数据集预测响应变量值
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h1 id=&#34;3-r-语言示例lm&#34;&gt;3. R 语言示例lm()&lt;/h1&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;fit&amp;lt;-lm(weight~height,data=women)  
-# summary(fit)
-# Call:
-# lm(formula = weight ~ height, data = women)
-# Residuals:
-#     Min      1Q  Median      3Q     Max 
-# -1.7333 -1.1333 -0.3833  0.7417  3.1167 
-# Coefficients:
-#              Estimate Std. Error t value Pr(&amp;gt;|t|)    
-# (Intercept) -87.51667    5.93694  -14.74 1.71e-09 ***
-# height        3.45000    0.09114   37.85 1.09e-14 ***
-# ---
-# Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
-# Residual standard error: 1.525 on 13 degrees of freedom
-# Multiple R-squared:  0.991,   Adjusted R-squared:  0.9903 
-# F-statistic:  1433 on 1 and 13 DF,  p-value: 1.091e-14
-coef(fit)
-#(Intercept)      height 
-#  -87.51667     3.45000 
-fitted(fit)#拟合模型的预测值  
-residuals(fit)#拟合模型的残差值 
-plot(women$height,women$weight,  
-     xlab=&amp;quot;Height （in inches）&amp;quot;,  
-     ylab=&amp;quot;Weight（in pounds）&amp;quot;)  
-abline(fit)  
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;&lt;strong&gt;1.自变量评估&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;在Pr(&amp;gt;|t|)栏，可以看到回归系数（3.45）或者截距项显著性&amp;lt;0.05，拒绝原假设，表明身高每增加1英寸，体重将预期地增加3.45磅.&lt;/p&gt;
-
-&lt;p&gt;*原假设H0：系数（或截距）为0。&lt;/p&gt;
-
-&lt;p&gt;*备选假设H1：系数（或截距）不为0。&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;2.判定系数和F统计量&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;残差的标准误(Residual standard error)&lt;/strong&gt; 1.53 lbs则可认为模型用身高预测体重的平均误差.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;判定系数R^2&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;$$R^2= \frac{SSR}{SST}=\frac{\sum(\hat{Y_i}-\overline{Y})^2}{\sum(Y_i-\overline{Y})^2} $$&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;R^2的取值范围为[0,1],越接近1表示回归模型对数据的解释能力越强。&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;https://taoshengxu.github.io/DocumentGit/img/lm_R2.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;F统计量&lt;/strong&gt;使用F分布检验MSR/MSE的比率，原假设：β1=0，备选假设：β1≠0. 检验简化模型\(dist=β0+\varepsilon\)与完整模型\(dist=β0+β1*x +\varepsilon\)之间的残差平方和差异的显著程度。&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;3.方差分析&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;线性回归中，&lt;strong&gt;方差分析用于评估模型或者进行模型间比较&lt;/strong&gt;。&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt; m=lm(dist ~ speed, data=cars)
- summary(m)
-#  Call:
-# lm(formula = dist ~ speed, data = cars)
-# Residuals:
-#     Min      1Q  Median      3Q     Max 
-# -29.069  -9.525  -2.272   9.215  43.201 
-# Coefficients:
-#             Estimate Std. Error t value Pr(&amp;gt;|t|)    
-# (Intercept) -17.5791     6.7584  -2.601   0.0123 *  
-# speed         3.9324     0.4155   9.464 1.49e-12 ***
-# ---
-# Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
-# Residual standard error: 15.38 on 48 degrees of freedom
-# Multiple R-squared:  0.6511,  Adjusted R-squared:  0.6438 
-# F-statistic: 89.57 on 1 and 48 DF,  p-value: 1.49e-12
-
-anova(m)
-# Analysis of Variance Table
-# Response: dist
-#           Df Sum Sq Mean Sq F value   Pr(&amp;gt;F)    
-# speed      1  21186 21185.5  89.567 1.49e-12 ***
-# Residuals 48  11354   236.5                     
-# ---
-# Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
-
-reduced=lm(dist ~ 1, data=cars)  #没有自变量，仅有截距项的简化模型
-anova(reduced,m)
-# Analysis of Variance Table
-# Model 1: dist ~ 1
-# Model 2: dist ~ speed
-#   Res.Df   RSS Df Sum of Sq      F   Pr(&amp;gt;F)    
-# 1     49 32539                                 
-# 2     48 11354  1     21186 89.567 1.49e-12 ***
-# ---
-# Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;以上3组比较F统计量中p值都为1.49e-12。表面简化模型与完整模型之间存在显著差异，换言之，speed是有意义的解释变量。&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;4.模型诊断图形&lt;/strong&gt;&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;  plot(m,which=c(1:3,5))
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;&lt;img src=&#34;https://taoshengxu.github.io/DocumentGit/img/lm_figure.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;p&gt;第一个图为预测值Y（X轴）与残差（Y轴），在线性回归中，由于假设误差服从均值为0，方差固定的正态分布，所以认为残差分布与预测的Y值无关，残差均值必须为0。斜率为0的直线是理想情形。&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;第二个图为正态QQ图，查看标准化的残差是否服从正态分布。&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;第三个图为预测值Y（X轴）与标准化残差（Y轴），斜率为0的直线是理想情形。若在特定点观察到距离0较远的值，说明该点不能很好的拟合原始值，这些点肯能成为异常点。&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;第四个图为杠杆值（X轴）与标准化残差（Y轴）。杠杆值表示解释变量向极端的偏斜程度。&lt;/p&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;strong&gt;分类变量&lt;/strong&gt;&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;m=lm(Sepal.Length ~ .,data=iris)
- summary(m)
-
-# Call:
-# lm(formula = Sepal.Length ~ ., data = iris)
-# Residuals:
-#      Min       1Q   Median       3Q      Max 
-# -0.79424 -0.21874  0.00899  0.20255  0.73103 
-# Coefficients:
-#                   Estimate Std. Error t value Pr(&amp;gt;|t|)    
-# (Intercept)        2.17127    0.27979   7.760 1.43e-12 ***
-# Sepal.Width        0.49589    0.08607   5.761 4.87e-08 ***
-# Petal.Length       0.82924    0.06853  12.101  &amp;lt; 2e-16 ***
-# Petal.Width       -0.31516    0.15120  -2.084  0.03889 *  
-# Speciesversicolor -0.72356    0.24017  -3.013  0.00306 ** 
-# Speciesvirginica  -1.02350    0.33373  -3.067  0.00258 ** 
-# ---
-# Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
-# Residual standard error: 0.3068 on 144 degrees of freedom
-# Multiple R-squared:  0.8673,  Adjusted R-squared:  0.8627 
-# F-statistic: 188.3 on 5 and 144 DF,  p-value: &amp;lt; 2.2e-16
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;其中Species为分类变量，有三种类别：setosa,versicolor,virginica.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;https://taoshengxu.github.io/DocumentGit/img/lm_species.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
-
-&lt;h1 id=&#34;4-多项式回归&#34;&gt;4.多项式回归&lt;/h1&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;fit2&amp;lt;-lm(weight~height+I(height^2),data=women)  
-summary(fit2)
-plot(women$height,women$weight,  
-     xlab=&amp;quot;Height（in inches）&amp;quot;,  
-     ylab=&amp;quot;Weight（in lbs）&amp;quot;)  
-lines(women$height,fitted(fit2)) 
-
-#一般来说，n次多项式生成一个n-1个弯曲的曲线
-#car包中的scatterplot（）函数，可以很容易、方便地绘制二元关系图
-library(car)
-scatterplot(weight~height,  
-            data=women,  
-            spread=FALSE,  
-            lty.smooth=2,  
-            pch=19,  
-            main=&amp;quot;Women Age 30-39&amp;quot;,  
-            xlab=&amp;quot;Height (inches)&amp;quot;,  
-            ylab=&amp;quot;Weight(lbs.)&amp;quot;) 
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h1 id=&#34;6-多元线性回归&#34;&gt;6.多元线性回归&lt;/h1&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;states&amp;lt;-as.data.frame(state.x77[,c(&amp;quot;Murder&amp;quot;,&amp;quot;Population&amp;quot;,&amp;quot;Illiteracy&amp;quot;,&amp;quot;Income&amp;quot;,&amp;quot;Frost&amp;quot;)])
-cor(states)  
-scatterplotMatrix(states,spread=FALSE,lty.smooth=2,main=&amp;quot;Scatter Plot Matrix&amp;quot;)
-#scatterplotMatrix（）函数默认在非对角线区域绘制变量间的散点图，并添加平滑（loess）和线性拟合曲线
-#多元线性回归
-fit&amp;lt;-lm(Murder~Population+Illiteracy+Income+Frost,data=states)  
-summary(fit)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;对于F统计量，原假设：所有系数β全为0。&lt;/p&gt;
-
-&lt;h1 id=&#34;7-有交互项的多元线性回归&#34;&gt;7.有交互项的多元线性回归&lt;/h1&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;fit&amp;lt;-lm(mpg~hp+wt+hp:wt,data=mtcars)  
-summary(fit)  
-# 通过effects包中的effect（）函数，可以用图形展示交互项的结果
-install.packages(&amp;quot;effects&amp;quot;)  
-library(effects)  
-plot(effect(&amp;quot;hp:wt&amp;quot;,fit,  
-            list(wt=c(2.2,3.2,4.2))),multiline=TRUE)
-            
-# 二次拟合诊断图
-fit2&amp;lt;-lm(weight~height+I(height^2),data=women)  
-par(mfrow=c(2,2))  
-plot(fit2)           
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;&lt;strong&gt;I()&lt;/strong&gt;防止对象解析或者转换，例如I(X^2)表示以X^2作为一个独立变量参与到回归，否者则解析为x+x+x:x交互作用。&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;https://taoshengxu.github.io/DocumentGit/img/lm_interaction.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
-
-&lt;h1 id=&#34;异常值&#34;&gt;异常值&lt;/h1&gt;
-
-&lt;p&gt;&lt;strong&gt;学生化残差&lt;/strong&gt;： 残差与残差标准差的比值。&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;外部学生化残差&lt;/strong&gt;：计算第i个学生化残差时，先去掉i再计算标准差。一般用外部学生化残差评估异常点。&lt;/p&gt;
-
-&lt;p&gt;R中rstudent()计算外部学生化残差。外部学生化残差服从t分布，可以使用t-test来寻找rstudent()值过大或者过小的点。&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;m=lm(circumference~ age+I(age^2),data=Orange)
-rstudent(m)
-car::outlierTest(m)
-
-# No Studentized residuals with Bonferonni p &amp;lt; 0.05
-# Largest |rstudent|:
-#    rstudent unadjusted p-value Bonferonni p
-# 27 2.050328            0.04887           NA
-
 &lt;/code&gt;&lt;/pre&gt;
 
         
