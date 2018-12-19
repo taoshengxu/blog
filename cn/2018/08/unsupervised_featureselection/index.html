@@ -4,8 +4,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     
-    <title>无监督特征选择方法 - My Lives</title>
-    <meta property="og:title" content="无监督特征选择方法 - My Lives">
+    <title>特征选择方法 - My Lives</title>
+    <meta property="og:title" content="特征选择方法 - My Lives">
     
 
     
@@ -63,10 +63,10 @@
     <article class="main">
       <header class="title">
       
-<h1>无监督特征选择方法</h1>
+<h1>特征选择方法</h1>
 
 <h3>
-  2018-08-27</h3>
+  2018-08-28</h3>
 <hr>
 
 
@@ -76,15 +76,50 @@
 
 
 
+<h1 id="有监督特征选择方法">有监督特征选择方法</h1>
+
+<h3 id="1-卡方检验-chi-square">1. 卡方检验 Chi-square</h3>
+
+<p>卡方检验是一种用途很广的计数资料的假设检验方法。它属于非参数检验的范畴，主要是比较两个及两个以上样本率( 构成比）以及分类变量的关联性分析。其根本思想就是在于比较理论频数和实际频数的吻合程度或拟合优度问题。</p>
+
+<p><img src="http://images.cnitblog.com/blog/502930/201310/14202346-b5742cacb64c4f4d8d07ad638179e471.jpg" alt="img" /></p>
+
+<p>其中，A为实际值，T为理论值。</p>
+
+<p>x2用于衡量实际值与理论值的差异程度（也就是卡方检验的核心思想），包含了以下两个信息：</p>
+
+<p>1.实际值与理论值偏差的绝对大小（由于平方的存在，差异是被放大的）  2. 差异程度与理论值的相对大小</p>
+
+<pre><code class="language-python">## python 
+
+from sklearn.feature_selection import SelectKBest
+from sklearn.feature_selection import chi2
+from sklearn.datasets import load_iris
+
+#导入IRIS数据集
+iris = load_iris()
+iris.data#查看数据
+model1 = SelectKBest(chi2, k=2)#选择k个最佳特征
+model1.fit_transform(iris.data, iris.target)#iris.data是特征数据，iris.target是标签数据，该函数可以选择出k个特征 
+model1.scores_  #得分
+model1.pvalues_  #p-values
+</code></pre>
+
+<h3 id="2-t-test">2. T-test</h3>
+
+<h1 id="无监督特征选择方法">无监督特征选择方法</h1>
+
 <h3 id="1-laplacian-score">1. Laplacian Score</h3>
 
-<p>Laplacian Score (LSCORE) is an unsupervised linear feature extraction method. For each feature/variable, it computes Laplacian score based on an observation that data from the same class are often close to each other. Its power of locality preserving property is used, and the <strong>algorithm selects variables with largest scores.</strong></p>
+<p>Laplacian Score (LSCORE) is an unsupervised/supervised linear feature extraction method. For each feature/variable, it computes Laplacian score based on an observation that data from the same class are often close to each other. Its power of locality preserving property is used, and the <strong>algorithm selects variables with largest scores.</strong></p>
 
 <p><a href="https://www.rdocumentation.org/packages/Rdimtools/versions/0.3.2">Rdimtools </a></p>
 
 <pre><code class="language-r">Rdimtools：do.lscore(X, ndim = 2, type = c(&quot;proportion&quot;, 0.1), preprocess = c(&quot;null&quot;,
 &quot;center&quot;, &quot;scale&quot;, &quot;cscale&quot;, &quot;whiten&quot;, &quot;decorrelate&quot;), t = 10)
 </code></pre>
+
+<hr />
 
 <h3 id="2-package-idmining">2.Package ‘IDmining’</h3>
 
@@ -100,12 +135,18 @@
 
 <p><a href="http://featureselection.asu.edu/index.php">http://featureselection.asu.edu/index.php</a></p>
 
+<h3 id="5-unsupervised-dimensionality-reduction-in-sklearn">5.Unsupervised dimensionality reduction in sklearn</h3>
+
+<p><a href="http://scikit-learn.org/stable/modules/unsupervised_reduction.html">http://scikit-learn.org/stable/modules/unsupervised_reduction.html</a></p>
+
+<h3 id="6-7-machine-learning-techniques-for-dimensionality-reduction-http-dataunion-org-20803-html">6. <a href="http://dataunion.org/20803.html">7 Machine Learning techniques for Dimensionality Reduction</a></h3>
+
 
   <footer>
   
 <nav class="post-nav">
   <span class="nav-prev">&larr; <a href="/blog/cn/2018/08/machinelearing_rpackages/">R语言机器学习包</a></span>
-  <span class="nav-next"></span>
+  <span class="nav-next"><a href="/blog/cn/2018/08/unsupervised_featureselection/">无监督特征选择方法</a> &rarr;</span>
 </nav>
 
 

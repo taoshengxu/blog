@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <title>GISTIC2.0 - My Lives</title>
+    <meta property="og:title" content="GISTIC2.0 - My Lives">
+    
+
+    
+      
+    
+
+    
+
+    
+    
+
+    <link rel="stylesheet" href="/blog/css/style.css" />
+    <link rel="stylesheet" href="/blog/css/fonts.css" />
+    <link rel="stylesheet" href="/blog/css/custom.css" />
+
+  </head>
+
+  
+  <body class="blog">
+    <header class="masthead">
+      <h1><a href="/blog/">My Lives</a></h1>
+
+
+
+      <nav class="menu">
+        <input id="menu-check" type="checkbox" />
+        <label id="menu-label" for="menu-check" class="unselectable">
+          <span class="icon close-icon">✕</span>
+          <span class="icon open-icon">☰</span>
+          <span class="text">Menu</span>
+        </label>
+        <ul>
+        
+        
+        <li><a href="/blog/">Home</a></li>
+        
+        <li><a href="/blog/en/">English</a></li>
+        
+        <li><a href="/blog/cn/">Chinese</a></li>
+        
+        <li><a href="/blog/paper/">Paper Reading</a></li>
+        
+        <li><a href="/blog/travel/">Travel</a></li>
+        
+        
+        </ul>
+      </nav>
+    </header>
+
+    <article class="main">
+      <header class="title">
+      
+<h1>GISTIC2.0</h1>
+
+<h3>
+  2018-11-08</h3>
+<hr>
+
+
+      </header>
+
+
+
+
+
+<p><a href="https://www.jianshu.com/p/eafa7e266806">https://www.jianshu.com/p/eafa7e266806</a>   <a href="http://www.bio-info-trainee.com/1648.html">http://www.bio-info-trainee.com/1648.html</a></p>
+
+<p>GISTIC2.0用以分析癌症拷贝数变异的一个数据处理模块。这个软件在TCGA计划里面被频繁使用者，用这个软件的目的很简单，就是你研究了很多癌症样本，通过芯片得到了每个样本的拷贝数变化信息，芯片结果一般是segment结果，可以解释为CNV区域，需要用GISTIC把样本综合起来分析，寻找somatic的CNV，并且注释基因信息。</p>
+
+<blockquote>
+<p><strong>Summary:</strong>
+ The GISTIC module identifies regions of the genome that are significantly amplified or deleted across a set of samples. Each aberration is assigned a G-score that considers the amplitude of the aberration as well as the frequency of its occurrence across samples. False Discovery Rate q-values are then calculated for the aberrant regions, and regions with q-values below a user-defined threshold are considered significant. For each significant region, a “peak region” is identified, which is the part of the aberrant region with greatest amplitude and frequency of alteration. In addition, a “wide peak” is determined using a leave-one-out algorithm to allow for errors in the boundaries in a single sample. The “wide peak” boundaries are more robust for identifying the most likely gene targets in the region. Each significantly aberrant region is also tested to determine whether it results primarily from broad events (longer than half a chromosome arm), focal events, or significant levels of both. The GISTIC module reports the genomic locations and calculated q-values for the aberrant regions. It identifies the samples that exhibit each significant amplification or deletion, and it lists genes found in each “wide peak” region.
+ <strong>References:</strong>
+ Mermel C, Schumacher S, et al. (2011). &ldquo;GISTIC2.0 facilitates sensitive and confident localization of the targets of focal somatic copy-number alteration in human cancers.&rdquo; <em>Genome Biology</em>, <strong>12</strong>:R41.
+ Beroukhim R, Mermel C, et al. (2010). &ldquo;The landscape of somatic copy -number alteration across human cancers.&rdquo; <em>Nature</em>, <strong>463</strong>:899-905.</p>
+
+<p>Beroukhim R, Getz G, et al. (2007). “Assessing the significance of chromosomal abberations in cancer: Methodology and application to glioma.” <em>Proc Natl Acad Sci,</em> <strong>104</strong>:20007-20012.</p>
+</blockquote>
+
+<h4 id="输出数据解读"><strong>输出数据解读</strong></h4>
+
+<p>all<em>data</em>by_genes.txt 代表了基因（包括非编码RNA如miRNA，lncRNA）在样本中具体的拷贝数值。</p>
+
+<p>all<em>lesions.conf</em>90.txt 代表识别的拷贝数扩增和缺失Peak区域。</p>
+
+<p>all<em>thresholded.by</em>genes.txt 代表离散化之后的数值，如<strong>-2代表丢失两个拷贝，-1代表丢失一个拷贝,0代表拷贝数正常,1代表增加一个拷贝，2代表扩增两个拷贝</strong>。</p>
+
+<p>broad<em>significance</em>results.txt代表显著发生拷贝数变异的broad区域。</p>
+
+<p>broad<em>values</em>by_arm.txt 代表染色体臂在样本中的拷贝数数值。</p>
+
+<p>scores.gistic代表通过该方法打分之后的结果。</p>
+
+
+  <footer>
+  
+<nav class="post-nav">
+  <span class="nav-prev">&larr; <a href="/blog/cn/2018/11/sequencing/">测序的几个概念</a></span>
+  <span class="nav-next"><a href="/blog/cn/2018/11/allele/">同源染色体和等位基因</a> &rarr;</span>
+</nav>
+
+
+
+
+
+<script src="//yihui.name/js/math-code.js"></script>
+<script async src="//cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+<script async src="//yihui.name/js/center-img.js"></script>
+
+  
+
+  
+  <hr>
+  <div class="copyright">&copy; <a href="xxxx">Who care</a> 2017 - Forever, maybe</div>
+  
+  </footer>
+  </article>
+  
+  </body>
+</html>
+

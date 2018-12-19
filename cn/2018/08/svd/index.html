@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <title>奇异值分解SVD——python - My Lives</title>
+    <meta property="og:title" content="奇异值分解SVD——python - My Lives">
+    
+
+    
+      
+    
+
+    
+
+    
+    
+
+
+<link href='//cdn.bootcss.com/highlight.js/9.12.0/styles/github.min.css' rel='stylesheet' type='text/css' />
+
+
+
+    <link rel="stylesheet" href="/blog/css/style.css" />
+    <link rel="stylesheet" href="/blog/css/fonts.css" />
+    <link rel="stylesheet" href="/blog/css/custom.css" />
+
+  </head>
+
+  
+  <body class="blog">
+    <header class="masthead">
+      <h1><a href="/blog/">My Lives</a></h1>
+
+
+
+      <nav class="menu">
+        <input id="menu-check" type="checkbox" />
+        <label id="menu-label" for="menu-check" class="unselectable">
+          <span class="icon close-icon">✕</span>
+          <span class="icon open-icon">☰</span>
+          <span class="text">Menu</span>
+        </label>
+        <ul>
+        
+        
+        <li><a href="/blog/">Home</a></li>
+        
+        <li><a href="/blog/en/">English</a></li>
+        
+        <li><a href="/blog/cn/">Chinese</a></li>
+        
+        <li><a href="/blog/paper/">Paper Reading</a></li>
+        
+        <li><a href="/blog/travel/">Travel</a></li>
+        
+        
+        </ul>
+      </nav>
+    </header>
+
+    <article class="main">
+      <header class="title">
+      
+<h1>奇异值分解SVD——python</h1>
+
+<h3>
+  2018-08-29</h3>
+<hr>
+
+
+      </header>
+
+
+
+<p><a href="https://blog.csdn.net/u012421852/article/details/80439403">原文</a></p>
+
+<pre><code>&quot;&quot;&quot;
+@author: 蔚蓝的天空Tom
+Talk is cheap, show me the code
+Aim:svd分解降维应用示例的代码实现
+CSDN URL:https://mp.csdn.net/postedit/80450590
+&quot;&quot;&quot;
+ 
+import numpy as np
+from numpy import linalg as LA
+ 
+class CSVD(object):
+    '''
+    实现SVD分解降维应用示例的数学求解过程的Python代码
+    '''
+    
+    def __init__(self, data):
+        self.data = data       #用户数据
+        self.S = []  #用户数据矩阵的奇异值序列 singular values
+        self.U = []  #svd后的单位正交向量
+        self.VT = []  #svd后的单位正交向量
+        self.k = 0   #满足self.p的最小k值(k表示奇异值的个数)
+        self.SD = [] #对角矩阵，对角线上元素是奇异值 singular values diagonal matrix
+        
+        #svd奇异值分解
+        self._svd()
+        
+    def _svd(self):
+        '''
+        用户数据矩阵的svd奇异值分解
+        '''
+        u,s,v = np.linalg.svd(self.data)
+        (self.U, self.S, self.VT) = (u, s, v)
+        return self.U, self.S, self.VT
+        
+    def _calc_k(self, percentge):
+        '''确定k值：前k个奇异值的平方和占比 &gt;=percentage, 求满足此条件的最小k值
+        :param percentage, 奇异值平方和的占比的阈值
+        :return 满足阈值percentage的最小k值
+        '''
+        self.k = 0
+        #用户数据矩阵的奇异值序列的平方和
+        total = sum(np.square(self.S))
+        svss = 0 #奇异值平方和 singular values square sum
+        for i in range(np.shape(self.S)[0]):
+            svss += np.square(self.S[i])
+            if (svss/total) &gt;= percentge:
+                self.k = i+1
+                break
+        return self.k
+ 
+    def _buildSD(self, k):
+        '''构建由奇异值组成的对角矩阵
+        :param k,根据奇异值开放和的占比阈值计算出来的k值
+        :return 由k个前奇异值组成的对角矩阵
+        '''
+        #方法1：用数组乘方法
+        self.SD = np.eye(self.k) * self.S[:self.k]
+ 
+        #方法2：用自定义方法
+        e = np.eye(self.k)
+        for i in range(self.k):
+            e[i,i] = self.S[i]
+ 
+        return self.SD
+    
+    def DimReduce(self, percentage):
+        '''
+        SVD降维
+        :param percentage, 奇异值开方和的占比阈值
+        :return 降维后的用户数据矩阵
+        '''
+        #计算k值
+        self._calc_k(percentage)
+        print('\n按照奇异值开方和占比阈值percentage=%d, 求得降维的k=%d'%(percentage, self.k))
+        #构建由奇异值组成的对角矩阵singular values diagonal
+        self._buildSD(self.k)
+        k,U,SD,VT = self.k,self.U, self.SD, self.VT
+        #按照svd分解公式对用户数据矩阵进行降维，得到降维压缩后的数据矩阵
+        print('\n降维前的U,S,VT依次为:')
+        print(np.shape(U),      'U:\n', U)
+        print(np.shape(self.S), 'S:\n', self.S)
+        print(np.shape(VT),     'VT:\n', VT)
+        print('\n降维后的U,SD,VT依次为:')
+        print(np.shape(U[:len(U),k]), 'U=U[:%d,:%d]:\n'%(len(U),k), U[:len(U), :k])
+        print(np.shape(SD), 'SD=SD[:%d, :%d]:\n'%(k,k), SD[:k, :k])
+        print(np.shape(VT[:k, :len(VT)]), 'VT=VT[:%d, :%d]:\n'%(k, len(VT)), VT[:k, :len(VT)])
+ 
+        a = U[:len(U), :k]
+        b = np.dot(SD, VT[:k, :len(VT)])
+        newData = np.dot(a,b)
+        return newData
+        
+def CSVD_manual():
+    ##训练数据集，用户对商品的评分矩阵，行为多个用户对单个商品的评分，列为用户对每个商品的评分
+    data = np.array([[5, 5, 0, 5],
+                     [5, 0, 3, 4],
+                     [3, 4, 0, 3],
+                     [0, 0, 5, 3],
+                     [5, 4, 4, 5],
+                     [5, 4, 5, 5]])
+    percentage = 0.9
+    svdor = CSVD(data)
+    ret = svdor.DimReduce(percentage)
+    print('====================================================')
+    print('原始用户数据矩阵:\n', data)
+    print('降维后的数据矩阵:\n', ret)
+    print('====================================================')
+    
+if __name__=='__main__':
+    CSVD_manual()
+</code></pre>
+
+
+  <footer>
+  
+<nav class="post-nav">
+  <span class="nav-prev">&larr; <a href="/blog/cn/2018/08/unsupervised_featureselection/">无监督特征选择方法</a></span>
+  <span class="nav-next"><a href="/blog/cn/2018/08/chenwei_gene/">陈巍学基因</a> &rarr;</span>
+</nav>
+
+
+
+
+
+<script src="//yihui.name/js/math-code.js"></script>
+<script async src="//cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+<script async src="//yihui.name/js/center-img.js"></script>
+
+  
+
+
+
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+
+
+
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/r.min.js"></script>
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/yaml.min.js"></script>
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/tex.min.js"></script>
+<script>hljs.configure({languages: []}); hljs.initHighlightingOnLoad();</script>
+
+
+
+  
+  <hr>
+  <div class="copyright">&copy; <a href="xxxx">Who care</a> 2017 - Forever, maybe</div>
+  
+  </footer>
+  </article>
+  
+  </body>
+</html>
+

@@ -6,27 +6,108 @@
     <description>Recent content in 中文博客 on My Lives</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 27 Aug 2018 22:00:43 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 08 Nov 2018 10:10:25 +0000</lastBuildDate>
     
 	<atom:link href="/blog/cn/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
-      <title>无监督特征选择方法</title>
-      <link>/blog/cn/2018/08/unsupervised_featureselection/</link>
-      <pubDate>Mon, 27 Aug 2018 22:00:43 +0000</pubDate>
+      <title>同源染色体和等位基因</title>
+      <link>/blog/cn/2018/11/allele/</link>
+      <pubDate>Thu, 08 Nov 2018 10:10:25 +0000</pubDate>
       
-      <guid>/blog/cn/2018/08/unsupervised_featureselection/</guid>
-      <description>1. Laplacian Score Laplacian Score (LSCORE) is an unsupervised linear feature extraction method. For each feature/variable, it computes Laplacian score based on an observation that data from the same class are often close to each other. Its power of locality preserving property is used, and the algorithm selects variables with largest scores. Rdimtools Rdimtools：do.lsco</description>
+      <guid>/blog/cn/2018/11/allele/</guid>
+      <description>1.同源染色体 有丝分裂 间期：染色质（呈松散状）自我复制形成两条完全一样的姐妹染色单体。 前期: 染色质高度螺旋化形成染色体。 “X”中有两条染色单</description>
     </item>
     
     <item>
-      <title>R语言机器学习包</title>
-      <link>/blog/cn/2018/08/machinelearing_rpackages/</link>
-      <pubDate>Mon, 27 Aug 2018 21:57:43 +0000</pubDate>
+      <title>GISTIC2.0</title>
+      <link>/blog/cn/2018/11/gistic2/</link>
+      <pubDate>Thu, 08 Nov 2018 09:07:42 +0000</pubDate>
       
-      <guid>/blog/cn/2018/08/machinelearing_rpackages/</guid>
-      <description>mlr包 CARET DMwR</description>
+      <guid>/blog/cn/2018/11/gistic2/</guid>
+      <description>https://www.jianshu.com/p/eafa7e266806 http://www.bio-info-trainee.com/1648.html GISTIC2.0用以分析癌症拷贝数变异的一个数据处理模块。这个软件在TCGA计划里面被频繁使用者，用这个软件的目的很简单，就是你研究了</description>
+    </item>
+    
+    <item>
+      <title>测序的几个概念</title>
+      <link>/blog/cn/2018/11/sequencing/</link>
+      <pubDate>Thu, 08 Nov 2018 09:07:42 +0000</pubDate>
+      
+      <guid>/blog/cn/2018/11/sequencing/</guid>
+      <description>de-novo 测序 没有参考基因组情况下对新物种测序构建参考基因组 DNA Re-sequencing 相对于de-novo而言在有参考基因组的条件下进行较低覆盖度的测序，与参考基因组比对</description>
+    </item>
+    
+    <item>
+      <title>DNA甲基化</title>
+      <link>/blog/cn/2018/11/dnamethy/</link>
+      <pubDate>Wed, 07 Nov 2018 21:12:37 +0000</pubDate>
+      
+      <guid>/blog/cn/2018/11/dnamethy/</guid>
+      <description>1. 甲基化 DNA甲基化是科学家们最早发现的DNA修饰途径之一，即在甲基转移酶的催化下，DNA的CG两个核苷酸的胞嘧啶被选择性地添加甲基，形成5</description>
+    </item>
+    
+    <item>
+      <title>染色质 DNaseⅠ超敏感位点</title>
+      <link>/blog/cn/2018/11/dnasei/</link>
+      <pubDate>Wed, 07 Nov 2018 08:49:48 +0000</pubDate>
+      
+      <guid>/blog/cn/2018/11/dnasei/</guid>
+      <description>1. 染色质是什么 2. 染色质 DNaseⅠ超敏感位点（(DNaseⅠ hypersensitive sites，DHSs)） 基因活化时其染色质一般呈开放的疏松型构象，更易被 DNa</description>
+    </item>
+    
+    <item>
+      <title>CNV学习</title>
+      <link>/blog/cn/2018/11/cnv/</link>
+      <pubDate>Thu, 01 Nov 2018 14:38:35 +0000</pubDate>
+      
+      <guid>/blog/cn/2018/11/cnv/</guid>
+      <description>1. Germline和Somatic 的区别 对于DNA测序而言，主要识别SNP和CNV 两大类型的变异，每种变异类型又有Germline和Soma</description>
+    </item>
+    
+    <item>
+      <title>TCGA数据下载总结</title>
+      <link>/blog/cn/2018/11/taga_datadownload/</link>
+      <pubDate>Thu, 01 Nov 2018 14:38:35 +0000</pubDate>
+      
+      <guid>/blog/cn/2018/11/taga_datadownload/</guid>
+      <description>1. Clinical data 用 TCGAbiolinks下载临床数据， 优点： 临床数据量不大，容易下载。 Parse XML clinical data 会获取非常高质量的follow-up数据，对生存分析作</description>
+    </item>
+    
+    <item>
+      <title>陈巍学基因</title>
+      <link>/blog/cn/2018/08/chenwei_gene/</link>
+      <pubDate>Fri, 31 Aug 2018 08:30:57 +0000</pubDate>
+      
+      <guid>/blog/cn/2018/08/chenwei_gene/</guid>
+      <description>1、视频 61、【视频61：亲子鉴定】 60、【视频60：10X genomics 分析基因组结构变异】 59、【视频59：Nanopore测序】 58、【视频58：</description>
+    </item>
+    
+    <item>
+      <title>奇异值分解SVD——python</title>
+      <link>/blog/cn/2018/08/svd/</link>
+      <pubDate>Wed, 29 Aug 2018 22:00:57 +0000</pubDate>
+      
+      <guid>/blog/cn/2018/08/svd/</guid>
+      <description>原文 &amp;quot;&amp;quot;&amp;quot; @author: 蔚蓝的天空Tom Talk is cheap, show me the code Aim:svd分解降维应用示例的代码实现 CSDN URL:https://mp.csdn.net/postedit/80450590 &amp;quot;&amp;quot;&amp;quot; import numpy as np from numpy import linalg as LA class CSVD(object): &#39;&#39;&#39; 实现SVD分解降维应用示例的数</description>
+    </item>
+    
+    <item>
+      <title>无监督特征选择方法</title>
+      <link>/blog/cn/2018/08/unsupervised_featureselection/</link>
+      <pubDate>Tue, 28 Aug 2018 22:00:43 +0000</pubDate>
+      
+      <guid>/blog/cn/2018/08/unsupervised_featureselection/</guid>
+      <description>1. Laplacian Score Laplacian Score (LSCORE) is an unsupervised/supervised linear feature extraction method. For each feature/variable, it computes Laplacian score based on an observation that data from the same class are often close to each other. Its power of locality preserving property is used, and the algorithm selects variables with largest scores. Rdimtools Rdimtools：do.lsco</description>
+    </item>
+    
+    <item>
+      <title>特征选择方法</title>
+      <link>/blog/cn/2018/08/unsupervised_featureselection/</link>
+      <pubDate>Tue, 28 Aug 2018 22:00:43 +0000</pubDate>
+      
+      <guid>/blog/cn/2018/08/unsupervised_featureselection/</guid>
+      <description>有监督特征选择方法 1. 卡方检验 Chi-square 卡方检验是一种用途很广的计数资料的假设检验方法。它属于非参数检验的范畴，主要是比较两个及两个以上样本率( 构成比</description>
     </item>
     
     <item>
@@ -44,7 +125,7 @@
       <pubDate>Sun, 26 Aug 2018 21:32:06 +0000</pubDate>
       
       <guid>/blog/cn/2018/08/entropy/</guid>
-      <description>原文1 原文2 原文3 信息量(自信息) 定义：假设X是一个离散型随机变量，其取值集合为χ，概率分布函数为p(x)=P(X=x),x∈χ,我们定义事</description>
+      <description>原文1 原文2 原文3 1. 信息量(自信息) 定义：假设X是一个离散型随机变量，其取值集合为χ，概率分布函数为p(x)=P(X=x),x∈χ,我们定义</description>
     </item>
     
     <item>
@@ -94,21 +175,30 @@ Usage  Sign up to AppVeyor. Enable testing for your project. Run devtools::use_a
     </item>
     
     <item>
-      <title>python——sklearn学习</title>
+      <title>Python资料汇总</title>
+      <link>/blog/cn/2017/12/python_all/</link>
+      <pubDate>Thu, 21 Dec 2017 11:18:40 +0000</pubDate>
+      
+      <guid>/blog/cn/2017/12/python_all/</guid>
+      <description>原文 Python资料推荐 +经典练手项目 今天给大家带来一批宝贝，大家可以在深夜里独自把玩，也可以在广场上一边遛狗一边和盆友们品鉴。 学习资料 1、</description>
+    </item>
+    
+    <item>
+      <title>python—sklearn学习</title>
       <link>/blog/cn/2017/12/python_sklearn/</link>
       <pubDate>Thu, 21 Dec 2017 11:17:40 +0000</pubDate>
       
       <guid>/blog/cn/2017/12/python_sklearn/</guid>
-      <description>中文文档 英文文档</description>
+      <description>学习记录</description>
     </item>
     
     <item>
-      <title>python学习</title>
+      <title>python基本知识</title>
       <link>/blog/cn/2017/12/python_study/</link>
       <pubDate>Thu, 21 Dec 2017 11:17:39 +0000</pubDate>
       
       <guid>/blog/cn/2017/12/python_study/</guid>
-      <description>入门教程 视频教程 python IDE环境配置 环境配置 pycharm+ anaconda # 按照anaconda之后 在cmd 命令行创建python解释器 conda create -n py_27 python=2.7 or conda create -n py_36 python=3.6 # 在cmd命</description>
+      <description>入门教程 视频教程 python IDE环境配置 环境配置 pycharm+ anaconda # 安装anaconda之后 在 windows cmd 命令行创建python解释器 conda create -n py_27 python=2.7 or conda create -n py_36 python=3.6 # 在cmd命令</description>
     </item>
     
     <item>
@@ -190,96 +280,6 @@ Usage  Sign up to AppVeyor. Enable testing for your project. Run devtools::use_a
       
       <guid>/blog/cn/2017/11/chip_seq_study/</guid>
       <description>这是一个学习笔记，跟随生信技能树的学习笔记重复,把几个优秀笔记的内容重复摘录在此。 学习提纲 优秀学习笔记 链接2 ChIP-Seq介绍 1.了解基础</description>
-    </item>
-    
-    <item>
-      <title>Markdown&#43;Rmarkdown&#43;Shiny手册</title>
-      <link>/blog/cn/2017/11/markdown_rmarkdown_shiny/</link>
-      <pubDate>Mon, 06 Nov 2017 23:13:24 +0000</pubDate>
-      
-      <guid>/blog/cn/2017/11/markdown_rmarkdown_shiny/</guid>
-      <description>Markdown+Rmarkdown+Shiny手册</description>
-    </item>
-    
-    <item>
-      <title>常用生物信息学格式介绍</title>
-      <link>/blog/cn/2017/11/data_format/</link>
-      <pubDate>Mon, 06 Nov 2017 22:59:05 +0000</pubDate>
-      
-      <guid>/blog/cn/2017/11/data_format/</guid>
-      <description>原文 PDF fasta fastq gff2 gtf(gff2.5) gff3 bed sam、bam vcf 另外，有wig、bigWig和bedgraph文件详解，仅仅是为了追踪参考基因组的各个区域的覆盖度，测序深</description>
-    </item>
-    
-    <item>
-      <title>ENCODE计划数据,千人基因组计划数据,Roadmap计划数据</title>
-      <link>/blog/cn/2017/11/encode_data/</link>
-      <pubDate>Mon, 06 Nov 2017 16:44:54 +0000</pubDate>
-      
-      <guid>/blog/cn/2017/11/encode_data/</guid>
-      <description>From Jimmy 原文1 From Jimmy 原文2 From Jimmy 原文3 DNA元件百科全书(Encyclopedia of DNA Elements, ENCODE)ENCODE计划的重要性我就不多说了，如果大家</description>
-    </item>
-    
-    <item>
-      <title>nat123</title>
-      <link>/blog/cn/2017/11/nat123/</link>
-      <pubDate>Sun, 05 Nov 2017 22:02:28 +0000</pubDate>
-      
-      <guid>/blog/cn/2017/11/nat123/</guid>
-      <description>启动 教程 #cd /soft/nat123 --进入自己本地实际安装目录 #mono nat123linux.sh --根据提示手动输入帐号密码 #mono nat123linux.sh service &amp;amp; --自动读取上一次成功登录帐号以后台服务启动 开机自动登录 （1</description>
-    </item>
-    
-    <item>
-      <title>转录组分析笔记（2）</title>
-      <link>/blog/cn/2017/11/transcriptome_analysis1/</link>
-      <pubDate>Sun, 05 Nov 2017 09:34:40 +0000</pubDate>
-      
-      <guid>/blog/cn/2017/11/transcriptome_analysis1/</guid>
-      <description>这是一个生信技能树的优秀作业，一字未改。 原文 转录组差异表达分析小实战（一） 读文献获取数据 文献名称：AKAP95 regulates splicing through scaffolding RNAs and RNA processing factors 查找数据：D</description>
-    </item>
-    
-    <item>
-      <title>转录组分析笔记</title>
-      <link>/blog/cn/2017/11/transcriptome_analysis/</link>
-      <pubDate>Sun, 05 Nov 2017 09:34:39 +0000</pubDate>
-      
-      <guid>/blog/cn/2017/11/transcriptome_analysis/</guid>
-      <description>这是一个学习笔记，跟随生信技能树的学习笔记重复,把几个优秀笔记的内容重复摘录在此。 学习提纲：RNA-seq基础入门传送门 文章链接：https</description>
-    </item>
-    
-    <item>
-      <title>NCBI-GEO数据下载</title>
-      <link>/blog/cn/2017/11/ncbi_downlaod/</link>
-      <pubDate>Sat, 04 Nov 2017 21:52:45 +0000</pubDate>
-      
-      <guid>/blog/cn/2017/11/ncbi_downlaod/</guid>
-      <description>GEO 基础 GEO Platform (GPL) 芯片平台 GEO Sample (GSM) 样本ID号 GEO Series (GSE) study的ID号 GEO Dataset (GDS) 数据集的ID号 ## 用法 数据搜索 方法- 在https://www.ncbi.nl</description>
-    </item>
-    
-    <item>
-      <title>使用Bioconda管理Linux系统中的生物信息软件</title>
-      <link>/blog/cn/2017/11/bioconda/</link>
-      <pubDate>Fri, 03 Nov 2017 17:20:54 +0000</pubDate>
-      
-      <guid>/blog/cn/2017/11/bioconda/</guid>
-      <description>原文 生物信息操作中必不可少的就是Linux系统中各种生物信息学软件的安装。不同软件有不同的安装方法，对系统环境的依赖不同也不同，对于新手来说</description>
-    </item>
-    
-    <item>
-      <title>生物信息学常见1000个软件的安装代码</title>
-      <link>/blog/cn/2017/11/1000soft/</link>
-      <pubDate>Fri, 03 Nov 2017 15:42:35 +0000</pubDate>
-      
-      <guid>/blog/cn/2017/11/1000soft/</guid>
-      <description>引自Jiangming Zeng原文 分析软件 ## annovar and GATK ## Download and install sratoolkit ## http://www.ncbi.nlm.nih.gov/Traces/sra/sra.cgi?view=software ## http://www.ncbi.nlm.nih.gov/books/NBK158900/ cd ~/biosoft mkdir sratoolkit &amp;amp;&amp;amp; cd sratoolkit wget http://ftp-trace.ncbi.nlm.nih.gov/sra/sdk/2.6.3/sratoolkit.2.6.3-centos_linux64.tar.gz ## ## Length: 63453761 (61M) [application/x-gzip] ## Saving to: &amp;quot;sratoolkit.2.6.3-centos_linux64.tar.gz&amp;quot; tar zxvf sratoolkit.2.6.3-centos_linux64.tar.gz ~/biosoft/sratoolkit/sratoolkit.2.6.3-centos_linux64/bin/fastdump -h mkdir -p ~/biosoft/myBin echo &#39;export PATH=/home/jianmingzeng/biosoft/myBin/bin:$PATH&#39; &amp;gt;&amp;gt;~/.bashrc source ~/.bashrc cd ~/biosoft mkdir</description>
-    </item>
-    
-    <item>
-      <title>一致性指数Concordance index(CI, C-index)</title>
-      <link>/blog/cn/2017/10/concordance_index/</link>
-      <pubDate>Sun, 15 Oct 2017 23:06:17 +0000</pubDate>
-      
-      <guid>/blog/cn/2017/10/concordance_index/</guid>
-      <description>原文 所谓C-index，英文名全称concordance index，最早是由范德堡大学（Vanderbilt University）生物统计教</description>
     </item>
     
   </channel>

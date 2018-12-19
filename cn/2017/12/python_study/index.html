@@ -4,8 +4,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     
-    <title>python学习 - My Lives</title>
-    <meta property="og:title" content="python学习 - My Lives">
+    <title>python基本知识 - My Lives</title>
+    <meta property="og:title" content="python基本知识 - My Lives">
     
 
     
@@ -63,7 +63,7 @@
     <article class="main">
       <header class="title">
       
-<h1>python学习</h1>
+<h1>python基本知识</h1>
 
 <h3>
   2017-12-21</h3>
@@ -76,20 +76,40 @@
 
 
 
-<p><a href="http://www.runoob.com/python/python-tutorial.html">入门教程</a>
-<a href="http://study.163.com/course/courseMain.htm?courseId=378003">视频教程</a></p>
+<p><a href="http://www.runoob.com/python/python-tutorial.html">入门教程</a>   <a href="http://study.163.com/course/courseMain.htm?courseId=378003">视频教程</a></p>
 
 <h2 id="python-ide环境配置">python IDE环境配置</h2>
 
 <p><code>环境配置</code> <strong>pycharm+ anaconda</strong></p>
 
-<pre><code># 按照anaconda之后 在cmd 命令行创建python解释器
+<pre><code># 安装anaconda之后 在 windows cmd 命令行创建python解释器
 conda create -n py_27 python=2.7 or  conda create -n py_36 python=3.6
 # 在cmd命令行激活python解释器
 activeate py_27
-# 查看该解释器已经安装的包
+# 查看该解释器已经安装的包或者安装新的包
 conda list
 </code></pre>
+
+<h2 id="pycharm使用技巧-快捷键">pycharm使用技巧(快捷键)</h2>
+
+<pre><code> Ctrl+Q (View | Quick Documentation) #快速查看函数说明文档
+ Ctrl+P (View | Parameter Info) #
+ Ctrl+B (Navigate | Declaration) #打开函数定义文件
+ can be used not only in the editor but in the code completion popup list as well.
+</code></pre>
+
+<h2 id="jupyter-notebooks">Jupyter Notebooks</h2>
+
+<blockquote>
+<p>Jupyter Notebooks提供了一个环境，你无需离开这个环境，就可以在其中编写你的代码、运行代码、查看输出、可视化数据并查看结果。因此，这是一款可执行端到端的数据科学工作流程的便捷工具，其中包括数据清理、统计建模、构建和训练机器学习模型、可视化数据等等.</p>
+</blockquote>
+
+<pre><code class="language-python"># 安装Anaconda之后自动安装Jupyter Notebooks
+# windows 命令行输入 就会在你的默认网络浏览器打开（http://localhost:8888/tree）
+jupyter notebook
+</code></pre>
+
+<hr />
 
 <h2 id="python-函数查询">python 函数查询</h2>
 
@@ -100,7 +120,7 @@ conda list
 from sklearn import datasets
 dir(datasets)
 
-['__all__', '__builtins__', '__cached__', '__doc__', '__file__', '__loader__', '__name__', '__package__', '__path__', '__spec__', '_svmlight_format', 'base', 'california_housing', 'clear_data_home', 'covtype', 'dump_svmlight_file', 'fetch_20newsgroups', 'fetch_20newsgroups_vectorized', 'fetch_california_housing', 'fetch_covtype', 'fetch_kddcup99', 'fetch_lfw_pairs', 'fetch_lfw_people', 'fetch_mldata', 'fetch_olivetti_faces', 'fetch_rcv1', 'fetch_species_distributions', 'get_data_home', 'kddcup99', 'lfw', 'load_boston', 'load_breast_cancer', 'load_diabetes', 'load_digits', 'load_files', 'load_iris', 'load_linnerud', 'load_mlcomp', 'load_sample_image', 'load_sample_images', 'load_svmlight_file', 'load_svmlight_files', 'load_wine', 'make_biclusters', 'make_blobs', 'make_checkerboard', 'make_circles', 'make_classification', 'make_friedman1', 'make_friedman2', 'make_friedman3', 'make_gaussian_quantiles', 'make_hastie_10_2', 'make_low_rank_matrix', 'make_moons', 'make_multilabel_classification', 'make_regression', 'make_s_curve', 'make_sparse_coded_signal', 'make_sparse_spd_matrix', 'make_sparse_uncorrelated', 'make_spd_matrix', 'make_swiss_roll', 'mlcomp', 'mldata', 'mldata_filename', 'olivetti_faces', 'rcv1', 'samples_generator', 'species_distributions', 'svmlight_format', 'twenty_newsgroups']
+['__all__', '__builtins__', '__cached__', '__doc__', '__file__', '__loader__', '__name__', '__package__', '__path__', '__spec__', '_svmlight_format', 'base', 'california_housing', 'clear_data_home', 'covtype', 'dump_svmlight_file', 'fetch_20newsgroups', 'fetch_20newsgroups_vectorized', 'fetch_california_housing', ...']
 </code></pre>
 
 <p><strong>2. 查看模块下特定函数信息</strong></p>
@@ -146,9 +166,7 @@ print(&quot;Hello, World!&quot;);
 
 <h2 id="3-python语法">3. python语法</h2>
 
-<p>1.Python 的代码块不使用大括号 {} 来控制类，函数以及其他逻辑判断。</p>
-
-<p>python 最具特色的就是用缩进来写模块。缩进的空白数量是可变的，但是所有代码块语句必须包含相同的缩进空白数量，这个必须严格执行。</p>
+<p>Python 的代码块不使用大括号 {} 来控制类，函数以及其他逻辑判断。python 最具特色的就是用缩进来写模块。缩进的空白数量是可变的，但是所有代码块语句必须包含相同的缩进空白数量，这个必须严格执行。</p>
 
 <pre><code class="language-python">if True:
   print &quot;True&quot;
@@ -156,9 +174,38 @@ else:
   print &quot;False&quot;
 </code></pre>
 
-<p>2.xx</p>
+<h3 id="3-0-变量定义">3.0 变量定义</h3>
 
-<h3 id="3-1-python函数">3.1 python函数</h3>
+<blockquote>
+<pre><code>&gt; ## 特殊用法
+&gt; 1. 矩阵A的转置 A.T
+&gt; ```
+
+
+
+**\_\_call\_\_**
+
+</code></pre>
+
+<p>变量:
+1.  前带<em>的变量:  标明是一个私有变量, 只用于标明, 外部类还是可以访问到这个变量
+2.  前带两个</em> ,后带两个_ 的变量:  标明是内置变量,
+3.  大写加下划线的变量:  标明是不会发生改变的全局变量</p>
+</blockquote>
+
+<p>函数:
+1. 前带<em>的变量: 标明是一个私有函数, 只用于标明,
+2.  前带两个</em> ,后带两个_ 的函数:  标明是特殊函数</p>
+
+<pre><code>
+### 3.1 python 类对象
+
+```python
+__init__() 类对象的初始化函数
+
+</code></pre>
+
+<h3 id="3-2-python函数">3.2 python函数</h3>
 
 <p>语法</p>
 
@@ -168,9 +215,8 @@ else:
    return [expression]
 </code></pre>
 
-<p>示例</p>
-
-<pre><code class="language-python">#!/usr/bin/python
+<pre><code class="language-python">#示例
+#!/usr/bin/python
 # -*- coding: UTF-8 -*-
  
 # 定义函数
@@ -187,14 +233,13 @@ printme(&quot;再次调用同一函数&quot;);
 
 <p>Python 模块(Module)，是一个 Python 文件，以 .py 结尾，包含了 Python 对象定义和Python语句。</p>
 
-<p>定义support.py 模块：</p>
-
-<pre><code class="language-python">def print_func( par ):
+<pre><code class="language-python"># 定义support.py 模块：
+def print_func( par ):
    print &quot;Hello : &quot;, par
    return
 </code></pre>
 
-<h4 id="模块的引入">模块的引入</h4>
+<p><strong>模块的引入</strong></p>
 
 <pre><code class="language-python">#!/usr/bin/python
 # -*- coding: UTF-8 -*-
@@ -205,17 +250,16 @@ import support
 support.print_func(&quot;Runoob&quot;)
 </code></pre>
 
-<h4 id="from-import-语句">From…import 语句</h4>
+<p><strong>From…import 语句</strong></p>
 
 <p>Python 的 from 语句让你从模块中导入一个指定的部分到当前命名空间中。</p>
 
 <pre><code class="language-python">from fib import fibonacci
-
 </code></pre>
 
 <h3 id="3-3-常用语句">3.3 常用语句</h3>
 
-<h4 id="读文件">读文件</h4>
+<p><strong>读文件</strong></p>
 
 <pre><code class="language-python">try:
     f = open('/path/to/file', 'r')
@@ -234,7 +278,7 @@ with open('/path/to/file', 'r') as f:
     print(line.strip()) # 把末尾的'\n'删掉
 </code></pre>
 
-<h4 id="写文件">写文件</h4>
+<p><strong>写文件</strong></p>
 
 <pre><code>with open('/Users/michael/test.txt', 'w') as f:
     f.write('Hello, world!')
@@ -254,7 +298,7 @@ import A as B,给予A库一个B的别称，帮助记忆
 </code></pre>
 
 <p><strong>原始字符串</strong>
-在单引号或者双引号 前面加一个字符 <strong>r</strong></p>
+<code>在单引号或者双引号 前面加一个字符 r</code></p>
 
 <p><strong>运算符</strong></p>
 
@@ -307,41 +351,53 @@ pop()从列表中删除最后一个元素并弹出
 <pre><code>列表比较大小 只比较第一个元素
 </code></pre>
 
-<p><strong>dir(list)</strong> 列出list的所有内置函数</p>
+<h1 id="python特殊语法-filter-map-reduce-lambda">Python特殊语法：filter、map、reduce、lambda</h1>
 
-<p><strong>numpy moudle</strong> API</p>
+<p><strong>1.lambda</strong></p>
 
-<p><a href="https://docs.scipy.org/doc/numpy-1.13.0/genindex.html">https://docs.scipy.org/doc/numpy-1.13.0/genindex.html</a></p>
-
-<p><strong><strong>call</strong></strong></p>
-
-<pre><code>变量:
-1.  前带_的变量:  标明是一个私有变量, 只用于标明, 外部类还是可以访问到这个变量
-2.  前带两个_ ,后带两个_ 的变量:  标明是内置变量,
-3.  大写加下划线的变量:  标明是 不会发生改变的全局变量
-函数:
-1. 前带_的变量: 标明是一个私有函数, 只用于标明,
-2.  前带两个_ ,后带两个_ 的函数:  标明是特殊函数
+<pre><code class="language-python">这是Python支持一种有趣的语法，它允许你快速定义单行的最小函数，类似与C语言中的宏，这些叫做lambda的函数，是从LISP借用来的，可以用在任何需要函数的地方： 
+&gt;&gt;&gt; g = lambda x: x * 2 
+&gt;&gt;&gt; g(3) 
+6 
+&gt;&gt;&gt; (lambda x: x * 2)(3) 
+6
+---
+lambda表达式返回一个函数对象
+例子：
+func = lambda x,y:x+y
+func相当于下面这个函数
+def func(x,y):
+    return x+y
+ 
+注意def是语句而lambda是表达式,下面这种情况下就只能用lambda而不能用def
+[(lambda x:x*x)(x) for x in range(1,11)]
+返回值：
+[1, 4, 9, 16, 25, 36, 49, 64, 81, 100]
 </code></pre>
 
-<p><strong>Python特殊语法：filter、map、reduce、lambda [转]</strong></p>
+<p><strong>2. filter(function, sequence)</strong></p>
 
-<p>Python内置了一些非常有趣但非常有用的函数，充分体现了Python的语言魅力！</p>
-
-<p><strong>filter(function, sequence)</strong></p>
-
-<pre><code>对sequence中的item依次执行function(item)，将执行结果为True的item组成一个List/String/Tuple（取决于sequence的类型）返回：
+<pre><code class="language-python">对sequence中的item依次执行function(item)，将执行结果为True的item组成一个List/String/Tuple（取决于sequence的类型）返回,function的返回值只能是True或False.
 &gt;&gt;&gt; def f(x): return x % 2 != 0 and x % 3 != 0 
 &gt;&gt;&gt; filter(f, range(2, 25)) 
 [5, 7, 11, 13, 17, 19, 23]
 &gt;&gt;&gt; def f(x): return x != 'a' 
 &gt;&gt;&gt; filter(f, &quot;abcdef&quot;) 
 'bcdef'
+ 
+找出1到10之间的奇数
+filter(lambda x:x%2!=0,range(1,11))
+返回值
+[1,3,5,7,9]
+ 
+如果sequence是一个string
+filter(lambda x:len(x)!=0,'hello')返回'hello'
+filter(lambda x:len(x)==0,'hello')返回''
 </code></pre>
 
-<p><strong>map(function, sequence)</strong></p>
+<p><strong>3.map(function, sequence)</strong></p>
 
-<pre><code>对sequence中的item依次执行function(item)，见执行结果组成一个List返回：
+<pre><code class="language-python">对sequence中的item依次执行function(item)，见执行结果组成一个List返回：
 &gt;&gt;&gt; def cube(x): return x*x*x 
 &gt;&gt;&gt; map(cube, range(1, 11)) 
 [1, 8, 27, 64, 125, 216, 343, 512, 729, 1000]
@@ -355,93 +411,34 @@ pop()从列表中删除最后一个元素并弹出
 [0, 2, 4, 6, 8, 10, 12, 14]
 </code></pre>
 
-<p><strong>reduce(function, sequence, starting_value)</strong></p>
+<p><strong>4. reduce(function, sequence, starting_value)</strong></p>
 
-<pre><code>对sequence中的item顺序迭代调用function，如果有starting_value，
-还可以作为初始值调用，例如可以用来对List求和：
+<pre><code class="language-python">function接收的参数个数只能为2,先把sequence中第一个值和第二个值当参数传给function，再把function的返回值和第三个值当参数传给function (对sequence中的item顺序迭代调用function)，然后只返回一个结果，如果有starting_value，还可以作为初始值调用，
+
+例子：求1到10的累加
+reduce(lambda x,y:x+y,range(1,11))
+返回值是55。
+
 &gt;&gt;&gt; def add(x,y): return x + y 
 &gt;&gt;&gt; reduce(add, range(1, 11)) 
 55 （注：1+2+3+4+5+6+7+8+9+10）
+
 &gt;&gt;&gt; reduce(add, range(1, 11), 20) 
 75 （注：1+2+3+4+5+6+7+8+9+10+20）
 </code></pre>
 
-<p><strong>lambda</strong></p>
+<p><strong>5. 可以把filter map reduce 和lambda结合起来用，函数就可以简单的写成一行。</strong></p>
 
-<pre><code>：这是Python支持一种有趣的语法，它允许你快速定义单行的最小函数，
-类似与C语言中的宏，这些叫做lambda的函数，
-是从LISP借用来的，可以用在任何需要函数的地方： 
-&gt;&gt;&gt; g = lambda x: x * 2 
-&gt;&gt;&gt; g(3) 
-6 
-&gt;&gt;&gt; (lambda x: x * 2)(3) 
-6
+<pre><code class="language-python">例如
+kmpathes = filter(lambda kmpath: kmpath, map(lambda kmpath: string.strip(kmpath),
+string.split(L, ':'))) 
+
+#对L中的所有元素以':'做分割，得出一个列表。对这个列表的每一个元素做字符串strip，形成一个列表。对这个列表的每一个元素做直接返回操作(这个地方可以加上过滤条件限制)，最终获得一个字符串被':'分割的列表，列表中的每一个字符串都做了strip，并可以对特殊字符串过滤。
 </code></pre>
 
-<pre><code>我们也可以把filter map reduce 和lambda结合起来用，函数就可以简单的写成一行。
-例如
-kmpathes = filter(lambda kmpath: kmpath,                  
-map(lambda kmpath: string.strip(kmpath),
-string.split(l, ':')))              
-看起来麻烦，其实就像用语言来描述问题一样，非常优雅。
-对 l 中的所有元素以':'做分割，得出一个列表。对这个列表的每一个元素做字符串strip，形成一个列表。对这个列表的每一个元素做直接返回操作(这个地方可以加上过滤条件限制)，最终获得一个字符串被':'分割的列表，列表中的每一个字符串都做了strip，并可以对特殊字符串过滤。
+<p><strong>6. zip([iterable, &hellip;])</strong></p>
 
---
-lambda表达式返回一个函数对象
-例子：
-func = lambda x,y:x+y
-func相当于下面这个函数
-def func(x,y):
-    return x+y
- 
-注意def是语句而lambda是表达式
-下面这种情况下就只能用lambda而不能用def
-[(lambda x:x*x)(x) for x in range(1,11)]
- 
-map，reduce，filter中的function都可以用lambda表达式来生成！
-</code></pre>
-
-<p><strong>map(function,sequence)</strong></p>
-
-<pre><code>把sequence中的值当参数逐个传给function，返回一个包含函数执行结果的list。
-如果function有两个参数，即map(function,sequence1,sequence2)。
-例子：
-求1*1,2*2,3*3,4*4
-map(lambda x:x*x,range(1,5))
-返回值是[1,4,9,16]
- 
-reduce(function,sequence)
-function接收的参数个数只能为2
-先把sequence中第一个值和第二个值当参数传给function，再把function的返回值和第三个值当参数传给
-function，然后只返回一个结果。
- 
-例子：
-求1到10的累加
-reduce(lambda x,y:x+y,range(1,11))
-返回值是55。
-</code></pre>
-
-<p><strong>filter(function,sequence)</strong></p>
-
-<pre><code>function的返回值只能是True或False
-把sequence中的值逐个当参数传给function，如果function(x)的返回值是True，
-就把x加到filter的返回值里面。一般来说filter的返回值是list，
-特殊情况如sequence是string或tuple，则返回值按照sequence的类型。
- 
-例子：
-找出1到10之间的奇数
-filter(lambda x:x%2!=0,range(1,11))
-返回值
-[1,3,5,7,9]
- 
-如果sequence是一个string
-filter(lambda x:len(x)!=0,'hello')返回'hello'
-filter(lambda x:len(x)==0,'hello')返回''
-</code></pre>
-
-<p><strong>定义：zip([iterable, &hellip;])</strong></p>
-
-<pre><code>zip()是Python的一个内建函数，它接受一系列可迭代的对象作为参数，将对象中对应的元素打包成一个个tuple（元组），然后返回由这些tuples组成的list（列表）。若传入参数的长度不等，则返回list的长度和参数中长度最短的对象相同。利用*号操作符，可以将list unzip（解压），看下面的例子就明白了：
+<pre><code class="language-python">zip()是Python的一个内建函数，它接受一系列可迭代的对象作为参数，将对象中对应的元素打包成一个个tuple（元组），然后返回由这些tuples组成的list（列表）。若传入参数的长度不等，则返回list的长度和参数中长度最短的对象相同。利用*号操作符，可以将list unzip（解压）.
 
 &gt;&gt;&gt; a = [1,2,3]
 &gt;&gt;&gt; b = [4,5,6]
@@ -459,7 +456,7 @@ filter(lambda x:len(x)==0,'hello')返回''
   
 <nav class="post-nav">
   <span class="nav-prev">&larr; <a href="/blog/cn/2017/12/deeplearning/">深度学习Tensorflow</a></span>
-  <span class="nav-next"><a href="/blog/cn/2017/12/python_sklearn/">python——sklearn学习</a> &rarr;</span>
+  <span class="nav-next"><a href="/blog/cn/2017/12/python_sklearn/">python—sklearn学习</a> &rarr;</span>
 </nav>
 
 

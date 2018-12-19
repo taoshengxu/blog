@@ -17,6 +17,11 @@
     
     
 
+
+<link href='//cdn.bootcss.com/highlight.js/9.12.0/styles/github.min.css' rel='stylesheet' type='text/css' />
+
+
+
     <link rel="stylesheet" href="/blog/css/style.css" />
     <link rel="stylesheet" href="/blog/css/fonts.css" />
     <link rel="stylesheet" href="/blog/css/custom.css" />
@@ -171,10 +176,27 @@
 <h3 id="查看cpu">查看CPU</h3>
 
 <ul>
-<li>top命令 可以再按1
-
-<br /></li>
+<li>top命令 可以再按1</li>
 </ul>
+
+<h3 id="创建用户组">创建用户组</h3>
+
+<pre><code>groupadd  usergroup_name
+
+useradd -g new_user usergroup_name #新建用户同时增加工作组
+usermod -aG usergroup_name user_name # 将已经存在的用户user_name 添加到用户组
+groups user_name ## 查看所属的用户组
+ls -ld  文件目录  #查看文件
+sudo chmod 775 /srv/shiny-server/xxxx/
+sudo chown :shiny /srv/shiny-server/xxxx/ 修改该目录为 shiny用户组
+
+使用chown命令可以修改文件或目录所属的用户：
+       命令：chown 用户 目录或文件名
+       例如：chown qq /home/qq  (把home目录下的qq目录的拥有者改为qq用户) 
+使用chgrp命令可以修改文件或目录所属的组：
+       命令：chgrp 组 目录或文件名
+       例如：chgrp qq /home/qq  (把home目录下的qq目录的所属组改为qq组)
+</code></pre>
 
 <h3 id="修改权限和所有者">修改权限和所有者</h3>
 
@@ -371,17 +393,20 @@ ls  <em>.fastq.gz|while read id;do echo ${id%_</em>}_1.fastq.gz;done</p></li>
 <li>解压：lha -e FileName.lha</li>
 <li>压缩：lha -a FileName.lha FileName</li>
 </ul></li>
-<li>.rpm
+
+<li><p>.rpm</p>
 
 <ul>
 <li>解包：rpm2cpio FileName.rpm | cpio -div</li>
 </ul></li>
-<li>.deb
+
+<li><p>.deb</p>
 
 <ul>
 <li>解包：ar p FileName.deb data.tar.gz | tar zxf -</li>
 </ul></li>
-<li>.tar .tgz .tar.gz .tar.Z .tar.bz .tar.bz2 .zip .cpio .rpm .deb .slp .arj .rar .ace .lha .lzh .lzx .lzs .arc .sda .sfx .lnx .zoo .cab .kar .cpt .pit .sit .sea
+
+<li><p>.tar .tgz .tar.gz .tar.Z .tar.bz .tar.bz2 .zip .cpio .rpm .deb .slp .arj .rar .ace .lha .lzh .lzx .lzs .arc .sda .sfx .lnx .zoo .cab .kar .cpt .pit .sit .sea</p>
 
 <ul>
 <li>解压：sEx x FileName.*</li>
@@ -425,6 +450,19 @@ ls  <em>.fastq.gz|while read id;do echo ${id%_</em>}_1.fastq.gz;done</p></li>
 <script async src="//yihui.name/js/center-img.js"></script>
 
   
+
+
+
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+
+
+
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/r.min.js"></script>
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/yaml.min.js"></script>
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/tex.min.js"></script>
+<script>hljs.configure({languages: []}); hljs.initHighlightingOnLoad();</script>
+
+
 
   
   <hr>

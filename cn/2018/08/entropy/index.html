@@ -75,7 +75,7 @@
 
 <p><a href="https://blog.csdn.net/u013829973/article/details/80936272">原文1</a> <a href="https://www.jianshu.com/p/43318a3dc715?from=timeline&amp;isappinstalled=0">原文2</a> <a href="http://blog.sina.com.cn/s/blog_85f1ffb70101e6p1.html">原文3</a></p>
 
-<h2 id="信息量-自信息">信息量(自信息)</h2>
+<h3 id="1-信息量-自信息">1. 信息量(自信息)</h3>
 
 <p>定义：假设X是一个离散型随机变量，其取值集合为χ，概率分布函数为p(x)=P(X=x),x∈χ,我们定义事件X=x0的自信息为：
 $$
@@ -90,17 +90,83 @@ $$</p>
 
 <p>可以看出，结果非常符合直观：小明及格的可能性很低(十次考试只有一次及格)，因此如果某次考试及格了（大家都会说：XXX竟然及格了！），必然会引入较大的信息量，对应的I值也较高。而对于小王而言，考试及格是大概率事件，在事件B发生前，大家普遍认为事件B的发生几乎是确定的，因此当某次考试小王及格这个事件发生时并不会引入太多的信息量，相应的I值也非常的低。</p>
 
-<h4 id="5-mutual-information-互信息-mi-normalized-mutual-information-标准互信息-nmi">5、Mutual Information(互信息)(MI)，Normalized Mutual Information (标准互信息)(NMI)</h4>
+<h3 id="2-信息熵-entropy">2. 信息熵（Entropy）</h3>
+
+<p>定义：对于一个随机变量XX而言，它的所有可能取值的信息量的期望\(（E[I(x)] \)就称为熵。
+当XX是离散的：
+$$
+H(X)=E[I(x)]=−∑_{x∈X}p(x)logp(x)
+$$</p>
+
+<p>当X是连续的随机变量：熵定义为：
+$$
+H(X)=−∫_{x∈X}p(x)logp(x)dx
+$$</p>
+
+<p><strong>自信息只能处理单个的输出。而熵是对整个概率分布中不确定性总量进行量化</strong>。</p>
+
+<p>约定：p=0时，定义0log0=0。通常对数以2为底或者e为底，这是熵的单位称作比特（bit）或者纳特（nat）
+当随机变量只取两个值的时候，即X分布为：P(X=1)=p，P(X=0)=1−p，0&lt;=p&lt;=1。</p>
+
+<p><img src="http://images0.cnblogs.com/blog2015/605905/201506/161933409209524.png" alt="img" /></p>
+
+<blockquote>
+<p>例子
+假设小明的考试结果是一个0-1分布X只有两个取值{0：不及格，1：及格}，在某次考试结果公布前，小明的考试结果有多大的不确定度呢？你肯定会说：十有八九不及格！因为根据先验知识，小明及格的概率仅有0.1,90%的可能都是不及格的。怎么来度量这个不确定度？求期望！不错，我们对所有可能结果带来的额外信息量求取均值（期望），其结果不就能够衡量出小明考试成绩的不确定度了吗。
+即：
+HA(x)=−[p(xA)log(p(xA))+(1−p(xA))log(1−p(xA))]=0.4690
+对应小王的熵：
+HB(x)=−[p(xB)log(p(xB))+(1−p(xB))log(1−p(xB))]=0.0114
+虽然小明考试结果的不确定性较低，毕竟十次有9次都不及格，但是也比不上小王（1000次考试只有一次才可能不及格，结果相当的确定）
+我们再假设一个成绩相对普通的学生小东，他及格的概率是P(xC)=0.5,即及格与否的概率是一样的，对应的熵：
+HC(x)=−[p(xC)log(p(xC))+(1−p(xC))log(1−p(xC))]=1
+其熵为1，他的不确定性比前边两位同学要高很多，在成绩公布之前，很难准确猜测出他的考试结果。
+可以看出，<strong>熵其实是信息量的期望值，它是一个随机变量的不确定性的度量。熵越大，随机变量的不确定性越大</strong>。</p>
+</blockquote>
+
+<h3 id="3-条件熵">3. 条件熵</h3>
+
+<p>X给定条件下Y的条件分布的熵对X的数学期望，在机器学习中为选定某个特征后的熵，公式如下：</p>
+
+<p>　　　　　　　　　　　　　　　　<img src="http://images0.cnblogs.com/blog2015/605905/201506/162006264669404.png" alt="img" /></p>
+
+<p>一个特征对应着多个类别Y，因此在此的多个分类即为X的取值x。</p>
+
+<p>或者
+$$
+Info<em>A(D) = \sum\limits</em>{j=1}^v\frac{|D<em>j|}{|D|}Info(D</em>j)Info<em>A(D) = \sum\limits</em>{j=1}^v\frac{|D<em>j|}{|D|}Info(D</em>j)
+$$</p>
+
+<h3 id="4-信息增益"><strong>4. 信息增益</strong></h3>
+
+<p>信息增益在决策树算法中是用来选择特征的指标，信息增益越大，则这个特征的选择性越好，在概率中定义为：待分类的集合的熵和选定某个特征的条件熵之差（这里只的是经验熵或经验条件熵，由于真正的熵并不知道，是根据样本计算出来的），公式如下：</p>
+
+<p>　　　　　　　　　　　　　　　　<img src="http://images0.cnblogs.com/blog2015/605905/201506/162013009355725.png" alt="img" /></p>
+
+<p>$$
+Gain(A) = Info(D)-Info_A(D)
+$$</p>
+
+<h3 id="5-信息增益比"><strong>5. 信息增益比</strong></h3>
+
+<p>信息增益的一个大问题就是偏向选择特征值比较多的属性从而导致overfitting，那么我们能想到的解决办法自然就是对分支过多的情况进行惩罚(penalty)了。于是我们有了信息增益比。</p>
+
+<h3 id="6-gini系数"><strong>6. Gini系数</strong></h3>
+
+<p>Gini系数是一种与信息熵类似的做特征选择的方式，可以用来数据的不纯度。在CART(Classification and Regression Tree)算法中利用基尼指数构造二叉决策树（选择基尼系数最小的特征及其对应的特征值）。
+Gini系数的计算方式如下：</p>
+
+<p>其中，D表示数据集全体样本，表示每种类别出现的概率。取个极端情况，如果数据集中所有的样本都为同一类，那么有，，显然此时数据的不纯度最低。</p>
+
+<hr />
+
+<h3 id="mutual-information-互信息-mi-normalized-mutual-information-标准互信息-nmi">Mutual Information(互信息)(MI)，Normalized Mutual Information (标准互信息)(NMI)</h3>
 
 <p><strong>互信息（Mutual Information）</strong>是用来衡量两个数据分布的吻合程度，是指两个事件集合之间的相关性。</p>
 
 <p><code>特征选择：</code>用互信息的方法，在某个类别C中的出现概率高，而在其它类别中的出现概率低的词条T，将获得较高的词条和类别互信息，也就可能被选取为类别C的特征。互信息是term的存在与否能给类别c的正确判断带来的信息量。词条和类别的互信息体现了词条和类别的相关程度，互信息越大，词条和类别的相关程度也越大。得到词条和类别之间的相关程度后，选取一定比例的，排名靠前的词条作为最能代表此种类别的特征。</p>
 
 <p><img src="https://taoshengxu.github.io/DocumentGit/img/cluter_criteria9.png" alt="" /></p>
-
-<p>标准化互聚类信息都是用熵做分母将MI值调整到0与1之间，一个比较多见的实现是下面所示：</p>
-
-<p><img src="https://taoshengxu.github.io/DocumentGit/img/cluter_criteria10.png" alt="" /></p>
 
 <h3 id="例子-假设对于17个样本点-v1-v2-v17-进行聚类">例子：假设对于17个样本点(v1,v2,&hellip;,v17)进行聚类</h3>
 
@@ -117,8 +183,9 @@ $$</p>
 <p><code>问题：</code>衡量我的结果和标准结果有多大的区别，若我的结果和他的差不多，结果应该为1，若我做出来的结果很差，结果应趋近于0。
 $$
 MI(X,Y)=\sum<em>{i=1}^{|X|}\sum</em>{j=1}^{|Y|}P(i,j)log(\frac{P(i,j)}{P(i)P^{&lsquo;}(j)})
-$$
-首先计算上式分子中联合概率分布 \(P(i,j)=\frac{|X<em>i\cap Y</em>j|}{N}\)</p>
+$$</p>
+
+<p>首先计算上式分子中联合概率分布 \( P(i,j)=\frac{|X<em>i\cap Y</em>j|}{N} \)</p>
 
 <p>X=unique(A)=[1 2 3]，Y=unique(B)=[1 2 3];</p>
 
@@ -138,7 +205,9 @@ $$
 
 <p>这样就可以算出MI值了。</p>
 
-<p><strong>互信息</strong>
+<p><strong>标准化互信息</strong></p>
+
+<p>标准化互聚类信息都是用熵做分母将MI值调整到0与1之间。
 $$
 NMI(X,Y)=\frac{2MI(X,Y)}{H(X)+H(Y)}
 $$
@@ -147,34 +216,6 @@ H(X)和H(Y)分别为X和Y的熵，下面的公式中log的底b=2。</p>
 <p><img src="http://images.cnblogs.com/cnblogs_com/ziqiao/shang.png" alt="img" /></p>
 
 <p>例如H(X) =  -p(1)<em>log2(p(1)) - -p(2)</em>log2(p(2)) -p(3)*log2(p(3))。</p>
-
-<h2 id="熵-entropy">熵（Entropy）</h2>
-
-<p>定义：对于一个随机变量XX而言，它的所有可能取值的信息量的期望\(（E[I(x)])就称为熵。
-当XX是离散的：
-$$
-H(X)=E[I(x)]=−∑_{x∈X}p(x)logp(x)
-$$</p>
-
-<p>当X是连续的随机变量：熵定义为：
-$$
-H(X)=−∫_{x∈X}p(x)logp(x)dx
-$$
-<strong>自信息只能处理单个的输出。而熵是对整个概率分布中不确定性总量进行量化</strong>。</p>
-
-<p>约定：p=0时，定义0log0=0。通常对数以2为底或者e为底，这是熵的单位称作比特（bit）或者纳特（nat）
-当随机变量只取两个值的时候，即X分布为：P(X=1)=p，P(X=0)=1−p，0&lt;=p&lt;=1。</p>
-
-<p>还是通过上边的例子来说明，假设小明的考试结果是一个0-1分布X只有两个取值{0：不及格，1：及格}，在某次考试结果公布前，小明的考试结果有多大的不确定度呢？你肯定会说：十有八九不及格！因为根据先验知识，小明及格的概率仅有0.1,90%的可能都是不及格的。怎么来度量这个不确定度？求期望！不错，我们对所有可能结果带来的额外信息量求取均值（期望），其结果不就能够衡量出小明考试成绩的不确定度了吗。
-即：
-HA(x)=−[p(xA)log(p(xA))+(1−p(xA))log(1−p(xA))]=0.4690
-对应小王的熵：
-HB(x)=−[p(xB)log(p(xB))+(1−p(xB))log(1−p(xB))]=0.0114
-虽然小明考试结果的不确定性较低，毕竟十次有9次都不及格，但是也比不上小王（1000次考试只有一次才可能不及格，结果相当的确定）
-我们再假设一个成绩相对普通的学生小东，他及格的概率是P(xC)=0.5,即及格与否的概率是一样的，对应的熵：
-HC(x)=−[p(xC)log(p(xC))+(1−p(xC))log(1−p(xC))]=1
-其熵为1，他的不确定性比前边两位同学要高很多，在成绩公布之前，很难准确猜测出他的考试结果。
-可以看出，<strong>熵其实是信息量的期望值，它是一个随机变量的不确定性的度量。熵越大，随机变量的不确定性越大</strong>。</p>
 
 <h2 id="相对熵-kl-kullback-leibler-divergence-散度">相对熵&ndash;KL（Kullback-Leibler divergence）散度</h2>
 
@@ -185,10 +226,10 @@ HC(x)=−[p(xC)log(p(xC))+(1−p(xC))log(1−p(xC))]=1
 <p>$$
 D<em>{KL}(p||q)=Ep[logp(x)q(x)]=∑</em>{x∈χ}p(x)logp(x)q(x)  <br />
 =∑<em>{x∈χ}[p(x)logp(x)−p(x)logq(x)] <br />
-=∑</em>{x∈χ}p(x)logp(x)−∑<em>{x∈χ}p(x)logq(x) <br />
+=∑</em>{x∈χ}p(x)logp(x)−∑<em>{x∈χ}p(x)logq(x)\
 =−H(p)−∑</em>{x∈χ}p(x)logq(x) <br />
-=−H(p)+Ep[−logq(x)] <br />
-=Hp(q)−H(p)
+=−H(p)+Ep[−logq(x)]<br />
+=Hp(q)−H(p)<br />
 $$</p>
 
 <p>并且为了保证连续性，做如下约定：

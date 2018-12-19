@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <title>TCGA数据下载总结 - My Lives</title>
+    <meta property="og:title" content="TCGA数据下载总结 - My Lives">
+    
+
+    
+      
+    
+
+    
+
+    
+    
+
+
+<link href='//cdn.bootcss.com/highlight.js/9.12.0/styles/github.min.css' rel='stylesheet' type='text/css' />
+
+
+
+    <link rel="stylesheet" href="/blog/css/style.css" />
+    <link rel="stylesheet" href="/blog/css/fonts.css" />
+    <link rel="stylesheet" href="/blog/css/custom.css" />
+
+  </head>
+
+  
+  <body class="blog">
+    <header class="masthead">
+      <h1><a href="/blog/">My Lives</a></h1>
+
+
+
+      <nav class="menu">
+        <input id="menu-check" type="checkbox" />
+        <label id="menu-label" for="menu-check" class="unselectable">
+          <span class="icon close-icon">✕</span>
+          <span class="icon open-icon">☰</span>
+          <span class="text">Menu</span>
+        </label>
+        <ul>
+        
+        
+        <li><a href="/blog/">Home</a></li>
+        
+        <li><a href="/blog/en/">English</a></li>
+        
+        <li><a href="/blog/cn/">Chinese</a></li>
+        
+        <li><a href="/blog/paper/">Paper Reading</a></li>
+        
+        <li><a href="/blog/travel/">Travel</a></li>
+        
+        
+        </ul>
+      </nav>
+    </header>
+
+    <article class="main">
+      <header class="title">
+      
+<h1>TCGA数据下载总结</h1>
+
+<h3>
+  2018-11-01</h3>
+<hr>
+
+
+      </header>
+
+
+
+
+
+<h2 id="1-clinical-data">1. Clinical data</h2>
+
+<p>用 <a href="https://bioconductor.org/packages/release/bioc/vignettes/TCGAbiolinks/inst/doc/clinical.html">TCGAbiolinks</a>下载临床数据，</p>
+
+<p>优点： 临床数据量不大，容易下载。 Parse XML clinical data 会获取非常高质量的follow-up数据，对生存分析作用非常大。</p>
+
+<h1 id="2-甲基化数据">2.甲基化数据</h1>
+
+<p>甲基化数据量非常大，从firehose获取神经连接用迅雷下载，其他工具下载慢，容易中断。然后用TCGA Assembler 2进行数据处理。</p>
+
+<h2 id="3-cnv数据">3.CNV数据</h2>
+
+<p>CNV是相对参考基因组而言的概念。</p>
+
+<pre><code>Merge_snp__genome_wide_snp_6__broad_mit_edu__Level_3__segmented_scna_hg19__seg 
+
+Merge_snp__genome_wide_snp_6__broad_mit_edu__Level_3__segmented_scna_minus_germline_cnv_hg19__seg 
+</code></pre>
+
+<p>其中minus germline CNV的就是我们想要的癌症相关的somatic CNV。</p>
+
+<p>在TCGA Assembler 2中分别用 na<em>cnv.hg18, cna</em>cnv.hg19, cna<em>nocnv.hg18, and cna</em>nocnv.hg19 来区别表示</p>
+
+<h2 id="4-rnaseq数据">4.  RNASeq数据</h2>
+
+<h3 id="tcga-rnaseq数据中fpkm与tpm转换介绍">TCGA RNAseq数据中FPKM与TPM转换介绍</h3>
+
+<p><a href="https://shengxin.ren/topic/2">TCGA</a>     <a href="https://shengxin.ren/topic/91">TCGA下载</a>  <a href="https://shengxin.ren/topic/243">TPM</a>  <a href="https://shengxin.ren/topic/217">FPKM</a></p>
+
+<p>在新版TCGA（GDC Portral）的RNAseq数据主要提供了三种数据下载，<strong>HTSeq-Counts，HTSeq-FPKM，HTSeq-FPKM-UQ</strong>.</p>
+
+<p><a href="https://docs.gdc.cancer.gov/Data/Bioinformatics_Pipelines/Expression_mRNA_Pipeline/">TCGA官方文档</a></p>
+
+<p><img src="https://taoshengxu.github.io/DocumentGit/img/GDC_RNASeq.png" alt="" /></p>
+
+<p>Counts是数据后台没有处理的原始表达量，而FPKM和FPKM-UQ是两种数据处理方法，也就是说，如果下载Counts数据，是表达量数据，如果下载FPKM数据，那么要注意这些数据是经过处理的。正常情况下，我们下载Counts数据就可以了，特殊情况选择FPKM数据也是可以的。
+<img src="https://taoshengxu.github.io/DocumentGit/img/FPKM.png" alt="" /></p>
+
+<p>下载数据后，在数据分析时，用的方法也是不同的，Counts数据一般使用edgeR包或DESeq包，对数据做分析；如果下载FPKM数据，就不能使用edgeR包，只能只用DESeq包进行处理。
+在使用edgeR包做Counts数据处理时，是需要对数据进行normalize的，所以我们在下载数据时，下载counts是比较常用的。</p>
+
+<p>如果要用edgR等筛选差异的话会下载使用Counts数据，但是笔者在过去的数据分析中发现TCGA数据使用edgR等软件筛选差&hellip;</p>
+
+<p>但是笔者在过去的数据分析中发现TCGA数据使用edgR等软件筛选差异基因并不理想，细思主要有两方面原因：</p>
+
+<ul>
+<li>一、肿瘤数据本身异质性很高</li>
+<li>二、正常样本严重偏少</li>
+</ul>
+
+<p>基于此笔者几乎很少使用edgR等软件来筛选差异了，那么就很少下载Counts数据了，所以大多数情况下都是用RPKM，但是RPKM数据本身也是饱受诟病，像<a href="http://www.cbioportal.org/">cbioportal</a>使用的是RSEM软件做的定量即TPM，在老版TCGA中也可以直接下载到这些数据，那么新版如何得到这样的数据呢，简单的办法是从FPKM转TPM.</p>
+
+<p>FPKM: Fragments Per Kilobase of exon model per Million mapped fragments 即每千个碱基的转录每百万映射读取的fragments
+TPM：TranscriptsPerKilobase of exonmodel per Million mapped reads 即每千个碱基的转录每百万映射读取的Transcripts
+他们的计算公式如下：</p>
+
+<pre><code>FPKM= total exon reads/ (mapped reads (Millions) * exon length(KB))
+                    total exon reads：某个样本mapping到特定基因的外显子上的所有的reads
+                    mapped reads (Millions) :某个样本的所有reads总和
+                    exon length(KB)：某个基因的长度（外显子的长度的总和，以KB为单位）
+TPMi=(Ni/Li)*1000000/sum(N0/L0+……..+ Nm/Lm)
+                     Ni：mapping到基因i上的read数； Li：基因i的外显子长度的总和;m：为所有基因的总数
+</code></pre>
+
+<p>从以上公式我们可以进一步推导如下：</p>
+
+<p>从以上公式我们可以进一步推导如下：</p>
+
+<pre><code>1、FPKMi*(mapped reads (Millions)= total exon reads/ (mapped reads (Millions) * exon length(KB))
+2、total exon reads/ (mapped reads (Millions) * exon length(KB))=(Ni/Li)
+3、FPKMi*(mapped reads (Millions)=(Ni/Li)
+4、TPMi=FPKMi*(mapped reads (Millions)*1000000/(N0/L0+……..+ Nm/Lm)
+5、TPMi=FPKMi*(mapped reads (Millions)*1000000/(FPKM0*(mapped reads (Millions)+……..+ FPKMm*(mapped reads (Millions))
+6、TPMi=FPKMi*1000000/(FPKM0+……..+ FPKMm)
+</code></pre>
+
+<p>最终我们得到了TPM和FPKM的转换公公式，从公式里可以看到TPM就是等于该基因的FPKM占所有基因的FPKM的总和的比例乘以一百万，那么值得注意的是每个样本所有基因的TPM加和就等于一百万了，这很类似样本间标准化
+最后你下载的TCGA FPKM数据转换TPM就不会懵逼了吧
+参考文献：<a href="https://academic.oup.com/bioinformatics/article/26/4/493/243395/RNA-Seq-gene-expression-estimation-with-read">https://academic.oup.com/bioinformatics/article/26/4/493/243395/RNA-Seq-gene-expression-estimation-with-read</a></p>
+
+<h2 id="5-其他数据">5. 其他数据</h2>
+
+<p>可以直接用TCGA assembler 2 下载。</p>
+
+
+  <footer>
+  
+<nav class="post-nav">
+  <span class="nav-prev">&larr; <a href="/blog/cn/2018/08/chenwei_gene/">陈巍学基因</a></span>
+  <span class="nav-next"><a href="/blog/cn/2018/11/cnv/">CNV学习</a> &rarr;</span>
+</nav>
+
+
+
+
+
+<script src="//yihui.name/js/math-code.js"></script>
+<script async src="//cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+<script async src="//yihui.name/js/center-img.js"></script>
+
+  
+
+
+
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+
+
+
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/r.min.js"></script>
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/yaml.min.js"></script>
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/tex.min.js"></script>
+<script>hljs.configure({languages: []}); hljs.initHighlightingOnLoad();</script>
+
+
+
+  
+  <hr>
+  <div class="copyright">&copy; <a href="xxxx">Who care</a> 2017 - Forever, maybe</div>
+  
+  </footer>
+  </article>
+  
+  </body>
+</html>
+
