@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <title>ExpressionSet_SummarizedExperiment_GEOquery_biomaRt_S4 - My Lives</title>
+    <meta property="og:title" content="ExpressionSet_SummarizedExperiment_GEOquery_biomaRt_S4 - My Lives">
+    
+
+    
+      
+    
+
+    
+
+    
+    
+
+
+<link href='//cdn.bootcss.com/highlight.js/9.12.0/styles/github.min.css' rel='stylesheet' type='text/css' />
+
+
+
+    <link rel="stylesheet" href="/blog/css/style.css" />
+    <link rel="stylesheet" href="/blog/css/fonts.css" />
+    <link rel="stylesheet" href="/blog/css/custom.css" />
+
+  </head>
+
+  
+  <body class="blog">
+    <header class="masthead">
+      <h1><a href="/blog/">My Lives</a></h1>
+
+
+
+      <nav class="menu">
+        <input id="menu-check" type="checkbox" />
+        <label id="menu-label" for="menu-check" class="unselectable">
+          <span class="icon close-icon">✕</span>
+          <span class="icon open-icon">☰</span>
+          <span class="text">Menu</span>
+        </label>
+        <ul>
+        
+        
+        <li><a href="/blog/">Home</a></li>
+        
+        <li><a href="/blog/en/">English</a></li>
+        
+        <li><a href="/blog/cn/">Chinese</a></li>
+        
+        <li><a href="/blog/paper/">Paper Reading</a></li>
+        
+        <li><a href="/blog/travel/">Travel</a></li>
+        
+        
+        </ul>
+      </nav>
+    </header>
+
+    <article class="main">
+      <header class="title">
+      
+<h1>ExpressionSet_SummarizedExperiment_GEOquery_biomaRt_S4</h1>
+
+<h3>
+  2017-09-08</h3>
+<hr>
+
+
+      </header>
+
+
+
+
+
+<h2 id="expressionset">ExpressionSet</h2>
+
+<p>下面代码列举了ExpressionSet对象大部分常用函数的用法，ExpressionSet对象可以直接取pData()样本分组信息的列名的数据如 <code>ALL$sex</code></p>
+
+<p><img src="https://taoshengxu.github.io/DocumentGit/img/ExpressionSet.png" alt="" /></p>
+
+<ul>
+<li>exprs() 表达谱数据</li>
+<li>pData() 对象分组信息</li>
+<li>sampleNames()</li>
+<li>featureNames()</li>
+<li>phenoData()</li>
+<li>featureData()</li>
+<li>experimentData()</li>
+</ul>
+
+<pre><code class="language-R">## 非常全面的示例代码
+library(ALL)
+data(ALL)
+experimentData(ALL)
+exprs(ALL)[1:4,1:4]
+head(sampleNames(ALL))
+head(featureNames(ALL))
+head(pData(ALL))
+ALL$sex
+ALL[1:10,1:5]
+featureData(ALL)#包含关于基因的信息，但是经常没有
+ids &lt;- featureNames(ALL)[1:5]
+library(hgu95av2.db)#之前数据集里面写了芯片平台hgu95av2.db
+as.list(hgu95av2ENTREZID[ids])
+phenoData(ALL)#不如使用pData(ALL),phenoData(ALL)内容更多些
+names(pData(ALL))#有时相当于varLabels(ALL),有时varLabels(ALL)更详细
+</code></pre>
+
+<h2 id="summarizedexperiment">SummarizedExperiment</h2>
+
+<pre><code>library(airway)
+data(&quot;airway&quot;)
+airway
+colData(airway)#pData(ALL)
+airway$cell
+colnames(airway)
+head(rownames(airway))
+assayNames(airway)#要想获得表达矩阵,使用assay accessor,用assayNames()获得全部表达矩阵名
+assay(airway,&quot;counts&quot;)[1:4,1:4]
+length(rowRanges(airway))
+rowRanges(airway)#SummarizedExperiment特别之处在于每行每列都有关联的GRanges
+start(airway)
+gr = GRanges(&quot;1&quot;,ranges = IRanges(start = 1,end = 10^7))
+subsetByOverlaps(airway,gr)
+#'正是有着关联GRanges,可以取出染色体&quot;某一区域内&quot;基因的表达值
+</code></pre>
+
+<h2 id="geoquery">GEOquery</h2>
+
+<pre><code>library(GEOquery)
+eList &lt;- getGEO(&quot;GSE11675&quot;)
+length(eList)
+eData = eList[[1]]
+eData
+names(pData(eData))
+eList2 = getGEOSuppFiles(&quot;GSE11675&quot;)#下载原始tar包
+eList2
+
+</code></pre>
+
+<h2 id="biomart">biomaRt</h2>
+
+<pre><code>library(biomaRt)
+head(listMarts())
+mart &lt;- useMart(&quot;ensembl&quot;)
+mart
+head(listDatasets(mart))
+ensemble &lt;- useDataset(&quot;hsapiens_gene_ensembl&quot;,mart)
+values &lt;- c(&quot;202763_at&quot;,&quot;209310_s_at&quot;,&quot;207500_at&quot;)
+getBM(attributes = c(&quot;ensembl_gene_id&quot;,&quot;affy_hg_u133_plus_2&quot;),
+      filters = &quot;affy_hg_u133_plus_2&quot;,values = values,mart = ensemble)
+attributes &lt;- listAttributes(ensemble)#可以查询到的条目
+nrow(attributes)#可以把一个物种的基因转换到另一个物种的同源基因
+head(attributes)
+filters &lt;- listFilters(ensemble)#可以查询到的条目
+nrow(filters)#可以把一个物种的基因转换到另一个物种的同源基因
+head(filters)
+attributePages(ensemble)#attributes存储在一个一个page中,可以用这个减小搜索范围
+attributes &lt;- listAttributes(ensemble,page = &quot;feature_page&quot;)
+nrow(attributes)
+</code></pre>
+
+<h2 id="r-s4-classes">R S4 Classes</h2>
+
+<pre><code>library(ALL)
+library(GenomicRanges)
+#'S3对象就是像一个list,list中每个对象都有各自的name
+#'而S4对象定义了每个class应该是有些什么东西
+data(&quot;ALL&quot;)
+ALL
+class(ALL)
+isS4(ALL)
+class?ExpressionSet#查看一个class的简介
+?&quot;ExpressionSet-class&quot;#查看一个class的简介
+#'list的规则:首字母大写
+#'构造方法
+ExpressionSet()
+getClass(&quot;ExpressionSet&quot;)#Slots插槽,就是这个class由哪儿些小class构成
+ALL@annotation
+annotation(ALL)
+#class升级了,定义改变了,用updateObject
+OLD_OBJECT = updateObject(OLD_OBJECT)
+validObject(ALL)#检测对象是否正确,是否符合class的定义
+</code></pre>
+
+<h2 id="r-s4-methods">R S4 Methods</h2>
+
+<pre><code>library(GenomicRanges)
+GenomicRanges::as.data.frame#S4方法
+base::as.data.frame#S3方法
+showMethods(&quot;as.data.frame&quot;)#可以看见,X类型不同,后续选用的程序代码也不同
+#查看传入某一特定类型，对应的相关程序代码
+getMethod(&quot;as.data.frame&quot;,&quot;GenomicRanges&quot;)
+getMethod(&quot;as.data.frame&quot;,signature(x=&quot;GenomicRanges&quot;))
+#查看传入某一特定类型，对应的帮助文档
+method?&quot;as.data.frame,DataFrame&quot;
+method?&quot;as.data.frame,GenomicRanges&quot;
+?&quot;as.data.frame,DataFrame-method&quot;
+?&quot;as.data.frame,GenomicRanges-method&quot;
+showMethods(&quot;findOverlaps&quot;)
+getMethod(&quot;findOverlaps&quot;,signature(query = &quot;Ranges&quot;,subject = &quot;Ranges&quot;))
+?&quot;findOverlaps,Ranges,Ranges-method&quot;
+#'S4缺点:难以找到help文档,难以直接看源代码,难以debug
+#'但是最好S4写一个package,方便管理
+</code></pre>
+
+<hr />
+
+<p>作者：wangyunpeng<em>bio
+来源：CSDN
+原文：<a href="https://blog.csdn.net/qq">https://blog.csdn.net/qq</a></em>29300341/article/details/77009100
+版权声明：本文为博主原创文章，转载请附上博文链接！</p>
+
+
+  <footer>
+  
+<nav class="post-nav">
+  <span class="nav-prev">&larr; <a href="/blog/cn/2017/09/expressionset/">ExpressionSet简单讲解</a></span>
+  <span class="nav-next"><a href="/blog/cn/2017/09/gcbiaccdemy/">GCBI 学院</a> &rarr;</span>
+</nav>
+
+
+
+
+
+<script src="//yihui.name/js/math-code.js"></script>
+<script async src="//cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+<script async src="//yihui.name/js/center-img.js"></script>
+
+  
+
+
+
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+
+
+
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/r.min.js"></script>
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/yaml.min.js"></script>
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/tex.min.js"></script>
+<script>hljs.configure({languages: []}); hljs.initHighlightingOnLoad();</script>
+
+
+
+  
+  <hr>
+  <div class="copyright">&copy; <a href="xxxx">Who care</a> 2017 - Forever, maybe</div>
+  
+  </footer>
+  </article>
+  
+  </body>
+</html>
+

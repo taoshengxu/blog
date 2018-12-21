@@ -10,6 +10,56 @@
     <atom:link href="/blog/" rel="self" type="application/rss+xml" />
     
     <item>
+      <title>GSVA</title>
+      <link>/blog/cn/2018/12/gsva/</link>
+      <pubDate>Fri, 21 Dec 2018 10:21:43 +0000</pubDate>
+      
+      <guid>/blog/cn/2018/12/gsva/</guid>
+      <description>
+        
+
+&lt;h2 id=&#34;gsva-微阵列和rna-seq数据的基因集合变异分析&#34;&gt;GSVA 微阵列和RNA-Seq数据的基因集合变异分析&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://doi.org/10.1186/1471-2105-14-7&#34;&gt;GSVA: gene set variation analysis for microarray and RNA-Seq data&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;gsva和gsea的不同&#34;&gt;GSVA和GSEA的不同&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;GSVA是先将基因对应到gene set上,得到不同的gene set的得分,然后再根据分组,对gene set的得分进行差异分析.&lt;/li&gt;
+&lt;li&gt;GSEA是先根据分组对基因进行差异分析,再将基因富集到gene set中.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;gsva分析中需要用的文件只有两个&#34;&gt;GSVA分析中需要用的文件只有两个:&lt;/h2&gt;
+
+&lt;p&gt;(1)基因表达矩阵(gene expression matrix),SYMBOL或者INTERID格式的均可，但要做均一化处理(如TPM值即可)&lt;/p&gt;
+
+&lt;p&gt;(2)geneset:可以直接从MSigDB下载(一般是.gmt格式的文件)，或者自己制作。下载时，要选择合适的geneID，和表达矩阵保持一致即可。（一般都是SYMBOL格式，因为比较容易供使用者观看）&lt;/p&gt;
+
+&lt;h2 id=&#34;msidb中的数据&#34;&gt;MSiDB中的数据&lt;/h2&gt;
+
+&lt;p&gt;官网主页： &lt;a href=&#34;http://software.broadinstitute.org/gsea/msigdb/index.jsp&#34;&gt;http://software.broadinstitute.org/gsea/msigdb/index.jsp&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;比如我们需要用KEGG相关的的gene set,选择C2,单击C2进入详细介绍页面,就可以看到我们要下载的文件链接了,记得下载和自己的gene ID 格式相同的gmt文件.下载下来之后,可以看到gmt文件的内容也很单纯,每一行表示一个gene set.第一列是gene set的名字,第三列及之后是每个gene set中含有的gene,所以自己制作gene set时,先对gene set命名然后再添加基因就可以了,但要保证其合理性.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-R&#34;&gt;gene &amp;lt;- read.csv(&amp;quot;XXX.csv&amp;quot;,header = TRUE,sep = &amp;quot;,&amp;quot;)
+genesets &amp;lt;- getGmt(&amp;quot;c2.cp.kegg.v6.1.symbols.gmt&amp;quot;)
+nGrp1 &amp;lt;-n
+nGrp2 &amp;lt;- m 
+#n和m是对照组和处理组的组数。    
+design &amp;lt;- cbind(sampleGroup1=1, sampleGroup2vs1=c(rep(0, nGrp1), rep(1, nGrp2)))
+library(limma)
+library(GSVA)
+#根据需要调整一下表达矩阵
+rownames(gene) &amp;lt;- gene[,1]    #添加gene中的行标题
+gene &amp;lt;- gene[,-1]         #删除第一列
+topMatrixGSVA &amp;lt;- gsva(data.matrix(gene), genesets, min.sz=1, max.sz=999999, kcdf=&amp;quot;Poisson&amp;quot;, abs.ranking=FALSE, verbose=TRUE)        #得到GSVA在这些通路上的分值。
+&lt;/code&gt;&lt;/pre&gt;
+
+        
+      </description>
+    </item>
+    
+    <item>
       <title>同源染色体和等位基因</title>
       <link>/blog/cn/2018/11/allele/</link>
       <pubDate>Thu, 08 Nov 2018 10:10:25 +0000</pubDate>
@@ -2936,41 +2986,6 @@ nohup java -Xmx60g -jar /data/biosoft/GATK/GenomeAnalysisTK.jar  -R \
 /data/reference/annotation/GATK/ucsc.hg19.fasta  -T IndelRealigner  \
 -I KPGP-00001.filter.rmdup.bam  -targetIntervals KPGP-00001.filter.rmdup.intervals \
 -o KPGP-00001.filter.rmdup.realgn.bam  1&amp;gt;KPGP-00001.filter.rmdup.IndelRealigner.log
-&lt;/code&gt;&lt;/pre&gt;
-
-        
-      </description>
-    </item>
-    
-    <item>
-      <title>根据gtf格式的基因注释文件得到人所有基因的染色体坐标</title>
-      <link>/blog/cn/2017/11/gtf_gene_position/</link>
-      <pubDate>Fri, 10 Nov 2017 11:00:13 +0000</pubDate>
-      
-      <guid>/blog/cn/2017/11/gtf_gene_position/</guid>
-      <description>
-        &lt;p&gt;&lt;strong&gt;原文&lt;/strong&gt; ：&lt;a href=&#34;http://www.biotrainee.com/thread-472-1-1.html&#34;&gt;http://www.biotrainee.com/thread-472-1-1.html&lt;/a&gt;&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;mkdir -p ~/reference/gtf/gencode
-cd  ~/reference/gtf/gencode
-## https://www.gencodegenes.org/releases/current.html
-wget ftp://ftp.sanger.ac.uk/pub/gencode/Gencode_human/release_25/gencode.v25.2wayconspseudos.gtf.gz
-wget ftp://ftp.sanger.ac.uk/pub/gencode/Gencode_human/release_25/gencode.v25.long_noncoding_RNAs.gtf.gz 
-wget ftp://ftp.sanger.ac.uk/pub/gencode/Gencode_human/release_25/gencode.v25.polyAs.gtf.gz 
-wget ftp://ftp.sanger.ac.uk/pub/gencode/Gencode_human/release_25/gencode.v25.annotation.gtf.gz 
-## https://www.gencodegenes.org/releases/25lift37.html 
-wget ftp://ftp.sanger.ac.uk/pub/gencode/Gencode_human/release_25/GRCh37_mapping/gencode.v25lift37.annotation.gtf.gz 
-wget ftp://ftp.sanger.ac.uk/pub/gencode/Gencode_human/release_25/GRCh37_mapping/gencode.v25lift37.metadata.HGNC.gz 
-wget ftp://ftp.sanger.ac.uk/pub/gencode/Gencode_human/release_25/GRCh37_mapping/gencode.v25lift37.metadata.EntrezGene.gz 
-wget ftp://ftp.sanger.ac.uk/pub/gencode/Gencode_human/release_25/GRCh37_mapping/gencode.v25lift37.metadata.RefSeq.gz 
-
-zcat  gencode.v25.long_noncoding_RNAs.gtf.gz |perl -alne &#39;{next unless $F[2] eq &amp;quot;gene&amp;quot; ;/gene_name \&amp;quot;(.*?)\&amp;quot;;/; print &amp;quot;$F[0]\t$F[3]\t$F[4]\t$1&amp;quot; }&#39; &amp;gt;lncRNA.hg38.position
-zcat  gencode.v25.2wayconspseudos.gtf.gz     |perl -alne &#39;{next unless $F[2] eq &amp;quot;transcript&amp;quot; ;/gene_name \&amp;quot;(.*?)\&amp;quot;;/; print &amp;quot;$F[0]\t$F[3]\t$F[4]\t$1&amp;quot; }&#39; &amp;gt;pseudos.hg38.position
-zcat  gencode.v25.annotation.gtf.gz| grep   protein_coding |perl -alne &#39;{next unless $F[2] eq &amp;quot;gene&amp;quot; ;/gene_name \&amp;quot;(.*?)\&amp;quot;;/; print &amp;quot;$F[0]\t$F[3]\t$F[4]\t$1&amp;quot; }&#39; &amp;gt;protein_coding.hg38.position
-zcat  gencode.v25.annotation.gtf.gz|perl -alne &#39;{next unless $F[2] eq &amp;quot;gene&amp;quot; ;/gene_name \&amp;quot;(.*?)\&amp;quot;;/; print &amp;quot;$F[0]\t$F[3]\t$F[4]\t$1&amp;quot; }&#39; &amp;gt;allGene.hg38.position
-
-zcat  gencode.v25lift37.annotation.gtf.gz | grep   protein_coding |perl -alne &#39;{next unless $F[2] eq &amp;quot;gene&amp;quot; ;/gene_name \&amp;quot;(.*?)\&amp;quot;;/; print &amp;quot;$F[0]\t$F[3]\t$F[4]\t$1&amp;quot; }&#39; &amp;gt;protein_coding.hg19.position
-zcat  gencode.v25lift37.annotation.gtf.gz | perl -alne &#39;{next unless $F[2] eq &amp;quot;gene&amp;quot; ;/gene_name \&amp;quot;(.*?)\&amp;quot;;/; print &amp;quot;$F[0]\t$F[3]\t$F[4]\t$1&amp;quot; }&#39; &amp;gt;allGene.hg19.position
 &lt;/code&gt;&lt;/pre&gt;
 
         

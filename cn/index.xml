@@ -6,10 +6,19 @@
     <description>Recent content in 中文博客 on My Lives</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 08 Nov 2018 10:10:25 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 21 Dec 2018 10:21:43 +0000</lastBuildDate>
     
 	<atom:link href="/blog/cn/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>GSVA</title>
+      <link>/blog/cn/2018/12/gsva/</link>
+      <pubDate>Fri, 21 Dec 2018 10:21:43 +0000</pubDate>
+      
+      <guid>/blog/cn/2018/12/gsva/</guid>
+      <description>GSVA 微阵列和RNA-Seq数据的基因集合变异分析 GSVA: gene set variation analysis for microarray and RNA-Seq data GSVA和GSEA的不同 GSVA是先将基因对应到gene set上,得到不同</description>
+    </item>
     
     <item>
       <title>同源染色体和等位基因</title>
@@ -271,15 +280,6 @@ Usage  Sign up to AppVeyor. Enable testing for your project. Run devtools::use_a
       
       <guid>/blog/cn/2017/11/humanmethylation450_850k/</guid>
       <description>Illumina HumanMethylation BeadChip简介 Illumina最早的甲基化芯片是27K（K代表1000，表示大概可以测到的CpG位点数）的数据，后来增加到了450</description>
-    </item>
-    
-    <item>
-      <title>Chip-seq 分析学习笔记</title>
-      <link>/blog/cn/2017/11/chip_seq_study/</link>
-      <pubDate>Tue, 07 Nov 2017 16:52:20 +0000</pubDate>
-      
-      <guid>/blog/cn/2017/11/chip_seq_study/</guid>
-      <description>这是一个学习笔记，跟随生信技能树的学习笔记重复,把几个优秀笔记的内容重复摘录在此。 学习提纲 优秀学习笔记 链接2 ChIP-Seq介绍 1.了解基础</description>
     </item>
     
   </channel>

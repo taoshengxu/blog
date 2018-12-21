@@ -76,13 +76,50 @@
 
 
 
-<p>From 生信菜鸟团</p>
+<p>From 生信菜鸟团 <a href="http://www.bio-info-trainee.com/1510.html">http://www.bio-info-trainee.com/1510.html</a></p>
 
 <hr />
 
-<blockquote>
-<p>这个对象其实是对表达矩阵加上样本分组信息的一个封装，由biobase这个包引入。它是eSet这个对象的继承。</p>
-</blockquote>
+<p><strong>ExpressionSet对象其实是对表达矩阵加上样本分组信息的一个封装，由Biobase这个包引入。它是eSet这个对象的继承。</strong>属性基本和eSet保持一致。</p>
+
+<h4 id="重点就是-exprs-函数提取表达矩阵-pdata-函数看看该对象的样本分组信息">重点就是 <strong><code>exprs</code> 函数提取表达矩阵</strong>，<strong><code>pData</code> 函数看看该对象的样本分组信息</strong>。</h4>
+
+<p>在Biobase基础包中，ExpressionSet是非常重要的类，因为Bioconductor设计之初是为了对基因芯片数据进行分析，而ExpressionSet正是Bioconductor为基因表达数据格式所定制的标准。它是所有涉及基因表达量相关数据在Bioconductor中进行操作的基础数据类型，比如affyPLM, affy, oligo, limma, arrayMagic等等。所以当我们学习Bioconductor时，第一个任务就是了解并掌握ExpressionSet的一切。</p>
+
+<h2 id="expressionset的组成">ExpressionSet的组成：</h2>
+
+<ul>
+<li><p><strong>assayData</strong>: 一个matrix类型或者environment类型数据。用于保存表达数据值。
+当它是一个matrix时，它的行表示不同的探针组（probe sets）（也是features，总之是一个无重复的索引值）的值，它的列表示不同的样品。如果有行号或者列号的话，那么行号必须与featureData及phenoData中的行号一致，列号就是样品名。当我们使用<code>exprs()</code>方法时，就是调取的这个assayData的matrix。
+当它是一个enviroment时，它必须有两个变量，一个就是与上一段描述一致的matrix，另一个就是epxrs，而这个exprs会响应exprs()方法，返回表达值。</p></li>
+
+<li><p><strong>头文件</strong>：用于描述实验平台相关的数据，其中包括phenoData, featureData，protocolData以及annotation等等。其中
+<strong>phenoData</strong>是一个存放样品信息的data.frame或者AnnotatedDataFrame类型的数据。如果有行号的话，其行号必须与assayData的列号一致（也就是样品名）。如果没有行号，则其行数必须与assayData的列数一致。
+<strong>featureData</strong>是一个存放features的data.frame或者AnnotatedDataFrame类型的数据。它的行数必须与assayData的行数一致。如果有行号的话，那么它的行号必须和assayData的行号一致。
+<strong>annotation</strong>是用于存放芯片类型的字符串，比如hgu95av2之类。
+<strong>protocolData</strong>用于存放设备相当的数据。它是AnnotatedDataFrame类型。它的维度必须与assayData的维度一致。</p></li>
+
+<li><p><strong>experimentData</strong>: 一个MIAME类型的数据，它用于保存和实验设计相关的资料，比如实验室名，发表的文章，等等。那么什么是MIAME类呢？MIAME是Minimum Information About a Microarray Experiment的首字母缩写，它包括以下一些属性（slots）：</p>
+
+<ol>
+<li>name: 字符串，实验名称</li>
+<li>lab: 字符串，实验室名称</li>
+<li>contact: 字符串，联系方式</li>
+<li>title: 字符串，一句话描述实验的内容</li>
+<li>abstract: 字符串，实验摘要</li>
+<li>url: 字符串，实验相关的网址</li>
+<li>samples: list类，样品的信息</li>
+<li>hybridizations: list类，杂交的信息</li>
+<li>normControls: list类，对照信息，比如一些持家基因（house keeping genes）</li>
+<li>preprocessing: list类，原始数据的预处理过程</li>
+<li>pubMedIds: 字符串，pubMed索引号</li>
+<li>others: list类，其它相关的信息</li>
+</ol></li>
+</ul>
+
+<p>有了这些，所有实验相关的信息基本全备。</p>
+
+<p>那么，对于一个ExpressionSet，哪些属性是必须的？哪些有可能缺失呢？很显然，assayData是必须的，其它的可能会缺失，但是不能都缺失，因为那样的话就无法完成数据分析的工作。</p>
 
 <h2 id="一个现成例子">一个现成例子</h2>
 
@@ -120,8 +157,6 @@
 <pre><code>根据上面的信息可以看出该芯片共12625个探针，这22个样本根据疾病状态分成两组，14vs8
 这个数据对象就可以打包做很多包的分析输入数据。
 </code></pre>
-
-<p>对这个包的分析，重点就是 <strong><code>exprs</code> 函数提取表达矩阵</strong>，<strong><code>pData</code> 函数看看该对象的样本分组信息</strong>。</p>
 
 <h2 id="limma等包使用该对象作为输入数据">limma等包使用该对象作为输入数据</h2>
 
@@ -218,7 +253,7 @@
   
 <nav class="post-nav">
   <span class="nav-prev">&larr; <a href="/blog/cn/2017/09/%E7%94%9F%E5%AD%98%E6%9B%B2%E7%BA%BF%E7%BE%8E%E5%8C%96/">生存曲线美化</a></span>
-  <span class="nav-next"><a href="/blog/cn/2017/09/gcbiaccdemy/">GCBI 学院</a> &rarr;</span>
+  <span class="nav-next"><a href="/blog/cn/2017/09/expressionset_summarizedexperiment/">ExpressionSet_SummarizedExperiment_GEOquery_biomaRt_S4</a> &rarr;</span>
 </nav>
 
 

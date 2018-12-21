@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>/blog/cn/2018/12/gsva/</loc>
+    <lastmod>2018-12-21T10:21:43+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>/blog/cn/2018/11/allele/</loc>
     <lastmod>2018-11-08T10:10:25+00:00</lastmod>
   </url>
@@ -278,6 +283,11 @@
   </url>
   
   <url>
+    <loc>/blog/cn/2017/09/expressionset_summarizedexperiment/</loc>
+    <lastmod>2017-09-08T16:38:18+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>/blog/cn/2017/09/expressionset/</loc>
     <lastmod>2017-09-08T16:38:17+00:00</lastmod>
   </url>
@@ -382,7 +392,7 @@
   
   <url>
     <loc>/blog/cn/</loc>
-    <lastmod>2018-11-08T10:10:25+00:00</lastmod>
+    <lastmod>2018-12-21T10:21:43+00:00</lastmod>
   </url>
   
   <url>

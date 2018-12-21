@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <title>GSVA - My Lives</title>
+    <meta property="og:title" content="GSVA - My Lives">
+    
+
+    
+      
+    
+
+    
+
+    
+    
+
+
+<link href='//cdn.bootcss.com/highlight.js/9.12.0/styles/github.min.css' rel='stylesheet' type='text/css' />
+
+
+
+    <link rel="stylesheet" href="/blog/css/style.css" />
+    <link rel="stylesheet" href="/blog/css/fonts.css" />
+    <link rel="stylesheet" href="/blog/css/custom.css" />
+
+  </head>
+
+  
+  <body class="blog">
+    <header class="masthead">
+      <h1><a href="/blog/">My Lives</a></h1>
+
+
+
+      <nav class="menu">
+        <input id="menu-check" type="checkbox" />
+        <label id="menu-label" for="menu-check" class="unselectable">
+          <span class="icon close-icon">✕</span>
+          <span class="icon open-icon">☰</span>
+          <span class="text">Menu</span>
+        </label>
+        <ul>
+        
+        
+        <li><a href="/blog/">Home</a></li>
+        
+        <li><a href="/blog/en/">English</a></li>
+        
+        <li><a href="/blog/cn/">Chinese</a></li>
+        
+        <li><a href="/blog/paper/">Paper Reading</a></li>
+        
+        <li><a href="/blog/travel/">Travel</a></li>
+        
+        
+        </ul>
+      </nav>
+    </header>
+
+    <article class="main">
+      <header class="title">
+      
+<h1>GSVA</h1>
+
+<h3>
+  2018-12-21</h3>
+<hr>
+
+
+      </header>
+
+
+
+
+
+<h2 id="gsva-微阵列和rna-seq数据的基因集合变异分析">GSVA 微阵列和RNA-Seq数据的基因集合变异分析</h2>
+
+<p><a href="https://doi.org/10.1186/1471-2105-14-7">GSVA: gene set variation analysis for microarray and RNA-Seq data</a></p>
+
+<h2 id="gsva和gsea的不同">GSVA和GSEA的不同</h2>
+
+<ul>
+<li>GSVA是先将基因对应到gene set上,得到不同的gene set的得分,然后再根据分组,对gene set的得分进行差异分析.</li>
+<li>GSEA是先根据分组对基因进行差异分析,再将基因富集到gene set中.</li>
+</ul>
+
+<h2 id="gsva分析中需要用的文件只有两个">GSVA分析中需要用的文件只有两个:</h2>
+
+<p>(1)基因表达矩阵(gene expression matrix),SYMBOL或者INTERID格式的均可，但要做均一化处理(如TPM值即可)</p>
+
+<p>(2)geneset:可以直接从MSigDB下载(一般是.gmt格式的文件)，或者自己制作。下载时，要选择合适的geneID，和表达矩阵保持一致即可。（一般都是SYMBOL格式，因为比较容易供使用者观看）</p>
+
+<h2 id="msidb中的数据">MSiDB中的数据</h2>
+
+<p>官网主页： <a href="http://software.broadinstitute.org/gsea/msigdb/index.jsp">http://software.broadinstitute.org/gsea/msigdb/index.jsp</a></p>
+
+<p>比如我们需要用KEGG相关的的gene set,选择C2,单击C2进入详细介绍页面,就可以看到我们要下载的文件链接了,记得下载和自己的gene ID 格式相同的gmt文件.下载下来之后,可以看到gmt文件的内容也很单纯,每一行表示一个gene set.第一列是gene set的名字,第三列及之后是每个gene set中含有的gene,所以自己制作gene set时,先对gene set命名然后再添加基因就可以了,但要保证其合理性.</p>
+
+<pre><code class="language-R">gene &lt;- read.csv(&quot;XXX.csv&quot;,header = TRUE,sep = &quot;,&quot;)
+genesets &lt;- getGmt(&quot;c2.cp.kegg.v6.1.symbols.gmt&quot;)
+nGrp1 &lt;-n
+nGrp2 &lt;- m 
+#n和m是对照组和处理组的组数。    
+design &lt;- cbind(sampleGroup1=1, sampleGroup2vs1=c(rep(0, nGrp1), rep(1, nGrp2)))
+library(limma)
+library(GSVA)
+#根据需要调整一下表达矩阵
+rownames(gene) &lt;- gene[,1]    #添加gene中的行标题
+gene &lt;- gene[,-1]         #删除第一列
+topMatrixGSVA &lt;- gsva(data.matrix(gene), genesets, min.sz=1, max.sz=999999, kcdf=&quot;Poisson&quot;, abs.ranking=FALSE, verbose=TRUE)        #得到GSVA在这些通路上的分值。
+</code></pre>
+
+
+  <footer>
+  
+<nav class="post-nav">
+  <span class="nav-prev">&larr; <a href="/blog/cn/2018/11/allele/">同源染色体和等位基因</a></span>
+  <span class="nav-next"></span>
+</nav>
+
+
+
+
+
+<script src="//yihui.name/js/math-code.js"></script>
+<script async src="//cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+<script async src="//yihui.name/js/center-img.js"></script>
+
+  
+
+
+
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+
+
+
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/r.min.js"></script>
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/yaml.min.js"></script>
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/tex.min.js"></script>
+<script>hljs.configure({languages: []}); hljs.initHighlightingOnLoad();</script>
+
+
+
+  
+  <hr>
+  <div class="copyright">&copy; <a href="xxxx">Who care</a> 2017 - Forever, maybe</div>
+  
+  </footer>
+  </article>
+  
+  </body>
+</html>
+
