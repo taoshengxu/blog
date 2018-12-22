@@ -6,10 +6,28 @@
     <description>Recent content in 中文博客 on My Lives</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 21 Dec 2018 10:21:43 +0000</lastBuildDate>
+    <lastBuildDate>Sat, 22 Dec 2018 00:48:16 +0000</lastBuildDate>
     
 	<atom:link href="/blog/cn/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>R Apply函数</title>
+      <link>/blog/cn/2018/12/r_apply/</link>
+      <pubDate>Sat, 22 Dec 2018 00:48:16 +0000</pubDate>
+      
+      <guid>/blog/cn/2018/12/r_apply/</guid>
+      <description>apply Apply Functions Over ArrayMargins 对阵列行或者列使用函数 apply(X, MARGIN, FUN,&amp;hellip;) lapply Apply a Function over a Listor Vector对列表或者向量使用函数 lapply(X, FUN,&amp;hellip;) sapply Apply a Function over a Listor Vector对列表或者向量使用函数 sapply(X,</description>
+    </item>
+    
+    <item>
+      <title>R语言字符串处理汇总</title>
+      <link>/blog/cn/2018/12/string_process/</link>
+      <pubDate>Fri, 21 Dec 2018 22:49:16 +0000</pubDate>
+      
+      <guid>/blog/cn/2018/12/string_process/</guid>
+      <description>字符翻译 tolower(), toupper() chartr() dna &amp;lt;-&amp;quot;AgCTaaGGGcctTagct&amp;quot; chartr(&amp;quot;T&amp;quot;, &amp;quot;U&amp;quot;, dna)#将T碱基替换成U碱基 字符串连接 paste (&amp;hellip;, sep = &amp;ldquo; &amp;ldquo;, collapse = NULL) paste0(&amp;hellip;, collapse = NULL) sep: a character string to separate the terms. collapse: an optional character string to separate the results. paste(&amp;quot;control&amp;quot;, 1:3, sep =&amp;quot;_&amp;quot;) ## [1] &amp;quot;control_1&amp;quot; &amp;quot;control_2&amp;quot; &amp;quot;control_3&amp;quot;</description>
+    </item>
     
     <item>
       <title>GSVA</title>
@@ -166,7 +184,7 @@ Usage  Sign up to AppVeyor. Enable testing for your project. Run devtools::use_a
     </item>
     
     <item>
-      <title>R包安装路径设置及从Bioconductor安装包</title>
+      <title>R包安装路径设置及从Bioconductor安装包,BiocCheck</title>
       <link>/blog/cn/2018/05/r_environment/</link>
       <pubDate>Tue, 15 May 2018 15:36:41 +0000</pubDate>
       
@@ -262,24 +280,6 @@ Usage  Sign up to AppVeyor. Enable testing for your project. Run devtools::use_a
       
       <guid>/blog/cn/2017/11/gtf_gene_position/</guid>
       <description>原文 ：http://www.biotrainee.com/thread-472-1-1.html mkdir -p ~/reference/gtf/gencode cd ~/reference/gtf/gencode ## https://www.gencodegenes.org/releases/current.html wget ftp://ftp.sanger.ac.uk/pub/gencode/Gencode_human/release_25/gencode.v25.2wayconspseudos.gtf.gz wget ftp://ftp.sanger.ac.uk/pub/gencode/Gencode_human/release_25/gencode.v25.long_noncoding_RNAs.gtf.gz wget ftp://ftp.sanger.ac.uk/pub/gencode/Gencode_human/release_25/gencode.v25.polyAs.gtf.gz wget ftp://ftp.sanger.ac.uk/pub/gencode/Gencode_human/release_25/gencode.v25.annotation.gtf.gz ## https://www.gencodegenes.org/releases/25lift37.html wget ftp://ftp.sanger.ac.uk/pub/gencode/Gencode_human/release_25/GRCh37_mapping/gencode.v25lift37.annotation.gtf.gz wget ftp://ftp.sanger.ac.uk/pub/gencode/Gencode_human/release_25/GRCh37_mapping/gencode.v25lift37.metadata.HGNC.gz wget</description>
-    </item>
-    
-    <item>
-      <title>外显子测序数据分析学习笔记</title>
-      <link>/blog/cn/2017/11/whole_exon_sequencing_study/</link>
-      <pubDate>Thu, 09 Nov 2017 18:01:02 +0000</pubDate>
-      
-      <guid>/blog/cn/2017/11/whole_exon_sequencing_study/</guid>
-      <description>学习提纲： （1）肿瘤全外显子测序数据分析流程 微信连接 (2) WES分析七步走 (3) WES 测序质量控制 (4) WES（二）snp-calling (5) WES（三）sn</description>
-    </item>
-    
-    <item>
-      <title>DNA Methylation甲基化450k,850k芯片</title>
-      <link>/blog/cn/2017/11/humanmethylation450_850k/</link>
-      <pubDate>Tue, 07 Nov 2017 23:39:50 +0000</pubDate>
-      
-      <guid>/blog/cn/2017/11/humanmethylation450_850k/</guid>
-      <description>Illumina HumanMethylation BeadChip简介 Illumina最早的甲基化芯片是27K（K代表1000，表示大概可以测到的CpG位点数）的数据，后来增加到了450</description>
     </item>
     
   </channel>

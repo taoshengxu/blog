@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <title>R语言字符串处理汇总 - My Lives</title>
+    <meta property="og:title" content="R语言字符串处理汇总 - My Lives">
+    
+
+    
+      
+    
+
+    
+
+    
+    
+
+
+<link href='//cdn.bootcss.com/highlight.js/9.12.0/styles/github.min.css' rel='stylesheet' type='text/css' />
+
+
+
+    <link rel="stylesheet" href="/blog/css/style.css" />
+    <link rel="stylesheet" href="/blog/css/fonts.css" />
+    <link rel="stylesheet" href="/blog/css/custom.css" />
+
+  </head>
+
+  
+  <body class="blog">
+    <header class="masthead">
+      <h1><a href="/blog/">My Lives</a></h1>
+
+
+
+      <nav class="menu">
+        <input id="menu-check" type="checkbox" />
+        <label id="menu-label" for="menu-check" class="unselectable">
+          <span class="icon close-icon">✕</span>
+          <span class="icon open-icon">☰</span>
+          <span class="text">Menu</span>
+        </label>
+        <ul>
+        
+        
+        <li><a href="/blog/">Home</a></li>
+        
+        <li><a href="/blog/en/">English</a></li>
+        
+        <li><a href="/blog/cn/">Chinese</a></li>
+        
+        <li><a href="/blog/paper/">Paper Reading</a></li>
+        
+        <li><a href="/blog/travel/">Travel</a></li>
+        
+        
+        </ul>
+      </nav>
+    </header>
+
+    <article class="main">
+      <header class="title">
+      
+<h1>R语言字符串处理汇总</h1>
+
+<h3>
+  2018-12-21</h3>
+<hr>
+
+
+      </header>
+
+
+
+
+
+<h1 id="字符翻译">字符翻译</h1>
+
+<ul>
+<li><p>tolower(),</p></li>
+
+<li><p>toupper()</p></li>
+
+<li><p>chartr()</p></li>
+</ul>
+
+<pre><code>  dna &lt;-&quot;AgCTaaGGGcctTagct&quot;
+  chartr(&quot;T&quot;, &quot;U&quot;, dna)#将T碱基替换成U碱基
+</code></pre>
+
+<h1 id="字符串连接">字符串连接</h1>
+
+<ul>
+<li><p>paste (&hellip;, sep = &ldquo; &ldquo;, collapse = NULL)</p></li>
+
+<li><p>paste0(&hellip;, collapse = NULL)</p></li>
+</ul>
+
+<p><em>sep:  a character string to separate the terms.</em></p>
+
+<p><em>collapse: an optional character string to separate the results.</em></p>
+
+<pre><code class="language-R">paste(&quot;control&quot;, 1:3, sep =&quot;_&quot;)
+## [1] &quot;control_1&quot; &quot;control_2&quot; &quot;control_3&quot;
+x &lt;- list(a =&quot;aa&quot;, b =&quot;bb&quot;)
+y &lt;- list(c =1, d =2)
+paste(x, y, sep =&quot;-&quot;)
+## [1] &quot;aa-1&quot; &quot;bb-2&quot;
+paste(x, y, sep =&quot;-&quot;, collapse =&quot;;&quot;)
+## [1] &quot;aa-1;bb-2&quot;
+paste(x, collapse =&quot;:&quot;)
+## [1] &quot;aa:bb&quot;
+</code></pre>
+
+<p><strong>特殊应用场景</strong>：对应一个矩阵x, 按行连接矩阵元素(以“#”分隔)并生成一个向量.</p>
+
+<pre><code class="language-R">paste(x, collapse = '#')
+</code></pre>
+
+<h1 id="字符串替换">字符串替换</h1>
+
+<ul>
+<li>gsub(pattern, replacement, x, ignore.case = FALSE, perl = FALSE, fixed = FALSE, useBytes = FALSE)</li>
+</ul>
+
+<p><em>gsub()是对向量里面的每个元素进行搜素，如果发现元素里面有多个位置匹配了模式，则全部进行替换.</em></p>
+
+<pre><code class="language-R">text &lt;- c(&quot;we are the world&quot;, &quot;we are the children&quot;) 
+gsub(&quot;w&quot;, &quot;W&quot;, text)
+# [1] &quot;We are the World&quot;    &quot;We are the children&quot; 
+gsub(&quot; &quot;, &quot;&quot;, &quot;abc def ghi&quot;)
+# [1] &quot;abcdefghi&quot; 
+</code></pre>
+
+<h1 id="字符串查找">字符串查找</h1>
+
+<ul>
+<li>grep(pattern, x, ignore.case= F, perl= F, value= F, fixed= F, useBytes= F, invert= F</li>
+</ul>
+
+<p><em>返回向量x中哪个元素匹配了模式pattern（即返回了向量x的某些下标）或者具体哪个元素匹配了模式（通过设置value参数来完成）</em></p>
+
+<ul>
+<li>grepl(pattern, x, ignore.case= F, perl= F, fixed= F, useBytes= F)</li>
+</ul>
+
+<p><em>返回一系列逻辑值，其长度等同于向量x的长度，表示向量x中的元素是否匹配了模式。</em></p>
+
+<p><code>以上两个函数都没有提供具体的位置信息，即向量x中的元素在哪个位置匹配了模式。</code></p>
+
+<ul>
+<li>regexpr(pattern, text, ignore.case = FALSE, perl = FALSE, fixed = FALSE, useBytes = FALSE)</li>
+</ul>
+
+<p><em>查找每个向量中每个元素第一个匹配的位置，返回值是向量</em></p>
+
+<ul>
+<li>regexec(pattern, text, ignore.case = FALSE, fixed = FALSE, useBytes = FALSE)</li>
+</ul>
+
+<p><em>查找每个向量中每个元素第一个匹配的位置，返回值是list</em></p>
+
+<ul>
+<li><strong>gregexpr</strong>(pattern, text, ignore.case = FALSE, perl = FALSE, fixed = FALSE, useBytes = FALSE)</li>
+</ul>
+
+<p><strong><em>查找向量中每个元素所有能匹配的位置，返回值是list。 这个函数最常用☆</em></strong></p>
+
+<p>​       <em><code>以上三个返回的结果中包含了匹配的具体位置和字符串长度信息（因此可用于字符串的提取操作中去）</code></em></p>
+
+<pre><code class="language-R">## 非常清晰的示例程序
+text &lt;- c(&quot;We are the world&quot;, &quot;we are the children&quot;)
+grep(&quot;We&quot;, text)#向量text中的哪些元素匹配了单词'We'
+## [1] 1
+grep(&quot;We&quot;, text, invert =T)#向量text中的哪些元素没有匹配单词'We'
+## [1] 2
+grep(&quot;we&quot;, text, ignore.case =T)#匹配时忽略大小写
+## [1] 1 2
+grepl(&quot;We&quot;, text)#向量text中的每个元素是否匹配了单词'We'，即只返回TRUE或FALSE
+## [1] TRUE FALSE
+
+regexpr(&quot;e&quot;, text)
+## [1] 2 2
+## attr(,&quot;match.length&quot;)
+## [1] 1 1
+## attr(,&quot;useBytes&quot;)
+## [1] TRUE
+
+regexec(&quot;e&quot;, text) 
+## [[1]]
+## [1] 2
+## attr(,&quot;match.length&quot;)
+## [1] 1
+
+## [[2]]
+## [1] 2
+## attr(,&quot;match.length&quot;)
+## [1] 1
+
+gregexpr(&quot;e&quot;, text)
+## [[1]]
+## [1]  2  6 10
+## attr(,&quot;match.length&quot;)
+## [1] 1 1 1
+## attr(,&quot;useBytes&quot;)
+## [1] TRUE
+
+## [[2]]
+## [1]  2  6 10 18
+## attr(,&quot;match.length&quot;)
+## [1] 1 1 1 1
+## attr(,&quot;useBytes&quot;)
+## [1] TRUE
+
+##另外一个例子
+gregexpr(pattern ='2',&quot;the2quickbrownfoxeswere2tired&quot;)
+library(stringr)
+str_locate_all(pattern ='2', &quot;the2quickbrownfoxeswere2tired&quot;)
+##[[1]]
+##     start end
+##[1,]     4   4
+##[2,]    24  24
+lapply(strsplit(x, ''), function(x) which(x == '2'))
+</code></pre>
+
+<h3 id="完全匹配">完全匹配</h3>
+
+<p>match(x, table, nomatch= NAinteger, incomparables)</p>
+
+<p><em>只有参数x的内容被完全匹配，函数才会返回参数x所在table参数中的下标，否则的话会返回nomatch参数中定义的值（默认是NA）</em></p>
+
+<p>此外还有一个charmatch()或者pmatch()，其命令形式类似于match。同样该函数也会返回其匹配字符串所在table中的下标，该函数在进行匹配时，会从table里字符串的最左面（即第一个字符）开始匹配，如果起始位置没有匹配则返回NA；如果同时部分匹配和完全匹配，则会优先选择完全匹配；如果同时有多个完全匹配或者多个部分匹配时，则会返回0；如果以上三个都没有，则返回NA。</p>
+
+<pre><code class="language-R">text &lt;- c(&quot;We are the world&quot;, &quot;we are the children&quot;, &quot;we&quot;) 
+match(&quot;we&quot;, text)
+# [1] 3 
+match(2, c(3, 4, 2, 8))
+# [1] 3 
+match(&quot;xx&quot;, c(&quot;abc&quot;, &quot;xxx&quot;, &quot;xx&quot;, &quot;xx&quot;))#只会返回第一个完全匹配的元素的下标
+# [1] 3 
+match(&quot;xx&quot;, c(&quot;abc&quot;, &quot;xxx&quot;))# 没有完全匹配的，因此返回NA
+# [1] NA 
+
+charmatch(&quot;xx&quot;, c(&quot;abc&quot;, &quot;xxa&quot;))
+# [1] 2 
+charmatch(&quot;xx&quot;, c(&quot;abc&quot;, &quot;axx&quot;))# 从最左面开始匹配
+# [1] NA 
+charmatch(&quot;xx&quot;, c(&quot;xxa&quot;, &quot;xxb&quot;))# 不唯一
+# [1] 0 
+charmatch(&quot;xx&quot;, c(&quot;xxa&quot;, &quot;xxb&quot;, &quot;xx&quot;))# 优先选择完全匹配，尽管有两个部分匹配
+# [1] 3 
+charmatch(2, c(3, 4, 2, 8))
+# [1] 3 
+charmatch(2, c(3, 4, 2, 8, 2))
+# [1] 0 
+</code></pre>
+
+<h3 id="多重查找">多重查找</h3>
+
+<pre><code class="language-R">x &lt;- sample(1:10,20,replace=TRUE)
+x 
+# [1]8 6 9 9 7 3 2 5 5 1 6 8 5 2 9 3 5 1 0 8 2
+inds &lt;- which(x %in% c(8,9))
+inds
+# [1]1 3 4 1 2 1 5 1 9
+x[inds]
+# [1]8 9 9 8 9 8
+</code></pre>
+
+<h3 id="查找所有重复项">查找所有重复项</h3>
+
+<pre><code class="language-R">vec &lt;- c(&quot;a&quot;,&quot;b&quot;,&quot;c&quot;,&quot;c&quot;,&quot;c&quot;)  
+vec[duplicated(vec)| duplicated(vec, fromLast=TRUE)]
+## [1] &quot;c&quot; &quot;c&quot; &quot;c&quot;
+</code></pre>
+
+<h3 id="比较两个向量">比较两个向量</h3>
+
+<pre><code class="language-R">#compare two vector in R
+all( vector1, vetor2 )
+isTRUE(all.equal(D,E))
+</code></pre>
+
+<h1 id="字符串分割">字符串分割</h1>
+
+<pre><code class="language-R">strsplit(x, split, fixed = FALSE, perl = FALSE, useBytes = FALSE)
+</code></pre>
+
+<ul>
+<li><p><em>参数x为字符串格式向量，函数依次对向量的每个元素进行拆分</em></p></li>
+
+<li><p><em>参数split为拆分位置的字串向量，即在哪个字串处开始拆分；该参数默认是正则表达式匹配；若设置fixed= T则表示是用普通文本匹配或者正则表达式的精确匹配。用普通文本来匹配的运算速度要快些。</em></p></li>
+
+<li><p><em>参数perl的设置和perl的版本有关，表示可以使用perl语言里面的正则表达式。如果正则表达式过长，则可以考虑使用perl的正则来提高运算速度。</em></p></li>
+
+<li><p>*参数useBytes表示是否逐字节进行匹配，默认为FALSE，表示是按字符匹配而不是按字节进行匹配</p></li>
+</ul>
+
+<p><code>strsplit()的返回结果是list类型，如果想将其转换成字符串类型，则可以使用上面提到的unlist()和as.character()。有一种特殊情况，如果strsplit()的split参数为空字符串的话，得函数的返回结果是一个个字符。</code></p>
+
+<p><strong>特殊应用场景</strong>：对于输入是一个字符串vector, 取每一个元素拆分的第二位置的数据。</p>
+
+<pre><code class="language-R">library(plyr)
+gene=c(&quot;1 KRT19&quot;, &quot;2 AGR2&quot;,&quot;3 RAB25&quot;, &quot;4 CDH1&quot;,&quot;5 ERBB3&quot;)
+gene=ldply(strsplit(gene, split = &quot; &quot;))[[2]]
+</code></pre>
+
+<h1 id="字符串提取">字符串提取</h1>
+
+<ul>
+<li>substr(x, start, stop)</li>
+</ul>
+
+<p><em>返回字符串个数等于第一个向量的长度</em></p>
+
+<ul>
+<li>substring(text, first, last)</li>
+</ul>
+
+<p>​      <em>返回的字符串个数等于其三个参数中长度最长的那个参数的长度</em></p>
+
+<pre><code class="language-R">x &lt;-&quot;123456789&quot; 
+substr(x, c(2, 4), c(4, 5, 8))
+# [1] &quot;234&quot; 
+substring(x, c(2, 4), c(4, 5, 8))
+# [1] &quot;234&quot;     &quot;45&quot;      &quot;2345678&quot; 
+y &lt;- c(&quot;12345678&quot;, &quot;abcdefgh&quot;)
+substr(y, c(2, 4), c(4, 5, 8))
+# [1] &quot;234&quot; &quot;de&quot; 
+substring(y, c(2, 4), c(4, 5, 8))
+# [1] &quot;234&quot;     &quot;de&quot;      &quot;2345678&quot;
+</code></pre>
+
+<p>从上面的输出结果来，向量x的长度为1，substr()不管后面的两个参数的长度如何，它只会用到这两个参数的第一个数值，即分别为2和4，表示提取的起始和终止位置分别为2和4，返回的结果则是字符串“234”。而用substring()来提取时，则会依据参数最长的last参数，此外还需要注意的是first和last两个参数的长度不等，这时会用到R里面的“短向量循环”原则，参数first会自动延长为c(2, 4, 2)，函数会依次提取从2到4，从4到5，从2到8这三个字符串。</p>
+
+<pre><code class="language-R">#用substing()可以很方便地把DNA或RNA序列进行翻译（三个碱基转换成一个密码子）。
+dna &lt;- paste(sample(c(&quot;A&quot;, &quot;G&quot;, &quot;C&quot;, &quot;T&quot;), 12, replace =T), collapse =&quot;&quot;) 
+dna 
+# [1] &quot;ATAACGCGTGGG&quot; 
+substring(dna, seq(1, 10, by =3), seq(3, 12, by =3))
+# [1] &quot;ATA&quot; &quot;ACG&quot; &quot;CGT&quot; &quot;GGG&quot;
+</code></pre>
+
+<h2 id="字符串的定制输出">字符串的定制输出</h2>
+
+<ul>
+<li>strtrim(x, width)</li>
+</ul>
+
+<p><em>将字符串修剪到特定的显示宽度</em></p>
+
+<ul>
+<li>strwrap(x, width, indent= 0, exdent= 0, prefix= “”, simplify= T, initial= prefix)</li>
+</ul>
+
+<p><em>把字符串当成一个段落来处理（不管段落中是否有换行），按照段落的格式进行缩进和分行，返回结果就是  一行行的字符串.</em></p>
+
+<pre><code class="language-R">  strtrim(c(&quot;abcde&quot;, &quot;abcde&quot;, &quot;abcde&quot;), c(1, 5, 10))
+  ## [1] &quot;a&quot;     &quot;abcde&quot; &quot;abcde&quot;
+  strtrim(c(1, 123, 12345), 4)#短向量循环
+  ## [1] &quot;1&quot;    &quot;123&quot;  &quot;1234&quot;
+</code></pre>
+
+<h1 id="其他处理技巧汇总">其他处理技巧汇总</h1>
+
+<p>1,查找 NA</p>
+
+<pre><code>which(is.na(vector))
+any(is.na(data))
+</code></pre>
+
+<p>2, <strong>生成一个限定长度带名字的list</strong></p>
+
+<pre><code>mylist.names &lt;- c(&quot;a&quot;, &quot;b&quot;, &quot;c&quot;)
+mylist &lt;- vector(&quot;list&quot;, length(mylist.names))
+names(mylist) &lt;- mylist.names
+</code></pre>
+
+<p>3,  矩阵和向量按行乘</p>
+
+<pre><code class="language-R">MyMatrix &lt;- matrix(c(1,2,3,11,12,13), nrow =2, ncol=3, byrow=TRUE)
+MyVector &lt;- c(1:3)
+# You could use either:
+t(t(MyMatrix)* MyVector)
+# or:
+MyMatrix %*% diag(MyVector)
+</code></pre>
+
+<p>4,通过字符串取对象的值</p>
+
+<pre><code class="language-R">ret_series &lt;- c(1,2,3);
+x &lt;-&quot;ret_series&quot;;
+get(x)
+
+#相反功能
+assign(name[i],feature_cox_result_order)
+a =1
+get('a')
+#To use it with save:
+to_be_saved_obj = paste(&quot;mat&quot;, a, sep =&quot;_&quot;) 
+save(list = to_be_saved_obj, file ='mat.Rdata')
+</code></pre>
+
+
+  <footer>
+  
+<nav class="post-nav">
+  <span class="nav-prev">&larr; <a href="/blog/cn/2018/12/gsva/">GSVA</a></span>
+  <span class="nav-next"><a href="/blog/cn/2018/12/r_apply/">R Apply函数</a> &rarr;</span>
+</nav>
+
+
+
+
+
+<script src="//yihui.name/js/math-code.js"></script>
+<script async src="//cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+<script async src="//yihui.name/js/center-img.js"></script>
+
+  
+
+
+
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+
+
+
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/r.min.js"></script>
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/yaml.min.js"></script>
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/tex.min.js"></script>
+<script>hljs.configure({languages: []}); hljs.initHighlightingOnLoad();</script>
+
+
+
+  
+  <hr>
+  <div class="copyright">&copy; <a href="xxxx">Who care</a> 2017 - Forever, maybe</div>
+  
+  </footer>
+  </article>
+  
+  </body>
+</html>
+
