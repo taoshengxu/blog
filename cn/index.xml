@@ -6,10 +6,19 @@
     <description>Recent content in 中文博客 on My Lives</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 22 Dec 2018 00:48:16 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 23 Dec 2018 00:53:52 +0000</lastBuildDate>
     
 	<atom:link href="/blog/cn/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>clusterProfiler包</title>
+      <link>/blog/cn/2018/12/clusterprofiler/</link>
+      <pubDate>Sun, 23 Dec 2018 00:53:52 +0000</pubDate>
+      
+      <guid>/blog/cn/2018/12/clusterprofiler/</guid>
+      <description>clusterProfiler包的很多内容还是理解不了。 Q1: GO的level，在什么研究中会涉及到？ 一般来说，level越大，GO功能越具体。</description>
+    </item>
     
     <item>
       <title>R Apply函数</title>
@@ -30,7 +39,7 @@
     </item>
     
     <item>
-      <title>GSVA</title>
+      <title>GSVA基因集合变异分析</title>
       <link>/blog/cn/2018/12/gsva/</link>
       <pubDate>Fri, 21 Dec 2018 10:21:43 +0000</pubDate>
       
@@ -271,15 +280,6 @@ Usage  Sign up to AppVeyor. Enable testing for your project. Run devtools::use_a
       
       <guid>/blog/cn/2017/11/genomic_live_streaming/</guid>
       <description>教程 Jimmy直播我的基因组分析 - 目录 下载hg19基因组 cd /data/reference mkdir -p genome/hg19 &amp;amp;&amp;amp; cd genome/hg19 nohup wget http://hgdownload.cse.ucsc.edu/goldenPath/hg19/bigZips/chromFa.tar.gz &amp;amp; tar zvfx chromFa.tar.gz cat *.fa &amp;gt; hg19.fa rm chr*.fa fastq-sam-bam ls *gz |xargs ~/biosoft/fastqc/FastQC/fastqc -t 10 for i in $(seq 1 6) ;do (nohup bwa mem -t 5 -M /data/reference/index/bwa/hg19</description>
-    </item>
-    
-    <item>
-      <title>根据gtf格式的基因注释文件得到人所有基因的染色体坐标</title>
-      <link>/blog/cn/2017/11/gtf_gene_position/</link>
-      <pubDate>Fri, 10 Nov 2017 11:00:13 +0000</pubDate>
-      
-      <guid>/blog/cn/2017/11/gtf_gene_position/</guid>
-      <description>原文 ：http://www.biotrainee.com/thread-472-1-1.html mkdir -p ~/reference/gtf/gencode cd ~/reference/gtf/gencode ## https://www.gencodegenes.org/releases/current.html wget ftp://ftp.sanger.ac.uk/pub/gencode/Gencode_human/release_25/gencode.v25.2wayconspseudos.gtf.gz wget ftp://ftp.sanger.ac.uk/pub/gencode/Gencode_human/release_25/gencode.v25.long_noncoding_RNAs.gtf.gz wget ftp://ftp.sanger.ac.uk/pub/gencode/Gencode_human/release_25/gencode.v25.polyAs.gtf.gz wget ftp://ftp.sanger.ac.uk/pub/gencode/Gencode_human/release_25/gencode.v25.annotation.gtf.gz ## https://www.gencodegenes.org/releases/25lift37.html wget ftp://ftp.sanger.ac.uk/pub/gencode/Gencode_human/release_25/GRCh37_mapping/gencode.v25lift37.annotation.gtf.gz wget ftp://ftp.sanger.ac.uk/pub/gencode/Gencode_human/release_25/GRCh37_mapping/gencode.v25lift37.metadata.HGNC.gz wget</description>
     </item>
     
   </channel>
