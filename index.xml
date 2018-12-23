@@ -10,25 +10,332 @@
     <atom:link href="/blog/" rel="self" type="application/rss+xml" />
     
     <item>
+      <title>dplyr包_tidyr包</title>
+      <link>/blog/cn/2018/12/dplyr_tidyr/</link>
+      <pubDate>Sun, 23 Dec 2018 21:58:23 +0000</pubDate>
+      
+      <guid>/blog/cn/2018/12/dplyr_tidyr/</guid>
+      <description>
+        
+
+&lt;p&gt;&lt;a href=&#34;https://blog.csdn.net/pilouduo1367/article/details/69675678&#34;&gt;https://blog.csdn.net/pilouduo1367/article/details/69675678&lt;/a&gt;&lt;/p&gt;
+
+&lt;h1 id=&#34;1-dplyr包-数据框整理神器&#34;&gt;1 dplyr包&amp;ndash;数据框整理神器&lt;/h1&gt;
+
+&lt;h3 id=&#34;1-1-展现数据-tbl-df&#34;&gt;1.1 展现数据 &lt;code&gt;tbl_df()&lt;/code&gt;：&lt;/h3&gt;
+
+&lt;p&gt;函数&lt;code&gt;tbl_df()&lt;/code&gt;使得大数据集规范显示出来，行列都只显示10个，跟head差不多，但是head只能控制行，无法控制列，使用&lt;code&gt;tbl_df()&lt;/code&gt;就是为了防止数据刷屏。&lt;/p&gt;
+
+&lt;h3 id=&#34;1-2-筛选数据-filter&#34;&gt;1.2 筛选数据 &lt;code&gt;filter()&lt;/code&gt;：&lt;/h3&gt;
+
+&lt;p&gt;按给定的逻辑判断筛选出符合要求的子数据集&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-R&#34;&gt;mtcars_df &amp;lt;- tbl_df(mtcars)
+filter(mtcars_df, mpg == 21, cyl == 6)
+# A tibble: 2 × 11
+#    mpg   cyl  disp    hp  drat    wt  qsec    vs    am  gear  carb
+#  &amp;lt;dbl&amp;gt; &amp;lt;dbl&amp;gt; &amp;lt;dbl&amp;gt; &amp;lt;dbl&amp;gt; &amp;lt;dbl&amp;gt; &amp;lt;dbl&amp;gt; &amp;lt;dbl&amp;gt; &amp;lt;dbl&amp;gt; &amp;lt;dbl&amp;gt; &amp;lt;dbl&amp;gt; &amp;lt;dbl&amp;gt;
+#1    21     6   160   110   3.9 2.620 16.46     0     1     4     4
+#2    21     6   160   110   3.9 2.875 17.02     0     1     4     4
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;1-3-排列数据-arrange&#34;&gt;1.3 排列数据 &lt;code&gt;arrange()&lt;/code&gt;：&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-R&#34;&gt;#先对cyl列正序排列，再对carb列倒序排列
+xx= arrange(mtcars_df, cyl, desc(carb))
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;1-4-选择子集-select&#34;&gt;1.4 选择子集 &lt;code&gt;select()&lt;/code&gt;&lt;/h3&gt;
+
+&lt;p&gt;用列名作参数来选择子数据集&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-R&#34;&gt;select(mtcars_df, mpg, disp:wt, carb) # disp:wt表示从disp列选到wt列
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;1-5-变形-mutate&#34;&gt;1.5 变形 &lt;code&gt;mutate()&lt;/code&gt;：&lt;/h3&gt;
+
+&lt;p&gt;对已有列进行数据运算并添加为新列&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-R&#34;&gt;mutate(mtcars_df, NO = 1:dim(mtcars_df)[1], res = hp - drat)  
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;1-6-总览数据-summarise&#34;&gt;1.6 总览数据 &lt;code&gt;summarise()&lt;/code&gt;：&lt;/h3&gt;
+
+&lt;p&gt;对数据框调用其它函数进行汇总操作, 返回一维的结果&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-R&#34;&gt;summarise(mtcars_df, mdisp = mean(disp, na.rm = TRUE), mhp = mean(hp, na.rm = TRUE))
+# A tibble: 1 × 2
+     mdisp      mhp
+     &amp;lt;dbl&amp;gt;    &amp;lt;dbl&amp;gt;
+1 230.7219 146.6875
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;1-7-数据分组-group-by&#34;&gt;1.7 数据分组 &lt;code&gt;group_by()&lt;/code&gt;：&lt;/h3&gt;
+
+&lt;p&gt;当对数据集通过group_by()添加了分组信息后，mutate()，arrange() 和 summarise() 函数会自动对这些 tbl 类数据执行分组操作。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-R&#34;&gt;cars &amp;lt;- group_by(mtcars_df, cyl)
+(countcars &amp;lt;- summarise(cars, count = n())) # count = n()用来计算次数
+# A tibble: 3 × 2
+    cyl count
+  &amp;lt;dbl&amp;gt; &amp;lt;int&amp;gt;
+1     4    11
+2     6     7
+3     8    14
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;2-tidyr包-数据变形&#34;&gt;2 tidyr包&amp;ndash;数据变形&lt;/h1&gt;
+
+&lt;h3 id=&#34;2-1-宽转长-gather&#34;&gt;2.1 宽转长 &lt;code&gt;gather()&lt;/code&gt;：&lt;/h3&gt;
+
+&lt;p&gt;使用gather()函数实现宽表转长表，语法如下：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-R&#34;&gt;# gather(data, key, value, …, na.rm = FALSE, convert = FALSE)
+# data：需要被转换的宽形表
+# key：将原数据框中的所有列赋给一个新变量key
+# value：将原数据框中的所有值赋给一个新变量value
+# …：可以指定哪些列聚到同一列中
+# na.rm：是否删除缺失值
+
+longdata &amp;lt;- gather(mtcars_df, attribute, value, -mpg)
+longdata &amp;lt;- gather(mtcars_df, attribute, value)
+longdata &amp;lt;- gather(mtcars_df, attribute, value, mpg, carb)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;2-2-长转宽-spread&#34;&gt;2.2 长转宽 &lt;code&gt;spread()&lt;/code&gt;：&lt;/h3&gt;
+
+&lt;p&gt;有时，为了满足建模或绘图的要求，往往需要将长形表转换为宽形表，或将宽形表变为长形表。如何实现这两种数据表类型的转换。使用spread()函数实现长表转宽表，语法如下：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;# spread(data, key, value, fill = NA, convert = FALSE, drop = TRUE)
+# data：为需要转换的长形表
+# key：需要将变量值拓展为字段的变量
+# value：需要分散的值
+# fill：对于缺失值，可将fill的值赋值给被转型后的缺失值
+
+spread(longdata, attribute, value)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;2-3-合并-unit&#34;&gt;2.3 合并 &lt;code&gt;unit()&lt;/code&gt;：&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-R&#34;&gt;# unite(data, col, …, sep = “_”, remove = TRUE)
+# data：为数据框
+# col：被组合的新列名称
+# …：指定哪些列需要被组合
+# sep：组合列之间的连接符，默认为下划线
+# remove：是否删除被组合的列
+
+TIMES &amp;lt;- data.frame(years = c(&#39;1990&#39;, &#39;1991&#39;, &#39;1992&#39;), months = c(2,3,4), day = c(1, 2, 3))
+TIMESunite &amp;lt;- unite(TIMES, information, months, day, sep= &amp;quot;-&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;2-4-拆分-separate&#34;&gt;2.4 拆分 &lt;code&gt;separate()&lt;/code&gt;：&lt;/h3&gt;
+
+&lt;p&gt;separate()函数可将一列拆分为多列，一般可用于日志数据或日期时间型数据的拆分.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-R&#34;&gt;# separate(data, col, into, sep = “[^[:alnum:]]+”, remove = TRUE,
+# convert = FALSE, extra = “warn”, fill = “warn”, …)
+# data：为数据框
+# col：需要被拆分的列
+# into：新建的列名，为字符串向量
+# sep：被拆分列的分隔符
+# remove：是否删除被分割的列
+TIMESsep &amp;lt;- separate(TIMESunite, information, c(&amp;quot;months&amp;quot;, &amp;quot;day&amp;quot;), sep = &amp;quot;-&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>WGCNA加权基因共表达网络分析</title>
+      <link>/blog/cn/2018/12/wgcna/</link>
+      <pubDate>Sun, 23 Dec 2018 01:17:52 +0000</pubDate>
+      
+      <guid>/blog/cn/2018/12/wgcna/</guid>
+      <description>
+        &lt;ul&gt;
+&lt;li&gt;待学习，有道云笔记中保存了很多相关资料。&lt;/li&gt;
+&lt;/ul&gt;
+
+        
+      </description>
+    </item>
+    
+    <item>
       <title>clusterProfiler包</title>
       <link>/blog/cn/2018/12/clusterprofiler/</link>
       <pubDate>Sun, 23 Dec 2018 00:53:52 +0000</pubDate>
       
       <guid>/blog/cn/2018/12/clusterprofiler/</guid>
       <description>
-        &lt;p&gt;&lt;a href=&#34;https://bioconductor.org/packages/release/bioc/vignettes/clusterProfiler/inst/doc/clusterProfiler.html&#34;&gt;clusterProfiler&lt;/a&gt;包的很多内容还是理解不了。&lt;/p&gt;
+        
 
-&lt;ul&gt;
-&lt;li&gt;&lt;p&gt;Q1: GO的level，在什么研究中会涉及到？ 一般来说，level越大，GO功能越具体。level就像一棵树树主干一样，发了不同的枝叶，level越大枝叶越详细。&lt;/p&gt;&lt;/li&gt;
+&lt;p&gt;&lt;a href=&#34;https://bioconductor.org/packages/release/bioc/vignettes/clusterProfiler/inst/doc/clusterProfiler.html&#34;&gt;clusterProfiler&lt;/a&gt;包的很多内容还是理解不了。&lt;/p&gt;
 
-&lt;li&gt;&lt;p&gt;Q2： GO over-representation test 是我们最经常用到的基因功能分析，为什么没有考虑到level的问题，一般选择哪种（CC, MF,BP）进行分析？&lt;/p&gt;&lt;/li&gt;
+&lt;h2 id=&#34;bitr-基因集id转换&#34;&gt;&lt;code&gt;bitr&lt;/code&gt;: 基因集ID转换&lt;/h2&gt;
 
-&lt;li&gt;&lt;p&gt;Q3： GO Gene Set Enrichment Analysis 大概的原理我能明白，结果图如阿理解？&lt;/p&gt;&lt;/li&gt;
-&lt;/ul&gt;
+&lt;pre&gt;&lt;code class=&#34;language-R&#34;&gt;x &amp;lt;- c(&amp;quot;GPX3&amp;quot;,  &amp;quot;GLRX&amp;quot;,   &amp;quot;LBP&amp;quot;,   &amp;quot;CRYAB&amp;quot;, &amp;quot;DEFB1&amp;quot;, &amp;quot;HCLS1&amp;quot;,   &amp;quot;SOD2&amp;quot;,   &amp;quot;HSPA2&amp;quot;,
+       &amp;quot;ORM1&amp;quot;,  &amp;quot;IGFBP1&amp;quot;, &amp;quot;PTHLH&amp;quot;, &amp;quot;GPC3&amp;quot;,  &amp;quot;IGFBP3&amp;quot;,&amp;quot;TOB1&amp;quot;,    &amp;quot;MITF&amp;quot;,   &amp;quot;NDRG1&amp;quot;,
+       &amp;quot;NR1H4&amp;quot;, &amp;quot;FGFR3&amp;quot;,  &amp;quot;PVR&amp;quot;,   &amp;quot;IL6&amp;quot;,   &amp;quot;PTPRM&amp;quot;, &amp;quot;ERBB2&amp;quot;,   &amp;quot;NID2&amp;quot;,   &amp;quot;LAMB1&amp;quot;,
+       &amp;quot;COMP&amp;quot;,  &amp;quot;PLS3&amp;quot;,   &amp;quot;MCAM&amp;quot;,  &amp;quot;SPP1&amp;quot;,  &amp;quot;LAMC1&amp;quot;, &amp;quot;COL4A2&amp;quot;,  &amp;quot;COL4A1&amp;quot;, &amp;quot;MYOC&amp;quot;,
+       &amp;quot;ANXA4&amp;quot;, &amp;quot;TFPI2&amp;quot;,  &amp;quot;CST6&amp;quot;,  &amp;quot;SLPI&amp;quot;,  &amp;quot;TIMP2&amp;quot;, &amp;quot;CPM&amp;quot;,     &amp;quot;GGT1&amp;quot;,   &amp;quot;NNMT&amp;quot;,
+       &amp;quot;MAL&amp;quot;,   &amp;quot;EEF1A2&amp;quot;, &amp;quot;HGD&amp;quot;,   &amp;quot;TCN2&amp;quot;,  &amp;quot;CDA&amp;quot;,   &amp;quot;PCCA&amp;quot;,    &amp;quot;CRYM&amp;quot;,   &amp;quot;PDXK&amp;quot;,
+       &amp;quot;STC1&amp;quot;,  &amp;quot;WARS&amp;quot;,  &amp;quot;HMOX1&amp;quot;, &amp;quot;FXYD2&amp;quot;, &amp;quot;RBP4&amp;quot;,   &amp;quot;SLC6A12&amp;quot;, &amp;quot;KDELR3&amp;quot;, &amp;quot;ITM2B&amp;quot;)
+eg = bitr(x, fromType=&amp;quot;SYMBOL&amp;quot;, toType=&amp;quot;ENTREZID&amp;quot;, OrgDb=&amp;quot;org.Hs.eg.db&amp;quot;)
+head(eg)
+library(org.Hs.eg.db)
+keytypes(org.Hs.eg.db)
+##  [1] &amp;quot;ACCNUM&amp;quot;       &amp;quot;ALIAS&amp;quot;        &amp;quot;ENSEMBL&amp;quot;      &amp;quot;ENSEMBLPROT&amp;quot; 
+##  [5] &amp;quot;ENSEMBLTRANS&amp;quot; &amp;quot;ENTREZID&amp;quot;     &amp;quot;ENZYME&amp;quot;       &amp;quot;EVIDENCE&amp;quot;    
+##  [9] &amp;quot;EVIDENCEALL&amp;quot;  &amp;quot;GENENAME&amp;quot;     &amp;quot;GO&amp;quot;           &amp;quot;GOALL&amp;quot;       
+## [13] &amp;quot;IPI&amp;quot;          &amp;quot;MAP&amp;quot;          &amp;quot;OMIM&amp;quot;         &amp;quot;ONTOLOGY&amp;quot;    
+## [17] &amp;quot;ONTOLOGYALL&amp;quot;  &amp;quot;PATH&amp;quot;         &amp;quot;PFAM&amp;quot;         &amp;quot;PMID&amp;quot;        
+## [21] &amp;quot;PROSITE&amp;quot;      &amp;quot;REFSEQ&amp;quot;       &amp;quot;SYMBOL&amp;quot;       &amp;quot;UCSCKG&amp;quot;      
+## [25] &amp;quot;UNIGENE&amp;quot;      &amp;quot;UNIPROT&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;go-classification-go分类-似乎不重要的功能&#34;&gt;GO classification （GO分类，似乎不重要的功能）&lt;/h2&gt;
+
+&lt;p&gt;&lt;code&gt;groupGO&lt;/code&gt; is designed for gene classification based on GO distribution at a specific level.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;问题：&lt;/strong&gt; GO的level，在什么研究中会涉及到？ 一般来说，level越大，GO功能越具体。level就像一棵树树主干一样，发了不同的枝叶，level越大枝叶越详细。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-R&#34;&gt;data(geneList, package=&amp;quot;DOSE&amp;quot;)
+gene &amp;lt;- names(geneList)[abs(geneList) &amp;gt; 2]
+gene.df &amp;lt;- bitr(gene, fromType = &amp;quot;ENTREZID&amp;quot;,
+        toType = c(&amp;quot;ENSEMBL&amp;quot;, &amp;quot;SYMBOL&amp;quot;),
+        OrgDb = org.Hs.eg.db)
+head(gene.df)
+##   ENTREZID         ENSEMBL SYMBOL
+## 1     4312 ENSG00000196611   MMP1
+## 2     8318 ENSG00000093009  CDC45
+## 3    10874 ENSG00000109255    NMU
+## 4    55143 ENSG00000134690  CDCA8
+## 5    55388 ENSG00000065328  MCM10
+## 6      991 ENSG00000117399  CDC20
+ggo &amp;lt;- groupGO(gene     = gene,
+               OrgDb    = org.Hs.eg.db,
+               ont      = &amp;quot;CC&amp;quot;,
+               level    = 3,
+               readable = TRUE)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;go-over-representation-test-go分析-常用&#34;&gt;GO over-representation test（GO分析，常用）&lt;/h2&gt;
+
+&lt;p&gt;Over-representation test(Boyle et al. 2004) were implemented in &lt;a href=&#34;https://www.bioconductor.org/packages/clusterProfiler&#34;&gt;clusterProfiler&lt;/a&gt;. For calculation details and explanation of paramters, please refer to the vignette of &lt;a href=&#34;https://www.bioconductor.org/packages/DOSE&#34;&gt;DOSE&lt;/a&gt;.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-R&#34;&gt;ego &amp;lt;- enrichGO(gene          = gene,
+                universe      = names(geneList),
+                OrgDb         = org.Hs.eg.db,
+                ont           = &amp;quot;CC&amp;quot;,
+                pAdjustMethod = &amp;quot;BH&amp;quot;,
+                pvalueCutoff  = 0.01,
+                qvalueCutoff  = 0.05,
+        readable      = TRUE)
+head(ego)
+##                    ID                              Description GeneRatio
+## GO:0005819 GO:0005819                                  spindle    25/202
+## GO:0005876 GO:0005876                      spindle microtubule    12/202
+## GO:0000779 GO:0000779 condensed chromosome, centromeric region    15/202
+## GO:0072686 GO:0072686                          mitotic spindle    14/202
+## GO:0000775 GO:0000775           chromosome, centromeric region    18/202
+## GO:0000776 GO:0000776                              kinetochore    15/202
+##              BgRatio       pvalue     p.adjust       qvalue
+## GO:0005819 262/11812 2.569986e-12 8.146855e-10 7.520590e-10
+## GO:0005876  45/11812 7.912518e-12 1.254134e-09 1.157726e-09
+## GO:0000779  91/11812 3.254384e-11 3.438799e-09 3.174452e-09
+## GO:0072686  84/11812 1.292642e-10 9.903693e-09 9.142376e-09
+## GO:0000775 156/11812 1.562097e-10 9.903693e-09 9.142376e-09
+## GO:0000776 106/11812 3.073022e-10 1.623580e-08 1.498772e-08           
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Any gene ID type that supported in &lt;code&gt;OrgDb&lt;/code&gt; can be directly used in GO analyses. User need to specify the &lt;code&gt;keyType&lt;/code&gt; parameter to specify the input gene ID type.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;ego2 &amp;lt;- enrichGO(gene         = gene.df$ENSEMBL,
+                OrgDb         = org.Hs.eg.db,
+                keyType       = &#39;ENSEMBL&#39;,
+                ont           = &amp;quot;CC&amp;quot;,
+                pAdjustMethod = &amp;quot;BH&amp;quot;,
+                pvalueCutoff  = 0.01,
+                qvalueCutoff  = 0.05)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Gene ID can be mapped to gene Symbol by using paramter &lt;code&gt;readable=TRUE&lt;/code&gt; or &lt;code&gt;setReadable&lt;/code&gt; function.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;ego2 &amp;lt;- setReadable(ego2, OrgDb = org.Hs.eg.db)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;kegg-over-representation-test&#34;&gt;KEGG over-representation test&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-R&#34;&gt;kk &amp;lt;- enrichKEGG(gene         = gene,
+                 organism     = &#39;hsa&#39;,
+                 pvalueCutoff = 0.05)
+head(kk)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;kegg-module-over-representation-test&#34;&gt;KEGG Module over-representation test&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://www.genome.jp/kegg/module.html&#34;&gt;KEGG Module&lt;/a&gt; is a collection of manually defined function units. In some situation, KEGG Modules have a more straightforward interpretation.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-R&#34;&gt;mkk &amp;lt;- enrichMKEGG(gene = gene,
+                   organism = &#39;hsa&#39;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;go-gene-set-enrichment-analysis&#34;&gt;GO Gene Set Enrichment Analysis&lt;/h2&gt;
+
+&lt;p&gt;GO GSEA 与GSEA有什么区别?&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-R&#34;&gt;ego3 &amp;lt;- gseGO(geneList     = geneList,
+              OrgDb        = org.Hs.eg.db,
+              ont          = &amp;quot;CC&amp;quot;,
+              nPerm        = 1000,
+              minGSSize    = 100,
+              maxGSSize    = 500,
+              pvalueCutoff = 0.05,
+              verbose      = FALSE)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;kegg-gene-set-enrichment-analysis&#34;&gt;KEGG Gene Set Enrichment Analysis&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-R&#34;&gt;kk2 &amp;lt;- gseKEGG(geneList     = geneList,
+               organism     = &#39;hsa&#39;,
+               nPerm        = 1000,
+               minGSSize    = 120,
+               pvalueCutoff = 0.05,
+               verbose      = FALSE)
+head(kk2)
+##                ID                              Description setSize
+## hsa04151 hsa04151               PI3K-Akt signaling pathway     322
+## hsa04510 hsa04510                           Focal adhesion     188
+## hsa04218 hsa04218                      Cellular senescence     143
+## hsa05166 hsa05166  Human T-cell leukemia virus 1 infection     200
+## hsa05169 hsa05169             Epstein-Barr virus infection     192
+## hsa05170 hsa05170 Human immunodeficiency virus 1 infection     189
+##          enrichmentScore       NES      pvalue  p.adjust    qvalues rank
+## hsa04151      -0.3482755 -1.503715 0.001328021 0.0276644 0.01814059 1997
+## hsa04510      -0.4188582 -1.725829 0.001390821 0.0276644 0.01814059 2183
+## hsa04218       0.4153718  1.792654 0.002967359 0.0276644 0.01814059 1155
+## hsa05166       0.3926594  1.744570 0.003484321 0.0276644 0.01814059 1955
+## hsa05169       0.4343189  1.916668 0.003533569 0.0276644 0.01814059 2820
+## hsa05170       0.3711150  1.635182 0.003533569 0.0276644 0.01814059 3178
+##                            leading_edge
+## hsa04151 tags=23%, list=16%, signal=20%
+## hsa04510 tags=27%, list=17%, signal=23%
+## hsa04218  tags=17%, list=9%, signal=16%
+## hsa05166 tags=26%, list=16%, signal=23%
+## hsa05169 tags=40%, list=23%, signal=31%
+## hsa05170 tags=38%, list=25%, signal=29%
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;kegg-module-gene-set-enrichment-analysis&#34;&gt;KEGG Module Gene Set Enrichment Analysis&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-R&#34;&gt;mkk2 &amp;lt;- gseMKEGG(geneList = geneList,
+                 species = &#39;hsa&#39;)
+&lt;/code&gt;&lt;/pre&gt;
 
 &lt;hr /&gt;
 
-&lt;p&gt;待深入学习&lt;/p&gt;
+&lt;h5 id=&#34;剩下富集分析点图-直接看网页即可&#34;&gt;剩下富集分析点图 直接看网页即可。&lt;/h5&gt;
 
         
       </description>
@@ -1669,10 +1976,10 @@ if __name__==&#39;__main__&#39;:
     
     <item>
       <title>特征选择方法</title>
-      <link>/blog/cn/2018/08/unsupervised_featureselection/</link>
+      <link>/blog/cn/2018/08/supervised_featureselection/</link>
       <pubDate>Tue, 28 Aug 2018 22:00:43 +0000</pubDate>
       
-      <guid>/blog/cn/2018/08/unsupervised_featureselection/</guid>
+      <guid>/blog/cn/2018/08/supervised_featureselection/</guid>
       <description>
         
 
@@ -1706,40 +2013,6 @@ model1.pvalues_  #p-values
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;h3 id=&#34;2-t-test&#34;&gt;2. T-test&lt;/h3&gt;
-
-&lt;h1 id=&#34;无监督特征选择方法&#34;&gt;无监督特征选择方法&lt;/h1&gt;
-
-&lt;h3 id=&#34;1-laplacian-score&#34;&gt;1. Laplacian Score&lt;/h3&gt;
-
-&lt;p&gt;Laplacian Score (LSCORE) is an unsupervised/supervised linear feature extraction method. For each feature/variable, it computes Laplacian score based on an observation that data from the same class are often close to each other. Its power of locality preserving property is used, and the &lt;strong&gt;algorithm selects variables with largest scores.&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&#34;https://www.rdocumentation.org/packages/Rdimtools/versions/0.3.2&#34;&gt;Rdimtools &lt;/a&gt;&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;Rdimtools：do.lscore(X, ndim = 2, type = c(&amp;quot;proportion&amp;quot;, 0.1), preprocess = c(&amp;quot;null&amp;quot;,
-&amp;quot;center&amp;quot;, &amp;quot;scale&amp;quot;, &amp;quot;cscale&amp;quot;, &amp;quot;whiten&amp;quot;, &amp;quot;decorrelate&amp;quot;), t = 10)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;hr /&gt;
-
-&lt;h3 id=&#34;2-package-idmining&#34;&gt;2.Package ‘IDmining’&lt;/h3&gt;
-
-&lt;p&gt;Intrinsic Dimension for Data Mining&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&#34;https://cran.r-project.org/web/packages/IDmining/IDmining.pdf&#34;&gt;https://cran.r-project.org/web/packages/IDmining/IDmining.pdf&lt;/a&gt;&lt;/p&gt;
-
-&lt;h3 id=&#34;3-unsupervised-learning-in-r&#34;&gt;3.Unsupervised Learning in R&lt;/h3&gt;
-
-&lt;p&gt;&lt;a href=&#34;https://rpubs.com/williamsurles/310847&#34;&gt;https://rpubs.com/williamsurles/310847&lt;/a&gt;&lt;/p&gt;
-
-&lt;h3 id=&#34;4-python包scikit-feature&#34;&gt;4. python包scikit-feature&lt;/h3&gt;
-
-&lt;p&gt;&lt;a href=&#34;http://featureselection.asu.edu/index.php&#34;&gt;http://featureselection.asu.edu/index.php&lt;/a&gt;&lt;/p&gt;
-
-&lt;h3 id=&#34;5-unsupervised-dimensionality-reduction-in-sklearn&#34;&gt;5.Unsupervised dimensionality reduction in sklearn&lt;/h3&gt;
-
-&lt;p&gt;&lt;a href=&#34;http://scikit-learn.org/stable/modules/unsupervised_reduction.html&#34;&gt;http://scikit-learn.org/stable/modules/unsupervised_reduction.html&lt;/a&gt;&lt;/p&gt;
-
-&lt;h3 id=&#34;6-7-machine-learning-techniques-for-dimensionality-reduction-http-dataunion-org-20803-html&#34;&gt;6. &lt;a href=&#34;http://dataunion.org/20803.html&#34;&gt;7 Machine Learning techniques for Dimensionality Reduction&lt;/a&gt;&lt;/h3&gt;
 
         
       </description>
@@ -3110,70 +3383,6 @@ string.split(L, &#39;:&#39;)))
 &amp;gt;&amp;gt;&amp;gt; zip(*zipped)
 [(1, 2, 3), (4, 5, 6)]
 &lt;/code&gt;&lt;/pre&gt;
-
-        
-      </description>
-    </item>
-    
-    <item>
-      <title>深度学习Tensorflow</title>
-      <link>/blog/cn/2017/12/deeplearning/</link>
-      <pubDate>Wed, 20 Dec 2017 21:04:42 +0000</pubDate>
-      
-      <guid>/blog/cn/2017/12/deeplearning/</guid>
-      <description>
-        &lt;p&gt;&lt;a href=&#34;https://jizhi.im/blog/post/gpu-p6&#34;&gt;学习教程&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&#34;http://study.163.com/course/courseMain.htm?courseId=1003223001&#34;&gt;斯坦福李飞飞&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&#34;http://www.tensorfly.cn/&#34;&gt;TensorFlow中文社区&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&#34;https://docs.scipy.org/doc/numpy-1.13.0/genindex.html&#34;&gt;numpy API&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&#34;http://blog.csdn.net/yunpiao123456/article/details/52437794&#34;&gt;卷积神经网络1&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&#34;http://blog.csdn.net/hjimce/article/details/47323463&#34;&gt;卷积神经网络2&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&#34;https://github.com/songrotek/Deep-Learning-Papers-Reading-Roadmap&#34;&gt;Roadmap&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&#34;https://github.com/exacity/deeplearningbook-chinese&#34;&gt;AI圣经&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&#34;https://www.zybuluo.com/hanbingtao/note/433855&#34;&gt;零基础入门深度学习&lt;/a&gt;&lt;/p&gt;
-
-        
-      </description>
-    </item>
-    
-    <item>
-      <title>决策树</title>
-      <link>/blog/cn/2017/11/decision_tree/</link>
-      <pubDate>Tue, 21 Nov 2017 09:26:01 +0000</pubDate>
-      
-      <guid>/blog/cn/2017/11/decision_tree/</guid>
-      <description>
-        
-
-&lt;h1 id=&#34;特征选择问题&#34;&gt;特征选择问题&lt;/h1&gt;
-
-&lt;p&gt;选择信息增益和信息增益比大的特征&lt;/p&gt;
-
-&lt;h1 id=&#34;信息增益-互信息&#34;&gt;信息增益（互信息）&lt;/h1&gt;
-
-&lt;p&gt;表示得知特征X的信息而使得类Y的信息的不确定性减少的程度。&lt;/p&gt;
-
-&lt;h4 id=&#34;信息熵&#34;&gt;信息熵&lt;/h4&gt;
-
-&lt;p&gt;熵越大，随机变量的不确定性就越大。&lt;/p&gt;
-
-&lt;h4 id=&#34;条件熵&#34;&gt;条件熵&lt;/h4&gt;
-
-&lt;p&gt;随机变量X给定条件下随机变量Y的条件熵 H(Y|X)定义为X给定条件下Y的条件概率分布的熵对X的数学期望。&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;信息熵和条件熵中概率由数据估计得到，所对应的熵与条件熵分别称为经验熵和经验条件熵&lt;/strong&gt;&lt;/p&gt;
-
-&lt;h1 id=&#34;信息增益比&#34;&gt;信息增益比&lt;/h1&gt;
-
-&lt;p&gt;信息增益与训练数据集经验熵的比值&lt;/p&gt;
 
         
       </description>

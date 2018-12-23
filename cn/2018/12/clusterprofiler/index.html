@@ -17,6 +17,11 @@
     
     
 
+
+<link href='//cdn.bootcss.com/highlight.js/9.12.0/styles/github.min.css' rel='stylesheet' type='text/css' />
+
+
+
     <link rel="stylesheet" href="/blog/css/style.css" />
     <link rel="stylesheet" href="/blog/css/fonts.css" />
     <link rel="stylesheet" href="/blog/css/custom.css" />
@@ -69,26 +74,181 @@
 
 
 
+
+
 <p><a href="https://bioconductor.org/packages/release/bioc/vignettes/clusterProfiler/inst/doc/clusterProfiler.html">clusterProfiler</a>包的很多内容还是理解不了。</p>
 
-<ul>
-<li><p>Q1: GO的level，在什么研究中会涉及到？ 一般来说，level越大，GO功能越具体。level就像一棵树树主干一样，发了不同的枝叶，level越大枝叶越详细。</p></li>
+<h2 id="bitr-基因集id转换"><code>bitr</code>: 基因集ID转换</h2>
 
-<li><p>Q2： GO over-representation test 是我们最经常用到的基因功能分析，为什么没有考虑到level的问题，一般选择哪种（CC, MF,BP）进行分析？</p></li>
+<pre><code class="language-R">x &lt;- c(&quot;GPX3&quot;,  &quot;GLRX&quot;,   &quot;LBP&quot;,   &quot;CRYAB&quot;, &quot;DEFB1&quot;, &quot;HCLS1&quot;,   &quot;SOD2&quot;,   &quot;HSPA2&quot;,
+       &quot;ORM1&quot;,  &quot;IGFBP1&quot;, &quot;PTHLH&quot;, &quot;GPC3&quot;,  &quot;IGFBP3&quot;,&quot;TOB1&quot;,    &quot;MITF&quot;,   &quot;NDRG1&quot;,
+       &quot;NR1H4&quot;, &quot;FGFR3&quot;,  &quot;PVR&quot;,   &quot;IL6&quot;,   &quot;PTPRM&quot;, &quot;ERBB2&quot;,   &quot;NID2&quot;,   &quot;LAMB1&quot;,
+       &quot;COMP&quot;,  &quot;PLS3&quot;,   &quot;MCAM&quot;,  &quot;SPP1&quot;,  &quot;LAMC1&quot;, &quot;COL4A2&quot;,  &quot;COL4A1&quot;, &quot;MYOC&quot;,
+       &quot;ANXA4&quot;, &quot;TFPI2&quot;,  &quot;CST6&quot;,  &quot;SLPI&quot;,  &quot;TIMP2&quot;, &quot;CPM&quot;,     &quot;GGT1&quot;,   &quot;NNMT&quot;,
+       &quot;MAL&quot;,   &quot;EEF1A2&quot;, &quot;HGD&quot;,   &quot;TCN2&quot;,  &quot;CDA&quot;,   &quot;PCCA&quot;,    &quot;CRYM&quot;,   &quot;PDXK&quot;,
+       &quot;STC1&quot;,  &quot;WARS&quot;,  &quot;HMOX1&quot;, &quot;FXYD2&quot;, &quot;RBP4&quot;,   &quot;SLC6A12&quot;, &quot;KDELR3&quot;, &quot;ITM2B&quot;)
+eg = bitr(x, fromType=&quot;SYMBOL&quot;, toType=&quot;ENTREZID&quot;, OrgDb=&quot;org.Hs.eg.db&quot;)
+head(eg)
+library(org.Hs.eg.db)
+keytypes(org.Hs.eg.db)
+##  [1] &quot;ACCNUM&quot;       &quot;ALIAS&quot;        &quot;ENSEMBL&quot;      &quot;ENSEMBLPROT&quot; 
+##  [5] &quot;ENSEMBLTRANS&quot; &quot;ENTREZID&quot;     &quot;ENZYME&quot;       &quot;EVIDENCE&quot;    
+##  [9] &quot;EVIDENCEALL&quot;  &quot;GENENAME&quot;     &quot;GO&quot;           &quot;GOALL&quot;       
+## [13] &quot;IPI&quot;          &quot;MAP&quot;          &quot;OMIM&quot;         &quot;ONTOLOGY&quot;    
+## [17] &quot;ONTOLOGYALL&quot;  &quot;PATH&quot;         &quot;PFAM&quot;         &quot;PMID&quot;        
+## [21] &quot;PROSITE&quot;      &quot;REFSEQ&quot;       &quot;SYMBOL&quot;       &quot;UCSCKG&quot;      
+## [25] &quot;UNIGENE&quot;      &quot;UNIPROT&quot;
+</code></pre>
 
-<li><p>Q3： GO Gene Set Enrichment Analysis 大概的原理我能明白，结果图如阿理解？</p></li>
-</ul>
+<h2 id="go-classification-go分类-似乎不重要的功能">GO classification （GO分类，似乎不重要的功能）</h2>
+
+<p><code>groupGO</code> is designed for gene classification based on GO distribution at a specific level.</p>
+
+<p><strong>问题：</strong> GO的level，在什么研究中会涉及到？ 一般来说，level越大，GO功能越具体。level就像一棵树树主干一样，发了不同的枝叶，level越大枝叶越详细。</p>
+
+<pre><code class="language-R">data(geneList, package=&quot;DOSE&quot;)
+gene &lt;- names(geneList)[abs(geneList) &gt; 2]
+gene.df &lt;- bitr(gene, fromType = &quot;ENTREZID&quot;,
+        toType = c(&quot;ENSEMBL&quot;, &quot;SYMBOL&quot;),
+        OrgDb = org.Hs.eg.db)
+head(gene.df)
+##   ENTREZID         ENSEMBL SYMBOL
+## 1     4312 ENSG00000196611   MMP1
+## 2     8318 ENSG00000093009  CDC45
+## 3    10874 ENSG00000109255    NMU
+## 4    55143 ENSG00000134690  CDCA8
+## 5    55388 ENSG00000065328  MCM10
+## 6      991 ENSG00000117399  CDC20
+ggo &lt;- groupGO(gene     = gene,
+               OrgDb    = org.Hs.eg.db,
+               ont      = &quot;CC&quot;,
+               level    = 3,
+               readable = TRUE)
+</code></pre>
+
+<h2 id="go-over-representation-test-go分析-常用">GO over-representation test（GO分析，常用）</h2>
+
+<p>Over-representation test(Boyle et al. 2004) were implemented in <a href="https://www.bioconductor.org/packages/clusterProfiler">clusterProfiler</a>. For calculation details and explanation of paramters, please refer to the vignette of <a href="https://www.bioconductor.org/packages/DOSE">DOSE</a>.</p>
+
+<pre><code class="language-R">ego &lt;- enrichGO(gene          = gene,
+                universe      = names(geneList),
+                OrgDb         = org.Hs.eg.db,
+                ont           = &quot;CC&quot;,
+                pAdjustMethod = &quot;BH&quot;,
+                pvalueCutoff  = 0.01,
+                qvalueCutoff  = 0.05,
+        readable      = TRUE)
+head(ego)
+##                    ID                              Description GeneRatio
+## GO:0005819 GO:0005819                                  spindle    25/202
+## GO:0005876 GO:0005876                      spindle microtubule    12/202
+## GO:0000779 GO:0000779 condensed chromosome, centromeric region    15/202
+## GO:0072686 GO:0072686                          mitotic spindle    14/202
+## GO:0000775 GO:0000775           chromosome, centromeric region    18/202
+## GO:0000776 GO:0000776                              kinetochore    15/202
+##              BgRatio       pvalue     p.adjust       qvalue
+## GO:0005819 262/11812 2.569986e-12 8.146855e-10 7.520590e-10
+## GO:0005876  45/11812 7.912518e-12 1.254134e-09 1.157726e-09
+## GO:0000779  91/11812 3.254384e-11 3.438799e-09 3.174452e-09
+## GO:0072686  84/11812 1.292642e-10 9.903693e-09 9.142376e-09
+## GO:0000775 156/11812 1.562097e-10 9.903693e-09 9.142376e-09
+## GO:0000776 106/11812 3.073022e-10 1.623580e-08 1.498772e-08           
+</code></pre>
+
+<p>Any gene ID type that supported in <code>OrgDb</code> can be directly used in GO analyses. User need to specify the <code>keyType</code> parameter to specify the input gene ID type.</p>
+
+<pre><code>ego2 &lt;- enrichGO(gene         = gene.df$ENSEMBL,
+                OrgDb         = org.Hs.eg.db,
+                keyType       = 'ENSEMBL',
+                ont           = &quot;CC&quot;,
+                pAdjustMethod = &quot;BH&quot;,
+                pvalueCutoff  = 0.01,
+                qvalueCutoff  = 0.05)
+</code></pre>
+
+<p>Gene ID can be mapped to gene Symbol by using paramter <code>readable=TRUE</code> or <code>setReadable</code> function.</p>
+
+<pre><code>ego2 &lt;- setReadable(ego2, OrgDb = org.Hs.eg.db)
+</code></pre>
+
+<h2 id="kegg-over-representation-test">KEGG over-representation test</h2>
+
+<pre><code class="language-R">kk &lt;- enrichKEGG(gene         = gene,
+                 organism     = 'hsa',
+                 pvalueCutoff = 0.05)
+head(kk)
+</code></pre>
+
+<h2 id="kegg-module-over-representation-test">KEGG Module over-representation test</h2>
+
+<p><a href="http://www.genome.jp/kegg/module.html">KEGG Module</a> is a collection of manually defined function units. In some situation, KEGG Modules have a more straightforward interpretation.</p>
+
+<pre><code class="language-R">mkk &lt;- enrichMKEGG(gene = gene,
+                   organism = 'hsa')
+</code></pre>
+
+<h2 id="go-gene-set-enrichment-analysis">GO Gene Set Enrichment Analysis</h2>
+
+<p>GO GSEA 与GSEA有什么区别?</p>
+
+<pre><code class="language-R">ego3 &lt;- gseGO(geneList     = geneList,
+              OrgDb        = org.Hs.eg.db,
+              ont          = &quot;CC&quot;,
+              nPerm        = 1000,
+              minGSSize    = 100,
+              maxGSSize    = 500,
+              pvalueCutoff = 0.05,
+              verbose      = FALSE)
+</code></pre>
+
+<h2 id="kegg-gene-set-enrichment-analysis">KEGG Gene Set Enrichment Analysis</h2>
+
+<pre><code class="language-R">kk2 &lt;- gseKEGG(geneList     = geneList,
+               organism     = 'hsa',
+               nPerm        = 1000,
+               minGSSize    = 120,
+               pvalueCutoff = 0.05,
+               verbose      = FALSE)
+head(kk2)
+##                ID                              Description setSize
+## hsa04151 hsa04151               PI3K-Akt signaling pathway     322
+## hsa04510 hsa04510                           Focal adhesion     188
+## hsa04218 hsa04218                      Cellular senescence     143
+## hsa05166 hsa05166  Human T-cell leukemia virus 1 infection     200
+## hsa05169 hsa05169             Epstein-Barr virus infection     192
+## hsa05170 hsa05170 Human immunodeficiency virus 1 infection     189
+##          enrichmentScore       NES      pvalue  p.adjust    qvalues rank
+## hsa04151      -0.3482755 -1.503715 0.001328021 0.0276644 0.01814059 1997
+## hsa04510      -0.4188582 -1.725829 0.001390821 0.0276644 0.01814059 2183
+## hsa04218       0.4153718  1.792654 0.002967359 0.0276644 0.01814059 1155
+## hsa05166       0.3926594  1.744570 0.003484321 0.0276644 0.01814059 1955
+## hsa05169       0.4343189  1.916668 0.003533569 0.0276644 0.01814059 2820
+## hsa05170       0.3711150  1.635182 0.003533569 0.0276644 0.01814059 3178
+##                            leading_edge
+## hsa04151 tags=23%, list=16%, signal=20%
+## hsa04510 tags=27%, list=17%, signal=23%
+## hsa04218  tags=17%, list=9%, signal=16%
+## hsa05166 tags=26%, list=16%, signal=23%
+## hsa05169 tags=40%, list=23%, signal=31%
+## hsa05170 tags=38%, list=25%, signal=29%
+</code></pre>
+
+<h2 id="kegg-module-gene-set-enrichment-analysis">KEGG Module Gene Set Enrichment Analysis</h2>
+
+<pre><code class="language-R">mkk2 &lt;- gseMKEGG(geneList = geneList,
+                 species = 'hsa')
+</code></pre>
 
 <hr />
 
-<p>待深入学习</p>
+<h5 id="剩下富集分析点图-直接看网页即可">剩下富集分析点图 直接看网页即可。</h5>
 
 
   <footer>
   
 <nav class="post-nav">
   <span class="nav-prev">&larr; <a href="/blog/cn/2018/12/r_apply/">R Apply函数</a></span>
-  <span class="nav-next"></span>
+  <span class="nav-next"><a href="/blog/cn/2018/12/wgcna/">WGCNA加权基因共表达网络分析</a> &rarr;</span>
 </nav>
 
 
@@ -101,6 +261,19 @@
 <script async src="//yihui.name/js/center-img.js"></script>
 
   
+
+
+
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+
+
+
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/r.min.js"></script>
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/yaml.min.js"></script>
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/tex.min.js"></script>
+<script>hljs.configure({languages: []}); hljs.initHighlightingOnLoad();</script>
+
+
 
   
   <hr>

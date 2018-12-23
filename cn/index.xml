@@ -6,10 +6,28 @@
     <description>Recent content in 中文博客 on My Lives</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 23 Dec 2018 00:53:52 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 23 Dec 2018 21:58:23 +0000</lastBuildDate>
     
 	<atom:link href="/blog/cn/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>dplyr包_tidyr包</title>
+      <link>/blog/cn/2018/12/dplyr_tidyr/</link>
+      <pubDate>Sun, 23 Dec 2018 21:58:23 +0000</pubDate>
+      
+      <guid>/blog/cn/2018/12/dplyr_tidyr/</guid>
+      <description>https://blog.csdn.net/pilouduo1367/article/details/69675678 1 dplyr包&amp;ndash;数据框整理神器 1.1 展现数据 tbl_df()： 函数tbl_df()使得大数据集规范显示出来，行列都只显示10个，跟</description>
+    </item>
+    
+    <item>
+      <title>WGCNA加权基因共表达网络分析</title>
+      <link>/blog/cn/2018/12/wgcna/</link>
+      <pubDate>Sun, 23 Dec 2018 01:17:52 +0000</pubDate>
+      
+      <guid>/blog/cn/2018/12/wgcna/</guid>
+      <description>待学习，有道云笔记中保存了很多相关资料。</description>
+    </item>
     
     <item>
       <title>clusterProfiler包</title>
@@ -17,7 +35,7 @@
       <pubDate>Sun, 23 Dec 2018 00:53:52 +0000</pubDate>
       
       <guid>/blog/cn/2018/12/clusterprofiler/</guid>
-      <description>clusterProfiler包的很多内容还是理解不了。 Q1: GO的level，在什么研究中会涉及到？ 一般来说，level越大，GO功能越具体。</description>
+      <description>clusterProfiler包的很多内容还是理解不了。 bitr: 基因集ID转换 x &amp;lt;- c(&amp;quot;GPX3&amp;quot;, &amp;quot;GLRX&amp;quot;, &amp;quot;LBP&amp;quot;, &amp;quot;CRYAB&amp;quot;, &amp;quot;DEFB1&amp;quot;, &amp;quot;HCLS1&amp;quot;, &amp;quot;SOD2&amp;quot;, &amp;quot;HSPA2&amp;quot;, &amp;quot;ORM1&amp;quot;, &amp;quot;IGFBP1&amp;quot;, &amp;quot;PTHLH&amp;quot;, &amp;quot;GPC3&amp;quot;, &amp;quot;IGFBP3&amp;quot;,&amp;quot;TOB1&amp;quot;, &amp;quot;MITF&amp;quot;, &amp;quot;NDRG1&amp;quot;, &amp;quot;NR1H4&amp;quot;, &amp;quot;FGFR3&amp;quot;, &amp;quot;PVR&amp;quot;, &amp;quot;IL6&amp;quot;, &amp;quot;PTPRM&amp;quot;, &amp;quot;ERBB2&amp;quot;, &amp;quot;NID2&amp;quot;, &amp;quot;LAMB1&amp;quot;, &amp;quot;COMP&amp;quot;, &amp;quot;PLS3&amp;quot;, &amp;quot;MCAM&amp;quot;, &amp;quot;SPP1&amp;quot;, &amp;quot;LAMC1&amp;quot;, &amp;quot;COL4A2&amp;quot;, &amp;quot;COL4A1&amp;quot;, &amp;quot;MYOC&amp;quot;, &amp;quot;ANXA4&amp;quot;,</description>
     </item>
     
     <item>
@@ -139,10 +157,10 @@
     
     <item>
       <title>特征选择方法</title>
-      <link>/blog/cn/2018/08/unsupervised_featureselection/</link>
+      <link>/blog/cn/2018/08/supervised_featureselection/</link>
       <pubDate>Tue, 28 Aug 2018 22:00:43 +0000</pubDate>
       
-      <guid>/blog/cn/2018/08/unsupervised_featureselection/</guid>
+      <guid>/blog/cn/2018/08/supervised_featureselection/</guid>
       <description>有监督特征选择方法 1. 卡方检验 Chi-square 卡方检验是一种用途很广的计数资料的假设检验方法。它属于非参数检验的范畴，主要是比较两个及两个以上样本率( 构成比</description>
     </item>
     
@@ -261,25 +279,7 @@ Usage  Sign up to AppVeyor. Enable testing for your project. Run devtools::use_a
       <pubDate>Mon, 13 Nov 2017 08:52:07 +0000</pubDate>
       
       <guid>/blog/cn/2017/11/genome_version/</guid>
-      <description>原文 hg19(UCSC)，GRCH37(NCBI)和Ensembl75(ENSEMBL)是三种国际生物信息学数据库资源收集存储单各自发布的基</description>
-    </item>
-    
-    <item>
-      <title>SAM文件与SAMtools</title>
-      <link>/blog/cn/2017/11/sam_samtools/</link>
-      <pubDate>Sun, 12 Nov 2017 09:32:54 +0000</pubDate>
-      
-      <guid>/blog/cn/2017/11/sam_samtools/</guid>
-      <description>SAM SAM输出的结果中每一行都包括十二项通过Tab分隔 FCC0YG3ACXX:2:1103:1572:139769#GCTTAATG 99 chr10 60001 0 90M = 60390 479 GAATTCCTTGAGGCCTAAATGCATCGGGGTGCTCTGGTTTTGTTGTTGTTATTTCTGAATGACATTTACTTTGGTGCTCTTTATTTTGCG CCCFFFFFHHHHHJJJJJJJJIJJJJJJJ?HHGIJJJBFHIJIJIDHIHIEHJJIJJIJJJHHGHHHFFFFFFEDCEEECCDDDDEECDD XT:A:R NM:i:0 SM:i:0 AM:i:0 X0:i:2 X1:i:0 XM:i:0 XO:i:0 XG:i:0 MD:Z:90 XA:Z:chr18,+14415,90M,0; RG:Z:120618_I245_FCC0YG3ACXX_L2_SZAXPI010030-30 (1)FCC0YG3ACXX:2:1103:1572:139769#GCTTAATG (2)99 (3)chr10 (4)60001 (5)0 (6)90M (7)= (8)60390 (9)479 (10)GAATTCCTTGAGGCCTAAATGCATCGGGGTGCTCTGGTTTTGTTGTTGTTATTTCTGAATGACATTTACTTTGGTGCTCTTTATTTTGCG (11)CCCFFFFFHHHHHJJJJJJJJIJJJJJJJ?HHGIJJJBFHIJIJIDHIHIEHJJIJJIJJJHHGHHHFFFFFFEDCEEECCDDDDEECDD (12)XT:A:R NM:i:0 SM:i:0 AM:i:0 X0:i:2 X1:i:0 XM:i:0 XO:i:0 XG:i:0 MD:Z:90</description>
-    </item>
-    
-    <item>
-      <title>Jimmy 直播基因组学习笔记</title>
-      <link>/blog/cn/2017/11/genomic_live_streaming/</link>
-      <pubDate>Fri, 10 Nov 2017 20:34:59 +0000</pubDate>
-      
-      <guid>/blog/cn/2017/11/genomic_live_streaming/</guid>
-      <description>教程 Jimmy直播我的基因组分析 - 目录 下载hg19基因组 cd /data/reference mkdir -p genome/hg19 &amp;amp;&amp;amp; cd genome/hg19 nohup wget http://hgdownload.cse.ucsc.edu/goldenPath/hg19/bigZips/chromFa.tar.gz &amp;amp; tar zvfx chromFa.tar.gz cat *.fa &amp;gt; hg19.fa rm chr*.fa fastq-sam-bam ls *gz |xargs ~/biosoft/fastqc/FastQC/fastqc -t 10 for i in $(seq 1 6) ;do (nohup bwa mem -t 5 -M /data/reference/index/bwa/hg19</description>
+      <description>原文 一些关于基因组名字的含义 [ ] NC表示人类基因组DNA的RefSeq。 [ ] NM表示mRNA的RefSeq。 [ ] NP表示蛋白质的RefSeq</description>
     </item>
     
   </channel>

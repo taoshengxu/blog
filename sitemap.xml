@@ -3,6 +3,16 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>/blog/cn/2018/12/dplyr_tidyr/</loc>
+    <lastmod>2018-12-23T21:58:23+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/cn/2018/12/wgcna/</loc>
+    <lastmod>2018-12-23T01:17:52+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>/blog/cn/2018/12/clusterprofiler/</loc>
     <lastmod>2018-12-23T00:53:52+00:00</lastmod>
   </url>
@@ -73,7 +83,7 @@
   </url>
   
   <url>
-    <loc>/blog/cn/2018/08/unsupervised_featureselection/</loc>
+    <loc>/blog/cn/2018/08/supervised_featureselection/</loc>
     <lastmod>2018-08-28T22:00:43+00:00</lastmod>
   </url>
   
@@ -358,11 +368,6 @@
   </url>
   
   <url>
-    <loc>/blog/cn/2017/08/sem2/</loc>
-    <lastmod>2017-08-27T22:56:14+00:00</lastmod>
-  </url>
-  
-  <url>
     <loc>/blog/cn/2017/08/some_tricks/</loc>
     <lastmod>2017-08-27T22:50:14+00:00</lastmod>
   </url>
@@ -407,7 +412,7 @@
   
   <url>
     <loc>/blog/cn/</loc>
-    <lastmod>2018-12-23T00:53:52+00:00</lastmod>
+    <lastmod>2018-12-23T21:58:23+00:00</lastmod>
   </url>
   
   <url>
