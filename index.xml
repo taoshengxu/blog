@@ -157,22 +157,23 @@ TIMESsep &amp;lt;- separate(TIMESunite, information, c(&amp;quot;months&amp;quot
 
 &lt;p&gt;&lt;a href=&#34;http://www.bio-info-trainee.com/2535.html&#34;&gt;http://www.bio-info-trainee.com/2535.html&lt;/a&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;strong&gt;GEO数据挖掘系列文-第一期-胶质母细胞瘤&lt;/strong&gt;
- &lt;a href=&#34;http://mp.weixin.qq.com/s?__biz=MzUzMTEwODk0Ng==&amp;amp;mid=2247486195&amp;amp;idx=1&amp;amp;sn=2839a431fddf7f1846b54d03054b8f32&amp;amp;chksm=fa46cfcecd3146d8afc6bbc981c954a791a6ac4529096e23e71cd0006597d14bddff0e3a158b&amp;amp;scene=21#wechat_redirect&#34;&gt;&lt;strong&gt;GEO数据挖掘系列文-第二期-三阴性乳腺癌&lt;/strong&gt;&lt;/a&gt;
-&lt;a href=&#34;https://mp.weixin.qq.com/s?__biz=MzUzMTEwODk0Ng==&amp;amp;mid=2247486277&amp;amp;idx=1&amp;amp;sn=91b65441eea077183c66827a288c03f7&amp;amp;scene=21#wechat_redirect&#34;&gt;&lt;strong&gt;GEO数据挖掘系列文-第三期-口腔鳞状细胞癌&lt;/strong&gt;&lt;/a&gt;
- &lt;strong&gt;GEO数据挖掘系列文-第四期-肝细胞癌 （WGCNA）&lt;/strong&gt;
- &lt;strong&gt;GEO数据挖掘系列文-第五期-肝细胞癌 （多组差异分析）&lt;/strong&gt;
-&lt;a href=&#34;http://www.bio-info-trainee.com/3650.html&#34;&gt;&lt;strong&gt;GEO数据挖掘-第六期-RNA-seq数据也照挖不误&lt;/strong&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;GEO数据挖掘系列文-第一期-胶质母细胞瘤&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://mp.weixin.qq.com/s?__biz=MzUzMTEwODk0Ng==&amp;amp;mid=2247486195&amp;amp;idx=1&amp;amp;sn=2839a431fddf7f1846b54d03054b8f32&amp;amp;chksm=fa46cfcecd3146d8afc6bbc981c954a791a6ac4529096e23e71cd0006597d14bddff0e3a158b&amp;amp;scene=21#wechat_redirect&#34;&gt;&lt;strong&gt;GEO数据挖掘系列文-第二期-三阴性乳腺癌&lt;/strong&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://mp.weixin.qq.com/s?__biz=MzUzMTEwODk0Ng==&amp;amp;mid=2247486277&amp;amp;idx=1&amp;amp;sn=91b65441eea077183c66827a288c03f7&amp;amp;scene=21#wechat_redirect&#34;&gt;GEO数据挖掘系列文-第三期-口腔鳞状细胞癌**&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;GEO数据挖掘系列文-第四期-肝细胞癌 （WGCNA）&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;GEO数据挖掘系列文-第五期-肝细胞癌 （多组差异分析）&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://www.bio-info-trainee.com/3650.html&#34;&gt;&lt;strong&gt;GEO数据挖掘-第六期-RNA-seq数据也照挖不误&lt;/strong&gt;&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;外传：&lt;a href=&#34;http://mp.weixin.qq.com/s?__biz=MzUzMTEwODk0Ng==&amp;amp;mid=2247486365&amp;amp;idx=1&amp;amp;sn=f6f9a124cc153f2a74a4f85e9cd02ec4&amp;amp;chksm=fa46cea0cd3147b683074e7b47f9cb06f8f81aafea0d20276a1d52653c34c578ae8474f81c17&amp;amp;scene=21#wechat_redirect&#34;&gt;保姆式GEO数据挖掘演示—重现9分文章&lt;/a&gt;&lt;/p&gt;
 
-&lt;h3 id=&#34;wgcna-加权基因共表达网络分析&#34;&gt;WGCNA 加权基因共表达网络分析&lt;/h3&gt;
-
-&lt;p&gt;该分析方法旨在寻找协同表达的基因模块(module)，并探索基因网络与关注的表型之间的关联关系，以及网络中的核心基因。&lt;strong&gt;推荐5组(或者15个样品)以上的数据&lt;/strong&gt;。一般可应用的研究方向有：不同器官或组织类型发育调控、同一组织不同发育调控、非生物胁迫不同时间点应答、病原菌侵染后不同时间点应答。&lt;/p&gt;
-
 &lt;h2 id=&#34;基本原理&#34;&gt;基本原理&lt;/h2&gt;
 
-&lt;p&gt;从方法上来讲，WGCNA分为&lt;strong&gt;表达量聚类分析和表型关联&lt;/strong&gt;两部分，主要包括四步。&lt;/p&gt;
+&lt;p&gt;该分析方法旨在寻找协同表达的基因模块(module)，并探索基因网络与关注的表型之间的关联关系，以及网络中的核心基因。&lt;strong&gt;推荐5组(或者15个样品)以上的数据&lt;/strong&gt;。一般可应用的研究方向有：不同器官或组织类型发育调控、同一组织不同发育调控、非生物胁迫不同时间点应答、病原菌侵染后不同时间点应答。从方法上来讲，WGCNA分为&lt;strong&gt;表达量聚类分析和表型关联&lt;/strong&gt;两部分，主要包括四步。&lt;/p&gt;
 
 &lt;h4 id=&#34;1-基因之间相关系数计算&#34;&gt;1. 基因之间相关系数计算&lt;/h4&gt;
 
@@ -218,13 +219,15 @@ TIMESsep &amp;lt;- separate(TIMESunite, information, c(&amp;quot;months&amp;quot
 &lt;pre&gt;&lt;code class=&#34;language-R&#34;&gt;setwd(&#39;WGCNA/&#39;)
 #   56 breast cancer cell lines were profiled to identify patterns of gene expression associated with subtype and response to therapeutic compounds.
 if(F){
+  ## linux 代码  
   ## https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE48213
   #wget -c ftp://ftp.ncbi.nlm.nih.gov/geo/series/GSE48nnn/GSE48213/suppl/GSE48213_RAW.tar
   #tar -xf GSE48213_RAW.tar
   #gzip -d *.gz
   ## 首先在GSE48213_RAW目录里面生成tmp.txt文件，使用shell脚本：
-  awk &#39;{print FILENAME&amp;quot;\t&amp;quot;$0}&#39; * |grep -v EnsEMBL_Gene_ID &amp;gt;tmp.txt
-  ## 然后把tmp.txt导入R语言里面用reshape2处理即可！
+  ## awk &#39;{print FILENAME&amp;quot;\t&amp;quot;$0}&#39; * |grep -v EnsEMBL_Gene_ID &amp;gt;tmp.txt
+    
+  # 然后把tmp.txt导入R语言里面用reshape2处理即可！
   a=read.table(&#39;GSE48213_RAW/tmp.txt&#39;,sep = &#39;\t&#39;,stringsAsFactors = F)
   library(reshape2)
   fpkm &amp;lt;- dcast(a,formula = V2~V1)
@@ -269,7 +272,11 @@ ENSG00000000419  453.20831  243.64804  142.05818 200.4131493
 ENSG00000000457   18.10439   26.56661   16.12776  12.0873135
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;上面代码里面的rpkm就是我们的转录组数据的表达矩阵，以rpkm为单位。而datTraits就是所有样本对应的表型信息。需要自己制作，这个是学习WGCNA的基础，本次实例代码都是基于这两个数据。这个数据集里面的56种细胞系被分成了5组，如果要分开两两做差异分析，有10种组合，也就是说需要做10次差异分析，每个差异分析结果都需要去注释，会比较麻烦，这个时候WGCNA就派上用场啦。当然，如果你一定要去做差异分析，我也给你代码：&lt;a href=&#34;https://github.com/jmzeng1314/my-R/blob/master/10-RNA-seq-3-groups/hisat2_mm10_htseq.R&#34;&gt;https://github.com/jmzeng1314/my-R/blob/master/10-RNA-seq-3-groups/hisat2_mm10_htseq.R&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;上面代码里面的rpkm就是我们的转录组数据的表达矩阵，以rpkm为单位。而datTraits就是所有样本对应的表型信息。需要自己制作，这个是学习WGCNA的基础，本次实例代码都是基于这两个数据。&lt;/p&gt;
+
+&lt;p&gt;这个数据集里面的56种细胞系被分成了5组，如果要分开两两做差异分析，有10种组合，也就是说需要做10次差异分析，每个差异分析结果都需要去注释，会比较麻烦，这个时候WGCNA就派上用场啦。&lt;/p&gt;
+
+&lt;p&gt;当然，如果你一定要去做差异分析，我也给你代码：&lt;a href=&#34;https://github.com/jmzeng1314/my-R/blob/master/10-RNA-seq-3-groups/hisat2_mm10_htseq.R&#34;&gt;https://github.com/jmzeng1314/my-R/blob/master/10-RNA-seq-3-groups/hisat2_mm10_htseq.R&lt;/a&gt;&lt;/p&gt;
 
 &lt;h3 id=&#34;step2-确定最佳beta值&#34;&gt;STEP2:确定最佳BETA值&lt;/h3&gt;
 
