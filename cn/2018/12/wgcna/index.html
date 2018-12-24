@@ -76,7 +76,7 @@
 
 
 
-<p><a href="http://www.bio-info-trainee.com/2535.html">http://www.bio-info-trainee.com/2535.html</a></p>
+<p><a href="http://www.bio-info-trainee.com/2535.html">原文</a>    <a href="http://blog.genesino.com/2018/04/wgcna/">WGCNA分析，简单全面</a>   <a href="http://tiramisutes.github.io/2016/09/14/WGCNA.html">学习WGCNA总结</a>  <a href="https://taoshengxu.github.io/DocumentGit/pdf/WGCNA Background and glossary.pdf">WGCNA Background and glossary</a></p>
 
 <p><strong>GEO数据挖掘系列文-第一期-胶质母细胞瘤</strong></p>
 
@@ -91,6 +91,66 @@
 <p><a href="http://www.bio-info-trainee.com/3650.html"><strong>GEO数据挖掘-第六期-RNA-seq数据也照挖不误</strong></a></p>
 
 <p>外传：<a href="http://mp.weixin.qq.com/s?__biz=MzUzMTEwODk0Ng==&amp;mid=2247486365&amp;idx=1&amp;sn=f6f9a124cc153f2a74a4f85e9cd02ec4&amp;chksm=fa46cea0cd3147b683074e7b47f9cb06f8f81aafea0d20276a1d52653c34c578ae8474f81c17&amp;scene=21#wechat_redirect">保姆式GEO数据挖掘演示—重现9分文章</a></p>
+
+<h2 id="基本概念">基本概念</h2>
+
+<p><strong>加权基因共表达网络分析 (WGCNA, Weighted correlation network analysis)</strong>是用来描述不同样品之间基因关联模式的系统生物学方法，可以用来鉴定高度<strong>协同变化</strong>的基因集, 并根据基因集的内连性和基因集与表型之间的关联鉴定候补生物标记基因或治疗靶点。</p>
+
+<p>相比于只关注差异表达的基因，WGCNA利用数千或近万个变化最大的基因或全部基因的信息识别感兴趣的基因集，并与表型进行显著性关联分析。一是充分利用了信息，二是把数千个基因与表型的关联转换为数个基因集与表型的关联，免去了多重假设检验校正的问题。</p>
+
+<p>理解WGCNA，需要先理解下面几个术语和它们在WGCNA中的定义。</p>
+
+<ul>
+<li><strong>共表达网络：</strong>定义为加权基因网络。点代表基因，边代表基因表达相关性。加权是指对<strong>相关性值进行幂次运算</strong> (幂次的值也就是<strong>软阈值</strong> (power, pickSoftThreshold这个函数所做的就是确定合适的power))。</li>
+</ul>
+
+<blockquote>
+<p>无向网络的边属性计算方式为 <code>abs(cor(genex, geney)) ^ power</code>；</p>
+
+<p>有向网络的边属性计算方式为 <code>(1+cor(genex, geney)/2) ^ power</code>;</p>
+
+<p>sign hybrid的边属性计算方式为<code>cor(genex, geney)^power if cor&gt;0 else 0</code>。</p>
+</blockquote>
+
+<p>这种处理方式强化了强相关，弱化了弱相关或负相关，使得相关性数值更符合<code>无标度网络</code>特征，更具有生物意义。如果没有合适的<strong>power</strong>，一般是由于部分样品与其它样品因为某种原因差别太大导致的，可根据具体问题移除部分样品或查看后面的<code>经验值</code>。</p>
+
+<ul>
+<li><strong>Module(模块)</strong>：高度內连的基因集。</li>
+</ul>
+
+<blockquote>
+<p>在无向网络中，模块内是高度<strong>相关</strong>的基因。</p>
+
+<p>在有向网络中，模块内是高度<strong>正相关</strong>的基因。</p>
+</blockquote>
+
+<p>把基因聚类成模块后，可以对每个模块进行三个层次的分析：</p>
+
+<blockquote>
+<p><code>1</code>. 功能富集分析查看其功能特征是否与研究目的相符；基因富集相关文章 <a href="https://mp.weixin.qq.com/s/l6j2encDfEQkt2UeNCMFhg">去东方，最好用的在线GO富集分析工具</a>；<a href="http://mp.weixin.qq.com/s/d1KCETQZ88yaOLGwAtpWYg">GO、GSEA富集分析一网打进</a>；<a href="http://mp.weixin.qq.com/s/3Nd3urhfRGkw-F0LGZrlZQ">GSEA富集分析-界面操作</a>。</p>
+
+<p><code>2</code>. 模块与性状进行关联分析，找出与关注性状相关度最高的模块；</p>
+
+<p><code>3</code>. 模块与样本进行关联分析，找到样品特异高表达的模块。</p>
+</blockquote>
+
+<ul>
+<li><p><strong>Connectivity (连接度)</strong>：类似于网络中 “度” (degree)的概念。每个基因的连接度是与其相连的基因的<code>边属性之和</code>。</p></li>
+
+<li><p><strong>Module eigengene E</strong>: 给定模型的第一主成分，代表<strong>整个模型的基因表达谱</strong>。这个是个很巧妙的梳理，我们之前讲过<a href="https://mp.weixin.qq.com/s/ZKvQieq_6KX6l6LZyUz7jA">PCA分析</a>的降维作用，之前主要是拿来做可视化，现在用到这个地方，很好的用一个向量代替了一个矩阵，方便后期计算。(降维除了PCA，还可以看看<a href="http://mp.weixin.qq.com/s/alBfj3Y08qCnZoz5JwVdaw">tSNE</a>)</p></li>
+
+<li><p><strong>Intramodular connectivity</strong>: 给定基因与给定模型内其他基因的关联度，判断基因所属关系。</p></li>
+
+<li><p><strong>Module membership</strong>: 给定基因表达谱与给定模型的eigengene的相关性。</p></li>
+
+<li><p><strong>Hub gene:</strong> 关键基因 (连接度最多或连接多个模块的基因)。</p></li>
+
+<li><p><strong>Adjacency matrix (邻接矩阵)</strong>：基因和基因之间的加权相关性值构成的矩阵。</p></li>
+
+<li><p><strong>TOM (Topological overlap matrix)</strong>：把邻接矩阵转换为拓扑重叠矩阵，以降低噪音和假相关，获得的新距离矩阵，这个信息可拿来构建网络或绘制TOM图。WGCNA认为基因之间的简单的相关性不足以计算共表达，所以它利用上面的邻近矩阵，又计算了一个新的邻近矩阵。一般来说，TOM就是WGCNA分析的最终结果，后续的只是对TOM的下游注释。</p></li>
+</ul>
+
+<p><img src="https://taoshengxu.github.io/DocumentGit/img/WGCNA_TOM.png" alt="" /></p>
 
 <h2 id="基本原理">基本原理</h2>
 
@@ -123,15 +183,9 @@
 
 <h4 id="4-模块与性状关联">4. 模块与性状关联</h4>
 
-<h2 id="基本概念">基本概念</h2>
-
-<p><strong>Eigengene（eigen- +‎ gene）：</strong>基因和样本构成的矩阵，<a href="https://en.wiktionary.org/wiki/eigengene">https://en.wiktionary.org/wiki/eigengene</a></p>
-
-<p><strong>邻近矩阵：</strong>在WGCNA分析里面指的是基因与基因之间的<strong>相关性系数矩阵。</strong> 如果用了阈值来判断基因相关与否，那么这个邻近矩阵就是0/1矩阵，只记录基因相关与否。但是WGCNA没有用阈值来卡基因的相关性，而是记录了所有基因之间的相关性。</p>
-
-<p><strong>Topological Overlap Matrix (TOM)</strong>： WGNA认为基因之间的简单的相关性不足以计算共表达，所以它利用上面的邻近矩阵，又计算了一个新的邻近矩阵。一般来说，TOM就是WGCNA分析的最终结果，后续的只是对TOM的下游注释。</p>
-
 <h2 id="示例程序">示例程序</h2>
+
+<p><a href="https://taoshengxu.github.io/DocumentGit/data/GSE48213-wgcna-input.RData">数据下载</a></p>
 
 <h3 id="step1-输入数据的准备">STEP1: 输入数据的准备</h3>
 
@@ -201,7 +255,7 @@ ENSG00000000457   18.10439   26.56661   16.12776  12.0873135
 
 <h3 id="step2-确定最佳beta值">STEP2:确定最佳BETA值</h3>
 
-<p>选择合适“软阀值（soft thresholding power）”beta</p>
+<p>选择合适软阀值（soft thresholding power）beta。<strong>关键就是理解<code>pickSoftThreshold</code>函数及其返回的对象，最佳的beta值就是<code>sft$powerEstimate</code></strong></p>
 
 <pre><code class="language-R">powers = c(c(1:10), seq(from = 12, to=20, by=2))
 # Call the network topology analysis function
@@ -227,15 +281,17 @@ sft = pickSoftThreshold(datExpr, powerVector = powers, verbose = 5)
   text(sft$fitIndices[,1], sft$fitIndices[,5], labels=powers, cex=cex1,col=&quot;red&quot;)
 </code></pre>
 
-<p>关键就是理解<code>pickSoftThreshold</code>函数及其返回的对象，最佳的beta值就是<code>sft$powerEstimate</code></p>
-
 <p><img src="http://www.bio-info-trainee.com/wp-content/uploads/2017/09/step2-beta-value.png" alt="img" /></p>
 
-<p>参数beta取值默认是1到30，上述图形的横轴均代表权重参数β，左图纵轴代表对应的网络中log(k)与log(p(k))相关系数的平方。<strong>相关系数的平方越高，说明该网络越逼近无网路尺度的分布。</strong>右图的纵轴代表对应的基因模块中所有基因邻接函数的均值。最佳的beta值就是<code>sft$powerEstimate</code>，已经被保存到变量了，不需要知道具体是什么，后面的代码都用这个即可，在本例子里面是6。</p>
+<p>参数beta取值默认是1到30，上述图形的横轴均代表权重参数β，左图纵轴代表对应的网络中log(k)与log(p(k))相关系数的平方。<strong>相关系数的平方越高，说明该网络越逼近无网路尺度的分布。</strong>右图的纵轴代表对应的基因模块中所有基因邻接函数的均值。</p>
 
 <h3 id="step3-一步法构建共表达矩阵">STEP3：一步法构建共表达矩阵</h3>
 
 <p>有了表达矩阵和估计好的最佳beta值，就可以直接构建共表达矩阵了。</p>
+
+<p>所有的核心就在这一步，把输入的表达矩阵的<strong>几千个基因组归类成了几十个模块。</strong></p>
+
+<p>大体思路：<em>计算基因间的邻接性，根据邻接性计算基因间的相似性，然后推出基因间的相异性系数，并据此得到基因间的系统聚类树。然后按照混合动态剪切树的标准，设置每个基因模块最少的基因数目为30。根据动态剪切法确定基因模块后，再次分析，依次计算每个模块的特征向量值，然后对模块进行聚类分析，将距离较近的模块合并为新的模块。</em></p>
 
 <pre><code class="language-R">net = blockwiseModules(
                  datExpr,
@@ -251,13 +307,11 @@ sft = pickSoftThreshold(datExpr, powerVector = powers, verbose = 5)
  table(net$colors)
 </code></pre>
 
-<p>所有的核心就在这一步，把输入的表达矩阵的<strong>几千个基因组归类成了几十个模块。</strong>大体思路：计算基因间的邻接性，根据邻接性计算基因间的相似性，然后推出基因间的相异性系数，并据此得到基因间的系统聚类树。然后按照混合动态剪切树的标准，设置每个基因模块最少的基因数目为30。</p>
-
-<p>根据动态剪切法确定基因模块后，再次分析，依次计算每个模块的特征向量值，然后对模块进行聚类分析，将距离较近的模块合并为新的模块。</p>
-
 <h3 id="step4-模块可视化">STEP4: 模块可视化</h3>
 
 <p>这里用不同的颜色来代表那些所有的模块，其中灰色默认是无法归类于任何模块的那些基因，如果灰色模块里面的基因太多，那么前期对表达矩阵挑选基因的步骤可能就不太合适。</p>
+
+<p><strong>重点就是<code>plotDendroAndColors</code>函数，它接受一个聚类的对象，以及该对象里面包含的所有个体所对应的颜色。</strong></p>
 
 <pre><code class="language-R"># Convert labels to colors for plotting
 mergedColors = labels2colors(net$colors)
@@ -273,7 +327,9 @@ plotDendroAndColors(net$dendrograms[[1]], mergedColors[net$blockGenes[[1]]],
 
 <p><img src="http://www.bio-info-trainee.com/wp-content/uploads/2017/09/step4-genes-modules.png" alt="img" /></p>
 
-<p>这里的重点就是<code>plotDendroAndColors</code>函数，它接受一个聚类的对象，以及该对象里面包含的所有个体所对应的颜色。比如对表达矩阵进行hclust之后，加上表达矩阵里面所有样本的分组信息对应的颜色，也是可以用<code>plotDendroAndColors</code>函数可视化的，比如下面的样品图：</p>
+<hr />
+
+<p>对表达矩阵进行hclust之后，加上表达矩阵里面所有样本的分组信息对应的颜色，也是可以用<code>plotDendroAndColors</code>函数可视化&mdash;如下面<strong>样品图</strong>（样本进行聚类的代码跟WGCNA本身关系不大。）</p>
 
 <pre><code>#明确样本数和基因数
 nGenes = ncol(datExpr)
@@ -300,11 +356,11 @@ plotDendroAndColors(datExpr_tree, sample_colors,
                     main = &quot;Sample dendrogram and trait heatmap&quot;)
 </code></pre>
 
-<p>上面给样本进行聚类的代码可以不运行，其实跟WGCNA本身关系不大。</p>
-
 <p><img src="http://www.bio-info-trainee.com/wp-content/uploads/2017/09/sample-subtype-cluster.png" alt="img" /></p>
 
 <p>可以看到这些乳腺癌的细胞系的表达谱聚类情况并不是完全与其分类匹配，所以仅仅是根据样本的分组信息做差异分析并不完全准确。</p>
+
+<hr />
 
 <h3 id="step5-模块和性状的关系">STEP5:模块和性状的关系</h3>
 
@@ -325,7 +381,7 @@ plotDendroAndColors(datExpr_tree, sample_colors,
   par(mar = c(6, 8.5, 3, 3));
   # Display the correlation values within a heatmap plot
   labeledHeatmap(Matrix = moduleTraitCor,
-                 xLabels = names(design),
+                 xLabels = colnames(design),
                  yLabels = names(MEs),
                  ySymbols = names(MEs),
                  colorLabels = FALSE,
@@ -339,9 +395,8 @@ plotDendroAndColors(datExpr_tree, sample_colors,
 
 <p>通过模块与各种表型的相关系数，可以很清楚的挑选自己感兴趣的模块进行下游分析了。这个图就是把<code>moduleTraitCor</code>这个矩阵给用热图可视化一下。</p>
 
-<p><img src="http://www.bio-info-trainee.com/wp-content/uploads/2017/09/step5-Module-trait-relationships.png" alt="img" /></p>
-
-<p>从上图已经可以看到跟乳腺癌分类相关的基因模块了，包括<code>&quot;Basal&quot; &quot;Claudin-low&quot; &quot;Luminal&quot; &quot;Non-malignant&quot; &quot;unknown&quot;</code> 这5类所对应的不同模块的基因列表。可以看到每一种乳腺癌都有跟它强烈相关的模块，可以作为它的表达signature，模块里面的基因可以拿去做下游分析。我们看到<strong>Luminal表型</strong>跟<strong>棕色的模块</strong>相关性高达0.86，而且极其显著的相关，所以值得我们挖掘，这<strong>个模块里面的基因是什么，为什么如此的相关呢？</strong></p>
+<p><img src="http://www.bio-info-trainee.com/wp-content/uploads/2017/09/step5-Module-trait-relationships.png" alt="img" />
+从上图已经可以看到跟乳腺癌分类相关的基因模块了，包括<code>&quot;Basal&quot; &quot;Claudin-low&quot; &quot;Luminal&quot; &quot;Non-malignant&quot; &quot;unknown&quot;</code> 这5类所对应的不同模块的基因列表。可以看到每一种乳腺癌都有跟它强烈相关的模块，可以作为它的表达signature，模块里面的基因可以拿去做下游分析。我们看到<strong>Luminal表型</strong>跟<strong>棕色的模块</strong>相关性高达0.86，而且极其显著的相关，所以值得我们挖掘，这<strong>个模块里面的基因是什么，为什么如此的相关呢？</strong></p>
 
 <h3 id="step6-感兴趣性状的模块的具体基因分析">STEP6:感兴趣性状的模块的具体基因分析</h3>
 
@@ -431,6 +486,8 @@ TOMplot(plotDiss, selectTree, selectColors, main = &quot;Network heatmap plot, s
 
 <p>这个图凑数的意义居多，如果是把全部基因画上去，可以很清楚的看到各个区块颜色差异。</p>
 
+<p><img src="https://taoshengxu.github.io/DocumentGit/img/WGCNA_TOM1.png" alt="" /></p>
+
 <h4 id="最后画模块和性状的关系">最后画模块和性状的关系</h4>
 
 <pre><code> # Recalculate module eigengenes
@@ -462,7 +519,7 @@ TOMplot(plotDiss, selectTree, selectColors, main = &quot;Network heatmap plot, s
 
 <p><img src="http://www.bio-info-trainee.com/wp-content/uploads/2017/09/step7-Eigengene-dendrogram.png" alt="img" /></p>
 
-<h2 id="step8-提取指定模块的基因名">step8:提取指定模块的基因名</h2>
+<h3 id="step8-提取指定模块的基因名">step8:提取指定模块的基因名</h3>
 
 <pre><code># Select module
 module = &quot;brown&quot;;
@@ -474,7 +531,7 @@ modProbes = probes[inModule];
 
 <p>有了基因信息，下游分析就很简单了。包括GO/KEGG等功能数据库的注释。</p>
 
-<h2 id="step9-模块的导出">Step9: 模块的导出</h2>
+<h3 id="step9-模块的导出">Step9: 模块的导出</h3>
 
 <p>主要模块里面的基因直接的相互作用关系信息可以导出到<strong>cytoscape</strong>,<strong>VisANT</strong>等网络可视化软件。</p>
 
