@@ -3,6 +3,16 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>/blog/cn/2018/12/upsetr/</loc>
+    <lastmod>2018-12-24T16:11:13+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/cn/2018/12/win10_linux/</loc>
+    <lastmod>2018-12-24T15:15:34+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>/blog/cn/2018/12/dplyr_tidyr/</loc>
     <lastmod>2018-12-23T21:58:23+00:00</lastmod>
   </url>
@@ -412,7 +422,7 @@
   
   <url>
     <loc>/blog/cn/</loc>
-    <lastmod>2018-12-23T21:58:23+00:00</lastmod>
+    <lastmod>2018-12-24T16:11:13+00:00</lastmod>
   </url>
   
   <url>

@@ -10,6 +10,137 @@
     <atom:link href="/blog/" rel="self" type="application/rss+xml" />
     
     <item>
+      <title>UpSetR包</title>
+      <link>/blog/cn/2018/12/upsetr/</link>
+      <pubDate>Mon, 24 Dec 2018 16:11:13 +0000</pubDate>
+      
+      <guid>/blog/cn/2018/12/upsetr/</guid>
+      <description>
+        
+
+&lt;p&gt;&lt;a href=&#34;https://www.jianshu.com/p/324aae3d5ea4&#34;&gt;https://www.jianshu.com/p/324aae3d5ea4&lt;/a&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-R&#34;&gt;install.packages(UpSetR)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h5 id=&#34;输入方式一-table&#34;&gt;输入方式一： table&lt;/h5&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-R&#34;&gt;require(ggplot2); require(plyr); require(gridExtra); require(grid);
+movies &amp;lt;- read.csv(system.file(&amp;quot;extdata&amp;quot;,&amp;quot;movies.csv&amp;quot;,package = &amp;quot;UpSetR&amp;quot;), header = TRUE, sep=&amp;quot;;&amp;quot;)
+View(movies)
+upset(movies, nsets = 7, nintersects = 30, mb.ratio = c(0.5, 0.5),
+      order.by = c(&amp;quot;freq&amp;quot;, &amp;quot;degree&amp;quot;), decreasing = c(TRUE,FALSE))
+#nsets: 最多展示多少个集合数据。毕竟原来有20多种电影类型，放不完的
+#nintersects: 展示多少交集。
+#mb.ratio： 点点图和条形图的比例。
+#order.by： 交集如何排序。这里先根据freq，然后根据degree
+#decreasing： 变量如何排序。这里表示freq降序，degree升序
+# 用于query的函数
+between &amp;lt;- function(row, min, max){
+  newData &amp;lt;- (row[&amp;quot;ReleaseDate&amp;quot;] &amp;lt; max) &amp;amp; (row[&amp;quot;ReleaseDate&amp;quot;] &amp;gt; min)
+}
+
+upset(movies, sets=c(&amp;quot;Drama&amp;quot;,&amp;quot;Comedy&amp;quot;,&amp;quot;Action&amp;quot;,&amp;quot;Thriller&amp;quot;,&amp;quot;Western&amp;quot;,&amp;quot;Documentary&amp;quot;),
+      queries = list(list(query = intersects, params = list(&amp;quot;Drama&amp;quot;, &amp;quot;Thriller&amp;quot;)),
+                     list(query = between, params=list(1970,1980), color=&amp;quot;red&amp;quot;, active=TRUE)))
+#queries接受query所组成的list。然后不同query也是一个list，这个list由查询函数，和参数组成，参数也是一个list。查询函数可以用系统自带的，也可以自己写一个。比如说这里的between
+
+upset(movies,attribute.plots=list(gridrows=60,plots=list(list(plot=scatter_plot, x=&amp;quot;ReleaseDate&amp;quot;, y=&amp;quot;AvgRating&amp;quot;),
+                                                         list(plot=scatter_plot, x=&amp;quot;ReleaseDate&amp;quot;, y=&amp;quot;Watches&amp;quot;),list(plot=scatter_plot, x=&amp;quot;Watches&amp;quot;, y=&amp;quot;AvgRating&amp;quot;),
+                                                         list(plot=histogram, x=&amp;quot;ReleaseDate&amp;quot;)), ncols = 2))
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;输入方式二-集合交集向量&#34;&gt;输入方式二：集合交集向量&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-R&#34;&gt;input &amp;lt;- c(
+  &amp;quot;MAQ&amp;quot;=144600,
+  &amp;quot;FaSD&amp;quot;=16532, 
+  &amp;quot;Bcftools&amp;quot;=283, 
+  &amp;quot;GATK&amp;quot;=15160, 
+  &amp;quot;MAQ&amp;amp;FaSD&amp;quot;=16323, 
+  &amp;quot;MAQ&amp;amp;Bcftools&amp;quot;=636, 
+  &amp;quot;Bcftools&amp;amp;GATK&amp;quot;=65435, 
+  &amp;quot;FaSD&amp;amp;GATK&amp;quot;=33874, 
+  &amp;quot;MAQ&amp;amp;FaSD&amp;amp;Bcftools&amp;quot;=114, 
+  &amp;quot;MAQ&amp;amp;FaSD&amp;amp;GATK&amp;quot;=41858, 
+  &amp;quot;MAQ&amp;amp;Bcftools&amp;amp;GATK&amp;quot;=4, 
+  &amp;quot;FaSD&amp;amp;Bcftools&amp;amp;GATK&amp;quot;=6603, 
+  &amp;quot;MAQ&amp;amp;FaSD&amp;amp;Bcftools&amp;amp;GATK&amp;quot;=8357
+)
+data &amp;lt;- fromExperssion(input)
+upset(data)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;upsetplot&#34;&gt;upsetplot()&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code&gt;require(TxDb.Hsapiens.UCSC.hg19.knownGene)
+txdb &amp;lt;- TxDb.Hsapiens.UCSC.hg19.knownGene
+peakfile &amp;lt;- system.file(&amp;quot;extdata&amp;quot;, &amp;quot;sample_peaks.txt&amp;quot;, package=&amp;quot;ChIPseeker&amp;quot;)
+peakAnno &amp;lt;- annotatePeak(peakfile, tssRegion=c(-3000, 3000), TxDb=txdb)
+peakAnno
+upsetplot(peakAnno, vennpie=TRUE)
+&lt;/code&gt;&lt;/pre&gt;
+
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>Win10 Linux子系统</title>
+      <link>/blog/cn/2018/12/win10_linux/</link>
+      <pubDate>Mon, 24 Dec 2018 15:15:34 +0000</pubDate>
+      
+      <guid>/blog/cn/2018/12/win10_linux/</guid>
+      <description>
+        
+
+&lt;h4 id=&#34;1-开启win10内置linux子系统&#34;&gt;1. 开启win10内置linux子系统&lt;/h4&gt;
+
+&lt;ol&gt;
+&lt;li&gt;选择开发人员模式&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;​   设置&amp;ndash;针对开发人员&amp;ndash;开发人员模式&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;开启windows功能中的Linux子系统功能。&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;​   控制面板&amp;gt;启用或关闭windows功能-&amp;gt;适用于Linux的windows子系统&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;重启计算机&lt;/li&gt;
+&lt;li&gt;CMD-输入bash&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h4 id=&#34;2-启动linux&#34;&gt;2. 启动Linux&lt;/h4&gt;
+
+&lt;p&gt;&lt;code&gt;CMD-输入bash即可&lt;/code&gt;&lt;/p&gt;
+
+&lt;h4 id=&#34;3-linux子系统升级&#34;&gt;3. Linux子系统升级&lt;/h4&gt;
+
+&lt;pre&gt;&lt;code&gt;##查看当前 Windows 10内置的Ubuntu系统版本，bash中输入
+lsb_release -a
+
+## CMD中 移除Ubuntu 14.04版
+lxrun /uninstall /full /y
+## CMD中 安装最新Ubuntu 
+lxrun /install /y
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;cmder的使用&#34;&gt;cmder的使用&lt;/h2&gt;
+
+&lt;p&gt;由于Windows自带的命令提示符cmd并不是很好用，界面也不美观，这里使用效果更好的&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://cmder.net/&#34;&gt;cmder&lt;/a&gt;，下载&lt;a href=&#34;https://github.com/cmderdev/cmder/releases/download/v1.3.2/cmder_mini.zip&#34;&gt;mini版&lt;/a&gt;的解压即可使用。&lt;/p&gt;
+
+&lt;p&gt;进入在cmder的标题栏或状态栏 右键 或者点击右下角menu，如下图，选择”Settings”进行环境设置：选择Command line，输入”bash -cur_console:p”，另外通过ssh连接服务器的时候，会出现中文字体相互重叠的情况，这时去设置Main总取消选择 Compress long strings to fit space。&lt;/p&gt;
+
+        
+      </description>
+    </item>
+    
+    <item>
       <title>dplyr_tidyr包</title>
       <link>/blog/cn/2018/12/dplyr_tidyr/</link>
       <pubDate>Sun, 23 Dec 2018 21:58:23 +0000</pubDate>
@@ -3428,407 +3559,6 @@ dbDisconnect(con) # 断开连接
 &lt;p&gt;&lt;strong&gt;Get Started with Python:&lt;/strong&gt; &lt;a href=&#34;https://www.analyticsvidhya.com/blog/2016/01/complete-tutorial-learn-data-science-python-scratch-2/&#34;&gt;A Complete Tutorial To Learn Data Science with Python From Scratch&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;strong&gt;P.S. In case you need to use Big Data libraries, give Pydoop and PyMongo a try. They are not included here as Big Data learning path is an entire topic in itself.&lt;/strong&gt;&lt;/p&gt;
-
-        
-      </description>
-    </item>
-    
-    <item>
-      <title>python—sklearn学习</title>
-      <link>/blog/cn/2017/12/python_sklearn/</link>
-      <pubDate>Thu, 21 Dec 2017 11:17:40 +0000</pubDate>
-      
-      <guid>/blog/cn/2017/12/python_sklearn/</guid>
-      <description>
-        &lt;p&gt;学习记录&lt;/p&gt;
-
-        
-      </description>
-    </item>
-    
-    <item>
-      <title>python基本知识</title>
-      <link>/blog/cn/2017/12/python_study/</link>
-      <pubDate>Thu, 21 Dec 2017 11:17:39 +0000</pubDate>
-      
-      <guid>/blog/cn/2017/12/python_study/</guid>
-      <description>
-        
-
-&lt;p&gt;&lt;a href=&#34;http://www.runoob.com/python/python-tutorial.html&#34;&gt;入门教程&lt;/a&gt;   &lt;a href=&#34;http://study.163.com/course/courseMain.htm?courseId=378003&#34;&gt;视频教程&lt;/a&gt;&lt;/p&gt;
-
-&lt;h2 id=&#34;python-ide环境配置&#34;&gt;python IDE环境配置&lt;/h2&gt;
-
-&lt;p&gt;&lt;code&gt;环境配置&lt;/code&gt; &lt;strong&gt;pycharm+ anaconda&lt;/strong&gt;&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;# 安装anaconda之后 在 windows cmd 命令行创建python解释器
-conda create -n py_27 python=2.7 or  conda create -n py_36 python=3.6
-# 在cmd命令行激活python解释器
-activeate py_27
-# 查看该解释器已经安装的包或者安装新的包
-conda list
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&#34;pycharm使用技巧-快捷键&#34;&gt;pycharm使用技巧(快捷键)&lt;/h2&gt;
-
-&lt;pre&gt;&lt;code&gt; Ctrl+Q (View | Quick Documentation) #快速查看函数说明文档
- Ctrl+P (View | Parameter Info) #
- Ctrl+B (Navigate | Declaration) #打开函数定义文件
- can be used not only in the editor but in the code completion popup list as well.
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&#34;jupyter-notebooks&#34;&gt;Jupyter Notebooks&lt;/h2&gt;
-
-&lt;blockquote&gt;
-&lt;p&gt;Jupyter Notebooks提供了一个环境，你无需离开这个环境，就可以在其中编写你的代码、运行代码、查看输出、可视化数据并查看结果。因此，这是一款可执行端到端的数据科学工作流程的便捷工具，其中包括数据清理、统计建模、构建和训练机器学习模型、可视化数据等等.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;# 安装Anaconda之后自动安装Jupyter Notebooks
-# windows 命令行输入 就会在你的默认网络浏览器打开（http://localhost:8888/tree）
-jupyter notebook
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;hr /&gt;
-
-&lt;h2 id=&#34;python-函数查询&#34;&gt;python 函数查询&lt;/h2&gt;
-
-&lt;p&gt;&lt;strong&gt;1. 查看模块下所有函数&lt;/strong&gt;&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;dir(module_name)
-
-from sklearn import datasets
-dir(datasets)
-
-[&#39;__all__&#39;, &#39;__builtins__&#39;, &#39;__cached__&#39;, &#39;__doc__&#39;, &#39;__file__&#39;, &#39;__loader__&#39;, &#39;__name__&#39;, &#39;__package__&#39;, &#39;__path__&#39;, &#39;__spec__&#39;, &#39;_svmlight_format&#39;, &#39;base&#39;, &#39;california_housing&#39;, &#39;clear_data_home&#39;, &#39;covtype&#39;, &#39;dump_svmlight_file&#39;, &#39;fetch_20newsgroups&#39;, &#39;fetch_20newsgroups_vectorized&#39;, &#39;fetch_california_housing&#39;, ...&#39;]
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;&lt;strong&gt;2. 查看模块下特定函数信息&lt;/strong&gt;&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;#方法一：
-help(datasets.load_iris)
-#方法二：
-print(datasets.load_iris.__doc__)
-
-Help on function load_iris in module sklearn.datasets.base:
-load_iris(return_X_y=False)
-    Load and return the iris dataset (classification).
-    
-    The iris dataset is a classic and very easy multi-class classification
-    dataset.
-    =================   ==============
-    Classes                          3
-    Samples per class               50
-    Samples total                  150
-    Dimensionality                   4
-    Features            real, positive
-    =================   ==============
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;hr /&gt;
-
-&lt;h1 id=&#34;基本语法&#34;&gt;基本语法&lt;/h1&gt;
-
-&lt;h2 id=&#34;1-认识python&#34;&gt;1. 认识python&lt;/h2&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;#实例(Python 2.0+)
-#!/usr/bin/python
-print &amp;quot;Hello, World!&amp;quot;;
-
-#实例(Python 3.0+)
-#!/usr/bin/python3
-print(&amp;quot;Hello, World!&amp;quot;);
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&#34;2-python-脚本&#34;&gt;2. python 脚本&lt;/h2&gt;
-
-&lt;p&gt;所有 Python 文件将以 .py 为扩展名。用 $ python *.py 执行脚本。&lt;/p&gt;
-
-&lt;h2 id=&#34;3-python语法&#34;&gt;3. python语法&lt;/h2&gt;
-
-&lt;p&gt;Python 的代码块不使用大括号 {} 来控制类，函数以及其他逻辑判断。python 最具特色的就是用缩进来写模块。缩进的空白数量是可变的，但是所有代码块语句必须包含相同的缩进空白数量，这个必须严格执行。&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;if True:
-  print &amp;quot;True&amp;quot;
-else:
-  print &amp;quot;False&amp;quot;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h3 id=&#34;3-0-变量定义&#34;&gt;3.0 变量定义&lt;/h3&gt;
-
-&lt;blockquote&gt;
-&lt;pre&gt;&lt;code&gt;&amp;gt; ## 特殊用法
-&amp;gt; 1. 矩阵A的转置 A.T
-&amp;gt; ```
-
-
-
-**\_\_call\_\_**
-
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;变量:
-1.  前带&lt;em&gt;的变量:  标明是一个私有变量, 只用于标明, 外部类还是可以访问到这个变量
-2.  前带两个&lt;/em&gt; ,后带两个_ 的变量:  标明是内置变量,
-3.  大写加下划线的变量:  标明是不会发生改变的全局变量&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;函数:
-1. 前带&lt;em&gt;的变量: 标明是一个私有函数, 只用于标明,
-2.  前带两个&lt;/em&gt; ,后带两个_ 的函数:  标明是特殊函数&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;
-### 3.1 python 类对象
-
-```python
-__init__() 类对象的初始化函数
-
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h3 id=&#34;3-2-python函数&#34;&gt;3.2 python函数&lt;/h3&gt;
-
-&lt;p&gt;语法&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;def functionname( parameters ):
-   &amp;quot;函数_文档字符串&amp;quot;
-   function_suite
-   return [expression]
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;#示例
-#!/usr/bin/python
-# -*- coding: UTF-8 -*-
- 
-# 定义函数
-def printme( str ):
-   &amp;quot;打印任何传入的字符串&amp;quot;
-   print str;
-   return;
-# 调用函数
-printme(&amp;quot;我要调用用户自定义函数!&amp;quot;);
-printme(&amp;quot;再次调用同一函数&amp;quot;);
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h3 id=&#34;3-2-python-模块&#34;&gt;3.2 Python 模块&lt;/h3&gt;
-
-&lt;p&gt;Python 模块(Module)，是一个 Python 文件，以 .py 结尾，包含了 Python 对象定义和Python语句。&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;# 定义support.py 模块：
-def print_func( par ):
-   print &amp;quot;Hello : &amp;quot;, par
-   return
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;&lt;strong&gt;模块的引入&lt;/strong&gt;&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;#!/usr/bin/python
-# -*- coding: UTF-8 -*-
-# 导入模块
-import support
-# 现在可以调用模块里包含的函数了
-# 调用方法：模块名.函数名
-support.print_func(&amp;quot;Runoob&amp;quot;)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;&lt;strong&gt;From…import 语句&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;Python 的 from 语句让你从模块中导入一个指定的部分到当前命名空间中。&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;from fib import fibonacci
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h3 id=&#34;3-3-常用语句&#34;&gt;3.3 常用语句&lt;/h3&gt;
-
-&lt;p&gt;&lt;strong&gt;读文件&lt;/strong&gt;&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;try:
-    f = open(&#39;/path/to/file&#39;, &#39;r&#39;)
-    print(f.read())
-finally:
-    if f:
-        f.close()
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;#with语句来自动帮我们调用close()方法
-with open(&#39;/path/to/file&#39;, &#39;r&#39;) as f:
-    print(f.read())
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;pre&gt;&lt;code&gt;for line in f.readlines():
-    print(line.strip()) # 把末尾的&#39;\n&#39;删掉
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;&lt;strong&gt;写文件&lt;/strong&gt;&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;with open(&#39;/Users/michael/test.txt&#39;, &#39;w&#39;) as f:
-    f.write(&#39;Hello, world!&#39;)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h3 id=&#34;3-4-常规语法&#34;&gt;3.4  常规语法&lt;/h3&gt;
-
-&lt;p&gt;&lt;strong&gt;import&lt;/strong&gt;&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;from...import
-如 from A import b,相当于
-import A
-b=A.b
-在此过程中有一个隐含的赋值的过程
-
-import A as B,给予A库一个B的别称，帮助记忆
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;&lt;strong&gt;原始字符串&lt;/strong&gt;
-&lt;code&gt;在单引号或者双引号 前面加一个字符 r&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;运算符&lt;/strong&gt;&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;a=10
-a+=1  等价于 a=a+1=11
-
-/  除法
-// 除法取整
-% 取余
-** 幂运算  3**2=9
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;&lt;strong&gt;三元操作符&lt;/strong&gt;  small =x if x &amp;lt;y else y 条件真为x, 假为y&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;断言&lt;/strong&gt;   assert 3&amp;gt;4&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;循环&lt;/strong&gt;&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;1. for 
-for i in range(1,8):  注意冒号
-
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;&lt;strong&gt;break&lt;/strong&gt;跳出当前循环&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;continue&lt;/strong&gt; 终止本轮循环，开启下一轮循环（如果循环条件为真）&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;range()函数&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;range([start,]stop[,step=1])&lt;/p&gt;
-
-&lt;p&gt;list(range(5))&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;列表&lt;/strong&gt;&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;menber=[&amp;quot;a&amp;quot;,&amp;quot;b&amp;quot;,&amp;quot;c&amp;quot;] 单一类型列表
-mix=[1,&amp;quot;a&amp;quot;,3.14,[a,b,c]] 混合类型列表
-
-empty=[]    创建空列表
-empty.append(&amp;quot;小甲鱼&amp;quot;)  向列表添加单一元素
-empty.extend([a,b])     向列表添加另外一个列表
-empty.insert(0,&amp;quot;牡丹&amp;quot;)
-empty.remove(&amp;quot;牡丹&amp;quot;)
-del empty 删除
-pop()从列表中删除最后一个元素并弹出
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;&lt;strong&gt;操作符&lt;/strong&gt;&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;列表比较大小 只比较第一个元素
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h1 id=&#34;python特殊语法-filter-map-reduce-lambda&#34;&gt;Python特殊语法：filter、map、reduce、lambda&lt;/h1&gt;
-
-&lt;p&gt;&lt;strong&gt;1.lambda&lt;/strong&gt;&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;这是Python支持一种有趣的语法，它允许你快速定义单行的最小函数，类似与C语言中的宏，这些叫做lambda的函数，是从LISP借用来的，可以用在任何需要函数的地方： 
-&amp;gt;&amp;gt;&amp;gt; g = lambda x: x * 2 
-&amp;gt;&amp;gt;&amp;gt; g(3) 
-6 
-&amp;gt;&amp;gt;&amp;gt; (lambda x: x * 2)(3) 
-6
----
-lambda表达式返回一个函数对象
-例子：
-func = lambda x,y:x+y
-func相当于下面这个函数
-def func(x,y):
-    return x+y
- 
-注意def是语句而lambda是表达式,下面这种情况下就只能用lambda而不能用def
-[(lambda x:x*x)(x) for x in range(1,11)]
-返回值：
-[1, 4, 9, 16, 25, 36, 49, 64, 81, 100]
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;&lt;strong&gt;2. filter(function, sequence)&lt;/strong&gt;&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;对sequence中的item依次执行function(item)，将执行结果为True的item组成一个List/String/Tuple（取决于sequence的类型）返回,function的返回值只能是True或False.
-&amp;gt;&amp;gt;&amp;gt; def f(x): return x % 2 != 0 and x % 3 != 0 
-&amp;gt;&amp;gt;&amp;gt; filter(f, range(2, 25)) 
-[5, 7, 11, 13, 17, 19, 23]
-&amp;gt;&amp;gt;&amp;gt; def f(x): return x != &#39;a&#39; 
-&amp;gt;&amp;gt;&amp;gt; filter(f, &amp;quot;abcdef&amp;quot;) 
-&#39;bcdef&#39;
- 
-找出1到10之间的奇数
-filter(lambda x:x%2!=0,range(1,11))
-返回值
-[1,3,5,7,9]
- 
-如果sequence是一个string
-filter(lambda x:len(x)!=0,&#39;hello&#39;)返回&#39;hello&#39;
-filter(lambda x:len(x)==0,&#39;hello&#39;)返回&#39;&#39;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;&lt;strong&gt;3.map(function, sequence)&lt;/strong&gt;&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;对sequence中的item依次执行function(item)，见执行结果组成一个List返回：
-&amp;gt;&amp;gt;&amp;gt; def cube(x): return x*x*x 
-&amp;gt;&amp;gt;&amp;gt; map(cube, range(1, 11)) 
-[1, 8, 27, 64, 125, 216, 343, 512, 729, 1000]
-&amp;gt;&amp;gt;&amp;gt; def cube(x) : return x + x 
-... 
-&amp;gt;&amp;gt;&amp;gt; map(cube , &amp;quot;abcde&amp;quot;) 
-[&#39;aa&#39;, &#39;bb&#39;, &#39;cc&#39;, &#39;dd&#39;, &#39;ee&#39;]
-另外map也支持多个sequence，这就要求function也支持相应数量的参数输入：
-&amp;gt;&amp;gt;&amp;gt; def add(x, y): return x+y 
-&amp;gt;&amp;gt;&amp;gt; map(add, range(8), range(8)) 
-[0, 2, 4, 6, 8, 10, 12, 14]
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;&lt;strong&gt;4. reduce(function, sequence, starting_value)&lt;/strong&gt;&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;function接收的参数个数只能为2,先把sequence中第一个值和第二个值当参数传给function，再把function的返回值和第三个值当参数传给function (对sequence中的item顺序迭代调用function)，然后只返回一个结果，如果有starting_value，还可以作为初始值调用，
-
-例子：求1到10的累加
-reduce(lambda x,y:x+y,range(1,11))
-返回值是55。
-
-&amp;gt;&amp;gt;&amp;gt; def add(x,y): return x + y 
-&amp;gt;&amp;gt;&amp;gt; reduce(add, range(1, 11)) 
-55 （注：1+2+3+4+5+6+7+8+9+10）
-
-&amp;gt;&amp;gt;&amp;gt; reduce(add, range(1, 11), 20) 
-75 （注：1+2+3+4+5+6+7+8+9+10+20）
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;&lt;strong&gt;5. 可以把filter map reduce 和lambda结合起来用，函数就可以简单的写成一行。&lt;/strong&gt;&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;例如
-kmpathes = filter(lambda kmpath: kmpath, map(lambda kmpath: string.strip(kmpath),
-string.split(L, &#39;:&#39;))) 
-
-#对L中的所有元素以&#39;:&#39;做分割，得出一个列表。对这个列表的每一个元素做字符串strip，形成一个列表。对这个列表的每一个元素做直接返回操作(这个地方可以加上过滤条件限制)，最终获得一个字符串被&#39;:&#39;分割的列表，列表中的每一个字符串都做了strip，并可以对特殊字符串过滤。
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;&lt;strong&gt;6. zip([iterable, &amp;hellip;])&lt;/strong&gt;&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;zip()是Python的一个内建函数，它接受一系列可迭代的对象作为参数，将对象中对应的元素打包成一个个tuple（元组），然后返回由这些tuples组成的list（列表）。若传入参数的长度不等，则返回list的长度和参数中长度最短的对象相同。利用*号操作符，可以将list unzip（解压）.
-
-&amp;gt;&amp;gt;&amp;gt; a = [1,2,3]
-&amp;gt;&amp;gt;&amp;gt; b = [4,5,6]
-&amp;gt;&amp;gt;&amp;gt; c = [4,5,6,7,8]
-&amp;gt;&amp;gt;&amp;gt; zipped = zip(a,b)
-[(1, 4), (2, 5), (3, 6)]
-&amp;gt;&amp;gt;&amp;gt; zip(a,c)
-[(1, 4), (2, 5), (3, 6)]
-&amp;gt;&amp;gt;&amp;gt; zip(*zipped)
-[(1, 2, 3), (4, 5, 6)]
-&lt;/code&gt;&lt;/pre&gt;
 
         
       </description>
