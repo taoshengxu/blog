@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <title>Win10 Linux子系统 - My Lives</title>
+    <meta property="og:title" content="Win10 Linux子系统 - My Lives">
+    
+
+    
+      
+    
+
+    
+
+    
+    
+
+
+<link href='//cdn.bootcss.com/highlight.js/9.12.0/styles/github.min.css' rel='stylesheet' type='text/css' />
+
+
+
+    <link rel="stylesheet" href="/blog/css/style.css" />
+    <link rel="stylesheet" href="/blog/css/fonts.css" />
+    <link rel="stylesheet" href="/blog/css/custom.css" />
+
+  </head>
+
+  
+  <body class="blog">
+    <header class="masthead">
+      <h1><a href="/blog/">My Lives</a></h1>
+
+
+
+      <nav class="menu">
+        <input id="menu-check" type="checkbox" />
+        <label id="menu-label" for="menu-check" class="unselectable">
+          <span class="icon close-icon">✕</span>
+          <span class="icon open-icon">☰</span>
+          <span class="text">Menu</span>
+        </label>
+        <ul>
+        
+        
+        <li><a href="/blog/">Home</a></li>
+        
+        <li><a href="/blog/en/">English</a></li>
+        
+        <li><a href="/blog/cn/">Chinese</a></li>
+        
+        <li><a href="/blog/paper/">Paper Reading</a></li>
+        
+        <li><a href="/blog/travel/">Travel</a></li>
+        
+        
+        </ul>
+      </nav>
+    </header>
+
+    <article class="main">
+      <header class="title">
+      
+<h1>Win10 Linux子系统</h1>
+
+<h3>
+  2018-12-24</h3>
+<hr>
+
+
+      </header>
+
+
+
+
+
+<h4 id="1-开启win10内置linux子系统">1. 开启win10内置linux子系统</h4>
+
+<ol>
+<li>选择开发人员模式</li>
+</ol>
+
+<p>​   设置&ndash;针对开发人员&ndash;开发人员模式</p>
+
+<ol>
+<li>开启windows功能中的Linux子系统功能。</li>
+</ol>
+
+<p>​   控制面板&gt;启用或关闭windows功能-&gt;适用于Linux的windows子系统</p>
+
+<ol>
+<li>重启计算机</li>
+<li>CMD-输入bash</li>
+</ol>
+
+<h4 id="2-启动linux">2. 启动Linux</h4>
+
+<p><code>CMD-输入bash即可</code></p>
+
+<h4 id="3-linux子系统升级">3. Linux子系统升级</h4>
+
+<pre><code>##查看当前 Windows 10内置的Ubuntu系统版本，bash中输入
+lsb_release -a
+
+## CMD中 移除Ubuntu 14.04版
+lxrun /uninstall /full /y
+## CMD中 安装最新Ubuntu 
+lxrun /install /y
+</code></pre>
+
+<h2 id="cmder的使用">cmder的使用</h2>
+
+<p>由于Windows自带的命令提示符cmd并不是很好用，界面也不美观，这里使用效果更好的</p>
+
+<p><a href="http://cmder.net/">cmder</a>，下载<a href="https://github.com/cmderdev/cmder/releases/download/v1.3.2/cmder_mini.zip">mini版</a>的解压即可使用。</p>
+
+<p>进入在cmder的标题栏或状态栏 右键 或者点击右下角menu，如下图，选择”Settings”进行环境设置：选择Command line，输入”bash -cur_console:p”，另外通过ssh连接服务器的时候，会出现中文字体相互重叠的情况，这时去设置Main总取消选择 Compress long strings to fit space。</p>
+
+
+  <footer>
+  
+<nav class="post-nav">
+  <span class="nav-prev">&larr; <a href="/blog/cn/2018/12/dplyr_tidyr/">dplyr_tidyr包</a></span>
+  <span class="nav-next"><a href="/blog/cn/2018/12/upsetr/">UpSetR包</a> &rarr;</span>
+</nav>
+
+
+
+
+
+<script src="//yihui.name/js/math-code.js"></script>
+<script async src="//cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+<script async src="//yihui.name/js/center-img.js"></script>
+
+  
+
+
+
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+
+
+
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/r.min.js"></script>
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/yaml.min.js"></script>
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/tex.min.js"></script>
+<script>hljs.configure({languages: []}); hljs.initHighlightingOnLoad();</script>
+
+
+
+  
+  <hr>
+  <div class="copyright">&copy; <a href="xxxx">Who care</a> 2017 - Forever, maybe</div>
+  
+  </footer>
+  </article>
+  
+  </body>
+</html>
+
