@@ -120,6 +120,16 @@ git merge hotfix
 git merge origin/serverfix 将远程git服务器origin的serverfix合并到当前分支
 </code></pre>
 
+<h1 id="git-add-命令">git add 命令</h1>
+
+<p><code>git add xx</code>命令可以将xx文件添加到暂存区，</p>
+
+<pre><code>git add .     提交被修改的和新建的文件，添加全部修改或新增的文件但不包括被删除的文件          
+git add -u    --update  update tracked files  更新所有改变的文件，即提交所有变化的文件,表示添加编辑或者删除的文件，不包括新添加的文件
+git add -A    --all   add changes from all tracked and untracked files   提交已被修改和已被删除文件，但是不包括新的文件
+git add -A . 如果有很多改动，可以一次添加所有改变的文件（注意 `-A` 选项后面还有一个句点）。
+</code></pre>
+
 <h1 id="git-commit命令">git commit命令</h1>
 
 <pre><code>git commit -a -m &quot;commit discription&quot;  &quot;-a&quot; 表示git add，&quot;-m&quot;表示commit的注释
